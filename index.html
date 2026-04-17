@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Ce Să Fiu? — află ce ți se potrivește</title>
+<meta name="description" content="5 minute. 10 întrebări. Descoperă 3 direcții de carieră care ți se potrivesc cu adevărat." />
+
+<!-- Open Graph for social shares -->
+<meta property="og:title" content="Ce Să Fiu? — află ce ți se potrivește cu adevărat" />
+<meta property="og:description" content="5 minute. 10 întrebări. 3 direcții de carieră care ți se potrivesc cu adevărat." />
+<meta property="og:type" content="website" />
+
+<style>
+  :root{
+    --navy:#1F3A5F;
+    --navy-deep:#132742;
+    --coral:#F96167;
+    --gold:#FDD85D;
+    --cream:#FBF6EE;
+    --ink:#0E1C2E;
+    --muted:#7A8AA0;
+    --card:#ffffff;
+    --border:#E5DDCE;
+    --radius:18px;
+    --shadow:0 10px 40px rgba(30,50,80,.12);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;color:var(--ink);background:var(--cream);}
+  body{background:
+    radial-gradient(1200px 800px at 10% -10%, rgba(249,97,103,.10), transparent 60%),
+    radial-gradient(1000px 700px at 110% 110%, rgba(253,216,93,.14), transparent 60%),
+    var(--cream);
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:24px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+  .brand{font-family:Georgia,serif;font-weight:800;font-size:22px;color:var(--navy);letter-spacing:-.01em;}
+  .brand em{color:var(--coral);font-style:normal;}
+  .lang{font-size:12px;color:var(--muted);}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 24px;}
+  .kicker{display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:8px;}
+  h1{font-family:Georgia,serif;font-size:34px;line-height:1.15;color:var(--navy);margin:0 0 12px;letter-spacing:-.02em;}
+  h2{font-family:Georgia,serif;font-size:26px;line-height:1.2;color:var(--navy);margin:0 0 10px;letter-spacing:-.01em;}
+  p{margin:0 0 14px;line-height:1.5;}
+  .muted{color:var(--muted);font-size:14px;}
+  .row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:10px;}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(31,58,95,.06);color:var(--navy);padding:8px 12px;border-radius:999px;font-size:13px;font-weight:600;}
+  .pill b{color:var(--coral);}
+  .btn{appearance:none;border:none;cursor:pointer;font:inherit;font-weight:700;padding:14px 18px;border-radius:14px;transition:transform .05s ease, box-shadow .2s ease, background .2s;}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--coral);color:#fff;box-shadow:0 6px 20px rgba(249,97,103,.35);}
+  .btn-primary:hover{background:#ed5158}
+  .btn-ghost{background:transparent;color:var(--navy);border:1px solid rgba(31,58,95,.15);}
+  .btn-ghost:hover{background:rgba(31,58,95,.05)}
+  .big-cta{width:100%;font-size:17px;}
+  .progress{height:6px;background:rgba(31,58,95,.1);border-radius:999px;overflow:hidden;margin:0 0 18px;}
+  .progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--coral),var(--gold));transition:width .35s ease;}
+  .qnum{font-size:12px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;}
+  .opts{display:flex;flex-direction:column;gap:10px;margin:16px 0 0;}
+  .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;padding:14px 14px;border:1px solid var(--border);background:#fff;border-radius:14px;cursor:pointer;transition:border-color .15s, transform .05s, background .15s;}
+  .opt:hover{border-color:var(--navy);background:#fbfaf6;}
+  .opt .dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--navy);flex:0 0 auto;margin-top:2px;position:relative;}
+  .opt.selected{border-color:var(--coral);background:#fff5f5;}
+  .opt.selected .dot{background:var(--coral);border-color:var(--coral);}
+  .opt.selected .dot::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;}
+  .nav{display:flex;gap:10px;margin-top:20px;}
+  .nav .btn{flex:1}
+  .footer{margin-top:18px;text-align:center;font-size:12px;color:var(--muted);}
+  .footer a{color:var(--navy);}
+
+  /* result */
+  .result-top{background:linear-gradient(135deg,var(--navy),var(--navy-deep));color:#fff;border-radius:var(--radius);padding:28px 24px;margin-bottom:18px;position:relative;overflow:hidden;}
+  .result-top::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(253,216,93,.18);}
+  .result-top h1{color:#fff;}
+  .match{display:flex;align-items:center;gap:16px;margin:10px 0;padding:10px 0;border-bottom:1px solid rgba(31,58,95,.08);}
+  .match:last-child{border-bottom:none;}
+  .match .score{font-family:Georgia,serif;font-weight:800;font-size:36px;color:var(--coral);min-width:70px;line-height:1;}
+  .match .info b{display:block;color:var(--navy);font-size:17px;font-family:Georgia,serif;}
+  .match .info span{color:var(--muted);font-size:13px;display:block;margin-top:2px;}
+  .card h3{margin:4px 0 8px;color:var(--navy);font-family:Georgia,serif;font-size:20px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+  .chip{background:rgba(31,58,95,.06);color:var(--navy);padding:8px 10px;border-radius:10px;font-size:13px;}
+  .share-bar{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .share-bar .btn{flex:1;min-width:140px;}
+
+  /* card preview (shareable) */
+  .sharecard{position:relative;aspect-ratio: 9 / 16;max-width:320px;margin:14px auto 0;border-radius:20px;overflow:hidden;background:linear-gradient(160deg,var(--navy),var(--navy-deep));color:#fff;box-shadow:var(--shadow);}
+  .sharecard .sc-inner{position:absolute;inset:0;padding:22px;display:flex;flex-direction:column;}
+  .sc-brand{font-family:Georgia,serif;font-weight:700;font-size:16px;letter-spacing:-.01em;}
+  .sc-brand em{color:var(--coral);font-style:normal;}
+  .sc-pct{font-family:Georgia,serif;font-weight:800;font-size:88px;line-height:1;color:var(--gold);margin:auto 0 0;letter-spacing:-.04em;}
+  .sc-title{font-family:Georgia,serif;font-size:30px;font-weight:800;margin:4px 0 2px;}
+  .sc-sub{font-size:13px;opacity:.8;margin-bottom:14px;}
+  .sc-foot{border-top:1px solid rgba(255,255,255,.15);padding-top:10px;font-size:11px;opacity:.7;}
+  .sc-blob{position:absolute;right:-40px;bottom:-40px;width:180px;height:180px;background:var(--coral);border-radius:50%;opacity:.25;}
+
+  @media (min-width:720px){
+    h1{font-size:42px}
+    h2{font-size:30px}
+  }
+
+  /* visually hidden for accessibility */
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">Ce Să <em>Fiu?</em></div>
+    <div class="lang">🇷🇴 RO</div>
+  </header>
+
+  <!-- SCREEN: INTRO -->
+  <section id="screen-intro" class="card">
+    <div class="kicker">MVP · V0.1</div>
+    <h1>Află ce ți se potrivește cu adevărat.</h1>
+    <p>5 minute. 10 întrebări. Un AI care îți spune 3 direcții de carieră în care chiar te-ai regăsi — cu programe de facultate din România care duc acolo.</p>
+    <div class="row" style="margin:14px 0 22px">
+      <span class="pill">⏱️ <b>~5 min</b></span>
+      <span class="pill">🔓 <b>Fără cont</b></span>
+      <span class="pill">📱 <b>Rezultat shareable</b></span>
+    </div>
+    <button class="btn btn-primary big-cta" id="startBtn">Începe testul →</button>
+    <p class="footer">Proiect demo pentru elevi de clasele 9–12. Viitor: părinți, consilieri, teste validate, SEL.</p>
+  </section>
+
+  <!-- SCREEN: QUIZ -->
+  <section id="screen-quiz" class="card" hidden>
+    <div class="progress"><span id="bar" style="width:0%"></span></div>
+    <div class="qnum" id="qnum">Întrebarea 1 din 10</div>
+    <h2 id="qtext" style="margin-top:6px"></h2>
+    <p class="muted" id="qhint"></p>
+    <div class="opts" id="opts" role="listbox"></div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="backBtn">← Înapoi</button>
+      <button class="btn btn-primary" id="nextBtn" disabled>Următoarea →</button>
+    </div>
+  </section>
+
+  <!-- SCREEN: RESULT -->
+  <section id="screen-result" hidden>
+    <div class="result-top">
+      <div class="kicker" style="color:var(--gold);letter-spacing:.2em">REZULTATUL TĂU</div>
+      <h1 id="resultHeadline">Ești mai degrabă un Constructor de soluții.</h1>
+      <p id="resultSummary" style="opacity:.9;margin:0;"></p>
+    </div>
+
+    <div class="card" style="margin-bottom:14px;">
+      <h3>Top 3 direcții care ți se potrivesc</h3>
+      <div id="matches"></div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px;">
+      <h3>Programe de facultate de văzut (România)</h3>
+      <p class="muted" style="margin-top:-4px">Exemple. La versiunea completă, aici apar programe reale cu cerințe de admitere, locuri, rate de angajare.</p>
+      <div id="programs" class="grid2"></div>
+    </div>
+
+    <div class="card">
+      <h3>Cardul tău pentru Story</h3>
+      <p class="muted" style="margin-top:-4px">Fă screenshot și postează. Sau salvează linkul rezultatului.</p>
+      <div class="sharecard" id="shareCard">
+        <div class="sc-blob"></div>
+        <div class="sc-inner">
+          <div class="sc-brand">Ce Să <em>Fiu?</em></div>
+          <div class="sc-pct" id="scPct">78%</div>
+          <div class="sc-title" id="scTitle">Constructor de soluții</div>
+          <div class="sc-sub" id="scSub">Învață făcând · Rezolvă probleme · Vede sistemul</div>
+          <div class="sc-foot">cesafiu.ro</div>
+        </div>
+      </div>
+      <div class="share-bar">
+        <button class="btn btn-primary" id="shareBtn">Share rezultatul</button>
+        <button class="btn btn-ghost" id="restartBtn">Refă testul</button>
+      </div>
+    </div>
+
+    <p class="footer">
+      Acesta e un prototip. Versiunea completă va oferi teste validate (cognitive, Big Five, RIASEC), module SEL, acces pentru părinți și consilieri, și recomandări de programe cu date reale. ·
+      <a href="#" id="feedbackLink">Ne trimiți 2 rânduri de feedback?</a>
+    </p>
+  </section>
+</div>
+
+<script>
+/* --------------------------------------------------------
+ * Ce Să Fiu? — MVP Quiz (v0.1)
+ * Pure client-side. No tracking.
+ * ------------------------------------------------------ */
+
+/** ARCHETYPES — simplified Holland/RIASEC-inspired buckets (NOT a validated test). */
+const ARCHETYPES = {
+  builder:  { title: "Constructor de soluții",   tagline: "Învață făcând · Rezolvă probleme · Vede sistemul",
+              careers: [
+                { name: "Inginer software",           why: "Construiești lucruri care funcționează la scară." },
+                { name: "Inginer mecatronică / auto", why: "Sistem + mâini + rezultat concret." },
+                { name: "Product designer (UX)",      why: "Rezolvă probleme reale pentru oameni reali." }],
+              programs: [
+                ["Automatică și Calculatoare", "UTCN / UPT / UPB"],
+                ["Electronică & Telecomunicații", "UTI Iași / UPT"],
+                ["Mecatronică & Robotică",      "UPB / UTCN"],
+                ["Design Industrial",          "UNArte / UPT"]
+              ] },
+  analyst:  { title: "Analist care vede tiparul",  tagline: "Curios · Logic · Tipare și cifre",
+              careers: [
+                { name: "Data analyst / data scientist", why: "Scoți sens din haos." },
+                { name: "Actuar / risk analyst",         why: "Decizii mari cu cifre reci." },
+                { name: "Cercetător în științe exacte",  why: "Pui întrebări pe care lumea încă nu le-a pus." }],
+              programs: [
+                ["Informatică",                "UAIC / UBB / UB"],
+                ["Matematică-Informatică",     "UBB / UAIC"],
+                ["Statistică & Cybernetică",   "ASE"],
+                ["Fizică Aplicată",            "UB / UBB"]
+              ] },
+  helper:   { title: "Aliat al oamenilor",         tagline: "Empatie · Ascultă · Ajută să crească",
+              careers: [
+                { name: "Psiholog / consilier școlar",   why: "Îți pasă. Și îi asculți bine." },
+                { name: "Medic / asistent medical",      why: "Aplicat, uman, cu impact direct." },
+                { name: "Învățător / profesor",          why: "Schimbi traiectoria unui copil." }],
+              programs: [
+                ["Psihologie",                 "UBB / UB / UAIC"],
+                ["Medicină",                   "UMF Iași / UMF Cluj / UMF Carol Davila"],
+                ["Asistență Socială",          "UAIC / UBB"],
+                ["Pedagogia Învățământului Primar","UAIC / UBB"]
+              ] },
+  creator:  { title: "Creator de lumi",            tagline: "Imaginație · Estetică · Poveste",
+              careers: [
+                { name: "Designer / art director",       why: "Faci lumea mai frumoasă și mai clară." },
+                { name: "Film / animație / game dev",    why: "Storytelling × tehnologie." },
+                { name: "Copywriter / creative",         why: "Cuvinte care fac oamenii să acționeze." }],
+              programs: [
+                ["Comunicare & Relații Publice","UAIC / SNSPA"],
+                ["Cinematografie & Media",     "UNATC"],
+                ["Design Grafic",              "UNArte"],
+                ["Jurnalism",                  "UB / UAIC"]
+              ] },
+  leader:   { title: "Om de strategie",            tagline: "Decide · Coordonează · Scalează",
+              careers: [
+                { name: "Antreprenor / product manager", why: "Duci lucrurile la capăt, cu oameni." },
+                { name: "Consultant / analist business", why: "Vezi ce-i de făcut, faci să se întâmple." },
+                { name: "Avocat / diplomat",             why: "Joci cu reguli, argumente, influență." }],
+              programs: [
+                ["Management / Administrarea Afacerilor","ASE / UBB / UAIC"],
+                ["Drept",                      "UB / UAIC / UBB"],
+                ["Relații Internaționale",     "SNSPA / UB"],
+                ["Marketing",                  "ASE / UBB"]
+              ] },
+  explorer: { title: "Explorator al lumii reale",  tagline: "Outdoors · Experiențe · Hands-on",
+              careers: [
+                { name: "Medic veterinar / biolog teren","why": "Natură + știință + acțiune." },
+                { name: "Arhitect / urbanist",           why: "Gândești orașul în care vor trăi oamenii." },
+                { name: "Geolog / climatolog",           why: "Planeta e un teren de studiu." }],
+              programs: [
+                ["Arhitectură",                "UAUIM"],
+                ["Biologie / Ecologie",        "UAIC / UBB / UB"],
+                ["Medicină Veterinară",        "USAMV Iași / USAMV Cluj"],
+                ["Geografie",                  "UAIC / UB / UBB"]
+              ] }
+};
+
+/** QUESTIONS — 10 lightweight, not-a-psychometric questions, each option weighted per archetype. */
+const QUESTIONS = [
+  { q: "E sâmbătă dimineață. Nimeni nu-ți cere nimic. Ce faci?",
+    hint: "Prima variantă care te-a atras, nu ce „ar suna bine”.",
+    opts: [
+      { t: "Construiesc/reparez ceva pe-acasă sau mă joc cu un proiect tehnic.", w: { builder: 3, creator: 1 } },
+      { t: "Citesc despre un subiect care m-a prins — istorie, știință, filozofie.", w: { analyst: 3, creator: 1 } },
+      { t: "Mă văd cu prietenii, discutăm orice.", w: { helper: 2, leader: 2 } },
+      { t: "Desenez, scriu, montez un video.", w: { creator: 3 } },
+      { t: "Fac sport sau mă plimb la munte.", w: { explorer: 3 } },
+    ]},
+  { q: "Care grupă îți place cel mai mult la școală — în mod real, nu pe hârtie?",
+    opts: [
+      { t: "Mate, info, fizică — lucruri care „ies”.", w: { analyst: 3, builder: 2 } },
+      { t: "Română, istorie, filosofie — texte și idei.", w: { creator: 2, helper: 1, leader: 1 } },
+      { t: "Biologie, chimie — corpul, natura, substanțele.", w: { helper: 2, explorer: 2 } },
+      { t: "Ed. fizică, tehnologică — tot ce se face cu mâinile.", w: { builder: 2, explorer: 2 } },
+      { t: "N-am o materie preferată, dar îmi place să-mi iasă ce-mi propun.", w: { leader: 2, builder: 1 } },
+    ]},
+  { q: "Când prietenii vin la tine, de cele mai multe ori e pentru că…",
+    opts: [
+      { t: "„Ajută-mă cu chestia asta, nu-mi dau seama.” (probleme, logică)", w: { analyst: 2, builder: 2 } },
+      { t: "„Mă simt aiurea, vorbim puțin?” (emoții, relații)", w: { helper: 3 } },
+      { t: "„Ce părere ai, e bine cum sună?” (idei, texte, vizual)", w: { creator: 3 } },
+      { t: "„Hai, organizează tu, tu știi ce e de făcut.”", w: { leader: 3 } },
+      { t: "„Ieșim undeva?” (activități, aventuri)", w: { explorer: 3 } },
+    ]},
+  { q: "Îți alegi un proiect la școală. Ce te-ar motiva cel mai mult?",
+    opts: [
+      { t: "Să construiesc ceva funcțional — un site, un aparat, un robot.", w: { builder: 3 } },
+      { t: "Să analizez date dintr-un domeniu care mă pasionează.", w: { analyst: 3 } },
+      { t: "Să fac ceva care ajută oameni concreți (o campanie, un ONG).", w: { helper: 3, leader: 1 } },
+      { t: "Să fac ceva frumos sau care spune o poveste.", w: { creator: 3 } },
+      { t: "Să conduc echipa și să duc lucrul la capăt.", w: { leader: 3 } },
+      { t: "Să merg pe teren și să investighez ceva din viața reală.", w: { explorer: 3 } },
+    ]},
+  { q: "Într-un grup de 5 oameni care lucrează la ceva, tu ești…",
+    opts: [
+      { t: "Cel care face efectiv lucrul tehnic.", w: { builder: 2, analyst: 1 } },
+      { t: "Cel care pune întrebările bune și verifică logica.", w: { analyst: 3 } },
+      { t: "Cel care observă că cineva tace și întreabă ce e.", w: { helper: 3 } },
+      { t: "Cel care vine cu idei și estetică.", w: { creator: 3 } },
+      { t: "Cel care ține lucrurile pe fir — deadlines, decizii.", w: { leader: 3 } },
+      { t: "Cel care propune să ieșim din clasă și să vedem în realitate.", w: { explorer: 2, leader: 1 } },
+    ]},
+  { q: "Ce tip de rezultat îți dă cea mai mare satisfacție?",
+    opts: [
+      { t: "„Merge!” — un lucru care, până ieri, nu funcționa.", w: { builder: 3 } },
+      { t: "„A, deci asta e explicația!” — ai găsit un pattern.", w: { analyst: 3 } },
+      { t: "„Mersi, m-ai ajutat enorm.” — din partea unei persoane reale.", w: { helper: 3 } },
+      { t: "„Wow, e frumos / emoționant.” — ceva ce ai creat.", w: { creator: 3 } },
+      { t: "„Am livrat, la timp, cu echipa.” — un obiectiv atins.", w: { leader: 3 } },
+      { t: "„Am fost acolo, am văzut cu ochii mei.” — experiență brută.", w: { explorer: 3 } },
+    ]},
+  { q: "La ce tip de probleme te enervezi cel mai mult că nu le rezolvă nimeni?",
+    opts: [
+      { t: "Lucruri care sunt prost construite și se strică.", w: { builder: 3 } },
+      { t: "Oameni care iau decizii fără date sau logică.", w: { analyst: 3 } },
+      { t: "Oameni care suferă și nimeni nu-i vede.", w: { helper: 3 } },
+      { t: "Lucruri urâte, plictisitoare, fără suflet.", w: { creator: 3 } },
+      { t: "Organizare proastă, haos, nimeni nu conduce.", w: { leader: 3 } },
+      { t: "Ne rupem de natură și de locurile reale.", w: { explorer: 3 } },
+    ]},
+  { q: "Ideal, cum arată ziua ta de muncă în 10 ani?",
+    opts: [
+      { t: "La un laptop, construiesc lucruri cu o echipă mică.", w: { builder: 2, analyst: 1 } },
+      { t: "În fața unor date, fac modele, scriu rapoarte.", w: { analyst: 3 } },
+      { t: "Cu oameni, față-n față, ajut sau învăț.", w: { helper: 3 } },
+      { t: "Creativ, într-un studio sau freelance, fac lucruri frumoase.", w: { creator: 3 } },
+      { t: "Iau decizii, conduc proiecte, vorbesc cu echipa și clienții.", w: { leader: 3 } },
+      { t: "Pe teren — natură, oraș, spații reale.", w: { explorer: 3 } },
+    ]},
+  { q: "Banii sunt importanți pentru tine în alegerea viitoare?",
+    hint: "Onest — și asta e un semnal util.",
+    opts: [
+      { t: "Foarte. Îmi vreau o viață stabilă și bună financiar.", w: { leader: 2, analyst: 2, builder: 1 } },
+      { t: "Contează, dar nu pe primul loc.", w: { helper: 1, builder: 1, analyst: 1, leader: 1, creator: 1, explorer: 1 } },
+      { t: "Aș face și pe puțin, dacă îmi place ce fac.", w: { helper: 2, creator: 2, explorer: 1 } },
+      { t: "Vreau libertate — timp, călătorii, control pe timpul meu.", w: { explorer: 2, creator: 2, leader: 1 } },
+    ]},
+  { q: "Dacă ar fi să ai un super-sfat de la o versiune de tine peste 10 ani, ar suna cam așa:",
+    opts: [
+      { t: "„Construiește ceva al tău. N-o să regreți.”", w: { builder: 2, leader: 2 } },
+      { t: "„Întreabă de 3 ori înainte să accepți un răspuns.”", w: { analyst: 3 } },
+      { t: "„Oamenii pe care îi ajuți sunt bogăția ta.”", w: { helper: 3 } },
+      { t: "„Fă ce te face să pierzi noțiunea timpului.”", w: { creator: 3 } },
+      { t: "„Nu aștepta să fii pregătit — începe.”", w: { leader: 3, explorer: 1 } },
+      { t: "„Ieși mai mult afară, e mai multă viață decât crezi.”", w: { explorer: 3 } },
+    ]},
+];
+
+/* ---------- state ---------- */
+const state = { idx: 0, answers: new Array(QUESTIONS.length).fill(null) };
+
+/* ---------- DOM ---------- */
+const el = (id) => document.getElementById(id);
+const screens = { intro: el("screen-intro"), quiz: el("screen-quiz"), result: el("screen-result") };
+function show(s) { for (const k in screens) screens[k].hidden = (k !== s); window.scrollTo({top:0, behavior:"smooth"}); }
+
+/* ---------- start ---------- */
+el("startBtn").addEventListener("click", () => {
+  show("quiz");
+  render();
+});
+
+/* ---------- render question ---------- */
+function render() {
+  const q = QUESTIONS[state.idx];
+  el("bar").style.width = Math.round(((state.idx) / QUESTIONS.length) * 100) + "%";
+  el("qnum").textContent = `Întrebarea ${state.idx+1} din ${QUESTIONS.length}`;
+  el("qtext").textContent = q.q;
+  el("qhint").textContent = q.hint || "";
+  const optsDiv = el("opts"); optsDiv.innerHTML = "";
+  q.opts.forEach((o, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "opt"; b.setAttribute("role","option");
+    b.innerHTML = `<span class="dot" aria-hidden="true"></span><span>${escapeHtml(o.t)}</span>`;
+    if (state.answers[state.idx] === i) b.classList.add("selected");
+    b.addEventListener("click", () => {
+      state.answers[state.idx] = i;
+      document.querySelectorAll(".opt").forEach(x => x.classList.remove("selected"));
+      b.classList.add("selected");
+      el("nextBtn").disabled = false;
+    });
+    optsDiv.appendChild(b);
+  });
+  el("nextBtn").disabled = state.answers[state.idx] == null;
+  el("backBtn").disabled = state.idx === 0;
+  el("nextBtn").textContent = (state.idx === QUESTIONS.length - 1) ? "Vezi rezultatul →" : "Următoarea →";
+}
+
+el("backBtn").addEventListener("click", () => {
+  if (state.idx === 0) return;
+  state.idx--; render();
+});
+el("nextBtn").addEventListener("click", () => {
+  if (state.answers[state.idx] == null) return;
+  if (state.idx < QUESTIONS.length - 1) { state.idx++; render(); }
+  else { compute(); show("result"); }
+});
+
+/* ---------- compute result ---------- */
+function compute() {
+  const totals = { builder:0, analyst:0, helper:0, creator:0, leader:0, explorer:0 };
+  state.answers.forEach((aIdx, qIdx) => {
+    if (aIdx == null) return;
+    const w = QUESTIONS[qIdx].opts[aIdx].w || {};
+    for (const k in w) totals[k] = (totals[k]||0) + w[k];
+  });
+  const sorted = Object.entries(totals).sort((a,b)=>b[1]-a[1]);
+  const top = sorted.slice(0,3);
+  const sum = sorted.reduce((a,[,v])=>a+v, 0) || 1;
+
+  const primary = top[0][0];
+  const primaryArch = ARCHETYPES[primary];
+  const primaryPct = Math.round((top[0][1] / sum) * 100);
+
+  // result top
+  el("resultHeadline").textContent = `Ești mai degrabă un ${primaryArch.title}.`;
+  el("resultSummary").textContent = primaryArch.tagline;
+
+  // matches
+  const matches = el("matches"); matches.innerHTML = "";
+  top.forEach(([k, v]) => {
+    const a = ARCHETYPES[k];
+    const pct = Math.round((v / sum) * 100);
+    const row = document.createElement("div");
+    row.className = "match";
+    row.innerHTML = `<div class="score">${pct}%</div>
+      <div class="info"><b>${escapeHtml(a.title)}</b><span>${escapeHtml(a.tagline)}</span></div>`;
+    matches.appendChild(row);
+  });
+
+  // programs
+  const progDiv = el("programs"); progDiv.innerHTML = "";
+  primaryArch.programs.forEach(([name, unis]) => {
+    const c = document.createElement("div"); c.className = "chip";
+    c.innerHTML = `<b>${escapeHtml(name)}</b><br><span style="color:var(--muted);font-size:12px">${escapeHtml(unis)}</span>`;
+    progDiv.appendChild(c);
+  });
+
+  // share card
+  el("scPct").textContent = primaryPct + "%";
+  el("scTitle").textContent = primaryArch.title;
+  el("scSub").textContent = primaryArch.tagline;
+}
+
+/* ---------- share ---------- */
+el("shareBtn").addEventListener("click", async () => {
+  const text = `Eu sunt „${el("scTitle").textContent}” la ${el("scPct").textContent}. Tu ce ești?\n\nCe Să Fiu? — cesafiu.ro`;
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: "Ce Să Fiu?", text, url: location.href });
+      return;
+    }
+  } catch (_) { /* user canceled */ }
+  try {
+    await navigator.clipboard.writeText(text + " " + location.href);
+    flash("Copiat în clipboard ✓");
+  } catch (_) {
+    alert(text);
+  }
+});
+
+el("restartBtn").addEventListener("click", () => {
+  state.idx = 0; state.answers = new Array(QUESTIONS.length).fill(null);
+  show("intro");
+});
+
+el("feedbackLink").addEventListener("click", (e) => {
+  e.preventDefault();
+  const m = "mailto:hello@cesafiu.ro?subject=Feedback%20Ce%20S%C4%83%20Fiu%20MVP";
+  window.location.href = m;
+});
+
+/* ---------- utils ---------- */
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function flash(msg){
+  const d = document.createElement("div");
+  d.textContent = msg;
+  d.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;box-shadow:var(--shadow);z-index:9";
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(), 1800);
+}
+</script>
+</body>
+</html>

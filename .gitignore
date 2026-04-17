@@ -1,0 +1,11 @@
+# Internal working files — keep out of the public repo
+_inspect/
+*.docx
+*.pptx
+"Ce Sa Fiu - MVP Quiz.html"
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
