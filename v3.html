@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Ce Să Fiu? — Varianta C · Trei Lentile</title>
+<script defer src="https://umami-production-00d8.up.railway.app/script.js" data-website-id="b582fdd9-94f2-47c2-86ce-54bcc810e434"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Epilogue:wght@700;800;900&display=swap" rel="stylesheet"/>
@@ -450,6 +451,10 @@ const PROGRAMS = [
 
 /* ==================== STATE ==================== */
 
+function umamiTrack(name, data) {
+  try { if (window.umami) window.umami.track(name, data); } catch(e) {}
+}
+
 const state = {
   current: 0,
   scores: {
@@ -482,6 +487,7 @@ function start() {
   };
   state.answers = [];
   state.lastLens = null;
+  umamiTrack("quiz_start", { variant: state.variant });
   renderQuestion();
   show("scr-quiz");
 }
@@ -705,6 +711,14 @@ function saveResults(top) {
     all.push(record);
     localStorage.setItem("cesafiu_results", JSON.stringify(all));
   } catch(e) { console.warn("localStorage write failed", e); }
+  umamiTrack("quiz_complete", {
+    variant: state.variant,
+    top1_program: top[0].name,
+    interests_top1: ti[0].key,
+    values_top1: tv[0].key,
+    chosen: state.feedback,
+    match: state.feedback === top[0].name ? "top1" : (state.feedback === "none" ? "none" : "other")
+  });
 }
 
 function showResults(topPrograms) {

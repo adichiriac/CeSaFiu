@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Ce Să Fiu? — Pilot de testare</title>
+<script defer src="https://umami-production-00d8.up.railway.app/script.js" data-website-id="b582fdd9-94f2-47c2-86ce-54bcc810e434"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Epilogue:wght@700;800;900&display=swap" rel="stylesheet"/>
@@ -84,29 +85,6 @@ tailwind.config = {
   <!-- VARIANTS -->
   <h2 class="display text-2xl font-black uppercase mb-4">Cele 3 variante</h2>
 
-  <!-- VARIANT A -->
-  <div id="card-a" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-5">
-    <div class="flex items-start justify-between mb-3 gap-3">
-      <div class="flex items-center gap-3">
-        <span class="display text-3xl font-black bg-surface-container border-2 border-black w-12 h-12 flex items-center justify-center tilt-l">A</span>
-        <div>
-          <h3 class="display text-xl font-black uppercase leading-tight">Varianta clasică</h3>
-          <p class="text-xs text-on-surface-variant uppercase tracking-wider">10 întrebări · scurt & rapid</p>
-        </div>
-      </div>
-      <span id="badge-a" class="hidden display text-xs font-black bg-neon border-2 border-black px-2 py-1 tilt-r">FĂCUT ✓</span>
-    </div>
-    <p class="mb-4">Quiz-ul original: întrebări directe, 4 variante fiecare. Nimic fancy — doar „alege una”. Bun dacă ești la autobuz și vrei un răspuns în 3 minute.</p>
-    <div class="flex flex-wrap gap-3">
-      <a href="index.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
-        Start Varianta A →
-      </a>
-      <button onclick="markDone('A')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
-        Am terminat A
-      </button>
-    </div>
-  </div>
-
   <!-- VARIANT B -->
   <div id="card-b" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-5">
     <div class="flex items-start justify-between mb-3 gap-3">
@@ -131,7 +109,7 @@ tailwind.config = {
   </div>
 
   <!-- VARIANT C -->
-  <div id="card-c" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-8">
+  <div id="card-c" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-5">
     <div class="flex items-start justify-between mb-3 gap-3">
       <div class="flex items-center gap-3">
         <span class="display text-3xl font-black bg-neon border-2 border-black w-12 h-12 flex items-center justify-center tilt-l">C</span>
@@ -149,6 +127,29 @@ tailwind.config = {
       </a>
       <button onclick="markDone('C')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
         Am terminat C
+      </button>
+    </div>
+  </div>
+
+  <!-- VARIANT A -->
+  <div id="card-a" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-8">
+    <div class="flex items-start justify-between mb-3 gap-3">
+      <div class="flex items-center gap-3">
+        <span class="display text-3xl font-black bg-surface-container border-2 border-black w-12 h-12 flex items-center justify-center tilt-l">A</span>
+        <div>
+          <h3 class="display text-xl font-black uppercase leading-tight">Varianta clasică</h3>
+          <p class="text-xs text-on-surface-variant uppercase tracking-wider">10 întrebări · scurt & rapid</p>
+        </div>
+      </div>
+      <span id="badge-a" class="hidden display text-xs font-black bg-neon border-2 border-black px-2 py-1 tilt-r">FĂCUT ✓</span>
+    </div>
+    <p class="mb-4">Quiz-ul original: întrebări directe, 4 variante fiecare. Nimic fancy — doar „alege una”. Bun dacă ești la autobuz și vrei un răspuns în 3 minute.</p>
+    <div class="flex flex-wrap gap-3">
+      <a href="index.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
+        Start Varianta A →
+      </a>
+      <button onclick="markDone('A')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
+        Am terminat A
       </button>
     </div>
   </div>

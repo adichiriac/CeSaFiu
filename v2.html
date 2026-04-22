@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Ce Să Fiu? — Varianta B · Scenarii Reale</title>
+<script defer src="https://umami-production-00d8.up.railway.app/script.js" data-website-id="b582fdd9-94f2-47c2-86ce-54bcc810e434"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Epilogue:wght@700;800;900&display=swap" rel="stylesheet"/>
@@ -360,6 +361,10 @@ const PROGRAMS = {
 
 /* ============ STATE & LOGIC ============ */
 
+function umamiTrack(name, data) {
+  try { if (window.umami) window.umami.track(name, data); } catch(e) {}
+}
+
 const state = {
   current: 0,
   scores: { constructor:0, analist:0, ajutor:0, creator:0, leader:0, explorator:0 },
@@ -382,6 +387,7 @@ function start() {
   state.current = 0;
   state.scores = { constructor:0, analist:0, ajutor:0, creator:0, leader:0, explorator:0 };
   state.answers = [];
+  umamiTrack("quiz_start", { variant: state.variant });
   renderQuestion();
   show("scr-quiz");
 }
@@ -490,6 +496,12 @@ function saveResults(top) {
     all.push(record);
     localStorage.setItem("cesafiu_results", JSON.stringify(all));
   } catch(e) { console.warn("localStorage write failed", e); }
+  umamiTrack("quiz_complete", {
+    variant: state.variant,
+    top1: top[0].key,
+    chosen: state.feedback,
+    match: state.feedback === top[0].key ? "top1" : (state.feedback === "none" ? "none" : "other")
+  });
 }
 
 function showResults(top) {
@@ -551,6 +563,7 @@ function copyShare() {
   const sum = top.reduce((a,t) => a+t.value, 0);
   const pct = Math.round((top[0].value / sum) * 100);
   const text = `Eu sunt ${pct}% ${top[0].title}. Ce să fiu? Află la cesafiu.ro`;
+  umamiTrack("share_click", { variant: state.variant, top1: top[0].key });
   navigator.clipboard.writeText(text).then(() => {
     $("copied").classList.remove("hidden");
     setTimeout(() => $("copied").classList.add("hidden"), 2000);
