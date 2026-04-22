@@ -45,7 +45,7 @@ tailwind.config = {
     <span class="inline-block w-7 h-7 bg-primary border-2 border-black rotate-[-6deg]"></span>
     <span class="display font-black uppercase tracking-tighter text-lg">Ce Să Fiu?</span>
   </a>
-  <span class="display text-xs font-black uppercase bg-neon border-2 border-black px-2 py-1 rotate-[2deg]">VARIANTA C</span>
+  <span class="display text-xs font-black uppercase bg-neon border-2 border-black px-2 py-1 rotate-[2deg]">VARIANTA B</span>
 </header>
 
 <main class="max-w-3xl mx-auto px-5 md:px-8 pt-6">
@@ -194,7 +194,7 @@ tailwind.config = {
 
   <div class="flex flex-wrap gap-3 mb-10">
     <button onclick="restart()" class="press bg-white border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase">Refă testul</button>
-    <a href="quiz-a.html" class="press bg-neon border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase inline-block">Încearcă Varianta A →</a>
+    <a href="quiz-c.html" class="press bg-neon border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase inline-block">Încearcă Varianta C →</a>
     <a href="index.html" class="press bg-primary text-white border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase inline-block">Vezi alte variante</a>
   </div>
 </section>
@@ -777,11 +777,17 @@ function showResults(topPrograms) {
 
   $("r-narrative").innerHTML = narrative(ti, tv, st);
 
-  // Programs
+  // Programs — relative scoring so top-1 is the clear leader (avoids 95/95/95 ties)
   const pBox = $("r-programs");
   pBox.innerHTML = "";
+  const topScore = Math.max(0.001, topPrograms[0] ? topPrograms[0].score : 0.001);
   topPrograms.slice(0,5).forEach((p, idx) => {
-    const matchPct = Math.round(Math.min(95, p.score * 100 + 35));
+    // Top-1 anchored at 95%; others scale by score ratio, with a small rank penalty
+    // so that visually-identical scores still separate (guaranteed monotonic drop).
+    const ratio = Math.max(0, p.score) / topScore;
+    const base = 95 * ratio;
+    const rankPenalty = idx * 1.5;
+    const matchPct = Math.max(50, Math.round(base - rankPenalty));
     const row = document.createElement("div");
     row.className = idx === 0
       ? "border-2 border-black bg-neon p-4 shadow-neo-4"
