@@ -243,9 +243,9 @@ tailwind.config = {
     <!-- EXPORT -->
     <section class="bg-primary text-white border-2 border-black shadow-neo-8 p-5 mb-6">
       <h2 class="display text-2xl font-black uppercase mb-2">Trimite-ne rezultatul</h2>
-      <p class="mb-4 text-primary-dim">Apasă pe WhatsApp — ți se deschide un mesaj gata făcut către noi. Poți atașa un screenshot cu raportul, sau folosi „Descarcă fișier” și atașezi fișierul JSON în chat.</p>
+      <p class="mb-4 text-primary-dim">Apasă pe WhatsApp — ți se deschide un mesaj gata făcut, cu rezumatul tău și datele brute în JSON. Doar apeși „Send”. Dacă vrei, poți descărca fișierul complet mai jos.</p>
       <div class="flex flex-wrap gap-3">
-        <a id="btn-wa" href="https://wa.me/40745099131?text=Salut!%20%C8%9Ai%20trimit%20rezultatul%20meu%20de%20la%20testul%20Ce%20S%C4%83%20Fiu%3F%20(pilot)."
+        <a id="btn-wa" href="https://wa.me/40745099131"
            target="_blank" rel="noopener"
            class="bg-neon text-ink border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3 inline-flex items-center gap-2">
           Trimite pe WhatsApp
@@ -463,10 +463,83 @@ function render() {
     bars("c-chosen", countBy(runsC.filter(r=>r.chosen), r => r.chosen), ARCHETYPE_LABELS, "#ffe170");
     document.getElementById("c-runs").innerHTML = runsC.map(runCardA).join("");
   }
+
+  // Refresh prefilled WhatsApp payload whenever data changes
+  refreshWhatsAppLink();
 }
 
-// --- WhatsApp-to-researcher tracking (button is an <a>, we just track click) ---
+// --- WhatsApp-to-researcher: build prefilled message with summary + JSON payload ---
+const WA_PHONE = "40745099131";
+const WA_MAX_ENCODED = 3500; // keep URL below practical WhatsApp limits
+
+const VARIANT_LABEL = {
+  A: "Varianta A · Scenarii reale",
+  B: "Varianta B · Trei lentile",
+  C: "Varianta C · Clasic MVP"
+};
+
+function fmtRoDate(iso) {
+  try {
+    const d = new Date(iso);
+    const date = d.toLocaleDateString("ro-RO", { day:"2-digit", month:"short", year:"numeric" });
+    const time = d.toLocaleTimeString("ro-RO", { hour:"2-digit", minute:"2-digit" });
+    return `${date} ${time}`;
+  } catch { return iso; }
+}
+
+function buildWhatsAppUrl() {
+  const all = load();
+  const HELLO = "Salut! Îți trimit rezultatul meu de la testul Ce Să Fiu? (pilot).";
+  if (!all.length) {
+    return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(HELLO)}`;
+  }
+  const sorted = [...all].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+  // Human-readable summary — one block per run
+  const summaryLines = [HELLO, ""];
+  sorted.forEach((r, i) => {
+    summaryLines.push(`— ${VARIANT_LABEL[r.variant] || r.variant} · ${fmtRoDate(r.timestamp)}`);
+    summaryLines.push(`   Top 3: ${r.top1} · ${r.top2} · ${r.top3}`);
+    if (r.variant === "B" && Array.isArray(r.top_programs) && r.top_programs.length) {
+      summaryLines.push(`   Programe: ${r.top_programs.join(" · ")}`);
+    }
+    if (r.chosen) summaryLines.push(`   Am ales: ${r.chosen}`);
+    if (i < sorted.length - 1) summaryLines.push("");
+  });
+
+  // Try full payload: summary + compact JSON
+  const jsonBlock = ["", "--- JSON (date brute) ---", JSON.stringify(all)];
+  let text = summaryLines.concat(jsonBlock).join("\n");
+  if (encodeURIComponent(text).length <= WA_MAX_ENCODED) {
+    return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`;
+  }
+
+  // JSON too big — drop it, send summary only
+  text = summaryLines.join("\n");
+  if (encodeURIComponent(text).length <= WA_MAX_ENCODED) {
+    return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`;
+  }
+
+  // Summary still too big — send minimal (most recent run only)
+  const r = sorted[0];
+  const minimal = [
+    HELLO,
+    "",
+    `${VARIANT_LABEL[r.variant] || r.variant} · ${fmtRoDate(r.timestamp)}`,
+    `Top 3: ${r.top1} · ${r.top2} · ${r.top3}`,
+    r.chosen ? `Am ales: ${r.chosen}` : null
+  ].filter(Boolean).join("\n");
+  return `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(minimal)}`;
+}
+
+function refreshWhatsAppLink() {
+  const a = document.getElementById("btn-wa");
+  if (a) a.href = buildWhatsAppUrl();
+}
+
 document.getElementById("btn-wa").addEventListener("click", () => {
+  // Refresh right before navigation in case localStorage changed since render()
+  refreshWhatsAppLink();
   try { if (window.umami) umami.track("pilot_send_wa", { source: "results" }); } catch(e) {}
 });
 
