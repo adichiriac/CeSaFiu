@@ -228,14 +228,28 @@ tailwind.config = {
       </div>
     </section>
 
+    <!-- SHARE WITH FRIENDS -->
+    <section class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6">
+      <h2 class="display text-xl md:text-2xl font-black uppercase mb-2 leading-tight">Dă mai departe cuiva care nu știe ce să aleagă</h2>
+      <p class="mb-4 text-on-surface-variant">Ai un prieten care încă se învârte între „facultate, job, gap year"? Trimite-i testul — durează 5 minute și îi dă 3 direcții concrete la care să se gândească.</p>
+      <div class="flex flex-wrap gap-3 items-center">
+        <button id="btn-share-results" class="bg-neon text-ink border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
+          Trimite linkul
+        </button>
+        <span id="share-results-toast" class="text-sm font-bold hidden"></span>
+      </div>
+    </section>
+
     <!-- EXPORT -->
     <section class="bg-primary text-white border-2 border-black shadow-neo-8 p-5 mb-6">
-      <h2 class="display text-2xl font-black uppercase mb-2">Trimite-ne datele</h2>
-      <p class="mb-4 text-primary-dim">Apasă „Copiază JSON” și trimite-le pe WhatsApp / Discord. Sau „Descarcă fișier”.</p>
+      <h2 class="display text-2xl font-black uppercase mb-2">Trimite-ne rezultatul</h2>
+      <p class="mb-4 text-primary-dim">Apasă pe WhatsApp — ți se deschide un mesaj gata făcut către noi. Poți atașa un screenshot cu raportul, sau folosi „Descarcă fișier” și atașezi fișierul JSON în chat.</p>
       <div class="flex flex-wrap gap-3">
-        <button id="btn-copy" class="bg-neon text-ink border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
-          Copiază JSON
-        </button>
+        <a id="btn-wa" href="https://wa.me/40745099131?text=Salut!%20%C8%9Ai%20trimit%20rezultatul%20meu%20de%20la%20testul%20Ce%20S%C4%83%20Fiu%3F%20(pilot)."
+           target="_blank" rel="noopener"
+           class="bg-neon text-ink border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3 inline-flex items-center gap-2">
+          Trimite pe WhatsApp
+        </a>
         <button id="btn-download" class="bg-yellow text-ink border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
           Descarcă fișier
         </button>
@@ -314,7 +328,9 @@ function load() {
 }
 
 function countBy(arr, keyFn) {
-  const out = {};
+  // Object.create(null) — no prototype, avoids "constructor" key collision
+  // with Object.prototype.constructor that caused "function Object() {...}1" bars.
+  const out = Object.create(null);
   arr.forEach(r => { const k = keyFn(r); if (!k) return; out[k] = (out[k]||0) + 1; });
   return out;
 }
@@ -449,25 +465,41 @@ function render() {
   }
 }
 
-document.getElementById("btn-copy").addEventListener("click", async () => {
-  const payload = {
-    device: navigator.userAgent,
-    exported_at: new Date().toISOString(),
-    pilot_progress: JSON.parse(localStorage.getItem("cesafiu_pilot_progress")||"{}"),
-    results: load()
-  };
-  const json = JSON.stringify(payload, null, 2);
-  const msg = document.getElementById("copy-msg");
+// --- WhatsApp-to-researcher tracking (button is an <a>, we just track click) ---
+document.getElementById("btn-wa").addEventListener("click", () => {
+  try { if (window.umami) umami.track("pilot_send_wa", { source: "results" }); } catch(e) {}
+});
+
+// --- Share-to-friends (Web Share API with clipboard fallback) ---
+async function shareCeSaFiu(source) {
+  const url = "https://adichiriac.github.io/CeSaFiu/";
+  const text = "Am dat un test rapid — „Ce Să Fiu?" — îți arată în 5 minute la ce direcții te potrivești. Merită și tu:";
+  const shareData = { title: "Ce Să Fiu?", text, url };
   try {
-    await navigator.clipboard.writeText(json);
-    msg.textContent = "✓ Copiat în clipboard. Lipește-l în chat-ul cu noi.";
-    msg.className = "mt-3 text-sm bg-neon text-ink border-2 border-black p-2";
-    msg.classList.remove("hidden");
-  } catch(e) {
-    // fallback: show textarea
-    msg.innerHTML = `<textarea readonly class="w-full border-2 border-black p-2 font-mono text-xs" rows="8">${json.replace(/</g,'&lt;')}</textarea><p class="mt-2">Selectează tot și copiază manual.</p>`;
-    msg.className = "mt-3 text-sm bg-white text-ink border-2 border-black p-2";
-    msg.classList.remove("hidden");
+    if (navigator.share) {
+      await navigator.share(shareData);
+      try { if (window.umami) umami.track("share_click", { source, via: "webshare" }); } catch(e) {}
+      return "webshare";
+    } else {
+      await navigator.clipboard.writeText(`${text} ${url}`);
+      try { if (window.umami) umami.track("share_click", { source, via: "clipboard" }); } catch(e) {}
+      return "clipboard";
+    }
+  } catch(err) {
+    // user cancelled the native share sheet — don't track, don't show toast
+    return null;
+  }
+}
+
+document.getElementById("btn-share-results").addEventListener("click", async () => {
+  const via = await shareCeSaFiu("results");
+  if (via === "clipboard") {
+    const toast = document.getElementById("share-results-toast");
+    toast.textContent = "✓ Link copiat. Dă paste oriunde vrei.";
+    toast.className = "text-sm font-bold bg-yellow border-2 border-black px-2 py-1";
+    setTimeout(() => {
+      toast.className = "text-sm font-bold hidden";
+    }, 3500);
   }
 });
 
