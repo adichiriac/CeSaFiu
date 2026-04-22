@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Ce Să Fiu? — Varianta B · Scenarii Reale</title>
+<title>Ce Să Fiu? — Varianta A · Scenarii Reale</title>
 <script defer src="https://umami-production-00d8.up.railway.app/script.js" data-website-id="b582fdd9-94f2-47c2-86ce-54bcc810e434"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -130,7 +130,7 @@ tailwind.config = {
 <!-- ============== RESULTS SCREEN ============== -->
 <section id="scr-results" class="hidden-screen">
   <div class="inline-block bg-primary text-white border-2 border-black px-3 py-1 rotate-[-2deg] mb-3">
-    <span class="display font-black text-xs uppercase">Rezultatul tău · Varianta B</span>
+    <span class="display font-black text-xs uppercase">Rezultatul tău · Varianta A</span>
   </div>
   <h2 class="display text-3xl md:text-5xl font-black uppercase leading-[0.95] mb-5">
     Top 3 direcții<br/><span class="bg-yellow border-2 border-black inline-block px-2 rotate-[1deg]">pentru tine</span>
@@ -153,7 +153,7 @@ tailwind.config = {
 
   <div class="flex flex-wrap gap-3 mb-10">
     <button onclick="restart()" class="press bg-white border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase">Refă testul</button>
-    <a href="v3.html" class="press bg-neon border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase inline-block">Încearcă Varianta C →</a>
+    <a href="v3.html" class="press bg-neon border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase inline-block">Încearcă Varianta B →</a>
   </div>
 </section>
 
@@ -370,7 +370,7 @@ const state = {
   scores: { constructor:0, analist:0, ajutor:0, creator:0, leader:0, explorator:0 },
   answers: [],
   feedback: null,
-  variant: "B"
+  variant: "A"
 };
 
 function $(id) { return document.getElementById(id); }

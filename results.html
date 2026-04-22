@@ -107,7 +107,7 @@ tailwind.config = {
       </div>
 
       <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Distribuție top-1 (arhetipuri)</h3>
-      <div id="b-top1" class="space-y-2 mb-5"></div>
+      <div id="a-top1" class="space-y-2 mb-5"></div>
 
       <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Ce ai simțit că e cel mai „tu”</h3>
       <div id="b-chosen" class="space-y-2 mb-5"></div>
@@ -312,7 +312,7 @@ function render() {
   // Variant B
   if (runsB.length > 0) {
     document.getElementById("section-b").classList.remove("hidden");
-    bars("b-top1", countBy(runsB, r => r.top1), ARCHETYPE_LABELS, "#a9f900");
+    bars("a-top1", countBy(runsB, r => r.top1), ARCHETYPE_LABELS, "#a9f900");
     bars("b-chosen", countBy(runsB.filter(r=>r.chosen), r => r.chosen), ARCHETYPE_LABELS, "#ffe170");
     document.getElementById("b-runs").innerHTML = runsB.map(runCardB).join("");
   }

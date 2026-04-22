@@ -85,21 +85,44 @@ tailwind.config = {
   <!-- VARIANTS -->
   <h2 class="display text-2xl font-black uppercase mb-4">Cele 3 variante</h2>
 
-  <!-- VARIANT B -->
-  <div id="card-b" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-5">
+  <!-- VARIANT A (Scenarii reale) -->
+  <div id="card-a" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-5">
     <div class="flex items-start justify-between mb-3 gap-3">
       <div class="flex items-center gap-3">
-        <span class="display text-3xl font-black bg-yellow border-2 border-black w-12 h-12 flex items-center justify-center tilt-r">B</span>
+        <span class="display text-3xl font-black bg-yellow border-2 border-black w-12 h-12 flex items-center justify-center tilt-r">A</span>
         <div>
           <h3 class="display text-xl font-black uppercase leading-tight">Scenarii reale</h3>
           <p class="text-xs text-on-surface-variant uppercase tracking-wider">12 situații · ~5 min</p>
         </div>
       </div>
-      <span id="badge-b" class="hidden display text-xs font-black bg-neon border-2 border-black px-2 py-1 tilt-r">FĂCUT ✓</span>
+      <span id="badge-a" class="hidden display text-xs font-black bg-neon border-2 border-black px-2 py-1 tilt-r">FĂCUT ✓</span>
     </div>
     <p class="mb-4">În loc de întrebări abstracte, primești scenarii concrete: „Sâmbătă 17:00, 3 prieteni te sună deodată — pe cine ajuți primul?”. Măsoară cum <b>reacționezi</b>, nu cum <b>te descrii</b>.</p>
     <div class="flex flex-wrap gap-3">
       <a href="v2.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
+        Start Varianta A →
+      </a>
+      <button onclick="markDone('A')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
+        Am terminat A
+      </button>
+    </div>
+  </div>
+
+  <!-- VARIANT B (Triplu-lens) -->
+  <div id="card-b" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-5">
+    <div class="flex items-start justify-between mb-3 gap-3">
+      <div class="flex items-center gap-3">
+        <span class="display text-3xl font-black bg-neon border-2 border-black w-12 h-12 flex items-center justify-center tilt-l">B</span>
+        <div>
+          <h3 class="display text-xl font-black uppercase leading-tight">Triplu-lens</h3>
+          <p class="text-xs text-on-surface-variant uppercase tracking-wider">15 întrebări · ~7 min · cel mai precis</p>
+        </div>
+      </div>
+      <span id="badge-b" class="hidden display text-xs font-black bg-neon border-2 border-black px-2 py-1 tilt-r">FĂCUT ✓</span>
+    </div>
+    <p class="mb-4">3 lentile care se combină: <b class="bg-yellow px-1">Interese</b> (ce-ți place), <b class="bg-neon px-1">Valori</b> (ce contează) și <b class="bg-primary text-white px-1">Stil</b> (cum lucrezi). Îți recomandă programe concrete din universități RO, nu arhetipuri.</p>
+    <div class="flex flex-wrap gap-3">
+      <a href="v3.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
         Start Varianta B →
       </a>
       <button onclick="markDone('B')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
@@ -108,48 +131,25 @@ tailwind.config = {
     </div>
   </div>
 
-  <!-- VARIANT C -->
-  <div id="card-c" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-5">
+  <!-- VARIANT C (clasică MVP) -->
+  <div id="card-c" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-8">
     <div class="flex items-start justify-between mb-3 gap-3">
       <div class="flex items-center gap-3">
-        <span class="display text-3xl font-black bg-neon border-2 border-black w-12 h-12 flex items-center justify-center tilt-l">C</span>
-        <div>
-          <h3 class="display text-xl font-black uppercase leading-tight">Triplu-lens</h3>
-          <p class="text-xs text-on-surface-variant uppercase tracking-wider">15 întrebări · ~7 min · cel mai precis</p>
-        </div>
-      </div>
-      <span id="badge-c" class="hidden display text-xs font-black bg-neon border-2 border-black px-2 py-1 tilt-r">FĂCUT ✓</span>
-    </div>
-    <p class="mb-4">3 lentile care se combină: <b class="bg-yellow px-1">Interese</b> (ce-ți place), <b class="bg-neon px-1">Valori</b> (ce contează) și <b class="bg-primary text-white px-1">Stil</b> (cum lucrezi). Îți recomandă programe concrete din universități RO, nu arhetipuri.</p>
-    <div class="flex flex-wrap gap-3">
-      <a href="v3.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
-        Start Varianta C →
-      </a>
-      <button onclick="markDone('C')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
-        Am terminat C
-      </button>
-    </div>
-  </div>
-
-  <!-- VARIANT A -->
-  <div id="card-a" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-8">
-    <div class="flex items-start justify-between mb-3 gap-3">
-      <div class="flex items-center gap-3">
-        <span class="display text-3xl font-black bg-surface-container border-2 border-black w-12 h-12 flex items-center justify-center tilt-l">A</span>
+        <span class="display text-3xl font-black bg-surface-container border-2 border-black w-12 h-12 flex items-center justify-center tilt-l">C</span>
         <div>
           <h3 class="display text-xl font-black uppercase leading-tight">Varianta clasică</h3>
           <p class="text-xs text-on-surface-variant uppercase tracking-wider">10 întrebări · scurt & rapid</p>
         </div>
       </div>
-      <span id="badge-a" class="hidden display text-xs font-black bg-neon border-2 border-black px-2 py-1 tilt-r">FĂCUT ✓</span>
+      <span id="badge-c" class="hidden display text-xs font-black bg-neon border-2 border-black px-2 py-1 tilt-r">FĂCUT ✓</span>
     </div>
     <p class="mb-4">Quiz-ul original: întrebări directe, 4 variante fiecare. Nimic fancy — doar „alege una”. Bun dacă ești la autobuz și vrei un răspuns în 3 minute.</p>
     <div class="flex flex-wrap gap-3">
       <a href="index.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
-        Start Varianta A →
+        Start Varianta C →
       </a>
-      <button onclick="markDone('A')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
-        Am terminat A
+      <button onclick="markDone('C')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
+        Am terminat C
       </button>
     </div>
   </div>
@@ -178,7 +178,7 @@ tailwind.config = {
   <!-- PRIVACY / DEV NOTE -->
   <div class="bg-white border-2 border-black p-4 mb-8 text-sm">
     <b class="display uppercase text-xs">Notă tehnică:</b>
-    Varianta A (MVP-ul live) nu urcă date — e ok, o testăm pe feedback-ul tău direct. B și C salvează rezultatele în <code class="bg-surface-container px-1">localStorage</code> pe device-ul tău (nimic pe server). Dacă ștergi istoricul browser-ului, se pierd.
+    Varianta C (MVP-ul live) nu urcă date — e ok, o testăm pe feedback-ul tău direct. A și B salvează rezultatele în <code class="bg-surface-container px-1">localStorage</code> pe device-ul tău (nimic pe server). Dacă ștergi istoricul browser-ului, se pierd.
     <button onclick="resetProgress()" class="ml-2 underline text-xs">Resetează progresul</button>
   </div>
 
@@ -232,8 +232,8 @@ function autoDetect() {
     const all = JSON.parse(localStorage.getItem("cesafiu_results") || "[]");
     const p = getProgress();
     let changed = false;
+    if (all.some(r => r.variant === "A") && !p.A) { p.A = "auto-"+new Date().toISOString(); changed = true; }
     if (all.some(r => r.variant === "B") && !p.B) { p.B = "auto-"+new Date().toISOString(); changed = true; }
-    if (all.some(r => r.variant === "C") && !p.C) { p.C = "auto-"+new Date().toISOString(); changed = true; }
     if (changed) localStorage.setItem(PILOT_KEY, JSON.stringify(p));
   } catch(e) {}
 }
