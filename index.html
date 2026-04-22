@@ -288,7 +288,7 @@ render();
 // --- Share-to-friends (Web Share API with clipboard fallback) ---
 async function shareCeSaFiu(source) {
   const url = "https://adichiriac.github.io/CeSaFiu/";
-  const text = "Am dat un test rapid — „Ce Să Fiu?" — îți arată în 5 minute la ce direcții te potrivești. Merită și tu:";
+  const text = `Am dat un test rapid — „Ce Să Fiu?" — îți arată în 5 minute la ce direcții te potrivești. Merită și tu:`;
   const shareData = { title: "Ce Să Fiu?", text, url };
   try {
     if (navigator.share) {
