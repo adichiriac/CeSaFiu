@@ -181,6 +181,58 @@ tailwind.config = {
       </details>
     </section>
 
+    <!-- SIGNUP -->
+    <section id="signup-section" class="bg-yellow border-2 border-black shadow-neo-8 p-6 mb-6 relative">
+      <span class="absolute -top-3 -right-3 display text-xs font-black uppercase bg-primary text-white border-2 border-black px-2 py-1 -rotate-[3deg]">În curând</span>
+
+      <div id="signup-form-wrap">
+        <h2 class="display text-2xl md:text-3xl font-black uppercase mb-3 leading-tight">Vrei să te anunț când lansez versiunea completă?</h2>
+        <p class="mb-4 text-ink/80">Lucrez la o versiune unde vei putea:</p>
+        <ul class="mb-5 space-y-1.5 text-ink/90">
+          <li>— primi insights mai adânci despre direcțiile tale, nu doar 3 opțiuni</li>
+          <li>— <b>testa în profunzime abilitățile</b> care contează pentru fiecare drum</li>
+          <li>— răsfoi toate facultățile din România <b>într-un singur loc</b>, comparabile cap la cap</li>
+          <li>— avea un fel de <b>coach</b> care te ghidează pas cu pas, nu doar un test de 5 minute</li>
+        </ul>
+
+        <form id="signup-form" action="https://formspree.io/f/myklbprg" method="POST" class="space-y-3">
+          <input type="hidden" name="_subject" value="Nou signup pilot CeSăFiu" />
+          <!-- Honeypot: Formspree filters submissions that fill this -->
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+          <div class="grid md:grid-cols-2 gap-3">
+            <label class="block">
+              <span class="display text-xs font-black uppercase tracking-wider mb-1 block">Nume</span>
+              <input type="text" name="name" required maxlength="80" class="w-full bg-white border-2 border-black shadow-neo-2 px-3 py-2 focus:outline-none focus:shadow-neo-4 transition-shadow" placeholder="Ana" />
+            </label>
+            <label class="block">
+              <span class="display text-xs font-black uppercase tracking-wider mb-1 block">Email</span>
+              <input type="email" name="email" required maxlength="120" class="w-full bg-white border-2 border-black shadow-neo-2 px-3 py-2 focus:outline-none focus:shadow-neo-4 transition-shadow" placeholder="ana@exemplu.ro" />
+            </label>
+          </div>
+
+          <label class="flex items-start gap-2 text-sm cursor-pointer">
+            <input type="checkbox" name="consent" required class="mt-1 w-4 h-4 border-2 border-black flex-shrink-0" />
+            <span>Sunt de acord să primesc <b>un singur email</b> când lansez versiunea nouă.</span>
+          </label>
+
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <button type="submit" id="signup-submit" class="bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
+              Anunță-mă când lansezi
+            </button>
+            <span id="signup-error" class="text-sm text-red-700 font-bold hidden"></span>
+          </div>
+
+          <p class="text-xs text-ink/60 pt-1">Emailul e folosit doar pentru asta. Nu-l vând, nu-l dau nimănui, nu-l folosesc pentru altceva. Poți cere oricând să-l șterg.</p>
+        </form>
+      </div>
+
+      <div id="signup-success" class="hidden">
+        <h2 class="display text-2xl md:text-3xl font-black uppercase mb-2 leading-tight">Te-am notat. Pe curând!</h2>
+        <p class="text-ink/80">Îți scriu un <b>singur</b> email când e gata. Între timp, mersi că m-ai ajutat să testez versiunea asta — chiar contează.</p>
+      </div>
+    </section>
+
     <!-- EXPORT -->
     <section class="bg-primary text-white border-2 border-black shadow-neo-8 p-5 mb-6">
       <h2 class="display text-2xl font-black uppercase mb-2">Trimite-ne datele</h2>
@@ -444,6 +496,43 @@ document.getElementById("btn-clear").addEventListener("click", () => {
     localStorage.removeItem("cesafiu_pilot_progress");
   } catch(e) {}
   render();
+});
+
+// --- Signup form (Formspree AJAX) ---
+document.getElementById("signup-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const btn = document.getElementById("signup-submit");
+  const errBox = document.getElementById("signup-error");
+  errBox.classList.add("hidden");
+  btn.disabled = true;
+  const originalLabel = btn.textContent;
+  btn.textContent = "Se trimite...";
+
+  try {
+    const res = await fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { "Accept": "application/json" }
+    });
+    if (res.ok) {
+      document.getElementById("signup-form-wrap").classList.add("hidden");
+      document.getElementById("signup-success").classList.remove("hidden");
+      try { if (window.umami) umami.track("signup_submitted", { source: "results" }); } catch(e) {}
+    } else {
+      const data = await res.json().catch(() => ({}));
+      const msg = (data.errors && data.errors.map(x => x.message).join(", ")) || "Ceva n-a mers. Mai încearcă o dată.";
+      errBox.textContent = msg;
+      errBox.classList.remove("hidden");
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+    }
+  } catch (err) {
+    errBox.textContent = "Nu am putut contacta serverul. Verifică conexiunea și încearcă din nou.";
+    errBox.classList.remove("hidden");
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+  }
 });
 
 render();
