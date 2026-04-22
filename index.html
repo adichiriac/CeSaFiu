@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Ce Să Fiu? — Pilot de testare</title>
 <script defer src="https://umami-production-00d8.up.railway.app/script.js" data-website-id="b582fdd9-94f2-47c2-86ce-54bcc810e434"></script>
-<script defer src="https://umami-production-00d8.up.railway.app/recorder.js" data-website-id="b582fdd9-94f2-47c2-86ce-54bcc810e434" data-sample-rate="0.15" data-mask-level="moderate" data-max-duration="300000"></script>
+<script defer src="https://umami-production-00d8.up.railway.app/recorder.js" data-website-id="b582fdd9-94f2-47c2-86ce-54bcc810e434" data-sample-rate="1.0" data-mask-level="moderate" data-max-duration="300000"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Epilogue:wght@700;800;900&display=swap" rel="stylesheet"/>
@@ -180,7 +180,7 @@ tailwind.config = {
   <div class="bg-white border-2 border-black p-4 mb-8 text-sm">
     <b class="display uppercase text-xs">Notă tehnică:</b>
     Toate 3 variantele trimit evenimente anonime de uz (start / complete / feedback) către Umami — zero date personale, doar numărători. A și B salvează <i>în plus</i> rezultatele tale în <code class="bg-surface-container px-1">localStorage</code> pe device (pentru raportul de mai sus, nu pe server). Dacă ștergi istoricul browser-ului, se pierd.
-    <span class="block mt-2"><b class="display uppercase text-xs bg-yellow px-1">Pe durata pilotului:</b> înregistrăm anonim ~1 din 7 sesiuni (click-uri și derulări, max 5 min, textul scris e mascat automat, fără nume, fără ce tastezi) ca să vedem unde te blochezi. După pilot închidem înregistrarea și replay-urile expiră oricum în 30 de zile.</span>
+    <span class="block mt-2"><b class="display uppercase text-xs bg-yellow px-1">Pe durata pilotului:</b> înregistrăm anonim sesiuni (click-uri și derulări, max 5 min, textul scris e mascat automat, fără nume, fără ce tastezi) ca să vedem unde te blochezi. După pilot închidem înregistrarea și replay-urile expiră oricum în 30 de zile.</span>
     <button onclick="resetProgress()" class="ml-2 underline text-xs">Resetează progresul</button>
   </div>
 
