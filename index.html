@@ -178,10 +178,11 @@ tailwind.config = {
 
   <!-- PRIVACY / DEV NOTE -->
   <div class="bg-white border-2 border-black p-4 mb-8 text-sm">
-    <b class="display uppercase text-xs">Notă tehnică:</b>
-    Toate 3 variantele trimit evenimente anonime de uz (start / complete / feedback) către Umami — zero date personale, doar numărători. A și B salvează <i>în plus</i> rezultatele tale în <code class="bg-surface-container px-1">localStorage</code> pe device (pentru raportul de mai sus, nu pe server). Dacă ștergi istoricul browser-ului, se pierd.
-    <span class="block mt-2"><b class="display uppercase text-xs bg-yellow px-1">Pe durata pilotului:</b> înregistrăm anonim sesiuni (click-uri și derulări, max 5 min, textul scris e mascat automat, fără nume, fără ce tastezi) ca să vedem unde te blochezi. După pilot închidem înregistrarea și replay-urile expiră oricum în 30 de zile.</span>
-    <button onclick="resetProgress()" class="ml-2 underline text-xs">Resetează progresul</button>
+    <b class="display uppercase text-xs">Ce vedem noi, ce nu vedem:</b>
+    Răspunsurile tale individuale (ce alegi la fiecare întrebare) rămân doar pe telefonul sau laptopul pe care faci testul — tu le vezi în raportul de mai sus, noi nu. La noi ajung doar statistici simple: câți au început fiecare variantă, câți au terminat, ce direcție a ieșit cel mai des. Fără nume, fără ce scrii în alte aplicații, fără conturi.
+    <span class="block mt-2"><b class="display uppercase text-xs bg-yellow px-1">Pe durata pilotului</b> mai înregistrăm și niște sesiuni scurte — doar click-uri și scroll, maxim 5 minute. Textul pe care îl tastezi e ascuns automat, nu-l vedem. Ne ajută să descoperim locurile în care se blochează lumea. După pilot oprim înregistrarea; oricum dispare automat după 30 de zile.</span>
+    <span class="block mt-2">Datele astea rămân la noi — nu le vindem, nu le trimitem la alte companii și nu facem marketing cu ele.</span>
+    <button onclick="resetProgress()" class="mt-2 underline text-xs">Resetează progresul</button>
   </div>
 
 </main>
