@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="ro"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ce Să Fiu? - Quiz</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#494454",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#ece8e0",
+                        "tertiary-container": "#caa900",
+                        "surface-bright": "#fef9f1",
+                        "primary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#4c3f00",
+                        "primary-fixed-dim": "#d0bcff",
+                        "surface-container-low": "#f8f3eb",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#a9f900",
+                        "tertiary-fixed": "#ffe170",
+                        "outline-variant": "#cbc3d7",
+                        "on-secondary": "#ffffff",
+                        "background": "#fef9f1",
+                        "on-secondary-fixed-variant": "#334f00",
+                        "on-primary-fixed-variant": "#5516be",
+                        "on-background": "#1d1c17",
+                        "outline": "#7b7486",
+                        "primary-container": "#8455ef",
+                        "tertiary": "#705d00",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#ded9d2",
+                        "surface-container": "#f2ede5",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e7e2da",
+                        "surface": "#fef9f1",
+                        "on-secondary-fixed": "#121f00",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "surface-tint": "#6d3bd7",
+                        "inverse-primary": "#d0bcff",
+                        "on-primary-fixed": "#23005c",
+                        "on-surface": "#1d1c17",
+                        "on-primary-container": "#fffbff",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "on-secondary-container": "#486d00",
+                        "surface-variant": "#e7e2da",
+                        "primary": "#6b38d4",
+                        "inverse-surface": "#32302b",
+                        "secondary-fixed-dim": "#94db00",
+                        "secondary": "#456800",
+                        "inverse-on-surface": "#f5f0e8",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#221b00",
+                        "secondary-container": "#a7f600"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "lg": "40px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "margin-desktop": "120px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Epilogue"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "headline-lg": ["Epilogue"],
+                        "headline-xl": ["Epilogue"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "label-bold": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "500" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #fef9f1; /* Using surface color directly for fallback */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TopAppBar from JSON -->
+<header class="bg-white dark:bg-zinc-900 flex justify-between items-center w-full px-6 py-4 docked full-width top-0 border-b-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] z-50 relative">
+<button class="text-black dark:text-zinc-400 hover:bg-yellow-400 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none p-2 rounded-full flex items-center justify-center border-2 border-transparent">
+<span class="material-symbols-outlined" data-icon="flag">flag</span>
+</button>
+<h1 class="text-2xl font-black text-black dark:text-white uppercase font-['Epilogue'] tracking-tighter">VIITORUL TĂU</h1>
+<button class="text-black dark:text-zinc-400 hover:bg-yellow-400 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none p-2 rounded-full flex items-center justify-center border-2 border-transparent">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</button>
+</header>
+<!-- Main Content Canvas - Quiz Question -->
+<main class="flex-grow flex flex-col items-center px-margin-mobile md:px-margin-desktop py-lg pb-xl max-w-4xl mx-auto w-full">
+<!-- Progress Indicator -->
+<div class="w-full mb-lg">
+<div class="flex justify-between items-end mb-sm">
+<span class="font-label-bold text-label-bold text-on-surface uppercase tracking-wider">Misiune în curs</span>
+<span class="font-headline-md text-headline-md text-on-surface bg-tertiary-fixed px-sm py-xs border-2 border-on-surface shadow-[2px_2px_0px_0px_rgba(29,28,23,1)] rotate-2">3 din 10</span>
+</div>
+<div class="w-full h-6 bg-surface-container-high border-2 border-on-surface rounded-full overflow-hidden shadow-[inset_0px_2px_4px_rgba(0,0,0,0.1)] relative">
+<!-- Chunky Neon Green Fill -->
+<div class="h-full bg-secondary-fixed w-[30%] border-r-2 border-on-surface absolute left-0 top-0"></div>
+</div>
+</div>
+<!-- Question Header -->
+<div class="w-full text-center mb-xl">
+<h2 class="font-headline-xl text-headline-xl text-on-surface drop-shadow-[2px_2px_0px_rgba(255,255,255,1)]">Cum îți place să îți petreci timpul liber?</h2>
+</div>
+<!-- Options Grid (Bento/Card Style) -->
+<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-gutter mb-xl">
+<!-- Option 1 -->
+<label class="group relative flex items-center gap-md p-md bg-surface-container-lowest border-2 border-on-surface rounded-xl shadow-[4px_4px_0px_0px_rgba(29,28,23,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all cursor-pointer overflow-hidden">
+<input class="peer sr-only" name="quiz_option" type="radio"/>
+<div class="absolute inset-0 bg-primary-fixed-dim translate-y-full peer-checked:translate-y-0 transition-transform duration-200 z-0 border-t-2 border-on-surface hidden peer-checked:block"></div>
+<div class="relative z-10 flex items-center justify-center w-12 h-12 bg-primary text-on-primary rounded-full border-2 border-on-surface group-hover:bg-tertiary-fixed group-hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[28px]" data-icon="handyman">handyman</span>
+</div>
+<span class="relative z-10 font-headline-md text-headline-md text-on-surface flex-1">Meșterind chestii prin casă</span>
+</label>
+<!-- Option 2 -->
+<label class="group relative flex items-center gap-md p-md bg-surface-container-lowest border-2 border-on-surface rounded-xl shadow-[4px_4px_0px_0px_rgba(29,28,23,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all cursor-pointer overflow-hidden">
+<input class="peer sr-only" name="quiz_option" type="radio"/>
+<div class="absolute inset-0 bg-primary-fixed-dim translate-y-full peer-checked:translate-y-0 transition-transform duration-200 z-0 hidden peer-checked:block"></div>
+<div class="relative z-10 flex items-center justify-center w-12 h-12 bg-primary text-on-primary rounded-full border-2 border-on-surface group-hover:bg-tertiary-fixed group-hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[28px]" data-icon="forum">forum</span>
+</div>
+<span class="relative z-10 font-headline-md text-headline-md text-on-surface flex-1">Dezbătând idei cu prietenii</span>
+</label>
+<!-- Option 3 -->
+<label class="group relative flex items-center gap-md p-md bg-surface-container-lowest border-2 border-on-surface rounded-xl shadow-[4px_4px_0px_0px_rgba(29,28,23,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all cursor-pointer overflow-hidden">
+<input class="peer sr-only" name="quiz_option" type="radio"/>
+<div class="absolute inset-0 bg-primary-fixed-dim translate-y-full peer-checked:translate-y-0 transition-transform duration-200 z-0 hidden peer-checked:block"></div>
+<div class="relative z-10 flex items-center justify-center w-12 h-12 bg-primary text-on-primary rounded-full border-2 border-on-surface group-hover:bg-tertiary-fixed group-hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[28px]" data-icon="assignment">assignment</span>
+</div>
+<span class="relative z-10 font-headline-md text-headline-md text-on-surface flex-1">Organizând planuri pe grup</span>
+</label>
+<!-- Option 4 -->
+<label class="group relative flex items-center gap-md p-md bg-surface-container-lowest border-2 border-on-surface rounded-xl shadow-[4px_4px_0px_0px_rgba(29,28,23,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all cursor-pointer overflow-hidden">
+<input class="peer sr-only" name="quiz_option" type="radio"/>
+<div class="absolute inset-0 bg-primary-fixed-dim translate-y-full peer-checked:translate-y-0 transition-transform duration-200 z-0 hidden peer-checked:block"></div>
+<div class="relative z-10 flex items-center justify-center w-12 h-12 bg-primary text-on-primary rounded-full border-2 border-on-surface group-hover:bg-tertiary-fixed group-hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[28px]" data-icon="sports_esports">sports_esports</span>
+</div>
+<span class="relative z-10 font-headline-md text-headline-md text-on-surface flex-1">Codând sau jucând jocuri</span>
+</label>
+</div>
+<!-- Next Action -->
+<div class="w-full mt-auto flex justify-center">
+<button class="w-full md:w-auto min-w-[280px] bg-tertiary-fixed text-on-tertiary-fixed-variant font-headline-lg text-headline-lg uppercase py-md px-xl border-2 border-on-surface shadow-[8px_8px_0px_0px_rgba(29,28,23,1)] hover:shadow-none hover:translate-x-[8px] hover:translate-y-[8px] transition-all rounded-xl flex items-center justify-center gap-sm group">
+                Următoarea întrebare
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar Suppressed: Task-focused flow (Quiz). -->
+</body></html>

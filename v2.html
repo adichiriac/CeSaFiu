@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Ce Să Fiu? — Varianta B · Scenarii Reale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Epilogue:wght@700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      surface:"#fef9f1", "surface-container":"#f2ede5", "surface-container-high":"#ece8e0",
+      "on-surface":"#1d1c17", "on-surface-variant":"#494454",
+      primary:"#6b38d4", "primary-dim":"#d0bcff",
+      neon:"#a9f900", yellow:"#ffe170", "yellow-dim":"#caa900",
+      ink:"#1d1c17"
+    },
+    fontFamily: { display:["Epilogue","sans-serif"], body:["'Be Vietnam Pro'","sans-serif"] },
+    boxShadow: { "neo-2":"2px 2px 0 0 #000", "neo-4":"4px 4px 0 0 #000", "neo-8":"8px 8px 0 0 #000" }
+  }}
+}
+</script>
+<style>
+  body { font-family:'Be Vietnam Pro',sans-serif; background:#fef9f1;
+    background-image:linear-gradient(#e7e2da 1px,transparent 1px),linear-gradient(90deg,#e7e2da 1px,transparent 1px);
+    background-size:32px 32px; }
+  h1,h2,h3,.display { font-family:'Epilogue',sans-serif; letter-spacing:-0.01em; }
+  .press:active { transform:translate(4px,4px); box-shadow:none !important; }
+  .hidden-screen { display:none; }
+  .sticker-tilt-l { transform:rotate(-2deg); }
+  .sticker-tilt-r { transform:rotate(2deg); }
+  .slide-in { animation: slide .35s ease; }
+  @keyframes slide { from { transform:translateY(12px); opacity:0 } to { transform:translateY(0); opacity:1 } }
+</style>
+</head>
+<body class="text-ink min-h-screen pb-24">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-white border-b-4 border-black px-5 py-3 flex justify-between items-center">
+  <a href="index.html" class="flex items-center gap-2">
+    <span class="inline-block w-7 h-7 bg-primary border-2 border-black rotate-[-6deg]"></span>
+    <span class="display font-black uppercase tracking-tighter text-lg">Ce Să Fiu?</span>
+  </a>
+  <span class="display text-xs font-black uppercase bg-yellow border-2 border-black px-2 py-1 rotate-[2deg]">VARIANTA B</span>
+</header>
+
+<main class="max-w-3xl mx-auto px-5 md:px-8 pt-6">
+
+<!-- ============== INTRO SCREEN ============== -->
+<section id="scr-intro" class="slide-in">
+  <div class="inline-block bg-yellow border-2 border-black px-3 py-1 rotate-[-2deg] mb-4">
+    <span class="display font-black text-xs uppercase">#MainCharacter · 12 scenarii · 5 min</span>
+  </div>
+  <h1 class="display text-4xl md:text-6xl font-black uppercase leading-[0.95] mb-4">
+    Gata de drum?<br/>
+    <span class="bg-neon border-2 border-black inline-block px-2 rotate-[1deg]">Scenarii reale.</span><br/>
+    Zero formular.
+  </h1>
+  <p class="text-lg text-on-surface-variant max-w-xl mb-6">
+    12 situații pe care sigur le-ai trăit. Alegi una — fără „corect” și „greșit”. La final, 3 direcții de carieră care chiar se potrivesc cu cum reacționezi tu, nu cu cine pretinzi că ești.
+  </p>
+
+  <div class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6">
+    <div class="flex items-start gap-3 mb-3">
+      <span class="display text-2xl font-black">1</span>
+      <p class="text-base">Răspunzi la 12 scenarii. Fără drag, fără mâzgăleli. Un clic per scenariu.</p>
+    </div>
+    <div class="flex items-start gap-3 mb-3">
+      <span class="display text-2xl font-black">2</span>
+      <p class="text-base">Vezi top 3 direcții + programe reale din România cu note de admitere.</p>
+    </div>
+    <div class="flex items-start gap-3">
+      <span class="display text-2xl font-black">3</span>
+      <p class="text-base"><b class="bg-yellow px-1">Ne ajuți să testăm</b>: la final ne spui care direcție sună cel mai mult ca tine.</p>
+    </div>
+  </div>
+
+  <button onclick="start()" class="press bg-primary text-white border-2 border-black shadow-neo-8 px-6 py-4 display font-black text-xl uppercase flex items-center gap-3 w-full md:w-auto">
+    Dă-i bătaie! <span aria-hidden="true">→</span>
+  </button>
+  <p class="text-xs text-on-surface-variant mt-3 font-bold">Nicio înregistrare. Nicio colectare de date. Rezultatele rămân pe device-ul tău.</p>
+</section>
+
+<!-- ============== QUIZ SCREEN ============== -->
+<section id="scr-quiz" class="hidden-screen">
+  <!-- Progress -->
+  <div class="mb-5">
+    <div class="flex justify-between items-end mb-2">
+      <span class="display font-black text-xs uppercase tracking-wider">Misiune în curs</span>
+      <span class="display font-black text-lg bg-yellow border-2 border-black px-2 py-0.5 rotate-[2deg]">
+        <span id="q-num">1</span> / 12
+      </span>
+    </div>
+    <div class="w-full h-5 bg-surface-container-high border-2 border-black overflow-hidden relative">
+      <div id="q-fill" class="h-full bg-neon border-r-2 border-black" style="width:8.33%"></div>
+    </div>
+  </div>
+
+  <!-- Question -->
+  <div class="bg-white border-2 border-black shadow-neo-4 p-5 mb-5">
+    <p id="q-kicker" class="display font-black text-xs uppercase tracking-wider text-primary mb-2">Scenariu</p>
+    <h2 id="q-text" class="display text-2xl md:text-3xl font-black leading-tight"></h2>
+  </div>
+
+  <!-- Options -->
+  <div id="q-options" class="grid gap-3 mb-6"></div>
+
+  <button onclick="back()" class="text-sm display font-black uppercase text-on-surface-variant hover:text-primary">← Înapoi la bază</button>
+</section>
+
+<!-- ============== FEEDBACK SCREEN (forced choice) ============== -->
+<section id="scr-feedback" class="hidden-screen">
+  <div class="inline-block bg-neon border-2 border-black px-3 py-1 rotate-[-1deg] mb-4">
+    <span class="display font-black text-xs uppercase">Pas util · 10 secunde</span>
+  </div>
+  <h2 class="display text-3xl md:text-5xl font-black uppercase leading-[0.95] mb-3">
+    Înainte să vezi potrivirile...
+  </h2>
+  <p class="text-lg text-on-surface-variant mb-6">
+    Care dintre cele 3 rezultate de mai jos îți sună cel mai mult ca tine? Așa știm dacă algoritmul nostru te-a prins bine sau trebuie să-l calibrăm.
+  </p>
+  <div id="fb-options" class="grid gap-3 mb-6"></div>
+  <p class="text-sm text-on-surface-variant">Răspunsul tău rămâne doar pe device-ul tău. Îl poți șterge oricând.</p>
+</section>
+
+<!-- ============== RESULTS SCREEN ============== -->
+<section id="scr-results" class="hidden-screen">
+  <div class="inline-block bg-primary text-white border-2 border-black px-3 py-1 rotate-[-2deg] mb-3">
+    <span class="display font-black text-xs uppercase">Rezultatul tău · Varianta B</span>
+  </div>
+  <h2 class="display text-3xl md:text-5xl font-black uppercase leading-[0.95] mb-5">
+    Top 3 direcții<br/><span class="bg-yellow border-2 border-black inline-block px-2 rotate-[1deg]">pentru tine</span>
+  </h2>
+
+  <div id="r-top" class="grid gap-4 mb-6"></div>
+
+  <div class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6">
+    <h3 class="display font-black text-xl uppercase mb-3">Programe reale care se potrivesc</h3>
+    <div id="r-programs" class="grid gap-3"></div>
+    <p class="text-xs text-on-surface-variant mt-3">Date orientative. Pragurile de admitere se modifică anual — verifică pe site-ul universității înainte să aplici.</p>
+  </div>
+
+  <div class="bg-yellow border-2 border-black shadow-neo-4 p-5 mb-6">
+    <p class="display font-black text-xs uppercase mb-2">Share pe Story</p>
+    <p class="display text-2xl font-black leading-tight mb-3">"Eu sunt <span id="r-share-pct">78%</span> potrivit pentru <span id="r-share-top">Analist</span>. Tu ce ești?"</p>
+    <button onclick="copyShare()" class="press bg-black text-white border-2 border-black shadow-neo-2 px-4 py-2 display font-black text-sm uppercase">Copiază textul</button>
+    <span id="copied" class="text-sm ml-3 font-bold hidden">Copiat!</span>
+  </div>
+
+  <div class="flex flex-wrap gap-3 mb-10">
+    <button onclick="restart()" class="press bg-white border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase">Refă testul</button>
+    <a href="v3.html" class="press bg-neon border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase inline-block">Încearcă Varianta C →</a>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ============ DATA MODEL ============
+   6 archetypes, each question is a scenario.
+   Each option contributes points to TWO archetypes (primary +2, secondary +1).
+   This reduces noise and lets a single answer encode a blend (e.g. "builder who also helps").
+*/
+
+const ARCHETYPES = {
+  constructor: {
+    title: "Constructorul",
+    tagline: "Rezolvi cu mâinile. Dacă nu merge, îl desfaci.",
+    desc: "Te atrag lucrurile concrete — mecanică, structuri, tehnologie aplicată. Preferi să fixezi decât să dezbați. Ai intuiție pentru cum funcționează lucrurile.",
+    color: "#6b38d4"
+  },
+  analist: {
+    title: "Analistul",
+    tagline: "Dacă ceva nu are logică, îți strică ziua.",
+    desc: "Vrei să înțelegi cauzele, nu simptomele. Ai răbdare cu datele, probleme grele și întrebări deschise. Te enervează răspunsurile ușoare.",
+    color: "#6b38d4"
+  },
+  ajutor: {
+    title: "Ajutorul",
+    tagline: "Prietenii te sună primii când e rău.",
+    desc: "Ai antenă pentru oameni. Știi când cineva nu e ok înainte să spună. Îți place să lucrezi DIRECT cu oameni, nu din spatele unui ecran.",
+    color: "#6b38d4"
+  },
+  creator: {
+    title: "Creatorul",
+    tagline: "Ceva nou fiecare săptămână sau îți e rău.",
+    desc: "Gândești vizual / narativ / estetic. Ai un cheek pentru stil și un disconfort când lucrurile sunt generice. Vrei să semnezi ce faci.",
+    color: "#6b38d4"
+  },
+  leader: {
+    title: "Liderul",
+    tagline: "Dacă vrei să se întâmple, îl faci să se întâmple.",
+    desc: "Mișcă lucrurile. Ai energie pentru convins oameni, structurat planuri, luat decizii sub presiune. Te plictisește executarea, te prinde strategia.",
+    color: "#6b38d4"
+  },
+  explorator: {
+    title: "Exploratorul",
+    tagline: "Un subiect nou la 2 săptămâni, altfel te plictisești.",
+    desc: "Curios la extrem, rapid, versatil. Te descurci în medii noi și ambigue. Nu ești cel mai organizat, dar ești cel mai adaptabil.",
+    color: "#6b38d4"
+  }
+};
+
+const QUESTIONS = [
+  {
+    q: "Sâmbătă, 17:00. Patru prieteni îți scriu în aceeași secundă. Cui răspunzi primul?",
+    opts: [
+      { t: "Andrei: mi s-a stricat bicicleta, poți să mă ajuți s-o repar?", s: { constructor:2, ajutor:1 } },
+      { t: "Maria: am o idee nouă pentru TikTok, vreau părerea ta", s: { creator:2, explorator:1 } },
+      { t: "Vlad: ajută-mă la tema de mate, nu înțeleg ultimul exercițiu", s: { analist:2, ajutor:1 } },
+      { t: "Dana: organizăm ceva la mine vineri, vii să-mi spui cum?", s: { leader:2, explorator:1 } }
+    ]
+  },
+  {
+    q: "Ești la un festival. După 2 ore, te surprinzi că te uiți la…",
+    opts: [
+      { t: "Cum e construită scena — cabluri, structuri, light rig", s: { constructor:2, analist:1 } },
+      { t: "Cum reacționează oamenii la muzică — pattern-uri, energia din mulțime", s: { analist:2, ajutor:1 } },
+      { t: "La cei care par că nu se distrează — și te gândești că ai putea să-i ajuți", s: { ajutor:2, leader:1 } },
+      { t: "Light show-ul, costumele, regia vizuală — vreau să știu cine a făcut-o", s: { creator:2, explorator:1 } }
+    ]
+  },
+  {
+    q: "Proiect extra de clasă. Ce rol îți asumi natural, fără să-ți ceară nimeni?",
+    opts: [
+      { t: "Fac partea tehnică — tot ce trebuie construit, pus la punct, testat", s: { constructor:2, explorator:1 } },
+      { t: "Caut surse, verific faptele, aranjez logica argumentelor", s: { analist:2, leader:1 } },
+      { t: "Scriu, desenez, fac prezentarea arătoasă", s: { creator:2, ajutor:1 } },
+      { t: "Coordonez: cine face ce, când, cu ce deadline", s: { leader:2, explorator:1 } }
+    ]
+  },
+  {
+    q: "Netflix îți recomandă 4 genuri. Care te prinde cel mai tare pe termen lung?",
+    opts: [
+      { t: "Documentare science / cum funcționează lucrurile", s: { analist:2, constructor:1 } },
+      { t: "True crime / drame sociale / psihologie", s: { ajutor:2, analist:1 } },
+      { t: "Sport, arte marțiale, action — mișcare pură", s: { constructor:2, leader:1 } },
+      { t: "Filme vizuale, aesthetic, modă, design — orice cu ochi", s: { creator:2, explorator:1 } }
+    ]
+  },
+  {
+    q: "Primești 500 de lei neașteptați. Prima reacție?",
+    opts: [
+      { t: "Cumpăr un tool pe care-l voiam demult și pe care o să-l folosesc des", s: { constructor:2, explorator:1 } },
+      { t: "Îi pun deoparte și caut un curs online care chiar m-ar ajuta", s: { analist:2, leader:1 } },
+      { t: "Îi cheltui cu prietenii — experiență, nu lucruri", s: { ajutor:2, creator:1 } },
+      { t: "Ceva de stil — haine, o piesă, un tatuaj mic", s: { creator:2, leader:1 } }
+    ]
+  },
+  {
+    q: "Clasă nouă, primele 2 săptămâni. Unde te vezi în dinamica ei?",
+    opts: [
+      { t: "Cel care stă cu 2-3 oameni și ascultă înainte să vorbească", s: { analist:2, explorator:1 } },
+      { t: "Cel care face o glumă bună și rupe gheața", s: { creator:2, leader:1 } },
+      { t: "Cel care observă cine e marginalizat și se apropie", s: { ajutor:2, constructor:1 } },
+      { t: "Cel care se face observat rapid, prieten cu toată lumea", s: { leader:2, ajutor:1 } }
+    ]
+  },
+  {
+    q: "Jobul ideal de vară. Pe care-l alegi?",
+    opts: [
+      { t: "Ajut la un atelier — repar, construiesc, învăț o meserie", s: { constructor:2, ajutor:1 } },
+      { t: "Asistent într-un laborator sau la un ONG — research, date, raportare", s: { analist:2, ajutor:1 } },
+      { t: "Monitor la o tabără — îi ajut pe copii să aibă o săptămână bună", s: { ajutor:2, leader:1 } },
+      { t: "Creez conținut pentru un brand local — reels, postere, strategii", s: { creator:2, leader:1 } }
+    ]
+  },
+  {
+    q: "Cel mai nervos te face când:",
+    opts: [
+      { t: "Ceva e făcut prost și nu vrea nimeni să corecteze", s: { constructor:2, analist:1 } },
+      { t: "Cineva susține ceva fără dovezi, și toată lumea îl crede", s: { analist:2, leader:1 } },
+      { t: "Cineva e tratat nedrept și nu intervine nimeni", s: { ajutor:2, leader:1 } },
+      { t: "Un proiect fain e ratat pentru că n-a condus nimeni", s: { leader:2, explorator:1 } }
+    ]
+  },
+  {
+    q: "Zi liberă completă. Fără școală, fără planuri, telefonul descărcat. Ce faci?",
+    opts: [
+      { t: "Mă apuc de un proiect manual — ceva cu rezultat tangibil", s: { constructor:2, creator:1 } },
+      { t: "Citesc ceva lung — o carte, 3 articole care mă interesează demult", s: { analist:2, explorator:1 } },
+      { t: "Sun un prieten și ieșim — pur și simplu să vorbim", s: { ajutor:2, leader:1 } },
+      { t: "Desenez / scriu / fac muzică / orice formă creativă", s: { creator:2, explorator:1 } }
+    ]
+  },
+  {
+    q: "La interviu pentru un internship, te întreabă „care e slăbiciunea ta”. Onest?",
+    opts: [
+      { t: "Mă grăbesc să fac, înainte să gândesc tot", s: { constructor:2, leader:1 } },
+      { t: "Overthink — analizez prea mult înainte să decid", s: { analist:2, explorator:1 } },
+      { t: "Zic da prea ușor când cineva cere ajutor, și mă supraîncarc", s: { ajutor:2, creator:1 } },
+      { t: "Mă plictisesc repede de rutină și pierd focus", s: { explorator:2, creator:1 } }
+    ]
+  },
+  {
+    q: "Ți se oferă 2 stagii în aceeași vară. Unul plătit bine, altul neplătit dar mișto. Cum alegi?",
+    opts: [
+      { t: "Plătitul — banul meu e banul meu, reality check", s: { constructor:2, explorator:1 } },
+      { t: "Fac o listă pro/contra, iau decizia la rece", s: { analist:2, explorator:1 } },
+      { t: "Cel cu echipa mai ok, chimie, mai puțin stresant", s: { ajutor:2, creator:1 } },
+      { t: "Cel cu mai mult potențial de învățare și conexiuni", s: { leader:2, analist:1 } }
+    ]
+  },
+  {
+    q: "Peste 10 ani, visul tău ar suna cel mai mult ca:",
+    opts: [
+      { t: "Am o firmă/atelier care rezolvă o problemă concretă, bine", s: { constructor:2, leader:1 } },
+      { t: "Sunt expert în domeniul meu. Oamenii mă caută pentru analize și răspunsuri.", s: { analist:2, creator:1 } },
+      { t: "Am impact direct — oamenii pe care-i ajut trăiesc mai bine", s: { ajutor:2, leader:1 } },
+      { t: "Am construit ceva al meu — un brand, o organizație, îmi port viziunea", s: { leader:2, creator:1 } }
+    ]
+  }
+];
+
+/* ======== PROGRAM SUGGESTIONS BY ARCHETYPE ========
+   Realistic Romanian programs mapped to each archetype's top-3 fit.
+   Cross-references UPB, UBB, UAIC, UMF, ASE etc. */
+
+const PROGRAMS = {
+  constructor: [
+    { name: "Inginerie Mecanică", uni: "UPT / UPB / UTCN", note: "Bac profil real, medie ~7-8" },
+    { name: "Automatică & Informatică Aplicată", uni: "UPB / UAIC / UTCN", note: "Medie de intrare 8+" },
+    { name: "Construcții Civile", uni: "UTCB / UPT / UAIC", note: "Piață stabilă în România" },
+    { name: "Electronica Aplicată", uni: "UPB / ETTI", note: "Cerere mare pe piața tech" }
+  ],
+  analist: [
+    { name: "Matematică / Informatică", uni: "UBB / UAIC / UniBuc", note: "Profil mate-info, medie 8+" },
+    { name: "Științe Economice (Finanțe / Econometrie)", uni: "ASE / UBB / UAIC", note: "Ruta analist financiar" },
+    { name: "Biologie / Biochimie", uni: "UBB / UAIC", note: "Research, laborator, cercetare" },
+    { name: "Psihologie (profil research)", uni: "UBB / UniBuc", note: "Dacă vrei research, nu clinic" }
+  ],
+  ajutor: [
+    { name: "Medicină Generală", uni: "UMF Cluj / Iași / București", note: "Admitere grea — Bac cu bio + chim" },
+    { name: "Psihologie (profil clinic)", uni: "UBB / UniBuc / UAIC", note: "Medie 8+, pasiune obligatorie" },
+    { name: "Asistență Socială", uni: "UAIC / UBB", note: "Program subapreciat, cerere mare" },
+    { name: "Kinetoterapie", uni: "UMF / UVT", note: "Mix fizic + ajutor" }
+  ],
+  creator: [
+    { name: "Design (UX / Grafic / Industrial)", uni: "UNAB / UNA / UAD", note: "Portofoliu > note" },
+    { name: "Arhitectură", uni: "UAUIM / UTCN", note: "Admitere cu desen + mate" },
+    { name: "Comunicare & Jurnalism", uni: "SNSPA / UBB / UniBuc", note: "Bază pentru strategie de brand" },
+    { name: "Regie / Film / Animație", uni: "UNATC / UNA", note: "Probe practice, portofoliu" }
+  ],
+  leader: [
+    { name: "Management / Business Administration", uni: "ASE / UBB / UAIC", note: "Cea mai largă poartă în business" },
+    { name: "Relații Internaționale & Studii Europene", uni: "SNSPA / UBB", note: "Pentru viziune + diplomație" },
+    { name: "Drept", uni: "UBB / UniBuc / UAIC", note: "Admitere competitivă, profil uman+mate" },
+    { name: "Marketing / PR", uni: "ASE / SNSPA", note: "Dacă vrei să construiești brand-uri" }
+  ],
+  explorator: [
+    { name: "Studii Liberale (Liberal Arts)", uni: "UBB / UAIC (Filologie)", note: "Multidisciplinar, flexibil" },
+    { name: "Informatică (dublu specializare)", uni: "UBB / UAIC", note: "Skill universal, poartă în orice" },
+    { name: "Geografie / Studii Culturale", uni: "UBB / UniBuc", note: "Amplu, interdisciplinar" },
+    { name: "Științe Politice", uni: "UBB / SNSPA / UniBuc", note: "Orientare umanistă + analitică" }
+  ]
+};
+
+/* ============ STATE & LOGIC ============ */
+
+const state = {
+  current: 0,
+  scores: { constructor:0, analist:0, ajutor:0, creator:0, leader:0, explorator:0 },
+  answers: [],
+  feedback: null,
+  variant: "B"
+};
+
+function $(id) { return document.getElementById(id); }
+function show(id) {
+  ["scr-intro","scr-quiz","scr-feedback","scr-results"].forEach(s => $(s).classList.add("hidden-screen"));
+  $(id).classList.remove("hidden-screen");
+  $(id).classList.remove("slide-in");
+  void $(id).offsetWidth;
+  $(id).classList.add("slide-in");
+  window.scrollTo(0,0);
+}
+
+function start() {
+  state.current = 0;
+  state.scores = { constructor:0, analist:0, ajutor:0, creator:0, leader:0, explorator:0 };
+  state.answers = [];
+  renderQuestion();
+  show("scr-quiz");
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[state.current];
+  $("q-num").textContent = state.current + 1;
+  $("q-fill").style.width = (((state.current + 1) / QUESTIONS.length) * 100) + "%";
+  $("q-text").textContent = q.q;
+
+  const opts = $("q-options");
+  opts.innerHTML = "";
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "press text-left bg-white border-2 border-black shadow-neo-4 p-4 flex items-center gap-3 hover:bg-primary-dim transition-all";
+    btn.innerHTML = `
+      <span class="display font-black text-lg w-9 h-9 bg-primary text-white border-2 border-black rounded-full flex items-center justify-center shrink-0">${String.fromCharCode(65+i)}</span>
+      <span class="text-base md:text-lg">${opt.t}</span>
+    `;
+    btn.onclick = () => choose(i);
+    opts.appendChild(btn);
+  });
+}
+
+function choose(i) {
+  const q = QUESTIONS[state.current];
+  const weights = q.opts[i].s;
+  for (const k in weights) state.scores[k] += weights[k];
+  state.answers.push(i);
+  state.current++;
+  if (state.current < QUESTIONS.length) {
+    renderQuestion();
+  } else {
+    showFeedbackScreen();
+  }
+}
+
+function back() {
+  if (state.current === 0) return show("scr-intro");
+  state.current--;
+  const lastIdx = state.answers.pop();
+  const lastWeights = QUESTIONS[state.current].opts[lastIdx].s;
+  for (const k in lastWeights) state.scores[k] -= lastWeights[k];
+  renderQuestion();
+}
+
+function topThree() {
+  return Object.entries(state.scores)
+    .sort((a,b) => b[1]-a[1])
+    .slice(0,3)
+    .map(([k,v]) => ({ key:k, value:v, ...ARCHETYPES[k] }));
+}
+
+function showFeedbackScreen() {
+  const top = topThree();
+  const container = $("fb-options");
+  container.innerHTML = "";
+  top.forEach((t, i) => {
+    const card = document.createElement("button");
+    card.className = "press text-left bg-white border-2 border-black shadow-neo-4 p-4 hover:bg-yellow transition-all";
+    card.innerHTML = `
+      <div class="flex items-start gap-3">
+        <span class="display font-black text-2xl w-10 h-10 bg-primary text-white border-2 border-black flex items-center justify-center shrink-0">${i+1}</span>
+        <div>
+          <p class="display font-black text-lg uppercase">${t.title}</p>
+          <p class="text-sm text-on-surface-variant italic mb-1">${t.tagline}</p>
+          <p class="text-sm">${t.desc}</p>
+        </div>
+      </div>
+    `;
+    card.onclick = () => {
+      state.feedback = t.key;
+      saveResults(top);
+      showResults(top);
+    };
+    container.appendChild(card);
+  });
+
+  // Add "none of these feel right" option
+  const noneCard = document.createElement("button");
+  noneCard.className = "press text-left bg-surface-container border-2 border-black shadow-neo-2 p-4 hover:bg-surface-container-high transition-all";
+  noneCard.innerHTML = `<span class="display font-black text-sm uppercase">Niciuna nu-mi sună ca mine</span><span class="text-xs block text-on-surface-variant mt-1">E util să știm și asta.</span>`;
+  noneCard.onclick = () => {
+    state.feedback = "none";
+    saveResults(top);
+    showResults(top);
+  };
+  container.appendChild(noneCard);
+
+  show("scr-feedback");
+}
+
+function saveResults(top) {
+  const record = {
+    variant: state.variant,
+    timestamp: new Date().toISOString(),
+    top1: top[0].key,
+    top2: top[1].key,
+    top3: top[2].key,
+    chosen: state.feedback,
+    scores: { ...state.scores },
+    answers: [...state.answers]
+  };
+  try {
+    const all = JSON.parse(localStorage.getItem("cesafiu_results") || "[]");
+    all.push(record);
+    localStorage.setItem("cesafiu_results", JSON.stringify(all));
+  } catch(e) { console.warn("localStorage write failed", e); }
+}
+
+function showResults(top) {
+  // normalize percentages (based on max possible for that archetype ~24; use scaled)
+  const maxSum = top[0].value;
+  const sum = top.reduce((a,t) => a+t.value, 0);
+
+  const topBox = $("r-top");
+  topBox.innerHTML = "";
+  top.forEach((t, i) => {
+    const pct = Math.round((t.value / sum) * 100);
+    const card = document.createElement("div");
+    card.className = i === 0
+      ? "bg-primary text-white border-2 border-black shadow-neo-8 p-5"
+      : "bg-white border-2 border-black shadow-neo-4 p-5";
+    card.innerHTML = `
+      <div class="flex items-center gap-3 mb-2">
+        <span class="display font-black text-3xl">${i+1}</span>
+        <span class="display font-black text-2xl uppercase flex-1">${t.title}</span>
+        <span class="display font-black text-xl bg-yellow text-black border-2 border-black px-2 py-1">${pct}%</span>
+      </div>
+      <p class="text-sm italic mb-1 ${i===0?'text-primary-dim':'text-on-surface-variant'}">${t.tagline}</p>
+      <p class="text-sm ${i===0?'text-white':''}">${t.desc}</p>
+    `;
+    topBox.appendChild(card);
+  });
+
+  // Programs — draw from top 2 archetypes, mix
+  const progBox = $("r-programs");
+  progBox.innerHTML = "";
+  const picks = [
+    ...PROGRAMS[top[0].key].slice(0,2).map(p => ({ ...p, tag: top[0].title })),
+    ...PROGRAMS[top[1].key].slice(0,2).map(p => ({ ...p, tag: top[1].title })),
+    ...PROGRAMS[top[2].key].slice(0,1).map(p => ({ ...p, tag: top[2].title }))
+  ];
+  picks.forEach(p => {
+    const row = document.createElement("div");
+    row.className = "border-2 border-black p-3 bg-surface-container";
+    row.innerHTML = `
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <p class="display font-black text-base">${p.name}</p>
+          <p class="text-xs text-on-surface-variant">${p.uni} — ${p.note}</p>
+        </div>
+        <span class="display font-black text-[10px] uppercase bg-yellow border-2 border-black px-2 py-0.5 shrink-0">${p.tag}</span>
+      </div>
+    `;
+    progBox.appendChild(row);
+  });
+
+  $("r-share-top").textContent = top[0].title;
+  $("r-share-pct").textContent = Math.round((top[0].value / sum) * 100);
+
+  show("scr-results");
+}
+
+function copyShare() {
+  const top = topThree();
+  const sum = top.reduce((a,t) => a+t.value, 0);
+  const pct = Math.round((top[0].value / sum) * 100);
+  const text = `Eu sunt ${pct}% ${top[0].title}. Ce să fiu? Află la cesafiu.ro`;
+  navigator.clipboard.writeText(text).then(() => {
+    $("copied").classList.remove("hidden");
+    setTimeout(() => $("copied").classList.add("hidden"), 2000);
+  });
+}
+
+function restart() {
+  start();
+}
+</script>
+</body>
+</html>

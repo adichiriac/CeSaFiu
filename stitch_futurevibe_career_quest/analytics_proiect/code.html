@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ro"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ce Să Fiu? - Panou Control Proiect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#494454",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#ece8e0",
+                    "tertiary-container": "#caa900",
+                    "surface-bright": "#fef9f1",
+                    "primary-fixed": "#e9ddff",
+                    "on-tertiary-container": "#4c3f00",
+                    "primary-fixed-dim": "#d0bcff",
+                    "surface-container-low": "#f8f3eb",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#a9f900",
+                    "tertiary-fixed": "#ffe170",
+                    "outline-variant": "#cbc3d7",
+                    "on-secondary": "#ffffff",
+                    "background": "#fef9f1",
+                    "on-secondary-fixed-variant": "#334f00",
+                    "on-primary-fixed-variant": "#5516be",
+                    "on-background": "#1d1c17",
+                    "outline": "#7b7486",
+                    "primary-container": "#8455ef",
+                    "tertiary": "#705d00",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#ded9d2",
+                    "surface-container": "#f2ede5",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e7e2da",
+                    "surface": "#fef9f1",
+                    "on-secondary-fixed": "#121f00",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#e9c400",
+                    "surface-tint": "#6d3bd7",
+                    "inverse-primary": "#d0bcff",
+                    "on-primary-fixed": "#23005c",
+                    "on-surface": "#1d1c17",
+                    "on-primary-container": "#fffbff",
+                    "on-tertiary-fixed-variant": "#544600",
+                    "on-secondary-container": "#486d00",
+                    "surface-variant": "#e7e2da",
+                    "primary": "#6b38d4",
+                    "inverse-surface": "#32302b",
+                    "secondary-fixed-dim": "#94db00",
+                    "secondary": "#456800",
+                    "inverse-on-surface": "#f5f0e8",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#221b00",
+                    "secondary-container": "#a7f600"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "64px",
+                    "lg": "40px",
+                    "base": "8px",
+                    "sm": "12px",
+                    "gutter": "16px",
+                    "margin-desktop": "120px",
+                    "md": "24px",
+                    "xs": "4px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "headline-md": [
+                            "Epilogue"
+                    ],
+                    "label-sm": [
+                            "Be Vietnam Pro"
+                    ],
+                    "headline-lg": [
+                            "Epilogue"
+                    ],
+                    "headline-xl": [
+                            "Epilogue"
+                    ],
+                    "body-md": [
+                            "Be Vietnam Pro"
+                    ],
+                    "body-lg": [
+                            "Be Vietnam Pro"
+                    ],
+                    "label-bold": [
+                            "Be Vietnam Pro"
+                    ]
+            },
+            "fontSize": {
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "headline-xl": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-bold": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 border-b-4 border-black bg-white dark:bg-zinc-900 z-40 sticky">
+<div class="flex justify-between items-center w-full px-6 py-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+<button class="flex items-center justify-center p-2 hover:bg-yellow-400 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none border-2 border-transparent rounded-full focus:outline-none focus:border-black">
+<span class="material-symbols-outlined text-black dark:text-zinc-400" data-icon="flag">flag</span>
+</button>
+<div class="text-2xl font-black text-black dark:text-white uppercase font-['Epilogue'] tracking-tighter">
+                VIITORUL TĂU
+            </div>
+<button class="flex items-center justify-center p-2 hover:bg-yellow-400 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none border-2 border-transparent rounded-full focus:outline-none focus:border-black">
+<span class="material-symbols-outlined text-black dark:text-zinc-400" data-icon="language">language</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-lg pb-[100px] md:pb-lg flex flex-col gap-lg">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-sm mb-md">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-background uppercase">PANOU CONTROL PROIECT</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Dă-i bătaie! Iată cum stăm cu quiz-ul.</p>
+</div>
+<button class="bg-primary text-on-primary border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] px-6 py-3 font-label-bold text-label-bold uppercase hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px]">
+                Descarcă Raport
+            </button>
+</div>
+<!-- Bento Grid Stats -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Stat Card 1: Total Completari -->
+<div class="md:col-span-4 bg-tertiary-fixed border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-md flex flex-col justify-between relative overflow-hidden group hover:-translate-y-1 transition-transform">
+<div class="flex justify-between items-start mb-lg relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-tertiary-fixed">Total Completări</h3>
+<div class="bg-white border-2 border-black rounded-full p-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+<span class="material-symbols-outlined text-secondary font-bold" data-icon="trending_up">trending_up</span>
+</div>
+</div>
+<div class="relative z-10">
+<span class="font-headline-xl text-[64px] leading-none font-black text-on-tertiary-fixed">1,240</span>
+<div class="mt-2 inline-flex items-center gap-1 bg-white px-2 py-1 border-2 border-black font-label-bold text-label-bold text-secondary shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rotate-[-2deg]">
+                        +15% săptămâna asta
+                    </div>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-[120px] text-tertiary-fixed-dim opacity-50 z-0 rotate-12" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<!-- Stat Card 2: Viralitate -->
+<div class="md:col-span-4 bg-primary-fixed border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-md flex flex-col justify-between relative overflow-hidden group hover:-translate-y-1 transition-transform">
+<div class="flex justify-between items-start mb-lg relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-primary-fixed">Rata de Viralitate</h3>
+<div class="bg-white border-2 border-black rounded-full p-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+<span class="material-symbols-outlined text-primary font-bold" data-icon="share">share</span>
+</div>
+</div>
+<div class="relative z-10">
+<span class="font-headline-xl text-[64px] leading-none font-black text-on-primary-fixed">2.4x</span>
+<div class="mt-2 inline-flex items-center gap-1 bg-white px-2 py-1 border-2 border-black font-label-bold text-label-bold text-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rotate-[2deg]">
+                        Super hot 🔥
+                    </div>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-[120px] text-primary-fixed-dim opacity-50 z-0 -rotate-12" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<!-- Top Facultati List -->
+<div class="md:col-span-4 bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-md flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md">Top 3 Facultăți</h3>
+<ul class="flex flex-col gap-sm flex-grow">
+<li class="flex items-center justify-between p-3 border-2 border-black bg-surface-container hover:bg-secondary-fixed transition-colors group">
+<div class="flex items-center gap-3">
+<span class="font-headline-md text-headline-md font-black text-outline">1</span>
+<span class="font-body-lg text-body-lg font-bold">Automatică / IT</span>
+</div>
+<span class="font-label-bold text-label-bold bg-white px-2 py-1 border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] group-hover:bg-secondary group-hover:text-white">450</span>
+</li>
+<li class="flex items-center justify-between p-3 border-2 border-black bg-surface-container hover:bg-tertiary-fixed transition-colors group">
+<div class="flex items-center gap-3">
+<span class="font-headline-md text-headline-md font-black text-outline">2</span>
+<span class="font-body-lg text-body-lg font-bold">Psihologie</span>
+</div>
+<span class="font-label-bold text-label-bold bg-white px-2 py-1 border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] group-hover:bg-tertiary group-hover:text-white">320</span>
+</li>
+<li class="flex items-center justify-between p-3 border-2 border-black bg-surface-container hover:bg-primary-fixed transition-colors group">
+<div class="flex items-center gap-3">
+<span class="font-headline-md text-headline-md font-black text-outline">3</span>
+<span class="font-body-lg text-body-lg font-bold">Economie / FSEGA</span>
+</div>
+<span class="font-label-bold text-label-bold bg-white px-2 py-1 border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] group-hover:bg-primary group-hover:text-white">215</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Main Content Area: Charts & Referrals -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Archetypes Chart Area -->
+<div class="md:col-span-8 bg-white border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-md flex flex-col min-h-[400px]">
+<div class="flex justify-between items-center mb-md border-b-2 border-black pb-sm">
+<h2 class="font-headline-lg text-headline-lg uppercase">Arhetipuri Cariere</h2>
+<span class="material-symbols-outlined text-3xl" data-icon="bar_chart">bar_chart</span>
+</div>
+<!-- CSS Bar Chart -->
+<div class="flex-grow flex items-end gap-2 sm:gap-4 pt-lg relative">
+<!-- Y Axis Line -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-black z-10"></div>
+<!-- X Axis Line -->
+<div class="absolute left-0 bottom-0 right-0 h-1 bg-black z-10"></div>
+<!-- Bars -->
+<div class="flex-1 flex flex-col justify-end items-center group">
+<span class="font-label-bold text-label-bold mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white px-2 py-1 rounded-sm text-[10px] whitespace-nowrap">Creator: 35%</span>
+<div class="w-full bg-secondary-fixed border-2 border-black border-b-0 h-[70%] group-hover:bg-secondary-fixed-dim transition-colors relative">
+<div class="absolute top-0 left-0 w-full h-full bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(0,0,0,0.05)_10px,rgba(0,0,0,0.05)_20px)]"></div>
+</div>
+<span class="font-label-bold text-label-bold mt-2 truncate max-w-full text-xs">Creator</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center group">
+<span class="font-label-bold text-label-bold mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white px-2 py-1 rounded-sm text-[10px] whitespace-nowrap">Analist: 25%</span>
+<div class="w-full bg-primary-fixed border-2 border-black border-b-0 h-[50%] group-hover:bg-primary-fixed-dim transition-colors relative"></div>
+<span class="font-label-bold text-label-bold mt-2 truncate max-w-full text-xs">Analist</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center group">
+<span class="font-label-bold text-label-bold mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white px-2 py-1 rounded-sm text-[10px] whitespace-nowrap">Lider: 20%</span>
+<div class="w-full bg-tertiary-fixed border-2 border-black border-b-0 h-[40%] group-hover:bg-tertiary-fixed-dim transition-colors relative"></div>
+<span class="font-label-bold text-label-bold mt-2 truncate max-w-full text-xs">Lider</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center group">
+<span class="font-label-bold text-label-bold mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white px-2 py-1 rounded-sm text-[10px] whitespace-nowrap">Vindecător: 15%</span>
+<div class="w-full bg-[#f87171] border-2 border-black border-b-0 h-[30%] group-hover:bg-[#ef4444] transition-colors relative"></div>
+<span class="font-label-bold text-label-bold mt-2 truncate max-w-full text-xs">Vindecător</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center group">
+<span class="font-label-bold text-label-bold mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white px-2 py-1 rounded-sm text-[10px] whitespace-nowrap">Tehnician: 5%</span>
+<div class="w-full bg-outline-variant border-2 border-black border-b-0 h-[10%] group-hover:bg-outline transition-colors relative"></div>
+<span class="font-label-bold text-label-bold mt-2 truncate max-w-full text-xs">Tehnician</span>
+</div>
+</div>
+</div>
+<!-- Referrals Table Area -->
+<div class="md:col-span-4 bg-surface-container-high border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col relative">
+<div class="bg-black text-white p-4 flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md uppercase">Top Referrers</h2>
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+</div>
+<div class="p-sm flex-grow overflow-hidden flex flex-col gap-2">
+<!-- Referral Item -->
+<div class="bg-white border-2 border-black p-3 flex justify-between items-center hover:translate-x-1 transition-transform">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-tertiary-fixed rounded-full border-2 border-black flex items-center justify-center font-bold font-headline-md">A</div>
+<span class="font-body-lg text-body-lg font-bold">Andrei</span>
+</div>
+<div class="bg-black text-white px-3 py-1 font-label-bold text-label-bold rotate-[2deg] shadow-[2px_2px_0px_0px_rgba(202,169,0,1)]">
+                            15 invites
+                        </div>
+</div>
+<!-- Referral Item -->
+<div class="bg-white border-2 border-black p-3 flex justify-between items-center hover:translate-x-1 transition-transform">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-fixed rounded-full border-2 border-black flex items-center justify-center font-bold font-headline-md">M</div>
+<span class="font-body-lg text-body-lg font-bold">Maria</span>
+</div>
+<div class="bg-black text-white px-3 py-1 font-label-bold text-label-bold -rotate-[1deg] shadow-[2px_2px_0px_0px_rgba(107,56,212,1)]">
+                            12 invites
+                        </div>
+</div>
+<!-- Referral Item -->
+<div class="bg-white border-2 border-black p-3 flex justify-between items-center hover:translate-x-1 transition-transform">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-secondary-fixed rounded-full border-2 border-black flex items-center justify-center font-bold font-headline-md">E</div>
+<span class="font-body-lg text-body-lg font-bold">Elena</span>
+</div>
+<div class="bg-black text-white px-3 py-1 font-label-bold text-label-bold rotate-[3deg] shadow-[2px_2px_0px_0px_rgba(69,104,0,1)]">
+                            8 invites
+                        </div>
+</div>
+<!-- Referral Item -->
+<div class="bg-white border-2 border-black p-3 flex justify-between items-center hover:translate-x-1 transition-transform opacity-70">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-variant rounded-full border-2 border-black flex items-center justify-center font-bold font-headline-md">V</div>
+<span class="font-body-lg text-body-lg font-bold">Vlad</span>
+</div>
+<div class="bg-outline text-white px-3 py-1 font-label-bold text-label-bold">
+                            5 invites
+                        </div>
+</div>
+</div>
+<button class="w-full py-4 bg-white border-t-2 border-black font-label-bold text-label-bold uppercase hover:bg-surface-variant transition-colors flex items-center justify-center gap-2">
+                    Vezi toată lista <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-white dark:bg-zinc-900 pb-safe border-t-4 border-black">
+<button class="flex flex-col items-center justify-center text-black dark:text-white p-2 hover:bg-green-400 dark:hover:bg-green-500 active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="rocket_launch">rocket_launch</span>
+<span class="font-['Epilogue'] font-bold text-[10px] uppercase">START</span>
+</button>
+<button class="flex flex-col items-center justify-center text-black dark:text-white p-2 hover:bg-green-400 dark:hover:bg-green-500 active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-['Epilogue'] font-bold text-[10px] uppercase">ARHETIPURI</span>
+</button>
+<button class="flex flex-col items-center justify-center text-black dark:text-white p-2 hover:bg-green-400 dark:hover:bg-green-500 active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-['Epilogue'] font-bold text-[10px] uppercase">PROFIL</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-violet-600 text-white p-2 rounded-md border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-['Epilogue'] font-bold text-[10px] uppercase text-violet-600 font-black text-white">ADMIN</span>
+</button>
+</nav>
+</body></html>

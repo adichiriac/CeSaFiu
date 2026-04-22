@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Ce Să Fiu? — Varianta C · Trei Lentile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Epilogue:wght@700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      surface:"#fef9f1", "surface-container":"#f2ede5", "surface-container-high":"#ece8e0",
+      "on-surface":"#1d1c17", "on-surface-variant":"#494454",
+      primary:"#6b38d4", "primary-dim":"#d0bcff",
+      neon:"#a9f900", yellow:"#ffe170", "yellow-dim":"#caa900",
+      ink:"#1d1c17"
+    },
+    fontFamily: { display:["Epilogue","sans-serif"], body:["'Be Vietnam Pro'","sans-serif"] },
+    boxShadow: { "neo-2":"2px 2px 0 0 #000", "neo-4":"4px 4px 0 0 #000", "neo-8":"8px 8px 0 0 #000" }
+  }}
+}
+</script>
+<style>
+  body { font-family:'Be Vietnam Pro',sans-serif; background:#fef9f1;
+    background-image:linear-gradient(#e7e2da 1px,transparent 1px),linear-gradient(90deg,#e7e2da 1px,transparent 1px);
+    background-size:32px 32px; }
+  h1,h2,h3,.display { font-family:'Epilogue',sans-serif; letter-spacing:-0.01em; }
+  .press:active { transform:translate(4px,4px); box-shadow:none !important; }
+  .hidden-screen { display:none; }
+  .slide-in { animation: slide .35s ease; }
+  @keyframes slide { from { transform:translateY(12px); opacity:0 } to { transform:translateY(0); opacity:1 } }
+  .lens-dot { display:inline-block; width:10px; height:10px; border:2px solid #000; }
+</style>
+</head>
+<body class="text-ink min-h-screen pb-24">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-white border-b-4 border-black px-5 py-3 flex justify-between items-center">
+  <a href="index.html" class="flex items-center gap-2">
+    <span class="inline-block w-7 h-7 bg-primary border-2 border-black rotate-[-6deg]"></span>
+    <span class="display font-black uppercase tracking-tighter text-lg">Ce Să Fiu?</span>
+  </a>
+  <span class="display text-xs font-black uppercase bg-neon border-2 border-black px-2 py-1 rotate-[2deg]">VARIANTA C</span>
+</header>
+
+<main class="max-w-3xl mx-auto px-5 md:px-8 pt-6">
+
+<!-- ============== INTRO ============== -->
+<section id="scr-intro" class="slide-in">
+  <div class="inline-block bg-yellow border-2 border-black px-3 py-1 rotate-[-2deg] mb-4">
+    <span class="display font-black text-xs uppercase">#DeepDive · 15 întrebări · 7 min</span>
+  </div>
+  <h1 class="display text-4xl md:text-6xl font-black uppercase leading-[0.95] mb-4">
+    Nu un test.<br/>
+    <span class="bg-neon border-2 border-black inline-block px-2 rotate-[1deg]">Trei lentile.</span>
+  </h1>
+  <p class="text-lg text-on-surface-variant max-w-xl mb-6">
+    O carieră bună e triplu fit: ce te interesează × ce prețuiești × cum lucrezi. Testăm fiecare separat, apoi vedem unde se intersectează. Rezultatul nu e o etichetă — e o hartă.
+  </p>
+
+  <div class="grid gap-3 mb-6">
+    <div class="bg-white border-2 border-black shadow-neo-4 p-4">
+      <span class="display font-black text-xs uppercase text-primary">Lentila 1 · Interese</span>
+      <p class="display font-black text-xl mt-1">La ce lucruri te uiți de două ori?</p>
+      <p class="text-sm text-on-surface-variant">5 scenarii → identificăm tipul tău de curiozitate.</p>
+    </div>
+    <div class="bg-white border-2 border-black shadow-neo-4 p-4">
+      <span class="display font-black text-xs uppercase text-primary">Lentila 2 · Valori</span>
+      <p class="display font-black text-xl mt-1">Ce NU ai negocia niciodată?</p>
+      <p class="text-sm text-on-surface-variant">5 dileme → vedem ce prețuiești cu adevărat.</p>
+    </div>
+    <div class="bg-white border-2 border-black shadow-neo-4 p-4">
+      <span class="display font-black text-xs uppercase text-primary">Lentila 3 · Stil</span>
+      <p class="display font-black text-xl mt-1">Cum lucrezi tu la vârf?</p>
+      <p class="text-sm text-on-surface-variant">5 preferințe → ritm, structură, risc, focus, echipă.</p>
+    </div>
+  </div>
+
+  <button onclick="start()" class="press bg-primary text-white border-2 border-black shadow-neo-8 px-6 py-4 display font-black text-xl uppercase flex items-center gap-3 w-full md:w-auto">
+    Începe deep dive <span aria-hidden="true">→</span>
+  </button>
+  <p class="text-xs text-on-surface-variant mt-3 font-bold">Nicio înregistrare. Date locale, doar pe device-ul tău.</p>
+</section>
+
+<!-- ============== QUIZ ============== -->
+<section id="scr-quiz" class="hidden-screen">
+  <!-- Progress + Lens indicator -->
+  <div class="mb-5">
+    <div class="flex justify-between items-end mb-2">
+      <div class="flex items-center gap-2">
+        <span class="display font-black text-xs uppercase tracking-wider">Lentila</span>
+        <span id="q-lens-num" class="display font-black text-lg bg-primary text-white border-2 border-black px-2 py-0.5">1</span>
+        <span class="display font-black text-xs uppercase" id="q-lens-name">INTERESE</span>
+      </div>
+      <span class="display font-black text-lg bg-yellow border-2 border-black px-2 py-0.5 rotate-[2deg]">
+        <span id="q-num">1</span> / 15
+      </span>
+    </div>
+    <div class="w-full h-5 bg-surface-container-high border-2 border-black overflow-hidden relative">
+      <div id="q-fill" class="h-full bg-neon border-r-2 border-black" style="width:6.66%"></div>
+    </div>
+  </div>
+
+  <div class="bg-white border-2 border-black shadow-neo-4 p-5 mb-5">
+    <p id="q-kicker" class="display font-black text-xs uppercase tracking-wider text-primary mb-2">Întrebare</p>
+    <h2 id="q-text" class="display text-2xl md:text-3xl font-black leading-tight"></h2>
+  </div>
+
+  <div id="q-options" class="grid gap-3 mb-6"></div>
+
+  <button onclick="back()" class="text-sm display font-black uppercase text-on-surface-variant hover:text-primary">← Înapoi</button>
+</section>
+
+<!-- ============== LENS TRANSITION ============== -->
+<section id="scr-transition" class="hidden-screen">
+  <div class="bg-white border-2 border-black shadow-neo-8 p-6 md:p-10 text-center">
+    <div id="trans-badge" class="inline-block bg-neon border-2 border-black px-3 py-1 rotate-[-2deg] mb-4">
+      <span class="display font-black text-xs uppercase">LENTILA 1 COMPLETĂ</span>
+    </div>
+    <h2 id="trans-title" class="display text-3xl md:text-5xl font-black uppercase leading-[0.95] mb-3">Acum trecem la valori.</h2>
+    <p id="trans-desc" class="text-base text-on-surface-variant mb-6">5 dileme unde te forțăm să alegi. Nu există răspuns ușor.</p>
+    <button id="trans-btn" onclick="continueAfterTransition()" class="press bg-primary text-white border-2 border-black shadow-neo-4 px-6 py-3 display font-black text-lg uppercase">
+      Continuă →
+    </button>
+  </div>
+</section>
+
+<!-- ============== FEEDBACK (forced choice on which top-program feels right) ============== -->
+<section id="scr-feedback" class="hidden-screen">
+  <div class="inline-block bg-neon border-2 border-black px-3 py-1 rotate-[-1deg] mb-4">
+    <span class="display font-black text-xs uppercase">Pas util · 10 secunde</span>
+  </div>
+  <h2 class="display text-3xl md:text-5xl font-black uppercase leading-[0.95] mb-3">
+    Înainte să vezi harta...
+  </h2>
+  <p class="text-lg text-on-surface-variant mb-6">
+    Pe baza celor trei lentile, algoritmul tău a ales 3 programe care se potrivesc. Care îți sună cel mai mult ca tine? Așa știm dacă am nimerit.
+  </p>
+  <div id="fb-options" class="grid gap-3 mb-6"></div>
+  <p class="text-sm text-on-surface-variant">Răspunsul tău e salvat local — ne ajută să calibrăm algoritmul.</p>
+</section>
+
+<!-- ============== RESULTS ============== -->
+<section id="scr-results" class="hidden-screen">
+  <div class="inline-block bg-primary text-white border-2 border-black px-3 py-1 rotate-[-2deg] mb-3">
+    <span class="display font-black text-xs uppercase">HARTA TA · Varianta C</span>
+  </div>
+  <h2 class="display text-3xl md:text-5xl font-black uppercase leading-[0.95] mb-5">
+    Intersecția<br/><span class="bg-yellow border-2 border-black inline-block px-2 rotate-[1deg]">celor 3 lentile</span>
+  </h2>
+
+  <!-- THREE LENS SUMMARY -->
+  <div class="grid md:grid-cols-3 gap-3 mb-6">
+    <div class="bg-white border-2 border-black shadow-neo-4 p-4">
+      <p class="display font-black text-xs uppercase text-primary mb-2">LENTILA 1 · INTERESE</p>
+      <p id="r-interests-top" class="display font-black text-lg"></p>
+      <p id="r-interests-detail" class="text-sm text-on-surface-variant"></p>
+    </div>
+    <div class="bg-white border-2 border-black shadow-neo-4 p-4">
+      <p class="display font-black text-xs uppercase text-primary mb-2">LENTILA 2 · VALORI</p>
+      <p id="r-values-top" class="display font-black text-lg"></p>
+      <p id="r-values-detail" class="text-sm text-on-surface-variant"></p>
+    </div>
+    <div class="bg-white border-2 border-black shadow-neo-4 p-4">
+      <p class="display font-black text-xs uppercase text-primary mb-2">LENTILA 3 · STIL</p>
+      <p id="r-style-top" class="display font-black text-lg"></p>
+      <p id="r-style-detail" class="text-sm text-on-surface-variant"></p>
+    </div>
+  </div>
+
+  <!-- NARRATIVE -->
+  <div class="bg-yellow border-2 border-black shadow-neo-8 p-5 mb-6">
+    <p class="display font-black text-xs uppercase mb-3">ASTA ÎNSEAMNĂ:</p>
+    <p id="r-narrative" class="display text-xl md:text-2xl font-black leading-tight"></p>
+  </div>
+
+  <!-- PROGRAMS -->
+  <div class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6">
+    <h3 class="display font-black text-xl uppercase mb-3">Programe care ating toate cele 3 lentile</h3>
+    <div id="r-programs" class="grid gap-3"></div>
+    <p class="text-xs text-on-surface-variant mt-3">Potrivirea ține cont de interese × valori × stil. Verifică pragul de admitere pe site-ul universității.</p>
+  </div>
+
+  <!-- STYLE AXES DETAIL -->
+  <div class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6">
+    <h3 class="display font-black text-lg uppercase mb-3">Profilul tău de stil (cum lucrezi mai bine)</h3>
+    <div id="r-style-axes" class="grid gap-3"></div>
+  </div>
+
+  <div class="flex flex-wrap gap-3 mb-10">
+    <button onclick="restart()" class="press bg-white border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase">Refă testul</button>
+    <a href="v2.html" class="press bg-neon border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase inline-block">Încearcă Varianta B →</a>
+    <a href="test.html" class="press bg-primary text-white border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase inline-block">Vezi alte variante</a>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ================== DATA MODEL ==================
+   Three independent lenses. Each contributes to the compatibility engine.
+   - Interests (5 items, 6 archetypes): each option +2 primary, +1 secondary
+   - Values (5 items, 5 dimensions): each option +2 for one value
+   - Style (5 items, 5 axes): each item measures ONE axis on a 1-4 scale
+*/
+
+const INTEREST_LABELS = {
+  constructor: "Constructor", analist: "Analist", ajutor: "Ajutor",
+  creator: "Creator", leader: "Lider", explorator: "Explorator"
+};
+
+const VALUE_LABELS = {
+  stabilitate: "Stabilitate", impact: "Impact",
+  autonomie: "Autonomie", mastery: "Măiestrie", recunoastere: "Recunoaștere"
+};
+
+const STYLE_AXES = {
+  ritm:       { low: "Profund & lent",  high: "Rapid & multi" },
+  structura:  { low: "Ambiguitate ok",  high: "Reguli clare" },
+  colaborare: { low: "Solo",            high: "Echipă mare" },
+  risc:       { low: "Conservator",     high: "Aventurier" },
+  focus:      { low: "Subiecte variate", high: "Un singur subiect" }
+};
+
+const QUESTIONS = [
+  // ============= LENS 1: INTERESE (5) =============
+  { lens:"interese", q:"Citești ultimul paragraf al unei cărți pe care tocmai ai terminat-o. Ce te ține acolo?",
+    opts:[
+      { t:"Cum e construit sistemul din poveste (reguli, mecanici, strategie)", s:{constructor:2, analist:1} },
+      { t:"Cauzele psihologice ale personajelor — de ce fac ce fac", s:{analist:2, ajutor:1} },
+      { t:"Oamenii din jurul protagonistului și relațiile dintre ei", s:{ajutor:2, creator:1} },
+      { t:"Stilul autorului — cum e scrisă propoziția asta", s:{creator:2, explorator:1} }
+    ]},
+  { lens:"interese", q:"Scrollezi pe TikTok / YouTube. Algoritmul te servește... și te oprești la:",
+    opts:[
+      { t:"Clipuri care explică cum funcționează un motor / o clădire / o aplicație", s:{constructor:2, analist:1} },
+      { t:"Geopolitică, economie, povești lungi explicate",                         s:{analist:2, leader:1} },
+      { t:"Povești de viață, interviuri, storytelling cu oameni",                  s:{ajutor:2, creator:1} },
+      { t:"Artă, design, modă, arhitectură, stil — inspirație vizuală",            s:{creator:2, explorator:1} }
+    ]},
+  { lens:"interese", q:"Un prof îți propune 4 teme pentru anul ăsta. Pe care o alegi?",
+    opts:[
+      { t:"Construiește un prototip fizic pentru o problemă locală",              s:{constructor:2, leader:1} },
+      { t:"Analizează datele din ultimii 5 ani despre X și scrie un raport",       s:{analist:2, explorator:1} },
+      { t:"Intervievează 10 oameni și scrie despre experiențele lor",              s:{ajutor:2, creator:1} },
+      { t:"Creează o campanie multimedia care să miște o audiență",                s:{creator:2, leader:1} }
+    ]},
+  { lens:"interese", q:"La un târg de joburi, la ce stand te oprești cel mai mult?",
+    opts:[
+      { t:"Inginerie / construcții / tehnologie aplicată",                         s:{constructor:2, analist:1} },
+      { t:"Consultanță / analiză / cercetare",                                     s:{analist:2, leader:1} },
+      { t:"Educație / sănătate / ONG-uri / social work",                          s:{ajutor:2, explorator:1} },
+      { t:"Media / marketing / design / creative agencies",                        s:{creator:2, leader:1} }
+    ]},
+  { lens:"interese", q:"Alege orașul în care ți-ai vedea jobul ideal — ce te atrage la el?",
+    opts:[
+      { t:"Infrastructură: zone industriale, hub-uri tehnologice, producție",      s:{constructor:2, explorator:1} },
+      { t:"Universități, laboratoare, biblioteci, centre de cercetare",           s:{analist:2, ajutor:1} },
+      { t:"Comunități vii, ONG-uri, spitale, școli bune",                         s:{ajutor:2, leader:1} },
+      { t:"Scenă creativă: galerii, studiouri, cafenele, concerte",                s:{creator:2, explorator:1} }
+    ]},
+
+  // ============= LENS 2: VALORI (5) =============
+  { lens:"valori", q:"La un job, ce te-ar face să accepți chiar dacă salariul e mai mic cu 30%?",
+    opts:[
+      { t:"Să știu că pot avea contract pe perioadă nedeterminată, concediu medical, benefits", s:{val:{stabilitate:2}} },
+      { t:"Să simt că munca mea chiar schimbă ceva pentru oamenii din jur",               s:{val:{impact:2}} },
+      { t:"Să am libertate să-mi organizez timpul și să lucrez cum vreau eu",             s:{val:{autonomie:2}} },
+      { t:"Să învăț de la cei mai buni din domeniu, să devin expert",                     s:{val:{mastery:2}} }
+    ]},
+  { lens:"valori", q:"La o petrecere, cineva te întreabă: „Ce faci?” Ce răspuns ți-ar plăcea să dai peste 10 ani?",
+    opts:[
+      { t:"„Fac X de 8 ani într-o firmă solidă, câștig bine, am familie, totul e stabil.”", s:{val:{stabilitate:2}} },
+      { t:"„Lucrez pe un proiect care chiar ajută X oameni/animale/mediul.”",              s:{val:{impact:2}} },
+      { t:"„Sunt cunoscut pentru X. Oamenii mă caută pentru că sunt cel mai bun la ce fac.”", s:{val:{recunoastere:2}} },
+      { t:"„Fac munca mea, la ritmul meu, de oriunde, fără șefi.”",                       s:{val:{autonomie:2}} }
+    ]},
+  { lens:"valori", q:"Un mentor îți spune: „Îți dau 3 ani să fii cel mai bun la ceva.” Ce alegi?",
+    opts:[
+      { t:"Să stăpânesc o disciplină foarte tehnică — codat, chirurgie, arhitectură", s:{val:{mastery:2}} },
+      { t:"Să construiesc o organizație care să-mi supraviețuiască",                s:{val:{impact:2}} },
+      { t:"Să fiu cel mai bun într-un nisa plătită bine, să îmi asigur familia",     s:{val:{stabilitate:2}} },
+      { t:"Să fiu recunoscut public, să am o voce, să influențez oameni",            s:{val:{recunoastere:2}} }
+    ]},
+  { lens:"valori", q:"Care din următoarele te-ar deranja CEL MAI TARE într-un job:",
+    opts:[
+      { t:"Să simt că aș putea fi concediat oricând",                              s:{val:{stabilitate:2}} },
+      { t:"Să fac muncă inutilă, care nu ajută pe nimeni",                         s:{val:{impact:2}} },
+      { t:"Să fiu micro-manageriat, să nu pot decide singur",                      s:{val:{autonomie:2}} },
+      { t:"Să muncesc într-un domeniu unde nu pot să devin expert real",           s:{val:{mastery:2}} }
+    ]},
+  { lens:"valori", q:"La 30 de ani, te uiți în urmă. Ce te-ar face să spui „am trăit bine primele decenii”?",
+    opts:[
+      { t:"Am o casă a mea, un job care-mi asigură liniștea, familie sănătoasă",   s:{val:{stabilitate:2}} },
+      { t:"Am ajutat oameni reali. Am nume și reputație pentru că mi-am pus talentul în slujba cuiva", s:{val:{impact:2}} },
+      { t:"Am construit ceva — un business, o carte, o echipă — care e cunoscut", s:{val:{recunoastere:2}} },
+      { t:"Am trăit mult, am călătorit, am făcut ce am vrut când am vrut",         s:{val:{autonomie:2}} }
+    ]},
+
+  // ============= LENS 3: STIL (5) — each question measures ONE axis on 4-point scale =============
+  { lens:"stil", axis:"ritm", q:"Când lucrezi la vârful potențialului, cum e ritmul tău?",
+    opts:[
+      { t:"Un task mare, zile întregi, fără întreruperi. Pierd timpul dacă trebuie să comut.", s:{style:{ritm:1}} },
+      { t:"Prefer 2-3 task-uri pe zi, trec între ele relaxat, un pic de structură.",           s:{style:{ritm:2}} },
+      { t:"Îmi place să mișc repede pe mai multe — am energie când jonglez",                   s:{style:{ritm:3}} },
+      { t:"Vreau variație extremă. 10 lucruri diferite, schimbare constantă, trade-offs rapizi.", s:{style:{ritm:4}} }
+    ]},
+  { lens:"stil", axis:"structura", q:"Ce fel de mediu de muncă te face să dai maxim?",
+    opts:[
+      { t:"Total ambiguu. Nu vreau nicio regulă. Inventez pe parcurs.",              s:{style:{structura:1}} },
+      { t:"Câteva principii clare, restul deschis. Mă descurc cu incertitudinea.",   s:{style:{structura:2}} },
+      { t:"Structură clară, deadlines fixe, proces definit. Libertate înăuntru.",     s:{style:{structura:3}} },
+      { t:"Reguli detaliate, checklist-uri, predictibilitate totală. Îmi place.",    s:{style:{structura:4}} }
+    ]},
+  { lens:"stil", axis:"colaborare", q:"La un proiect mare, unde produci cel mai bine?",
+    opts:[
+      { t:"Singur în cameră, telefonul pe silent. Echipa mă încetinește uneori.",     s:{style:{colaborare:1}} },
+      { t:"Cu 1-2 colegi apropiați, conversații scurte, restul solo.",               s:{style:{colaborare:2}} },
+      { t:"În echipă mică (3-5 oameni), brainstorming-uri dese.",                     s:{style:{colaborare:3}} },
+      { t:"În grupuri mari, energia socială mă alimentează.",                         s:{style:{colaborare:4}} }
+    ]},
+  { lens:"stil", axis:"risc", q:"Cum te simți față de risc și incertitudine în carieră?",
+    opts:[
+      { t:"Vreau cât mai puțin risc. Cariera e despre siguranță, construcție lentă.", s:{style:{risc:1}} },
+      { t:"Risc moderat, calculat. Nu sar din avion, dar nu refuz o schimbare bună.", s:{style:{risc:2}} },
+      { t:"Îmi place experimentul. Dacă eșuez, învăț și trec mai departe.",           s:{style:{risc:3}} },
+      { t:"Risc mare. Dacă nu e posibil să pierd mult, nu e posibil să câștig mult.", s:{style:{risc:4}} }
+    ]},
+  { lens:"stil", axis:"focus", q:"Pe termen lung (5-10 ani), vrei să fii cunoscut pentru...",
+    opts:[
+      { t:"Că am făcut 20 de lucruri diferite și am învățat din fiecare",              s:{style:{focus:1}} },
+      { t:"Că am stăpânit 3-4 arii conexe și le-am combinat într-un stil unic",        s:{style:{focus:2}} },
+      { t:"Că sunt expert pe un domeniu anume, bine delimitat",                       s:{style:{focus:3}} },
+      { t:"Că am dedicat toată cariera unui singur subiect pe care îl știu mai bine ca oricine", s:{style:{focus:4}} }
+    ]}
+];
+
+/* ==================== PROGRAM LIBRARY ====================
+   Each program has weights across interests + values + ideal style profile.
+   Matching: weighted dot product. Top 5 by score.
+*/
+const PROGRAMS = [
+  // Medicine & health
+  { name:"Medicină Generală", uni:"UMF Iași / Cluj / București", note:"Admitere grea, Bac cu bio+chim",
+    i:{ajutor:1.0, analist:0.7, constructor:0.4}, v:{impact:1.0, mastery:0.8, recunoastere:0.6, stabilitate:0.5},
+    style:{ritm:3, structura:4, colaborare:3, risc:2, focus:4} },
+  { name:"Medicină de Familie", uni:"UMF", note:"Stabil, comunitate",
+    i:{ajutor:1.0, analist:0.5}, v:{impact:0.9, stabilitate:0.9, mastery:0.5},
+    style:{ritm:2, structura:4, colaborare:2, risc:1, focus:3} },
+  { name:"Psihologie Clinică", uni:"UBB / UniBuc / UAIC", note:"Pasiune > note",
+    i:{ajutor:1.0, analist:0.7, creator:0.3}, v:{impact:0.9, mastery:0.8, autonomie:0.5},
+    style:{ritm:1, structura:3, colaborare:2, risc:2, focus:3} },
+  { name:"Psihologie Organizațională", uni:"UBB / UniBuc", note:"Ruta corporate",
+    i:{analist:0.8, ajutor:0.7, leader:0.4}, v:{mastery:0.7, stabilitate:0.7, impact:0.5},
+    style:{ritm:3, structura:3, colaborare:4, risc:2, focus:3} },
+  { name:"Asistență Socială", uni:"UAIC / UBB", note:"Cerere mare, subapreciat",
+    i:{ajutor:1.0, leader:0.4}, v:{impact:1.0, autonomie:0.5, stabilitate:0.4},
+    style:{ritm:3, structura:3, colaborare:4, risc:2, focus:2} },
+  { name:"Kinetoterapie", uni:"UMF / UVT", note:"Fizic + ajutor direct",
+    i:{ajutor:0.9, constructor:0.6}, v:{impact:0.8, mastery:0.7, stabilitate:0.5},
+    style:{ritm:3, structura:3, colaborare:3, risc:1, focus:3} },
+
+  // Engineering & technical
+  { name:"Inginerie Mecanică / Auto", uni:"UPT / UPB / UTCN", note:"Piață mare în România",
+    i:{constructor:1.0, analist:0.6}, v:{mastery:0.8, stabilitate:0.7},
+    style:{ritm:2, structura:4, colaborare:3, risc:1, focus:4} },
+  { name:"Automatică & Informatică Aplicată", uni:"UPB / UAIC / UTCN", note:"Hub tech, salarii mari",
+    i:{constructor:0.8, analist:0.9}, v:{mastery:0.9, stabilitate:0.7, recunoastere:0.5},
+    style:{ritm:3, structura:3, colaborare:3, risc:2, focus:4} },
+  { name:"Electronică & Telecomunicații", uni:"UPB / UTCN", note:"Tech hardware",
+    i:{constructor:0.9, analist:0.7}, v:{mastery:0.8, stabilitate:0.6},
+    style:{ritm:2, structura:4, colaborare:2, risc:1, focus:4} },
+  { name:"Construcții Civile", uni:"UTCB / UPT", note:"Stabil, piață mare",
+    i:{constructor:1.0, leader:0.4}, v:{stabilitate:0.9, mastery:0.6},
+    style:{ritm:2, structura:4, colaborare:3, risc:1, focus:3} },
+  { name:"Informatică (generală)", uni:"UBB / UAIC / UniBuc / UPB", note:"Cel mai larg program tech",
+    i:{analist:0.9, constructor:0.6, explorator:0.5}, v:{mastery:0.8, autonomie:0.7, recunoastere:0.5},
+    style:{ritm:3, structura:2, colaborare:2, risc:3, focus:3} },
+
+  // Analytical / science
+  { name:"Matematică", uni:"UBB / UAIC / UniBuc", note:"Profil mate-info, medie 8+",
+    i:{analist:1.0}, v:{mastery:1.0, recunoastere:0.4},
+    style:{ritm:1, structura:3, colaborare:1, risc:2, focus:4} },
+  { name:"Fizică", uni:"UBB / UniBuc", note:"Research heavy",
+    i:{analist:1.0, constructor:0.5}, v:{mastery:1.0, impact:0.4},
+    style:{ritm:1, structura:3, colaborare:2, risc:2, focus:4} },
+  { name:"Biologie / Biochimie", uni:"UBB / UAIC / UniBuc", note:"Laborator, cercetare",
+    i:{analist:0.9, ajutor:0.5}, v:{mastery:0.9, impact:0.6, stabilitate:0.5},
+    style:{ritm:1, structura:3, colaborare:2, risc:2, focus:4} },
+  { name:"Econometrie / Statistică Economică", uni:"ASE / UBB", note:"Analiză cu aplicație",
+    i:{analist:0.9, leader:0.4}, v:{mastery:0.8, stabilitate:0.6, recunoastere:0.5},
+    style:{ritm:3, structura:3, colaborare:2, risc:2, focus:3} },
+
+  // Creative & media
+  { name:"Design (UX / Grafic / Industrial)", uni:"UNAB / UNA / UAD", note:"Portofoliu > note",
+    i:{creator:1.0, analist:0.4, constructor:0.3}, v:{mastery:0.8, autonomie:0.8, recunoastere:0.6},
+    style:{ritm:3, structura:2, colaborare:3, risc:3, focus:3} },
+  { name:"Arhitectură", uni:"UAUIM / UTCN", note:"Mix creativ + tehnic",
+    i:{creator:0.9, constructor:0.8, analist:0.3}, v:{mastery:0.9, recunoastere:0.7},
+    style:{ritm:2, structura:3, colaborare:3, risc:2, focus:4} },
+  { name:"Regie / Film / Animație", uni:"UNATC / UNA", note:"Probe practice, portofoliu",
+    i:{creator:1.0, leader:0.5, ajutor:0.3}, v:{autonomie:0.8, recunoastere:0.7, impact:0.5},
+    style:{ritm:3, structura:2, colaborare:4, risc:4, focus:3} },
+  { name:"Jurnalism & Comunicare", uni:"SNSPA / UBB / UAIC", note:"Bază pentru strategie",
+    i:{creator:0.8, ajutor:0.5, analist:0.5}, v:{impact:0.7, autonomie:0.6, recunoastere:0.6},
+    style:{ritm:4, structura:2, colaborare:3, risc:3, focus:2} },
+  { name:"Publicitate & PR", uni:"SNSPA / ASE", note:"Creative + strategic",
+    i:{creator:0.8, leader:0.6}, v:{recunoastere:0.8, autonomie:0.6},
+    style:{ritm:4, structura:2, colaborare:4, risc:3, focus:2} },
+
+  // Business & leadership
+  { name:"Management / Business Administration", uni:"ASE / UBB / UAIC", note:"Cea mai largă poartă business",
+    i:{leader:1.0, analist:0.5, explorator:0.4}, v:{recunoastere:0.7, stabilitate:0.6, mastery:0.5},
+    style:{ritm:4, structura:3, colaborare:4, risc:3, focus:2} },
+  { name:"Finanțe / Bănci", uni:"ASE / UBB", note:"Numerică + business",
+    i:{analist:0.8, leader:0.6}, v:{stabilitate:0.8, mastery:0.7, recunoastere:0.6},
+    style:{ritm:3, structura:4, colaborare:3, risc:2, focus:3} },
+  { name:"Marketing", uni:"ASE / SNSPA / UBB", note:"Creativ + analitic",
+    i:{leader:0.7, creator:0.7, analist:0.5}, v:{recunoastere:0.7, autonomie:0.5},
+    style:{ritm:4, structura:2, colaborare:4, risc:3, focus:2} },
+  { name:"Drept", uni:"UBB / UniBuc / UAIC", note:"Competitiv, profil uman+mate",
+    i:{analist:0.8, leader:0.7, ajutor:0.4}, v:{stabilitate:0.7, recunoastere:0.8, mastery:0.7},
+    style:{ritm:2, structura:4, colaborare:3, risc:2, focus:4} },
+  { name:"Relații Internaționale", uni:"SNSPA / UBB", note:"Strategie + diplomație",
+    i:{leader:0.7, analist:0.6, explorator:0.6}, v:{impact:0.7, recunoastere:0.7, autonomie:0.5},
+    style:{ritm:3, structura:3, colaborare:4, risc:3, focus:2} },
+
+  // Education & social
+  { name:"Pedagogie / Științele Educației", uni:"UBB / UAIC / UniBuc", note:"Direct cu copii/tineri",
+    i:{ajutor:0.9, leader:0.4, creator:0.4}, v:{impact:0.9, stabilitate:0.7},
+    style:{ritm:3, structura:3, colaborare:4, risc:1, focus:3} },
+  { name:"Sociologie", uni:"UBB / UniBuc / UAIC", note:"Research cu oameni",
+    i:{analist:0.7, ajutor:0.6, explorator:0.5}, v:{impact:0.7, mastery:0.5, autonomie:0.5},
+    style:{ritm:2, structura:2, colaborare:3, risc:2, focus:3} },
+  { name:"Științe Politice", uni:"UBB / SNSPA / UniBuc", note:"Analitic + umanist",
+    i:{analist:0.7, leader:0.6, explorator:0.5}, v:{impact:0.7, recunoastere:0.5},
+    style:{ritm:3, structura:3, colaborare:3, risc:2, focus:3} },
+
+  // Flexible / multidisciplinary
+  { name:"Studii Liberale (Liberal Arts)", uni:"UAIC / UBB", note:"Multidisciplinar, flexibil",
+    i:{explorator:1.0, analist:0.4, creator:0.5}, v:{autonomie:0.8, mastery:0.4},
+    style:{ritm:3, structura:2, colaborare:2, risc:3, focus:1} },
+  { name:"Informatică + specializare duală", uni:"UBB / UAIC", note:"Skill universal",
+    i:{analist:0.7, explorator:0.7, creator:0.4}, v:{autonomie:0.7, mastery:0.7, recunoastere:0.5},
+    style:{ritm:3, structura:2, colaborare:2, risc:3, focus:2} }
+];
+
+/* ==================== STATE ==================== */
+
+const state = {
+  current: 0,
+  scores: {
+    interese: { constructor:0, analist:0, ajutor:0, creator:0, leader:0, explorator:0 },
+    valori:   { stabilitate:0, impact:0, autonomie:0, mastery:0, recunoastere:0 },
+    stil:     { ritm:0, structura:0, colaborare:0, risc:0, focus:0 }
+  },
+  answers: [],
+  feedback: null,
+  variant: "C",
+  lastLens: null
+};
+
+function $(id) { return document.getElementById(id); }
+function show(id) {
+  ["scr-intro","scr-quiz","scr-transition","scr-feedback","scr-results"].forEach(s => $(s).classList.add("hidden-screen"));
+  $(id).classList.remove("hidden-screen");
+  $(id).classList.remove("slide-in");
+  void $(id).offsetWidth;
+  $(id).classList.add("slide-in");
+  window.scrollTo(0,0);
+}
+
+function start() {
+  state.current = 0;
+  state.scores = {
+    interese: { constructor:0, analist:0, ajutor:0, creator:0, leader:0, explorator:0 },
+    valori:   { stabilitate:0, impact:0, autonomie:0, mastery:0, recunoastere:0 },
+    stil:     { ritm:0, structura:0, colaborare:0, risc:0, focus:0 }
+  };
+  state.answers = [];
+  state.lastLens = null;
+  renderQuestion();
+  show("scr-quiz");
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[state.current];
+  $("q-num").textContent = state.current + 1;
+  $("q-fill").style.width = (((state.current + 1) / QUESTIONS.length) * 100) + "%";
+  const lensIdx = q.lens === "interese" ? 1 : q.lens === "valori" ? 2 : 3;
+  $("q-lens-num").textContent = lensIdx;
+  $("q-lens-name").textContent = { interese:"INTERESE", valori:"VALORI", stil:"STIL" }[q.lens];
+  $("q-kicker").textContent = q.lens === "interese" ? "Scenariu · Interese" : q.lens === "valori" ? "Dilemă · Valori" : "Preferință · Stil";
+  $("q-text").textContent = q.q;
+
+  const opts = $("q-options");
+  opts.innerHTML = "";
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "press text-left bg-white border-2 border-black shadow-neo-4 p-4 flex items-center gap-3 hover:bg-primary-dim transition-all";
+    btn.innerHTML = `
+      <span class="display font-black text-lg w-9 h-9 bg-primary text-white border-2 border-black rounded-full flex items-center justify-center shrink-0">${String.fromCharCode(65+i)}</span>
+      <span class="text-base md:text-lg">${opt.t}</span>
+    `;
+    btn.onclick = () => choose(i);
+    opts.appendChild(btn);
+  });
+}
+
+function choose(i) {
+  const q = QUESTIONS[state.current];
+  const sel = q.opts[i].s;
+  if (q.lens === "interese") {
+    for (const k in sel) state.scores.interese[k] += sel[k];
+  } else if (q.lens === "valori" && sel.val) {
+    for (const k in sel.val) state.scores.valori[k] += sel.val[k];
+  } else if (q.lens === "stil" && sel.style) {
+    for (const k in sel.style) state.scores.stil[k] = sel.style[k];
+  }
+  state.answers.push(i);
+
+  // Detect lens transition for next question
+  const nextQ = QUESTIONS[state.current + 1];
+  state.current++;
+
+  if (state.current >= QUESTIONS.length) {
+    showFeedbackScreen();
+    return;
+  }
+
+  if (nextQ && nextQ.lens !== q.lens) {
+    state.lastLens = q.lens;
+    showTransition(q.lens, nextQ.lens);
+  } else {
+    renderQuestion();
+  }
+}
+
+function back() {
+  if (state.current === 0) return show("scr-intro");
+  state.current--;
+  const q = QUESTIONS[state.current];
+  const lastIdx = state.answers.pop();
+  const lastSel = q.opts[lastIdx].s;
+  if (q.lens === "interese") {
+    for (const k in lastSel) state.scores.interese[k] -= lastSel[k];
+  } else if (q.lens === "valori" && lastSel.val) {
+    for (const k in lastSel.val) state.scores.valori[k] -= lastSel.val[k];
+  } else if (q.lens === "stil" && lastSel.style) {
+    // Style is direct-assigned, cannot truly rewind without storing previous; reset to 0
+    state.scores.stil[q.axis] = 0;
+  }
+  renderQuestion();
+}
+
+function showTransition(fromLens, toLens) {
+  const fromName = { interese:"LENTILA 1", valori:"LENTILA 2", stil:"LENTILA 3" }[fromLens];
+  const toInfo = {
+    valori: { title:"Acum trecem la valori.", desc:"5 dileme unde te forțăm să alegi. Nu există răspuns ușor." },
+    stil: { title:"Ultima lentilă: stilul tău.", desc:"5 preferințe despre cum lucrezi tu la vârful potențialului." }
+  };
+  const info = toInfo[toLens];
+  $("trans-badge").innerHTML = `<span class="display font-black text-xs uppercase">${fromName} COMPLETĂ</span>`;
+  $("trans-title").textContent = info.title;
+  $("trans-desc").textContent = info.desc;
+  show("scr-transition");
+}
+
+function continueAfterTransition() {
+  renderQuestion();
+  show("scr-quiz");
+}
+
+/* ==================== COMPATIBILITY ENGINE ==================== */
+
+function topInterests() {
+  return Object.entries(state.scores.interese)
+    .sort((a,b) => b[1]-a[1])
+    .slice(0,2)
+    .map(([k,v]) => ({ key:k, value:v, label:INTEREST_LABELS[k] }));
+}
+
+function topValues() {
+  return Object.entries(state.scores.valori)
+    .sort((a,b) => b[1]-a[1])
+    .slice(0,2)
+    .map(([k,v]) => ({ key:k, value:v, label:VALUE_LABELS[k] }));
+}
+
+function styleProfile() {
+  // Each axis has a value 1-4 (user's selection)
+  return state.scores.stil;
+}
+
+function scorePrograms() {
+  const interese = state.scores.interese;
+  const valori = state.scores.valori;
+  const stil = state.scores.stil;
+
+  // Normalize sums
+  const interestMax = Math.max(1, ...Object.values(interese));
+  const valueMax = Math.max(1, ...Object.values(valori));
+
+  const scored = PROGRAMS.map(p => {
+    let interestScore = 0;
+    for (const k in (p.i || {})) {
+      interestScore += (p.i[k] || 0) * ((interese[k] || 0) / interestMax);
+    }
+    let valueScore = 0;
+    for (const k in (p.v || {})) {
+      valueScore += (p.v[k] || 0) * ((valori[k] || 0) / valueMax);
+    }
+    let styleScore = 0;
+    let styleCount = 0;
+    for (const axis in (p.style || {})) {
+      const user = stil[axis] || 2.5;
+      const ideal = p.style[axis];
+      const dist = Math.abs(user - ideal);
+      styleScore += (1 - dist / 3); // 1 = perfect fit, 0 = worst
+      styleCount++;
+    }
+    styleScore = styleCount > 0 ? styleScore / styleCount : 0.5;
+
+    // Weighted composite. Interests dominate, values calibrate, style refines.
+    const total = interestScore * 0.5 + valueScore * 0.3 + styleScore * 0.2;
+    return { ...p, score: total, iScore: interestScore, vScore: valueScore, sScore: styleScore };
+  });
+
+  scored.sort((a,b) => b.score - a.score);
+  return scored;
+}
+
+function narrative(ti, tv, st) {
+  const i1 = ti[0].label, i2 = ti[1].label;
+  const v1 = tv[0].label;
+  const bits = [];
+  // Style summary
+  if ((st.colaborare || 2.5) <= 2) bits.push("solo");
+  else if ((st.colaborare || 2.5) >= 3) bits.push("în echipă");
+  if ((st.structura || 2.5) >= 3) bits.push("structurat");
+  else bits.push("flexibil");
+  if ((st.risc || 2.5) >= 3) bits.push("cu apetit de risc");
+  else bits.push("calm cu risc mic");
+  const styleBits = bits.join(", ");
+
+  return `Interesele tale spun <b>${i1}</b> cu <b>${i2}</b>. Valorile tale vor <b>${v1}</b> mai mult decât restul. Lucrezi cel mai bine <b>${styleBits}</b>. Programele de mai jos se așază exact la intersecția aia — nu doar pe interese, ci pe toate trei.`;
+}
+
+function showFeedbackScreen() {
+  const top = scorePrograms().slice(0,3);
+  const container = $("fb-options");
+  container.innerHTML = "";
+  top.forEach((p, i) => {
+    const card = document.createElement("button");
+    card.className = "press text-left bg-white border-2 border-black shadow-neo-4 p-4 hover:bg-yellow transition-all";
+    card.innerHTML = `
+      <div class="flex items-start gap-3">
+        <span class="display font-black text-2xl w-10 h-10 bg-primary text-white border-2 border-black flex items-center justify-center shrink-0">${i+1}</span>
+        <div>
+          <p class="display font-black text-lg">${p.name}</p>
+          <p class="text-sm text-on-surface-variant">${p.uni} — ${p.note}</p>
+        </div>
+      </div>
+    `;
+    card.onclick = () => {
+      state.feedback = p.name;
+      saveResults(top);
+      showResults(top);
+    };
+    container.appendChild(card);
+  });
+
+  const noneCard = document.createElement("button");
+  noneCard.className = "press text-left bg-surface-container border-2 border-black shadow-neo-2 p-4 hover:bg-surface-container-high transition-all";
+  noneCard.innerHTML = `<span class="display font-black text-sm uppercase">Niciuna nu sună ca mine</span><span class="text-xs block text-on-surface-variant mt-1">E util să știm când ratăm.</span>`;
+  noneCard.onclick = () => {
+    state.feedback = "none";
+    saveResults(top);
+    showResults(top);
+  };
+  container.appendChild(noneCard);
+
+  show("scr-feedback");
+}
+
+function saveResults(top) {
+  const ti = topInterests(), tv = topValues(), st = styleProfile();
+  const record = {
+    variant: state.variant,
+    timestamp: new Date().toISOString(),
+    interests_top1: ti[0].key,
+    interests_top2: ti[1].key,
+    values_top1: tv[0].key,
+    values_top2: tv[1].key,
+    style: { ...st },
+    top_programs: top.slice(0,3).map(p => p.name),
+    chosen: state.feedback,
+    answers: [...state.answers]
+  };
+  try {
+    const all = JSON.parse(localStorage.getItem("cesafiu_results") || "[]");
+    all.push(record);
+    localStorage.setItem("cesafiu_results", JSON.stringify(all));
+  } catch(e) { console.warn("localStorage write failed", e); }
+}
+
+function showResults(topPrograms) {
+  const ti = topInterests(), tv = topValues(), st = styleProfile();
+
+  $("r-interests-top").textContent = `${ti[0].label} + ${ti[1].label}`;
+  $("r-interests-detail").textContent = `Ai rezonat cu ${ti[0].label.toLowerCase()} mai ales, și ${ti[1].label.toLowerCase()} pe loc secund.`;
+
+  $("r-values-top").textContent = `${tv[0].label}${tv[1].value > 0 ? " + " + tv[1].label : ""}`;
+  $("r-values-detail").textContent = `Nu negociezi ${tv[0].label.toLowerCase()} pentru nimic.`;
+
+  const styleLabel = (v, axis) => {
+    const a = STYLE_AXES[axis];
+    if (v <= 1.5) return a.low;
+    if (v >= 3.5) return a.high;
+    if (v >= 3) return `mai degrabă ${a.high.toLowerCase()}`;
+    return `mai degrabă ${a.low.toLowerCase()}`;
+  };
+  $("r-style-top").textContent = `${styleLabel(st.colaborare, "colaborare")} · ${styleLabel(st.structura, "structura")}`;
+  $("r-style-detail").textContent = `Profil: ${styleLabel(st.ritm,"ritm")}, ${styleLabel(st.focus,"focus")}, ${styleLabel(st.risc,"risc")}.`;
+
+  $("r-narrative").innerHTML = narrative(ti, tv, st);
+
+  // Programs
+  const pBox = $("r-programs");
+  pBox.innerHTML = "";
+  topPrograms.slice(0,5).forEach((p, idx) => {
+    const matchPct = Math.round(Math.min(95, p.score * 100 + 35));
+    const row = document.createElement("div");
+    row.className = idx === 0
+      ? "border-2 border-black bg-neon p-4 shadow-neo-4"
+      : "border-2 border-black bg-surface-container p-4";
+    row.innerHTML = `
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex-1">
+          <p class="display font-black text-base md:text-lg">${p.name}</p>
+          <p class="text-xs text-on-surface-variant">${p.uni} — ${p.note}</p>
+        </div>
+        <span class="display font-black text-sm bg-yellow border-2 border-black px-2 py-1 shrink-0">${matchPct}%</span>
+      </div>
+    `;
+    pBox.appendChild(row);
+  });
+
+  // Style axes visualization
+  const axesBox = $("r-style-axes");
+  axesBox.innerHTML = "";
+  Object.entries(STYLE_AXES).forEach(([axis, a]) => {
+    const v = st[axis] || 2.5;
+    const pct = ((v - 1) / 3) * 100;
+    const row = document.createElement("div");
+    row.innerHTML = `
+      <div class="flex justify-between text-xs font-bold mb-1">
+        <span>${a.low}</span><span>${a.high}</span>
+      </div>
+      <div class="w-full h-4 bg-surface-container-high border-2 border-black relative">
+        <div class="absolute top-0 h-full w-3 bg-primary border-r-2 border-l-2 border-black" style="left:calc(${pct}% - 6px)"></div>
+      </div>
+    `;
+    axesBox.appendChild(row);
+  });
+
+  show("scr-results");
+}
+
+function restart() { start(); }
+</script>
+</body>
+</html>

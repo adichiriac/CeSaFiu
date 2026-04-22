@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ro"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CE SĂ FIU - Vibe Check</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-size: 24px;
+            font-style: normal;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#cbc3d7",
+                        "secondary-fixed": "#a9f900",
+                        "primary-container": "#8455ef",
+                        "surface-container-low": "#f8f3eb",
+                        "primary-fixed": "#e9ddff",
+                        "on-secondary-fixed": "#121f00",
+                        "surface-tint": "#6d3bd7",
+                        "on-tertiary-container": "#4c3f00",
+                        "on-primary-container": "#fffbff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#d0bcff",
+                        "secondary": "#456800",
+                        "surface-container-highest": "#e7e2da",
+                        "secondary-fixed-dim": "#94db00",
+                        "surface-container": "#f2ede5",
+                        "on-tertiary-fixed": "#221b00",
+                        "on-surface-variant": "#494454",
+                        "on-error": "#ffffff",
+                        "background": "#fef9f1",
+                        "surface-bright": "#fef9f1",
+                        "surface": "#fef9f1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "on-secondary-container": "#486d00",
+                        "tertiary-container": "#caa900",
+                        "on-primary-fixed-variant": "#5516be",
+                        "on-background": "#1d1c17",
+                        "inverse-primary": "#d0bcff",
+                        "surface-dim": "#ded9d2",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#32302b",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "on-primary-fixed": "#23005c",
+                        "secondary-container": "#a7f600",
+                        "tertiary": "#705d00",
+                        "error-container": "#ffdad6",
+                        "primary": "#6b38d4",
+                        "surface-container-high": "#ece8e0",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e7e2da",
+                        "outline": "#7b7486",
+                        "on-secondary-fixed-variant": "#334f00",
+                        "tertiary-fixed": "#ffe170",
+                        "inverse-on-surface": "#f5f0e8",
+                        "on-surface": "#1d1c17"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "base": "8px",
+                        "margin-desktop": "120px",
+                        "xl": "64px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "gutter": "16px",
+                        "sm": "12px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Epilogue"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "headline-xl": ["Epilogue"],
+                        "headline-lg": ["Epilogue"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-gray-900 border-b-4 border-black w-full top-0 z-50 sticky flex justify-between items-center px-6 py-4 shadow-none">
+<div class="text-3xl font-black text-black dark:text-white border-2 border-black p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-tertiary-fixed font-headline-md uppercase tracking-tighter hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+            CE SĂ FIU
+        </div>
+<div class="hidden md:flex gap-md items-center">
+<button class="text-violet-600 dark:text-violet-400 font-headline-md uppercase tracking-tighter hover:bg-tertiary-fixed transition-colors px-xs py-xs font-bold text-black border-b-4 border-violet-600">Înapoi la bază</button>
+</div>
+<div class="flex items-center gap-sm">
+<button aria-label="account_circle" class="text-black dark:text-white hover:bg-tertiary-fixed transition-colors hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none p-2 rounded-none border-2 border-transparent hover:border-black active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl flex flex-col gap-xl items-center justify-center">
+<!-- Progress Section -->
+<div class="w-full max-w-4xl flex flex-col gap-sm">
+<div class="flex justify-between items-end font-headline-md text-headline-md uppercase">
+<span class="bg-white border-2 border-black px-sm py-xs shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">Întrebarea 7 din 12</span>
+<span class="text-primary font-black bg-tertiary-fixed border-2 border-black px-sm py-xs shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-2">58%</span>
+</div>
+<!-- Progress Bar -->
+<div class="h-8 w-full bg-white border-4 border-black relative overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+<div class="absolute top-0 left-0 h-full bg-secondary-fixed border-r-4 border-black" style="width: 58%;"></div>
+</div>
+</div>
+<!-- Question Card -->
+<div class="w-full max-w-4xl bg-tertiary-fixed border-4 border-black p-lg md:p-xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative flex flex-col gap-md">
+<!-- Vibe Check Badge -->
+<div class="absolute -top-6 -left-4 md:-left-8 bg-primary text-white font-headline-md text-headline-md border-4 border-black px-md py-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -rotate-3 z-10 uppercase tracking-tighter">
+                VIBE CHECK
+            </div>
+<h1 class="font-headline-xl text-headline-xl text-center mt-md md:mt-0 uppercase tracking-tighter">
+                Dacă ai putea construi ceva de la zero, ce ar fi?
+            </h1>
+<!-- Answer Options Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mt-lg">
+<!-- Option 1 -->
+<button class="group w-full text-left bg-white border-4 border-black p-md shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none flex flex-col justify-between min-h-[160px] cursor-pointer">
+<span class="font-headline-md text-headline-md uppercase tracking-tight group-hover:text-primary transition-colors">O aplicație care rezolvă o problemă reală.</span>
+<div class="flex flex-wrap gap-xs mt-auto pt-sm">
+<span class="bg-primary text-white border-2 border-black font-label-bold text-label-bold px-sm py-xs uppercase">TECH/DATA</span>
+</div>
+</button>
+<!-- Option 2 -->
+<button class="group w-full text-left bg-white border-4 border-black p-md shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none flex flex-col justify-between min-h-[160px] cursor-pointer">
+<span class="font-headline-md text-headline-md uppercase tracking-tight group-hover:text-primary transition-colors">Un brand de haine sau un produs sustenabil.</span>
+<div class="flex flex-wrap gap-xs mt-auto pt-sm">
+<span class="bg-secondary-fixed text-black border-2 border-black font-label-bold text-label-bold px-sm py-xs uppercase">DESIGN/ECO</span>
+</div>
+</button>
+<!-- Option 3 -->
+<button class="group w-full text-left bg-white border-4 border-black p-md shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none flex flex-col justify-between min-h-[160px] cursor-pointer">
+<span class="font-headline-md text-headline-md uppercase tracking-tight group-hover:text-primary transition-colors">O campanie virală sau un show YouTube.</span>
+<div class="flex flex-wrap gap-xs mt-auto pt-sm">
+<span class="bg-surface-tint text-white border-2 border-black font-label-bold text-label-bold px-sm py-xs uppercase">MEDIA/SOCIAL</span>
+</div>
+</button>
+<!-- Option 4 -->
+<button class="group w-full text-left bg-white border-4 border-black p-md shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none flex flex-col justify-between min-h-[160px] cursor-pointer">
+<span class="font-headline-md text-headline-md uppercase tracking-tight group-hover:text-primary transition-colors">Un program de mentorat sau o școală alternativă.</span>
+<div class="flex flex-wrap gap-xs mt-auto pt-sm">
+<span class="bg-white text-black border-2 border-black font-label-bold text-label-bold px-sm py-xs uppercase">EDU/PSYCH</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Navigation Buttons -->
+<div class="w-full max-w-4xl flex flex-col md:flex-row justify-between items-center gap-md mt-md">
+<button class="w-full md:w-auto bg-white border-4 border-black text-black font-headline-md text-headline-md px-xl py-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none uppercase tracking-tighter">
+                Înapoi la bază
+            </button>
+<button class="w-full md:w-auto bg-primary border-4 border-black text-white font-headline-md text-headline-md px-xl py-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none uppercase tracking-tighter flex items-center justify-center gap-xs">
+                Ce urmează?
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">arrow_forward</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-black dark:bg-black w-full py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-4 border-t-4 border-white flat no shadows">
+<div class="text-green-400 font-black font-['Epilogue'] font-bold text-sm">
+            © 2024 Ce Să Fiu - Fă-ți destinul singur.
+        </div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="text-white opacity-80 hover:opacity-100 font-['Epilogue'] font-bold text-sm hover:text-tertiary-fixed transition-colors" href="#">Despre noi</a>
+<a class="text-white opacity-80 hover:opacity-100 font-['Epilogue'] font-bold text-sm hover:text-tertiary-fixed transition-colors" href="#">Confidențialitate</a>
+<a class="text-white opacity-80 hover:opacity-100 font-['Epilogue'] font-bold text-sm hover:text-tertiary-fixed transition-colors" href="#">TikTok Vibe</a>
+</div>
+</footer>
+</body></html>

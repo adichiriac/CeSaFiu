@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="ro"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ce Să Fiu - Quiz</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#221b00",
+                        "on-surface-variant": "#494454",
+                        "surface-container": "#f2ede5",
+                        "surface-container-highest": "#e7e2da",
+                        "secondary-fixed-dim": "#94db00",
+                        "secondary": "#456800",
+                        "primary-fixed-dim": "#d0bcff",
+                        "tertiary-container": "#caa900",
+                        "on-primary-fixed-variant": "#5516be",
+                        "on-background": "#1d1c17",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "on-secondary-container": "#486d00",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#fef9f1",
+                        "surface": "#fef9f1",
+                        "on-error": "#ffffff",
+                        "background": "#fef9f1",
+                        "primary-fixed": "#e9ddff",
+                        "on-secondary-fixed": "#121f00",
+                        "surface-container-low": "#f8f3eb",
+                        "secondary-fixed": "#a9f900",
+                        "primary-container": "#8455ef",
+                        "outline-variant": "#cbc3d7",
+                        "surface-tint": "#6d3bd7",
+                        "on-tertiary-container": "#4c3f00",
+                        "on-primary-container": "#fffbff",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e7e2da",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#ece8e0",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#6b38d4",
+                        "on-surface": "#1d1c17",
+                        "inverse-on-surface": "#f5f0e8",
+                        "tertiary-fixed": "#ffe170",
+                        "on-secondary-fixed-variant": "#334f00",
+                        "outline": "#7b7486",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#32302b",
+                        "surface-dim": "#ded9d2",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#d0bcff",
+                        "tertiary": "#705d00",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#a7f600",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "on-primary-fixed": "#23005c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "margin-mobile": "20px",
+                        "xl": "64px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "gutter": "16px",
+                        "margin-desktop": "120px",
+                        "md": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Be Vietnam Pro"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "headline-md": ["Epilogue"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-xl": ["Epilogue"],
+                        "headline-lg": ["Epilogue"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .neo-brutalist-border {
+            border: 2px solid #000;
+        }
+        .neo-brutalist-shadow-level-2 {
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+        .neo-brutalist-shadow-level-3 {
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+        }
+        .neo-brutalist-interactive:active {
+            box-shadow: none;
+            transform: translate(4px, 4px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-6 py-4 bg-[#FBF6EE] dark:bg-zinc-900 font-['Epilogue'] font-black tracking-tighter uppercase text-2xl text-black dark:text-white italic tracking-widest docked full-width top-0 border-b-2 border-black border-b-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sticky z-50">
+<button class="text-violet-600 dark:text-violet-400 hover:bg-yellow-400 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none p-2 rounded-full border-2 border-transparent focus:border-black">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">bolt</span>
+</button>
+<h1 class="text-violet-600 dark:text-violet-400">CE SĂ FIU</h1>
+<button class="text-violet-600 dark:text-violet-400 hover:bg-yellow-400 transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none p-2 rounded-full border-2 border-transparent focus:border-black">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow px-margin-mobile py-lg pb-32">
+<!-- Progress Indicator -->
+<div class="mb-md">
+<div class="flex justify-between items-end mb-xs">
+<span class="font-label-bold text-on-surface uppercase tracking-wider">Întrebarea 7 din 12</span>
+<span class="font-label-sm text-on-surface-variant font-bold">58%</span>
+</div>
+<div class="h-6 w-full bg-white neo-brutalist-border relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-secondary-container border-r-2 border-black" style="width: 58%;"></div>
+</div>
+</div>
+<!-- Question Card -->
+<div class="bg-tertiary-fixed neo-brutalist-border neo-brutalist-shadow-level-3 p-md mb-xl relative rotate-[-1deg]">
+<div class="absolute -top-4 -right-4 bg-white neo-brutalist-border px-sm py-xs rotate-[4deg] font-label-bold uppercase">
+                Vibe Check
+            </div>
+<h2 class="font-headline-lg text-on-tertiary-fixed mb-sm">
+                Dacă ai putea construi ceva de la zero, ce ar fi?
+            </h2>
+</div>
+<!-- Options List -->
+<div class="flex flex-col gap-sm">
+<label class="relative block cursor-pointer group">
+<input class="peer sr-only" name="quiz_q7" type="radio" value="1"/>
+<div class="bg-white neo-brutalist-border neo-brutalist-shadow-level-2 p-md transition-all group-active:translate-x-[4px] group-active:translate-y-[4px] group-active:shadow-none peer-checked:bg-primary-fixed peer-checked:border-primary peer-focus-visible:ring-4 ring-black outline-none flex items-start gap-sm">
+<div class="w-6 h-6 shrink-0 neo-brutalist-border rounded-full flex items-center justify-center bg-white peer-checked:bg-primary transition-colors mt-1">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 peer-checked:opacity-100" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<span class="font-body-lg text-on-surface block mb-xs">Un algoritm care prezice trenduri</span>
+<span class="inline-block bg-surface-container-high border border-black px-2 py-1 font-label-sm uppercase -rotate-1">Tech/Data</span>
+</div>
+</div>
+</label>
+<label class="relative block cursor-pointer group">
+<input class="peer sr-only" name="quiz_q7" type="radio" value="2"/>
+<div class="bg-white neo-brutalist-border neo-brutalist-shadow-level-2 p-md transition-all group-active:translate-x-[4px] group-active:translate-y-[4px] group-active:shadow-none peer-checked:bg-primary-fixed peer-checked:border-primary peer-focus-visible:ring-4 ring-black outline-none flex items-start gap-sm">
+<div class="w-6 h-6 shrink-0 neo-brutalist-border rounded-full flex items-center justify-center bg-white peer-checked:bg-primary transition-colors mt-1">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 peer-checked:opacity-100" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<span class="font-body-lg text-on-surface block mb-xs">O clădire sustenabilă cu grădini verticale</span>
+<span class="inline-block bg-surface-container-high border border-black px-2 py-1 font-label-sm uppercase rotate-1">Design/Eco</span>
+</div>
+</div>
+</label>
+<label class="relative block cursor-pointer group">
+<input class="peer sr-only" name="quiz_q7" type="radio" value="3"/>
+<div class="bg-white neo-brutalist-border neo-brutalist-shadow-level-2 p-md transition-all group-active:translate-x-[4px] group-active:translate-y-[4px] group-active:shadow-none peer-checked:bg-primary-fixed peer-checked:border-primary peer-focus-visible:ring-4 ring-black outline-none flex items-start gap-sm">
+<div class="w-6 h-6 shrink-0 neo-brutalist-border rounded-full flex items-center justify-center bg-white peer-checked:bg-primary transition-colors mt-1">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 peer-checked:opacity-100" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<span class="font-body-lg text-on-surface block mb-xs">O campanie socială care schimbă mentalități</span>
+<span class="inline-block bg-surface-container-high border border-black px-2 py-1 font-label-sm uppercase -rotate-2">Media/Social</span>
+</div>
+</div>
+</label>
+<label class="relative block cursor-pointer group">
+<input class="peer sr-only" name="quiz_q7" type="radio" value="4"/>
+<div class="bg-white neo-brutalist-border neo-brutalist-shadow-level-2 p-md transition-all group-active:translate-x-[4px] group-active:translate-y-[4px] group-active:shadow-none peer-checked:bg-primary-fixed peer-checked:border-primary peer-focus-visible:ring-4 ring-black outline-none flex items-start gap-sm">
+<div class="w-6 h-6 shrink-0 neo-brutalist-border rounded-full flex items-center justify-center bg-white peer-checked:bg-primary transition-colors mt-1">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 peer-checked:opacity-100" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<span class="font-body-lg text-on-surface block mb-xs">Un nou sistem de educație bazat pe jocuri</span>
+<span class="inline-block bg-surface-container-high border border-black px-2 py-1 font-label-sm uppercase rotate-2">Edu/Psych</span>
+</div>
+</div>
+</label>
+</div>
+<!-- Navigation Buttons -->
+<div class="mt-xl flex justify-between gap-sm">
+<button class="bg-white neo-brutalist-border neo-brutalist-shadow-level-2 px-md py-sm font-label-bold uppercase text-on-surface transition-all neo-brutalist-interactive outline-none focus-visible:ring-4 ring-black flex-1 text-center">
+                Înapoi la bază
+            </button>
+<button class="bg-primary text-white neo-brutalist-border neo-brutalist-shadow-level-3 px-md py-sm font-label-bold uppercase transition-all neo-brutalist-interactive outline-none focus-visible:ring-4 ring-black flex-[2] text-center">
+                Ce urmează?
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (Suppressed due to Linear/Transactional intent of a Quiz) -->
+</body></html>

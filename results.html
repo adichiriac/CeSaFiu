@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Ce Să Fiu? — Raport pilot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Epilogue:wght@700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      surface:"#fef9f1", "surface-container":"#f2ede5", "surface-container-high":"#ece8e0",
+      "on-surface":"#1d1c17", "on-surface-variant":"#494454",
+      primary:"#6b38d4", "primary-dim":"#d0bcff",
+      neon:"#a9f900", yellow:"#ffe170", "yellow-dim":"#caa900",
+      ink:"#1d1c17"
+    },
+    fontFamily: { display:["Epilogue","sans-serif"], body:["'Be Vietnam Pro'","sans-serif"] },
+    boxShadow: { "neo-2":"2px 2px 0 0 #000", "neo-4":"4px 4px 0 0 #000", "neo-8":"8px 8px 0 0 #000" }
+  }}
+}
+</script>
+<style>
+  body { font-family:'Be Vietnam Pro',sans-serif; background:#fef9f1;
+    background-image:linear-gradient(#e7e2da 1px,transparent 1px),linear-gradient(90deg,#e7e2da 1px,transparent 1px);
+    background-size:32px 32px; }
+  h1,h2,h3,.display { font-family:'Epilogue',sans-serif; letter-spacing:-0.01em; }
+  .press:active { transform:translate(4px,4px); box-shadow:none !important; }
+  .tilt-l { transform:rotate(-2deg); }
+  .tilt-r { transform:rotate(2deg); }
+  .bar { height:24px; border:2px solid #000; background:#fff; position:relative; overflow:hidden; }
+  .bar-fill { height:100%; background:#a9f900; position:absolute; inset:0; width:var(--w,0%); transition:width .5s ease; }
+  .bar-label { position:relative; padding:0 10px; display:flex; align-items:center; height:100%; font-weight:700; font-size:13px; }
+  details > summary { list-style:none; cursor:pointer; }
+  details > summary::-webkit-details-marker { display:none; }
+</style>
+</head>
+<body class="text-ink min-h-screen pb-20">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-white border-b-4 border-black px-5 py-3 flex justify-between items-center">
+  <a href="test.html" class="flex items-center gap-2">
+    <span class="inline-block w-7 h-7 bg-primary border-2 border-black rotate-[-6deg]"></span>
+    <span class="display font-black uppercase tracking-tighter text-lg">Ce Să Fiu?</span>
+  </a>
+  <span class="display text-xs font-black uppercase bg-yellow border-2 border-black px-2 py-1 rotate-[2deg]">RAPORT PILOT</span>
+</header>
+
+<main class="max-w-4xl mx-auto px-5 md:px-8 pt-6">
+
+  <h1 class="display text-4xl md:text-5xl font-black uppercase leading-[0.95] mb-2">Raportul tău pilot</h1>
+  <p class="text-lg text-on-surface-variant mb-6">Tot ce ai făcut local pe device-ul ăsta. Nimic nu e urcat pe server.</p>
+
+  <!-- EMPTY STATE -->
+  <div id="empty" class="hidden bg-white border-2 border-black shadow-neo-4 p-6 mb-8 text-center">
+    <div class="display text-5xl mb-2">¯\_(ツ)_/¯</div>
+    <h2 class="display text-2xl font-black uppercase mb-2">Nicio rulare salvată încă</h2>
+    <p class="mb-4">Fă măcar una din variante (B sau C), apoi te întorci aici.</p>
+    <a href="test.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase px-5 py-3">Înapoi la hub-ul de test →</a>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content" class="hidden">
+
+    <!-- OVERVIEW -->
+    <section class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6">
+      <h2 class="display text-2xl font-black uppercase mb-4">Pe scurt</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-surface-container border-2 border-black p-3 text-center">
+          <div class="display text-3xl font-black" id="stat-total">0</div>
+          <div class="text-xs uppercase tracking-wider">Rulări totale</div>
+        </div>
+        <div class="bg-yellow border-2 border-black p-3 text-center">
+          <div class="display text-3xl font-black" id="stat-b">0</div>
+          <div class="text-xs uppercase tracking-wider">Varianta B</div>
+        </div>
+        <div class="bg-neon border-2 border-black p-3 text-center">
+          <div class="display text-3xl font-black" id="stat-c">0</div>
+          <div class="text-xs uppercase tracking-wider">Varianta C</div>
+        </div>
+      </div>
+      <div id="match-rate" class="mt-4 bg-primary text-white border-2 border-black p-3 hidden">
+        <div class="grid md:grid-cols-2 gap-3">
+          <div>
+            <div class="display text-3xl font-black" id="match-pct">--</div>
+            <div class="text-xs text-primary-dim uppercase tracking-wider">Top-1 hit rate</div>
+            <p class="text-sm mt-1">Cât de des algoritmul a nimerit <b>prima</b> direcție.</p>
+          </div>
+          <div>
+            <div class="display text-3xl font-black" id="top3-pct">--</div>
+            <div class="text-xs text-primary-dim uppercase tracking-wider">Top-3 hit rate</div>
+            <p class="text-sm mt-1">Cât de des alegerea ta a fost <b>în primele 3</b>. Dacă &gt;80%, suntem ok chiar dacă ordinea nu-i perfectă.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANT B -->
+    <section id="section-b" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6 hidden">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="display text-2xl font-black bg-yellow border-2 border-black w-10 h-10 flex items-center justify-center tilt-l">B</span>
+        <h2 class="display text-2xl font-black uppercase">Scenarii reale</h2>
+      </div>
+
+      <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Distribuție top-1 (arhetipuri)</h3>
+      <div id="b-top1" class="space-y-2 mb-5"></div>
+
+      <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Ce ai simțit că e cel mai „tu”</h3>
+      <div id="b-chosen" class="space-y-2 mb-5"></div>
+
+      <details class="border-2 border-black p-3">
+        <summary class="display font-black uppercase text-sm">▼ Vezi toate rulările B (detalii)</summary>
+        <div id="b-runs" class="mt-3 space-y-3 text-sm"></div>
+      </details>
+    </section>
+
+    <!-- VARIANT C -->
+    <section id="section-c" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6 hidden">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="display text-2xl font-black bg-neon border-2 border-black w-10 h-10 flex items-center justify-center tilt-r">C</span>
+        <h2 class="display text-2xl font-black uppercase">Triplu-lens</h2>
+      </div>
+
+      <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Programe recomandate (top-1 per rulare)</h3>
+      <div id="c-programs" class="space-y-2 mb-5"></div>
+
+      <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Interes dominant vs. Valoare dominantă</h3>
+      <div class="grid grid-cols-2 gap-4 mb-5">
+        <div>
+          <div class="text-xs uppercase tracking-wider text-on-surface-variant mb-1">Interese</div>
+          <div id="c-interests" class="space-y-2"></div>
+        </div>
+        <div>
+          <div class="text-xs uppercase tracking-wider text-on-surface-variant mb-1">Valori</div>
+          <div id="c-values" class="space-y-2"></div>
+        </div>
+      </div>
+
+      <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Profilul mediu de stil de lucru</h3>
+      <div id="c-style" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5"></div>
+
+      <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Ce ai simțit că e cel mai „tu”</h3>
+      <div id="c-chosen" class="space-y-2 mb-5"></div>
+
+      <details class="border-2 border-black p-3">
+        <summary class="display font-black uppercase text-sm">▼ Vezi toate rulările C (detalii)</summary>
+        <div id="c-runs" class="mt-3 space-y-3 text-sm"></div>
+      </details>
+    </section>
+
+    <!-- EXPORT -->
+    <section class="bg-primary text-white border-2 border-black shadow-neo-8 p-5 mb-6">
+      <h2 class="display text-2xl font-black uppercase mb-2">Trimite-ne datele</h2>
+      <p class="mb-4 text-primary-dim">Apasă „Copiază JSON” și trimite-le pe WhatsApp / Discord. Sau „Descarcă fișier”.</p>
+      <div class="flex flex-wrap gap-3">
+        <button id="btn-copy" class="bg-neon text-ink border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
+          Copiază JSON
+        </button>
+        <button id="btn-download" class="bg-yellow text-ink border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
+          Descarcă fișier
+        </button>
+        <button id="btn-clear" class="bg-white text-ink border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
+          Șterge datele locale
+        </button>
+      </div>
+      <div id="copy-msg" class="mt-3 text-sm hidden"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="max-w-4xl mx-auto px-5 pb-10 text-xs text-on-surface-variant">
+  <b class="display uppercase">Ce Să Fiu?</b> — raport generat local în browser. Aprilie 2026.
+</footer>
+
+<script>
+const ARCHETYPE_LABELS = {
+  constructor: "Constructor",
+  analist: "Analist",
+  ajutor: "Ajutor",
+  creator: "Creator",
+  leader: "Leader",
+  explorator: "Explorator"
+};
+const INTEREST_LABELS = ARCHETYPE_LABELS;
+const VALUE_LABELS = {
+  stabilitate: "Stabilitate",
+  impact: "Impact",
+  autonomie: "Autonomie",
+  mastery: "Măiestrie",
+  recunoastere: "Recunoaștere"
+};
+const STYLE_AXES = [
+  { key:"ritm",        low:"Lent & reflexiv",   high:"Rapid & reactiv" },
+  { key:"structura",   low:"Haos creativ",      high:"Structură clară" },
+  { key:"colaborare",  low:"Solo",              high:"Echipă" },
+  { key:"risc",        low:"Siguranță",         high:"Risc asumat" },
+  { key:"focus",       low:"Variat",            high:"Focus profund" }
+];
+
+function load() {
+  try { return JSON.parse(localStorage.getItem("cesafiu_results") || "[]"); }
+  catch { return []; }
+}
+
+function countBy(arr, keyFn) {
+  const out = {};
+  arr.forEach(r => { const k = keyFn(r); if (!k) return; out[k] = (out[k]||0) + 1; });
+  return out;
+}
+
+function bars(container, obj, labelMap, colorVar) {
+  const entries = Object.entries(obj).sort((a,b) => b[1]-a[1]);
+  const max = Math.max(1, ...entries.map(e => e[1]));
+  const el = document.getElementById(container);
+  el.innerHTML = "";
+  if (entries.length === 0) { el.innerHTML = '<p class="text-sm text-on-surface-variant italic">—</p>'; return; }
+  entries.forEach(([k,v]) => {
+    const row = document.createElement("div");
+    row.className = "bar";
+    row.style.setProperty("--w", (v/max*100)+"%");
+    row.innerHTML = `
+      <div class="bar-fill" style="background:${colorVar||'#a9f900'}"></div>
+      <div class="bar-label"><span class="flex-1">${(labelMap && labelMap[k]) || k}</span><span>${v}</span></div>
+    `;
+    el.appendChild(row);
+  });
+}
+
+function renderStyle(container, avgStyle) {
+  const el = document.getElementById(container);
+  el.innerHTML = "";
+  STYLE_AXES.forEach(ax => {
+    const v = avgStyle[ax.key] || 0;
+    // v is on 1-4 scale (user picks one of four options per axis)
+    const clamped = Math.max(1, Math.min(4, v));
+    const pct = ((clamped - 1) / 3) * 100;
+    const box = document.createElement("div");
+    box.className = "border-2 border-black bg-surface-container p-3";
+    box.innerHTML = `
+      <div class="flex justify-between text-xs font-bold mb-1">
+        <span>${ax.low}</span><span>${ax.high}</span>
+      </div>
+      <div class="relative h-3 bg-white border-2 border-black">
+        <div class="absolute top-[-4px] w-3 h-5 bg-primary border-2 border-black" style="left:calc(${pct}% - 6px)"></div>
+      </div>
+      <div class="text-xs text-on-surface-variant mt-1">media: ${v.toFixed(2)}</div>
+    `;
+    el.appendChild(box);
+  });
+}
+
+function runCardB(r) {
+  const chosen = r.chosen ? `<b class="bg-yellow px-1">${ARCHETYPE_LABELS[r.chosen]||r.chosen}</b>` : '<i>fără feedback</i>';
+  return `<div class="border border-black p-2">
+    <div class="text-xs text-on-surface-variant">${r.timestamp}</div>
+    <div><b>Top-1:</b> ${ARCHETYPE_LABELS[r.top1]||r.top1} · <b>Top-2:</b> ${ARCHETYPE_LABELS[r.top2]||r.top2} · <b>Top-3:</b> ${ARCHETYPE_LABELS[r.top3]||r.top3}</div>
+    <div><b>Ales:</b> ${chosen}</div>
+  </div>`;
+}
+
+function runCardC(r) {
+  const chosen = r.chosen ? `<b class="bg-yellow px-1">${r.chosen}</b>` : '<i>fără feedback</i>';
+  return `<div class="border border-black p-2">
+    <div class="text-xs text-on-surface-variant">${r.timestamp}</div>
+    <div><b>Interese:</b> ${INTEREST_LABELS[r.interests_top1]||r.interests_top1}, ${INTEREST_LABELS[r.interests_top2]||r.interests_top2}</div>
+    <div><b>Valori:</b> ${VALUE_LABELS[r.values_top1]||r.values_top1}, ${VALUE_LABELS[r.values_top2]||r.values_top2}</div>
+    <div><b>Top programe:</b> ${(r.top_programs||[]).join(" · ")}</div>
+    <div><b>Ales:</b> ${chosen}</div>
+  </div>`;
+}
+
+function render() {
+  const all = load();
+  const runsB = all.filter(r => r.variant === "B");
+  const runsC = all.filter(r => r.variant === "C");
+
+  if (all.length === 0) {
+    document.getElementById("empty").classList.remove("hidden");
+    document.getElementById("content").classList.add("hidden");
+    return;
+  }
+  document.getElementById("empty").classList.add("hidden");
+  document.getElementById("content").classList.remove("hidden");
+
+  document.getElementById("stat-total").textContent = all.length;
+  document.getElementById("stat-b").textContent = runsB.length;
+  document.getElementById("stat-c").textContent = runsC.length;
+
+  // match rate: top1 === chosen (B) OR top_programs[0] === chosen (C)
+  const withFeedback = all.filter(r => r.chosen);
+  const top1Hit = withFeedback.filter(r => {
+    if (r.variant === "B") return r.top1 === r.chosen;
+    if (r.variant === "C") return (r.top_programs||[])[0] === r.chosen;
+    return false;
+  });
+  const top3Hit = withFeedback.filter(r => {
+    if (r.variant === "B") return [r.top1, r.top2, r.top3].includes(r.chosen);
+    if (r.variant === "C") return (r.top_programs||[]).includes(r.chosen);
+    return false;
+  });
+  if (withFeedback.length > 0) {
+    document.getElementById("match-rate").classList.remove("hidden");
+    document.getElementById("match-pct").textContent = Math.round(top1Hit.length / withFeedback.length * 100) + "%";
+    document.getElementById("top3-pct").textContent = Math.round(top3Hit.length / withFeedback.length * 100) + "%";
+  }
+
+  // Variant B
+  if (runsB.length > 0) {
+    document.getElementById("section-b").classList.remove("hidden");
+    bars("b-top1", countBy(runsB, r => r.top1), ARCHETYPE_LABELS, "#a9f900");
+    bars("b-chosen", countBy(runsB.filter(r=>r.chosen), r => r.chosen), ARCHETYPE_LABELS, "#ffe170");
+    document.getElementById("b-runs").innerHTML = runsB.map(runCardB).join("");
+  }
+
+  // Variant C
+  if (runsC.length > 0) {
+    document.getElementById("section-c").classList.remove("hidden");
+    bars("c-programs", countBy(runsC, r => (r.top_programs||[])[0]), null, "#a9f900");
+    bars("c-interests", countBy(runsC, r => r.interests_top1), INTEREST_LABELS, "#ffe170");
+    bars("c-values", countBy(runsC, r => r.values_top1), VALUE_LABELS, "#d0bcff");
+    // average style
+    const avg = { ritm:0, structura:0, colaborare:0, risc:0, focus:0 };
+    runsC.forEach(r => { STYLE_AXES.forEach(ax => { avg[ax.key] += (r.style && r.style[ax.key]) || 0; }); });
+    STYLE_AXES.forEach(ax => { avg[ax.key] = avg[ax.key] / runsC.length; });
+    renderStyle("c-style", avg);
+    bars("c-chosen", countBy(runsC.filter(r=>r.chosen), r => r.chosen), null, "#ffe170");
+    document.getElementById("c-runs").innerHTML = runsC.map(runCardC).join("");
+  }
+}
+
+document.getElementById("btn-copy").addEventListener("click", async () => {
+  const payload = {
+    device: navigator.userAgent,
+    exported_at: new Date().toISOString(),
+    pilot_progress: JSON.parse(localStorage.getItem("cesafiu_pilot_progress")||"{}"),
+    results: load()
+  };
+  const json = JSON.stringify(payload, null, 2);
+  const msg = document.getElementById("copy-msg");
+  try {
+    await navigator.clipboard.writeText(json);
+    msg.textContent = "✓ Copiat în clipboard. Lipește-l în chat-ul cu noi.";
+    msg.className = "mt-3 text-sm bg-neon text-ink border-2 border-black p-2";
+    msg.classList.remove("hidden");
+  } catch(e) {
+    // fallback: show textarea
+    msg.innerHTML = `<textarea readonly class="w-full border-2 border-black p-2 font-mono text-xs" rows="8">${json.replace(/</g,'&lt;')}</textarea><p class="mt-2">Selectează tot și copiază manual.</p>`;
+    msg.className = "mt-3 text-sm bg-white text-ink border-2 border-black p-2";
+    msg.classList.remove("hidden");
+  }
+});
+
+document.getElementById("btn-download").addEventListener("click", () => {
+  const payload = {
+    device: navigator.userAgent,
+    exported_at: new Date().toISOString(),
+    pilot_progress: JSON.parse(localStorage.getItem("cesafiu_pilot_progress")||"{}"),
+    results: load()
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type:"application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `cesafiu_pilot_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById("btn-clear").addEventListener("click", () => {
+  if (!confirm("Sigur ștergi toate rezultatele locale? Nu se mai pot recupera.")) return;
+  try {
+    localStorage.removeItem("cesafiu_results");
+    localStorage.removeItem("cesafiu_pilot_progress");
+  } catch(e) {}
+  render();
+});
+
+render();
+</script>
+
+</body>
+</html>

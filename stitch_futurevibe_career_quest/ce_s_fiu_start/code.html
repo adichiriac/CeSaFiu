@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="ro"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ce Să Fiu? - Descoperă-ți Cariera</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&amp;family=Epilogue:wght@700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#494454",
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#ece8e0",
+                      "tertiary-container": "#caa900",
+                      "surface-bright": "#fef9f1",
+                      "primary-fixed": "#e9ddff",
+                      "on-tertiary-container": "#4c3f00",
+                      "primary-fixed-dim": "#d0bcff",
+                      "surface-container-low": "#f8f3eb",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed": "#a9f900",
+                      "tertiary-fixed": "#ffe170",
+                      "outline-variant": "#cbc3d7",
+                      "on-secondary": "#ffffff",
+                      "background": "#fef9f1",
+                      "on-secondary-fixed-variant": "#334f00",
+                      "on-primary-fixed-variant": "#5516be",
+                      "on-background": "#1d1c17",
+                      "outline": "#7b7486",
+                      "primary-container": "#8455ef",
+                      "tertiary": "#705d00",
+                      "error-container": "#ffdad6",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-dim": "#ded9d2",
+                      "surface-container": "#f2ede5",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e7e2da",
+                      "surface": "#fef9f1",
+                      "on-secondary-fixed": "#121f00",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed-dim": "#e9c400",
+                      "surface-tint": "#6d3bd7",
+                      "inverse-primary": "#d0bcff",
+                      "on-primary-fixed": "#23005c",
+                      "on-surface": "#1d1c17",
+                      "on-primary-container": "#fffbff",
+                      "on-tertiary-fixed-variant": "#544600",
+                      "on-secondary-container": "#486d00",
+                      "surface-variant": "#e7e2da",
+                      "primary": "#6b38d4",
+                      "inverse-surface": "#32302b",
+                      "secondary-fixed-dim": "#94db00",
+                      "secondary": "#456800",
+                      "inverse-on-surface": "#f5f0e8",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed": "#221b00",
+                      "secondary-container": "#a7f600"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xl": "64px",
+                      "lg": "40px",
+                      "base": "8px",
+                      "sm": "12px",
+                      "gutter": "16px",
+                      "margin-desktop": "120px",
+                      "md": "24px",
+                      "xs": "4px",
+                      "margin-mobile": "20px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Epilogue"],
+                      "label-sm": ["Be Vietnam Pro"],
+                      "headline-lg": ["Epilogue"],
+                      "headline-xl": ["Epilogue"],
+                      "body-md": ["Be Vietnam Pro"],
+                      "body-lg": ["Be Vietnam Pro"],
+                      "label-bold": ["Be Vietnam Pro"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+                      "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "500"}],
+                      "label-bold": ["14px", {"lineHeight": "1.2", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Neo-brutalist custom utilities */
+        .neo-shadow-static { box-shadow: 2px 2px 0px 0px rgba(0,0,0,1); }
+        .neo-shadow-card { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); }
+        .neo-shadow-btn { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); transition: all 0.15s ease; }
+        .neo-shadow-btn:active { box-shadow: 0px 0px 0px 0px rgba(0,0,0,1); transform: translate(4px, 4px); }
+        
+        /* Subtle grid background */
+        .bg-grid-pattern {
+            background-color: #fef9f1; /* surface token */
+            background-image: linear-gradient(#e7e2da 1px, transparent 1px), linear-gradient(90deg, #e7e2da 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-grid-pattern text-on-background min-h-screen pb-24 md:pb-0 font-body-md selection:bg-secondary-fixed selection:text-black">
+<!-- TopAppBar (from JSON) -->
+<header class="fixed top-0 w-full z-50 bg-white dark:bg-zinc-900 border-b-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-violet-600 dark:text-violet-400" style="font-variation-settings: 'FILL' 1;">flag</span>
+<span class="text-2xl font-black text-black dark:text-white uppercase font-['Epilogue'] uppercase tracking-tighter">VIITORUL TĂU</span>
+</div>
+<!-- Desktop Navigation (Semantic Shell Mandate) -->
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-violet-600 font-black uppercase font-['Epilogue'] tracking-tighter hover:bg-yellow-400 transition-all px-3 py-1 border-2 border-transparent hover:border-black rounded-DEFAULT" href="#">START</a>
+<a class="text-black dark:text-zinc-400 font-bold uppercase font-['Epilogue'] hover:bg-yellow-400 transition-all px-3 py-1 border-2 border-transparent hover:border-black rounded-DEFAULT" href="#">ARHETIPURI</a>
+<a class="text-black dark:text-zinc-400 font-bold uppercase font-['Epilogue'] hover:bg-yellow-400 transition-all px-3 py-1 border-2 border-transparent hover:border-black rounded-DEFAULT" href="#">PROFIL</a>
+</nav>
+<button class="flex items-center justify-center p-2 border-2 border-black rounded-full bg-tertiary-fixed neo-shadow-btn md:hidden">
+<span class="material-symbols-outlined text-black">language</span>
+</button>
+<button class="hidden md:flex items-center justify-center p-2 border-2 border-black rounded-full bg-tertiary-fixed neo-shadow-btn">
+<span class="material-symbols-outlined text-black">language</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-32 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto overflow-hidden relative">
+<!-- Hero Section with Collage Aesthetics -->
+<section class="flex flex-col items-center justify-center min-h-[663px] relative text-center z-10 py-xl">
+<!-- Floating Sticker 1: Art Palette -->
+<div class="absolute top-10 left-0 md:left-10 rotate-[-12deg] bg-tertiary-fixed border-2 border-black p-4 rounded-full neo-shadow-card hidden sm:flex items-center justify-center z-0 animate-[bounce_4s_infinite]">
+<span class="material-symbols-outlined text-black text-4xl" style="font-variation-settings: 'FILL' 1;">palette</span>
+</div>
+<!-- Floating Sticker 2: Laptop (IT) -->
+<div class="absolute bottom-20 right-0 md:right-20 rotate-[8deg] bg-secondary-fixed border-2 border-black p-4 rounded-xl neo-shadow-card hidden sm:flex items-center justify-center z-0">
+<span class="material-symbols-outlined text-black text-5xl" style="font-variation-settings: 'FILL' 1;">laptop_mac</span>
+</div>
+<!-- Floating Sticker 3: Medicine -->
+<div class="absolute top-40 right-4 md:right-32 rotate-[15deg] bg-white border-2 border-black p-3 rounded-full neo-shadow-card flex items-center justify-center z-0">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">stethoscope</span>
+</div>
+<!-- Floating Tag -->
+<div class="absolute bottom-32 left-4 md:left-32 rotate-[-5deg] bg-white border-2 border-black px-4 py-2 rounded-DEFAULT neo-shadow-static z-0">
+<span class="font-label-bold text-label-bold text-black uppercase">#MainCharacter</span>
+</div>
+<div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+<div class="inline-block bg-tertiary-fixed border-2 border-black px-4 py-1 mb-6 rounded-full neo-shadow-static rotate-[-2deg]">
+<span class="font-label-bold text-label-bold uppercase text-black">Pentru Gen Z</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-black mb-md uppercase leading-tight">
+                    AFLĂ CE ȚI SE <br class="hidden md:block"/> POTRIVEȘTE <span class="text-primary bg-secondary-fixed px-2 inline-block rotate-[2deg] border-2 border-black">CU ADEVĂRAT</span>
+</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-xl">
+                    5 minute. 10 întrebări. Un AI care îți spune unde să dai la facultate. Fără teste plictisitoare de la consilierul școlar.
+                </p>
+<button class="bg-primary text-on-primary font-headline-md text-headline-md uppercase border-2 border-black py-4 px-8 rounded-lg neo-shadow-btn flex items-center gap-3 hover:bg-surface-tint">
+                    Începe testul 
+                    <span class="material-symbols-outlined font-black">arrow_forward</span>
+</button>
+<p class="mt-4 font-label-sm text-label-sm text-outline font-bold">Peste 10,000 de tineri au dat deja dă-i bătaie!</p>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (from JSON - Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-white dark:bg-zinc-900 pb-safe border-t-4 border-black">
+<!-- Active Tab: START -->
+<a class="flex flex-col items-center justify-center bg-violet-600 text-white p-2 rounded-md border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] w-16 h-16 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<span class="font-['Epilogue'] font-bold text-[10px] uppercase">START</span>
+</a>
+<!-- Inactive Tab: ARHETIPURI -->
+<a class="flex flex-col items-center justify-center text-black dark:text-white p-2 w-16 h-16 hover:bg-green-400 dark:hover:bg-green-500 rounded-md border-2 border-transparent hover:border-black transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined mb-1">auto_awesome</span>
+<span class="font-['Epilogue'] font-bold text-[10px] uppercase">ARHETIPURI</span>
+</a>
+<!-- Inactive Tab: PROFIL -->
+<a class="flex flex-col items-center justify-center text-black dark:text-white p-2 w-16 h-16 hover:bg-green-400 dark:hover:bg-green-500 rounded-md border-2 border-transparent hover:border-black transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-['Epilogue'] font-bold text-[10px] uppercase">PROFIL</span>
+</a>
+<!-- Inactive Tab: ADMIN -->
+<a class="flex flex-col items-center justify-center text-black dark:text-white p-2 w-16 h-16 hover:bg-green-400 dark:hover:bg-green-500 rounded-md border-2 border-transparent hover:border-black transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined mb-1">analytics</span>
+<span class="font-['Epilogue'] font-bold text-[10px] uppercase">ADMIN</span>
+</a>
+</nav>
+</body></html>

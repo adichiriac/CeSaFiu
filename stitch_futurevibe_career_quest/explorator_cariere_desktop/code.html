@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="ro"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Explorator Cariere</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#705d00",
+                      "on-secondary-container": "#486d00",
+                      "on-error-container": "#93000a",
+                      "surface-bright": "#fef9f1",
+                      "tertiary-fixed-dim": "#e9c400",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#121f00",
+                      "on-background": "#1d1c17",
+                      "surface": "#fef9f1",
+                      "tertiary-fixed": "#ffe170",
+                      "surface-container-high": "#ece8e0",
+                      "primary-fixed-dim": "#d0bcff",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f8f3eb",
+                      "on-primary-fixed": "#23005c",
+                      "on-tertiary-fixed": "#221b00",
+                      "on-surface": "#1d1c17",
+                      "error": "#ba1a1a",
+                      "surface-tint": "#6d3bd7",
+                      "on-tertiary-container": "#4c3f00",
+                      "on-secondary-fixed-variant": "#334f00",
+                      "on-tertiary-fixed-variant": "#544600",
+                      "surface-variant": "#e7e2da",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#e9ddff",
+                      "inverse-on-surface": "#f5f0e8",
+                      "tertiary-container": "#caa900",
+                      "secondary-fixed-dim": "#94db00",
+                      "on-primary-fixed-variant": "#5516be",
+                      "outline": "#7b7486",
+                      "primary-container": "#8455ef",
+                      "inverse-primary": "#d0bcff",
+                      "on-error": "#ffffff",
+                      "secondary": "#456800",
+                      "surface-container": "#f2ede5",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed": "#a9f900",
+                      "secondary-container": "#a7f600",
+                      "on-primary-container": "#fffbff",
+                      "outline-variant": "#cbc3d7",
+                      "on-surface-variant": "#494454",
+                      "inverse-surface": "#32302b",
+                      "primary": "#6b38d4",
+                      "surface-dim": "#ded9d2",
+                      "on-tertiary": "#ffffff",
+                      "background": "#fef9f1",
+                      "surface-container-highest": "#e7e2da"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "40px",
+                      "sm": "12px",
+                      "md": "24px",
+                      "margin-desktop": "120px",
+                      "gutter": "16px",
+                      "xs": "4px",
+                      "xl": "64px",
+                      "base": "8px",
+                      "margin-mobile": "20px"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Be Vietnam Pro"
+                      ],
+                      "body-lg": [
+                              "Be Vietnam Pro"
+                      ],
+                      "label-bold": [
+                              "Be Vietnam Pro"
+                      ],
+                      "headline-xl": [
+                              "Epilogue"
+                      ],
+                      "headline-md": [
+                              "Epilogue"
+                      ],
+                      "headline-lg": [
+                              "Epilogue"
+                      ],
+                      "body-md": [
+                              "Be Vietnam Pro"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-bold": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-xl": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex selection:bg-secondary selection:text-on-secondary">
+<!-- SideNavBar -->
+<nav class="bg-[#FBF6EE] dark:bg-zinc-950 h-screen w-64 border-r-2 border-black dark:border-white fixed left-0 top-0 flex flex-col h-full pt-20 hidden md:flex z-50">
+<div class="px-6 mb-12">
+<h1 class="text-xl font-black uppercase text-black dark:text-white font-['Epilogue'] tracking-tight">Carieră Ta</h1>
+<div class="mt-8 flex items-center gap-4">
+<img alt="User Avatar" class="w-12 h-12 rounded-none border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] object-cover" data-alt="close up portrait of a young person with vibrant colored hair looking confident, wearing a graphic tee, bright soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDip_Hn11hE6Rko0fp1VuA36pp3UqnfcqRs26zMa5KLvAYXB4ooH0EXLAvLE_lwBTPG2Buj1bT1fqqDdDC5850ywRsR9mtUrpjgdGRrjLhvQL3OkaNw-ldoGvIQi0X4t4eyonqAdDIPtrAzwVb3EYOpK4OAANmmNW0PCdMKOQ0OZNaVphx-spFZ0zd_dZ5fjJPWuUR57o-WsOYvz9taIfZETL7pKgH0kQ3uag0foQz4U_KS0EDTLjdT4yAqu8FVQjhiYD0vyQRlq6CM"/>
+<div>
+<h2 class="font-['Epilogue'] font-black text-sm text-black">Salut, Exploratorule!</h2>
+<p class="font-['Be_Vietnam_Pro'] text-xs text-outline">Ești gata de quest?</p>
+</div>
+</div>
+</div>
+<ul class="flex-1 px-4 space-y-2">
+<li>
+<a class="flex items-center gap-3 p-4 text-black dark:text-white hover:bg-tertiary-fixed hover:text-black border-2 border-transparent m-2 transition-transform hover:rotate-1 hover:scale-105 active:scale-95 duration-100 font-['Epilogue'] font-black text-sm uppercase" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">home</span>
+                    Acasă
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-4 bg-primary text-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] m-2 rounded-none transition-transform hover:rotate-1 hover:scale-105 active:scale-95 duration-100 font-['Epilogue'] font-black text-sm uppercase" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">search</span>
+                    Explorare
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-4 text-black dark:text-white hover:bg-tertiary-fixed hover:text-black border-2 border-transparent m-2 transition-transform hover:rotate-1 hover:scale-105 active:scale-95 duration-100 font-['Epilogue'] font-black text-sm uppercase" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+                    Favorite
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-4 text-black dark:text-white hover:bg-tertiary-fixed hover:text-black border-2 border-transparent m-2 transition-transform hover:rotate-1 hover:scale-105 active:scale-95 duration-100 font-['Epilogue'] font-black text-sm uppercase" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">settings</span>
+                    Setări
+                </a>
+</li>
+</ul>
+<div class="p-6 mt-auto">
+<button class="w-full bg-secondary-fixed text-on-secondary-fixed border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-4 font-['Epilogue'] font-black uppercase text-sm hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75">
+                Dă-i bătaie!
+            </button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 ml-0 md:ml-64 p-6 md:p-12 md:pl-margin-desktop lg:pr-margin-desktop w-full max-w-7xl mx-auto min-h-screen pb-32">
+<!-- Header Section -->
+<header class="mb-xl relative">
+<div class="absolute -top-10 -left-10 w-32 h-32 bg-secondary-fixed rounded-full mix-blend-multiply filter blur-2xl opacity-50 z-0"></div>
+<div class="absolute top-10 -right-10 w-40 h-40 bg-primary-fixed rounded-full mix-blend-multiply filter blur-3xl opacity-40 z-0"></div>
+<h1 class="font-headline-xl text-headline-xl text-on-background mb-4 relative z-10 drop-shadow-[4px_4px_0px_rgba(202,169,0,0.5)]">Explorează Facultăți</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl relative z-10">
+                Aici e baza de date cu toate opțiunile tale. Găsește combo-ul perfect pentru viitorul tău quest.
+            </p>
+</header>
+<!-- Filters -->
+<section class="mb-12 flex flex-wrap gap-4 items-center relative z-10">
+<button class="bg-primary text-on-primary border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] px-6 py-3 font-label-bold text-label-bold uppercase active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                Toate
+            </button>
+<button class="bg-surface text-on-surface border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] px-6 py-3 font-label-bold text-label-bold uppercase hover:bg-tertiary-fixed hover:text-on-tertiary-container active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                Tech &amp; IT
+            </button>
+<button class="bg-surface text-on-surface border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] px-6 py-3 font-label-bold text-label-bold uppercase hover:bg-tertiary-fixed hover:text-on-tertiary-container active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                Business
+            </button>
+<button class="bg-surface text-on-surface border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] px-6 py-3 font-label-bold text-label-bold uppercase hover:bg-tertiary-fixed hover:text-on-tertiary-container active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                Artă &amp; Design
+            </button>
+</section>
+<!-- Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 relative z-10">
+<!-- Card 1 -->
+<article class="bg-surface border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col h-full transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] group">
+<div class="h-48 border-b-2 border-black relative overflow-hidden bg-primary-fixed-dim flex items-center justify-center">
+<img alt="Facultate IT" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="computer code on a screen with a slight neon green and purple cyber aesthetic, chaotic but cool lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiPux26jgS0J3iiXjirLAhOlZuhMibIPeOTnu0podmigmvNnvoZ4MEv5nOXTcm1A2RHmetDo4uGXXDs1OOIsHKTPOZpOcYiIJ31RLLu8bS95xV_swtOmlKDKIjCnc0gaCEwc6HaRuU0WkH_hyuN2hJ_ECKiDEUoWsQwvGPzu71jvbbSsDWCX0ezT9yf0Ci_mIxslX-ztM0rdbrayaOLNb2LoY5WzYrmpxw2YdsIAeYMJ3U2uQAwP8foBmAdnkqiY7G5gBRXDbcGgjD"/>
+<div class="absolute top-4 right-4 bg-secondary-fixed text-on-secondary-fixed border-2 border-black px-3 py-1 font-label-bold text-label-bold uppercase rotate-2">
+                        95% Match
+                    </div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-4 gap-4">
+<h2 class="font-headline-md text-headline-md text-on-background leading-tight">Automatică și Calculatoare - UPB</h2>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span>București</span>
+</div>
+<div class="flex items-start gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+<span>Examen Matematică &amp; Informatică</span>
+</div>
+</div>
+<div class="mt-auto flex items-center gap-4">
+<button class="flex-1 bg-primary text-on-primary border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] py-3 px-4 font-label-bold text-label-bold uppercase hover:bg-primary-container hover:text-on-primary-container active:translate-x-1 active:translate-y-1 active:shadow-none transition-all text-center">
+                            Hai să vedem
+                        </button>
+<button class="bg-surface text-on-surface border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-3 hover:bg-tertiary-fixed hover:text-on-tertiary-container active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center">
+<span class="material-symbols-outlined">star</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-tertiary-fixed border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col h-full transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] group">
+<div class="h-48 border-b-2 border-black relative overflow-hidden bg-white flex items-center justify-center">
+<img alt="Facultate Business" class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500 mix-blend-luminosity" data-alt="dynamic shot of young people analyzing colorful charts and papers on a table, vibrant natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUcsWXImu-6Yk9YhAWJ0w9JmybZTpvv5Rsi3rueQtTuPirgKhm-urDlrTbKz_p3wZW5SVbv2rNZ5KRvXolz0ws9ddVd3kKm3Sez-6wyYxeQ6bPdEy1HXiINgSe2-vKNLD0wDBPPPxtmB0Ql6fiX9RbFfGch0A2ny7irOCE7atP5jkeTH_9AwVJ3Wj9dbZ0dr4llLCpNoi-SUVbSU4eUw8KYeHsRRpTEiMqvKZRLtTPpIVj4nuEvPCkrKyWTl1793yJh9wrqezu1J7Q"/>
+<div class="absolute top-4 right-4 bg-secondary-fixed text-on-secondary-fixed border-2 border-black px-3 py-1 font-label-bold text-label-bold uppercase -rotate-3">
+                        88% Match
+                    </div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-4 gap-4">
+<h2 class="font-headline-md text-headline-md text-on-background leading-tight">Cibernetică, Statistică și Informatică - ASE</h2>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span>București</span>
+</div>
+<div class="flex items-start gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-tertiary">description</span>
+<span>Dosar (Medie Bacalaureat)</span>
+</div>
+</div>
+<div class="mt-auto flex items-center gap-4">
+<button class="flex-1 bg-primary text-on-primary border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] py-3 px-4 font-label-bold text-label-bold uppercase hover:bg-primary-container hover:text-on-primary-container active:translate-x-1 active:translate-y-1 active:shadow-none transition-all text-center">
+                            Vezi detalii
+                        </button>
+<button class="bg-surface text-on-surface border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-3 hover:bg-tertiary-fixed hover:text-on-tertiary-container active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center group-[.favorite]:text-tertiary">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col h-full transform transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] group">
+<div class="h-48 border-b-2 border-black relative overflow-hidden bg-secondary-fixed-dim flex items-center justify-center">
+<img alt="Facultate Mate Info" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="abstract mathematical equations floating over a colorful gradient background, neon purple and green accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADLTC7mdRV1QhE2uc3GrZpk0fSxrGOtfdoZi7mPPMuwpU404gHgrX3kXqZiGkyMAB0EnOn-VUGtkQiTukZ5ZI0E5skf4llgJYdS6wOYW8i3xozVUwq3hEC1XJMxcyicEAshABn2fraPtjFq474ngvMhU44SWahFWpbpsgEDo19yghSzHwEysE8HksSLayE6aEaNwUBQgMB3oUAo_chgfA3WOS1B7vtx4fPBvlHyGdCtvJvTTm0o3gtgVyNP0M8Ze5L3u1OrB95JAof"/>
+<div class="absolute top-4 right-4 bg-secondary-fixed text-on-secondary-fixed border-2 border-black px-3 py-1 font-label-bold text-label-bold uppercase rotate-1">
+                        82% Match
+                    </div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-4 gap-4">
+<h2 class="font-headline-md text-headline-md text-on-background leading-tight">Matematică și Informatică - UB</h2>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span>București</span>
+</div>
+<div class="flex items-start gap-2 text-on-surface-variant font-body-md text-body-md">
+<span class="material-symbols-outlined text-tertiary">school</span>
+<span>Examen Scris</span>
+</div>
+</div>
+<div class="mt-auto flex items-center gap-4">
+<button class="flex-1 bg-primary text-on-primary border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] py-3 px-4 font-label-bold text-label-bold uppercase hover:bg-primary-container hover:text-on-primary-container active:translate-x-1 active:translate-y-1 active:shadow-none transition-all text-center">
+                            Hai să vedem
+                        </button>
+<button class="bg-surface text-on-surface border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-3 hover:bg-tertiary-fixed hover:text-on-tertiary-container active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center">
+<span class="material-symbols-outlined">star</span>
+</button>
+</div>
+</div>
+</article>
+</section>
+</main>
+</body></html>

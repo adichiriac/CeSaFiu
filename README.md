@@ -15,7 +15,7 @@ Complet client-side, fără backend, fără cookies, fără tracking. HTML/CSS/J
 
 ## Live
 
-https://chiriac-adrian.github.io/CeSaFiu/
+https://adichiriac.github.io/CeSaFiu/
 
 ## Structură
 

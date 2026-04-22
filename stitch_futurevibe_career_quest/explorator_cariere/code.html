@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="ro"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Explorează Facultăți - CE SĂ FIU</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&amp;family=Epilogue:wght@700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#221b00",
+                        "on-surface-variant": "#494454",
+                        "surface-container": "#f2ede5",
+                        "surface-container-highest": "#e7e2da",
+                        "secondary-fixed-dim": "#94db00",
+                        "secondary": "#456800",
+                        "primary-fixed-dim": "#d0bcff",
+                        "tertiary-container": "#caa900",
+                        "on-primary-fixed-variant": "#5516be",
+                        "on-background": "#1d1c17",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "on-secondary-container": "#486d00",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#fef9f1",
+                        "surface": "#fef9f1",
+                        "on-error": "#ffffff",
+                        "background": "#fef9f1",
+                        "primary-fixed": "#e9ddff",
+                        "on-secondary-fixed": "#121f00",
+                        "surface-container-low": "#f8f3eb",
+                        "secondary-fixed": "#a9f900",
+                        "primary-container": "#8455ef",
+                        "outline-variant": "#cbc3d7",
+                        "surface-tint": "#6d3bd7",
+                        "on-tertiary-container": "#4c3f00",
+                        "on-primary-container": "#fffbff",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e7e2da",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#ece8e0",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#6b38d4",
+                        "on-surface": "#1d1c17",
+                        "inverse-on-surface": "#f5f0e8",
+                        "tertiary-fixed": "#ffe170",
+                        "on-secondary-fixed-variant": "#334f00",
+                        "outline": "#7b7486",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#32302b",
+                        "surface-dim": "#ded9d2",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#d0bcff",
+                        "tertiary": "#705d00",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#a7f600",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "on-primary-fixed": "#23005c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "margin-mobile": "20px",
+                        "xl": "64px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "gutter": "16px",
+                        "margin-desktop": "120px",
+                        "md": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Be Vietnam Pro"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "headline-md": ["Epilogue"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-xl": ["Epilogue"],
+                        "headline-lg": ["Epilogue"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen text-on-background pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-[#FBF6EE] text-violet-600 font-['Epilogue'] font-black tracking-tighter uppercase docked full-width top-0 border-b-2 border-black border-b-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center w-full px-6 py-4 sticky z-40">
+<button aria-label="Back" class="flex items-center justify-center p-2 border-2 border-black bg-white rounded-DEFAULT shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none hover:bg-yellow-400 transition-all text-black">
+<span class="material-symbols-outlined font-bold">bolt</span>
+</button>
+<h1 class="text-2xl font-black text-black italic tracking-widest">CE SĂ FIU</h1>
+<button aria-label="Settings" class="flex items-center justify-center p-2 border-2 border-black bg-white rounded-DEFAULT shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none hover:bg-yellow-400 transition-all text-black">
+<span class="material-symbols-outlined font-bold">settings</span>
+</button>
+</header>
+<main class="px-margin-mobile py-lg max-w-7xl mx-auto flex flex-col gap-gutter">
+<!-- Header Section -->
+<div class="mb-sm">
+<h2 class="font-headline-lg text-headline-lg mb-xs">Explorează Facultăți</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Bazat pe vibe-ul tău de la quiz, uite ce ți se potrivește cel mai bine. Dă-i bătaie!</p>
+</div>
+<!-- Filter/Chips -->
+<div class="flex flex-wrap gap-sm mb-md">
+<button class="bg-primary-container text-on-primary-container border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT px-4 py-2 font-label-bold text-label-bold active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transform -rotate-1">Toate</button>
+<button class="bg-tertiary-fixed text-on-tertiary-fixed border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT px-4 py-2 font-label-bold text-label-bold active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transform rotate-1">Tech &amp; IT</button>
+<button class="bg-secondary-container text-on-secondary-container border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT px-4 py-2 font-label-bold text-label-bold active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transform -rotate-2">Business</button>
+</div>
+<!-- Cards List -->
+<div class="flex flex-col gap-md">
+<!-- Card 1 -->
+<article class="bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT p-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-tertiary-fixed border-l-2 border-b-2 border-black px-3 py-1 font-label-bold text-label-bold transform translate-x-1 -translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform">
+                    95% Match
+                </div>
+<div class="mb-sm pr-12">
+<h3 class="font-headline-md text-headline-md mb-xs">Automatică și Calculatoare - UPB</h3>
+<div class="flex items-center gap-2 text-on-surface-variant bg-surface-container-high px-2 py-1 rounded-sm w-fit border border-outline">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="font-label-sm text-label-sm">București</span>
+</div>
+</div>
+<div class="bg-surface-bright border-2 border-black rounded-sm p-sm mb-md shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+<p class="font-label-bold text-label-bold mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">edit_document</span>
+                        Requirements:
+                    </p>
+<p class="font-body-md text-body-md">Examen: Matematică + Fizică / Info</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT py-3 px-4 font-label-bold text-label-bold active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex justify-center items-center gap-2">
+                        Hai să vedem
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button aria-label="Adaugă la Shortlist" class="bg-secondary-fixed text-on-secondary-fixed border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT p-3 font-label-bold text-label-bold active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex justify-center items-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-tertiary-fixed border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT p-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-white border-l-2 border-b-2 border-black px-3 py-1 font-label-bold text-label-bold transform translate-x-1 -translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform">
+                    88% Match
+                </div>
+<div class="mb-sm pr-12">
+<h3 class="font-headline-md text-headline-md mb-xs">Cibernetică - ASE</h3>
+<div class="flex items-center gap-2 text-on-surface-variant bg-white px-2 py-1 rounded-sm w-fit border border-black">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="font-label-sm text-label-sm">București</span>
+</div>
+</div>
+<div class="bg-white border-2 border-black rounded-sm p-sm mb-md shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+<p class="font-label-bold text-label-bold mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">edit_document</span>
+                        Requirements:
+                    </p>
+<p class="font-body-md text-body-md">Examen: Matematică</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT py-3 px-4 font-label-bold text-label-bold active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex justify-center items-center gap-2">
+                        Vezi detalii
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button aria-label="Adaugă la Shortlist" class="bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT p-3 font-label-bold text-label-bold active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex justify-center items-center hover:bg-yellow-100">
+<span class="material-symbols-outlined">star</span>
+</button>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT p-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-secondary-container border-l-2 border-b-2 border-black px-3 py-1 font-label-bold text-label-bold transform translate-x-1 -translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform">
+                    82% Match
+                </div>
+<div class="mb-sm pr-12">
+<h3 class="font-headline-md text-headline-md mb-xs">Matematică și Informatică - UB</h3>
+<div class="flex items-center gap-2 text-on-surface-variant bg-surface-container-high px-2 py-1 rounded-sm w-fit border border-outline">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="font-label-sm text-label-sm">București</span>
+</div>
+</div>
+<div class="bg-surface-bright border-2 border-black rounded-sm p-sm mb-md shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+<p class="font-label-bold text-label-bold mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">edit_document</span>
+                        Requirements:
+                    </p>
+<p class="font-body-md text-body-md">Examen: Matematică / Informatică</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT py-3 px-4 font-label-bold text-label-bold active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex justify-center items-center gap-2">
+                        Vezi detalii
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button aria-label="Adaugă la Shortlist" class="bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT p-3 font-label-bold text-label-bold active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex justify-center items-center hover:bg-yellow-100">
+<span class="material-symbols-outlined">star</span>
+</button>
+</div>
+</article>
+</div>
+<div class="mt-md text-center">
+<button class="bg-surface-container-highest text-on-surface-variant border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT py-3 px-6 font-label-bold text-label-bold active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all inline-flex justify-center items-center gap-2 transform rotate-1">
+<span class="material-symbols-outlined">refresh</span>
+                Mai încarcă
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-white text-violet-600 font-['Epilogue'] font-bold text-[10px] uppercase fixed bottom-0 w-full border-t-2 border-black z-50 border-t-2 border-black flat no shadows flex justify-around items-center w-full h-20 px-2 pb-safe">
+<a class="flex flex-col items-center justify-center bg-violet-500 text-white border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rounded-sm p-1 hover:bg-green-400 transition-colors active:scale-95 transition-transform w-16 h-14" href="#">
+<span class="material-symbols-outlined mb-1">rocket_launch</span>
+<span>Start</span>
+</a>
+<a class="flex flex-col items-center justify-center text-black p-1 hover:bg-green-400 transition-colors active:scale-95 transition-transform w-16 h-14 rounded-sm border-2 border-transparent hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" href="#">
+<span class="material-symbols-outlined mb-1">psychology</span>
+<span>Arhetipuri</span>
+</a>
+<a class="flex flex-col items-center justify-center text-black p-1 hover:bg-green-400 transition-colors active:scale-95 transition-transform w-16 h-14 rounded-sm border-2 border-transparent hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span>Profil</span>
+</a>
+<a class="flex flex-col items-center justify-center text-black p-1 hover:bg-green-400 transition-colors active:scale-95 transition-transform w-16 h-14 rounded-sm border-2 border-transparent hover:border-black hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" href="#">
+<span class="material-symbols-outlined mb-1">shield_person</span>
+<span>Admin</span>
+</a>
+</nav>
+</body></html>
