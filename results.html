@@ -43,7 +43,7 @@ tailwind.config = {
 
 <!-- HEADER -->
 <header class="sticky top-0 z-40 bg-white border-b-4 border-black px-5 py-3 flex justify-between items-center">
-  <a href="test.html" class="flex items-center gap-2">
+  <a href="index.html" class="flex items-center gap-2">
     <span class="inline-block w-7 h-7 bg-primary border-2 border-black rotate-[-6deg]"></span>
     <span class="display font-black uppercase tracking-tighter text-lg">Ce Să Fiu?</span>
   </a>
@@ -59,8 +59,8 @@ tailwind.config = {
   <div id="empty" class="hidden bg-white border-2 border-black shadow-neo-4 p-6 mb-8 text-center">
     <div class="display text-5xl mb-2">¯\_(ツ)_/¯</div>
     <h2 class="display text-2xl font-black uppercase mb-2">Nicio rulare salvată încă</h2>
-    <p class="mb-4">Fă măcar una din variante (B sau C), apoi te întorci aici.</p>
-    <a href="test.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase px-5 py-3">Înapoi la hub-ul de test →</a>
+    <p class="mb-4">Fă măcar una din variante (A sau B), apoi te întorci aici.</p>
+    <a href="index.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase px-5 py-3">Înapoi la hub-ul de test →</a>
   </div>
 
   <!-- CONTENT -->
@@ -75,12 +75,12 @@ tailwind.config = {
           <div class="text-xs uppercase tracking-wider">Rulări totale</div>
         </div>
         <div class="bg-yellow border-2 border-black p-3 text-center">
-          <div class="display text-3xl font-black" id="stat-b">0</div>
-          <div class="text-xs uppercase tracking-wider">Varianta B</div>
+          <div class="display text-3xl font-black" id="stat-a">0</div>
+          <div class="text-xs uppercase tracking-wider">Varianta A</div>
         </div>
         <div class="bg-neon border-2 border-black p-3 text-center">
-          <div class="display text-3xl font-black" id="stat-c">0</div>
-          <div class="text-xs uppercase tracking-wider">Varianta C</div>
+          <div class="display text-3xl font-black" id="stat-b">0</div>
+          <div class="text-xs uppercase tracking-wider">Varianta B</div>
         </div>
       </div>
       <div id="match-rate" class="mt-4 bg-primary text-white border-2 border-black p-3 hidden">
@@ -100,9 +100,9 @@ tailwind.config = {
     </section>
 
     <!-- VARIANT B -->
-    <section id="section-b" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6 hidden">
+    <section id="section-a" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6 hidden">
       <div class="flex items-center gap-3 mb-4">
-        <span class="display text-2xl font-black bg-yellow border-2 border-black w-10 h-10 flex items-center justify-center tilt-l">B</span>
+        <span class="display text-2xl font-black bg-yellow border-2 border-black w-10 h-10 flex items-center justify-center tilt-l">A</span>
         <h2 class="display text-2xl font-black uppercase">Scenarii reale</h2>
       </div>
 
@@ -110,45 +110,45 @@ tailwind.config = {
       <div id="a-top1" class="space-y-2 mb-5"></div>
 
       <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Ce ai simțit că e cel mai „tu”</h3>
-      <div id="b-chosen" class="space-y-2 mb-5"></div>
+      <div id="a-chosen" class="space-y-2 mb-5"></div>
 
       <details class="border-2 border-black p-3">
-        <summary class="display font-black uppercase text-sm">▼ Vezi toate rulările B (detalii)</summary>
-        <div id="b-runs" class="mt-3 space-y-3 text-sm"></div>
+        <summary class="display font-black uppercase text-sm">▼ Vezi toate rulările A (detalii)</summary>
+        <div id="a-runs" class="mt-3 space-y-3 text-sm"></div>
       </details>
     </section>
 
     <!-- VARIANT C -->
-    <section id="section-c" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6 hidden">
+    <section id="section-b" class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6 hidden">
       <div class="flex items-center gap-3 mb-4">
-        <span class="display text-2xl font-black bg-neon border-2 border-black w-10 h-10 flex items-center justify-center tilt-r">C</span>
+        <span class="display text-2xl font-black bg-neon border-2 border-black w-10 h-10 flex items-center justify-center tilt-r">B</span>
         <h2 class="display text-2xl font-black uppercase">Triplu-lens</h2>
       </div>
 
       <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Programe recomandate (top-1 per rulare)</h3>
-      <div id="c-programs" class="space-y-2 mb-5"></div>
+      <div id="b-programs" class="space-y-2 mb-5"></div>
 
       <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Interes dominant vs. Valoare dominantă</h3>
       <div class="grid grid-cols-2 gap-4 mb-5">
         <div>
           <div class="text-xs uppercase tracking-wider text-on-surface-variant mb-1">Interese</div>
-          <div id="c-interests" class="space-y-2"></div>
+          <div id="b-interests" class="space-y-2"></div>
         </div>
         <div>
           <div class="text-xs uppercase tracking-wider text-on-surface-variant mb-1">Valori</div>
-          <div id="c-values" class="space-y-2"></div>
+          <div id="b-values" class="space-y-2"></div>
         </div>
       </div>
 
       <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Profilul mediu de stil de lucru</h3>
-      <div id="c-style" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5"></div>
+      <div id="b-style" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5"></div>
 
       <h3 class="display text-sm font-black uppercase mb-2 text-on-surface-variant">Ce ai simțit că e cel mai „tu”</h3>
-      <div id="c-chosen" class="space-y-2 mb-5"></div>
+      <div id="b-chosen" class="space-y-2 mb-5"></div>
 
       <details class="border-2 border-black p-3">
-        <summary class="display font-black uppercase text-sm">▼ Vezi toate rulările C (detalii)</summary>
-        <div id="c-runs" class="mt-3 space-y-3 text-sm"></div>
+        <summary class="display font-black uppercase text-sm">▼ Vezi toate rulările B (detalii)</summary>
+        <div id="b-runs" class="mt-3 space-y-3 text-sm"></div>
       </details>
     </section>
 
@@ -202,6 +202,36 @@ const STYLE_AXES = [
   { key:"focus",       low:"Variat",            high:"Focus profund" }
 ];
 
+// One-shot migration from variant scheme v1 (B=scenarii, C=lens, A=classic)
+// to scheme v2 aligned with landing order (A=scenarii, B=lens, C=classic).
+// Gated by the `cesafiu_schema_v2` sentinel so it runs exactly once per device.
+function migrateSchemaV2() {
+  try {
+    if (localStorage.getItem("cesafiu_schema_v2") === "1") return;
+    const raw = localStorage.getItem("cesafiu_results");
+    if (raw) {
+      const arr = JSON.parse(raw);
+      const remapped = arr.map(r => {
+        if (r.variant === "B") return Object.assign({}, r, { variant: "A" });
+        if (r.variant === "C") return Object.assign({}, r, { variant: "B" });
+        return r;
+      });
+      localStorage.setItem("cesafiu_results", JSON.stringify(remapped));
+    }
+    const pRaw = localStorage.getItem("cesafiu_pilot_progress");
+    if (pRaw) {
+      const p = JSON.parse(pRaw);
+      const np = {};
+      if (p.B) np.A = p.B; // old scenarii → new A
+      if (p.C) np.B = p.C; // old lens     → new B
+      if (p.A) np.C = p.A; // old classic  → new C
+      localStorage.setItem("cesafiu_pilot_progress", JSON.stringify(np));
+    }
+    localStorage.setItem("cesafiu_schema_v2", "1");
+  } catch(e) { console.warn("migrateSchemaV2 failed:", e); }
+}
+migrateSchemaV2();
+
 function load() {
   try { return JSON.parse(localStorage.getItem("cesafiu_results") || "[]"); }
   catch { return []; }
@@ -254,7 +284,7 @@ function renderStyle(container, avgStyle) {
   });
 }
 
-function runCardB(r) {
+function runCardA(r) {
   const chosen = r.chosen ? `<b class="bg-yellow px-1">${ARCHETYPE_LABELS[r.chosen]||r.chosen}</b>` : '<i>fără feedback</i>';
   return `<div class="border border-black p-2">
     <div class="text-xs text-on-surface-variant">${r.timestamp}</div>
@@ -263,7 +293,7 @@ function runCardB(r) {
   </div>`;
 }
 
-function runCardC(r) {
+function runCardB(r) {
   const chosen = r.chosen ? `<b class="bg-yellow px-1">${r.chosen}</b>` : '<i>fără feedback</i>';
   return `<div class="border border-black p-2">
     <div class="text-xs text-on-surface-variant">${r.timestamp}</div>
@@ -276,8 +306,8 @@ function runCardC(r) {
 
 function render() {
   const all = load();
+  const runsA = all.filter(r => r.variant === "A");
   const runsB = all.filter(r => r.variant === "B");
-  const runsC = all.filter(r => r.variant === "C");
 
   if (all.length === 0) {
     document.getElementById("empty").classList.remove("hidden");
@@ -288,19 +318,19 @@ function render() {
   document.getElementById("content").classList.remove("hidden");
 
   document.getElementById("stat-total").textContent = all.length;
+  document.getElementById("stat-a").textContent = runsA.length;
   document.getElementById("stat-b").textContent = runsB.length;
-  document.getElementById("stat-c").textContent = runsC.length;
 
-  // match rate: top1 === chosen (B) OR top_programs[0] === chosen (C)
+  // match rate: top1 === chosen (A) OR top_programs[0] === chosen (B)
   const withFeedback = all.filter(r => r.chosen);
   const top1Hit = withFeedback.filter(r => {
-    if (r.variant === "B") return r.top1 === r.chosen;
-    if (r.variant === "C") return (r.top_programs||[])[0] === r.chosen;
+    if (r.variant === "A") return r.top1 === r.chosen;
+    if (r.variant === "B") return (r.top_programs||[])[0] === r.chosen;
     return false;
   });
   const top3Hit = withFeedback.filter(r => {
-    if (r.variant === "B") return [r.top1, r.top2, r.top3].includes(r.chosen);
-    if (r.variant === "C") return (r.top_programs||[]).includes(r.chosen);
+    if (r.variant === "A") return [r.top1, r.top2, r.top3].includes(r.chosen);
+    if (r.variant === "B") return (r.top_programs||[]).includes(r.chosen);
     return false;
   });
   if (withFeedback.length > 0) {
@@ -310,26 +340,26 @@ function render() {
   }
 
   // Variant B
-  if (runsB.length > 0) {
-    document.getElementById("section-b").classList.remove("hidden");
-    bars("a-top1", countBy(runsB, r => r.top1), ARCHETYPE_LABELS, "#a9f900");
-    bars("b-chosen", countBy(runsB.filter(r=>r.chosen), r => r.chosen), ARCHETYPE_LABELS, "#ffe170");
-    document.getElementById("b-runs").innerHTML = runsB.map(runCardB).join("");
+  if (runsA.length > 0) {
+    document.getElementById("section-a").classList.remove("hidden");
+    bars("a-top1", countBy(runsA, r => r.top1), ARCHETYPE_LABELS, "#a9f900");
+    bars("a-chosen", countBy(runsA.filter(r=>r.chosen), r => r.chosen), ARCHETYPE_LABELS, "#ffe170");
+    document.getElementById("a-runs").innerHTML = runsA.map(runCardA).join("");
   }
 
   // Variant C
-  if (runsC.length > 0) {
-    document.getElementById("section-c").classList.remove("hidden");
-    bars("c-programs", countBy(runsC, r => (r.top_programs||[])[0]), null, "#a9f900");
-    bars("c-interests", countBy(runsC, r => r.interests_top1), INTEREST_LABELS, "#ffe170");
-    bars("c-values", countBy(runsC, r => r.values_top1), VALUE_LABELS, "#d0bcff");
+  if (runsB.length > 0) {
+    document.getElementById("section-b").classList.remove("hidden");
+    bars("b-programs", countBy(runsB, r => (r.top_programs||[])[0]), null, "#a9f900");
+    bars("b-interests", countBy(runsB, r => r.interests_top1), INTEREST_LABELS, "#ffe170");
+    bars("b-values", countBy(runsB, r => r.values_top1), VALUE_LABELS, "#d0bcff");
     // average style
     const avg = { ritm:0, structura:0, colaborare:0, risc:0, focus:0 };
-    runsC.forEach(r => { STYLE_AXES.forEach(ax => { avg[ax.key] += (r.style && r.style[ax.key]) || 0; }); });
-    STYLE_AXES.forEach(ax => { avg[ax.key] = avg[ax.key] / runsC.length; });
-    renderStyle("c-style", avg);
-    bars("c-chosen", countBy(runsC.filter(r=>r.chosen), r => r.chosen), null, "#ffe170");
-    document.getElementById("c-runs").innerHTML = runsC.map(runCardC).join("");
+    runsB.forEach(r => { STYLE_AXES.forEach(ax => { avg[ax.key] += (r.style && r.style[ax.key]) || 0; }); });
+    STYLE_AXES.forEach(ax => { avg[ax.key] = avg[ax.key] / runsB.length; });
+    renderStyle("b-style", avg);
+    bars("b-chosen", countBy(runsB.filter(r=>r.chosen), r => r.chosen), null, "#ffe170");
+    document.getElementById("b-runs").innerHTML = runsB.map(runCardB).join("");
   }
 }
 

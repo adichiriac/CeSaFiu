@@ -99,7 +99,7 @@ tailwind.config = {
     </div>
     <p class="mb-4">În loc de întrebări abstracte, primești scenarii concrete: „Sâmbătă 17:00, 3 prieteni te sună deodată — pe cine ajuți primul?”. Măsoară cum <b>reacționezi</b>, nu cum <b>te descrii</b>.</p>
     <div class="flex flex-wrap gap-3">
-      <a href="v2.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
+      <a href="quiz-a.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
         Start Varianta A →
       </a>
       <button onclick="markDone('A')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
@@ -122,7 +122,7 @@ tailwind.config = {
     </div>
     <p class="mb-4">3 lentile care se combină: <b class="bg-yellow px-1">Interese</b> (ce-ți place), <b class="bg-neon px-1">Valori</b> (ce contează) și <b class="bg-primary text-white px-1">Stil</b> (cum lucrezi). Îți recomandă programe concrete din universități RO, nu arhetipuri.</p>
     <div class="flex flex-wrap gap-3">
-      <a href="v3.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
+      <a href="quiz-b.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
         Start Varianta B →
       </a>
       <button onclick="markDone('B')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
@@ -145,7 +145,7 @@ tailwind.config = {
     </div>
     <p class="mb-4">Quiz-ul original: întrebări directe, 4 variante fiecare. Nimic fancy — doar „alege una”. Bun dacă ești la autobuz și vrei un răspuns în 3 minute.</p>
     <div class="flex flex-wrap gap-3">
-      <a href="index.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
+      <a href="quiz-c.html" class="inline-block bg-primary text-white border-2 border-black shadow-neo-4 press display font-black uppercase tracking-tight px-5 py-3">
         Start Varianta C →
       </a>
       <button onclick="markDone('C')" class="inline-block bg-white border-2 border-black shadow-neo-2 press text-sm font-bold px-4 py-3">
@@ -178,7 +178,7 @@ tailwind.config = {
   <!-- PRIVACY / DEV NOTE -->
   <div class="bg-white border-2 border-black p-4 mb-8 text-sm">
     <b class="display uppercase text-xs">Notă tehnică:</b>
-    Varianta C (MVP-ul live) nu urcă date — e ok, o testăm pe feedback-ul tău direct. A și B salvează rezultatele în <code class="bg-surface-container px-1">localStorage</code> pe device-ul tău (nimic pe server). Dacă ștergi istoricul browser-ului, se pierd.
+    Toate 3 variantele trimit evenimente anonime de uz (start / complete / feedback) către Umami — zero date personale, doar numărători. A și B salvează <i>în plus</i> rezultatele tale în <code class="bg-surface-container px-1">localStorage</code> pe device (pentru raportul de mai sus, nu pe server). Dacă ștergi istoricul browser-ului, se pierd.
     <button onclick="resetProgress()" class="ml-2 underline text-xs">Resetează progresul</button>
   </div>
 
@@ -190,6 +190,35 @@ tailwind.config = {
 
 <script>
 const PILOT_KEY = "cesafiu_pilot_progress";
+
+// One-shot migration from variant scheme v1 (B=scenarii, C=lens, A=classic)
+// to scheme v2 aligned with landing order (A=scenarii, B=lens, C=classic).
+function migrateSchemaV2() {
+  try {
+    if (localStorage.getItem("cesafiu_schema_v2") === "1") return;
+    const raw = localStorage.getItem("cesafiu_results");
+    if (raw) {
+      const arr = JSON.parse(raw);
+      const remapped = arr.map(r => {
+        if (r.variant === "B") return Object.assign({}, r, { variant: "A" });
+        if (r.variant === "C") return Object.assign({}, r, { variant: "B" });
+        return r;
+      });
+      localStorage.setItem("cesafiu_results", JSON.stringify(remapped));
+    }
+    const pRaw = localStorage.getItem(PILOT_KEY);
+    if (pRaw) {
+      const p = JSON.parse(pRaw);
+      const np = {};
+      if (p.B) np.A = p.B;
+      if (p.C) np.B = p.C;
+      if (p.A) np.C = p.A;
+      localStorage.setItem(PILOT_KEY, JSON.stringify(np));
+    }
+    localStorage.setItem("cesafiu_schema_v2", "1");
+  } catch(e) { console.warn("migrateSchemaV2 failed:", e); }
+}
+migrateSchemaV2();
 
 function getProgress() {
   try { return JSON.parse(localStorage.getItem(PILOT_KEY) || "{}"); }

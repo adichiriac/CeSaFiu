@@ -153,6 +153,17 @@
       <div id="matches"></div>
     </div>
 
+    <div class="card" id="selfReportCard" style="margin-bottom:14px;">
+      <h3>Sună ca tine?</h3>
+      <p class="muted" style="margin-top:-4px">Spune-ne cât de bine te-am „citit” — ne ajută să calibrăm quiz-ul.</p>
+      <div class="sr-bar" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+        <button class="btn btn-ghost sr-btn" data-reaction="match" style="font-size:15px;">👍 Sună ca mine</button>
+        <button class="btn btn-ghost sr-btn" data-reaction="partial" style="font-size:15px;">🤷 Parțial</button>
+        <button class="btn btn-ghost sr-btn" data-reaction="mismatch" style="font-size:15px;">👎 Nu seamănă</button>
+      </div>
+      <p id="srThanks" hidden style="margin-top:12px;padding:10px 12px;background:rgba(253,216,93,.35);border-radius:8px;font-size:14px;">Mulțumim — ajută să facem quiz-ul mai precis.</p>
+    </div>
+
     <div class="card" style="margin-bottom:14px;">
       <h3>Programe de facultate de văzut (România)</h3>
       <p class="muted" style="margin-top:-4px">Exemple. La versiunea completă, aici apar programe reale cu cerințe de admitere, locuri, rate de angajare.</p>
@@ -453,7 +464,31 @@ function compute() {
   el("scSub").textContent = primaryArch.tagline;
 
   umamiTrack("quiz_complete", { variant: CESAFIU_VARIANT, top1: primary, top1_pct: primaryPct });
+
+  // Reset self-report UI every time result screen is shown (restart case)
+  state.primaryKey = primary;
+  document.querySelectorAll(".sr-btn").forEach(b => {
+    b.disabled = false; b.style.opacity = "1"; b.style.outline = "none";
+  });
+  const srThanks = el("srThanks"); if (srThanks) srThanks.hidden = true;
 }
+
+/* ---------- self-report reaction ---------- */
+document.querySelectorAll(".sr-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const reaction = btn.dataset.reaction;
+    umamiTrack("self_report_match", {
+      variant: CESAFIU_VARIANT,
+      top1: state.primaryKey || null,
+      reaction: reaction
+    });
+    document.querySelectorAll(".sr-btn").forEach(b => {
+      b.disabled = true; b.style.opacity = "0.45";
+    });
+    btn.style.opacity = "1"; btn.style.outline = "3px solid var(--coral)";
+    el("srThanks").hidden = false;
+  });
+});
 
 /* ---------- share ---------- */
 el("shareBtn").addEventListener("click", async () => {

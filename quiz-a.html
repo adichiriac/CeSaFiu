@@ -153,7 +153,7 @@ tailwind.config = {
 
   <div class="flex flex-wrap gap-3 mb-10">
     <button onclick="restart()" class="press bg-white border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase">Refă testul</button>
-    <a href="v3.html" class="press bg-neon border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase inline-block">Încearcă Varianta B →</a>
+    <a href="quiz-b.html" class="press bg-neon border-2 border-black shadow-neo-4 px-5 py-3 display font-black text-sm uppercase inline-block">Încearcă Varianta B →</a>
   </div>
 </section>
 
@@ -365,6 +365,35 @@ function umamiTrack(name, data) {
   try { if (window.umami) window.umami.track(name, data); } catch(e) {}
 }
 
+// One-shot migration from variant scheme v1 (B=scenarii, C=lens, A=classic)
+// to scheme v2 aligned with landing order (A=scenarii, B=lens, C=classic).
+function migrateSchemaV2() {
+  try {
+    if (localStorage.getItem("cesafiu_schema_v2") === "1") return;
+    const raw = localStorage.getItem("cesafiu_results");
+    if (raw) {
+      const arr = JSON.parse(raw);
+      const remapped = arr.map(r => {
+        if (r.variant === "B") return Object.assign({}, r, { variant: "A" });
+        if (r.variant === "C") return Object.assign({}, r, { variant: "B" });
+        return r;
+      });
+      localStorage.setItem("cesafiu_results", JSON.stringify(remapped));
+    }
+    const pRaw = localStorage.getItem("cesafiu_pilot_progress");
+    if (pRaw) {
+      const p = JSON.parse(pRaw);
+      const np = {};
+      if (p.B) np.A = p.B;
+      if (p.C) np.B = p.C;
+      if (p.A) np.C = p.A;
+      localStorage.setItem("cesafiu_pilot_progress", JSON.stringify(np));
+    }
+    localStorage.setItem("cesafiu_schema_v2", "1");
+  } catch(e) { console.warn("migrateSchemaV2 failed:", e); }
+}
+migrateSchemaV2();
+
 const state = {
   current: 0,
   scores: { constructor:0, analist:0, ajutor:0, creator:0, leader:0, explorator:0 },
@@ -443,6 +472,7 @@ function topThree() {
 
 function showFeedbackScreen() {
   const top = topThree();
+  umamiTrack("quiz_complete", { variant: state.variant, top1: top[0].key });
   const container = $("fb-options");
   container.innerHTML = "";
   top.forEach((t, i) => {
@@ -496,7 +526,7 @@ function saveResults(top) {
     all.push(record);
     localStorage.setItem("cesafiu_results", JSON.stringify(all));
   } catch(e) { console.warn("localStorage write failed", e); }
-  umamiTrack("quiz_complete", {
+  umamiTrack("self_report_match", {
     variant: state.variant,
     top1: top[0].key,
     chosen: state.feedback,
