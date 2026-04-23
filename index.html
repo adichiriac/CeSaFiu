@@ -54,54 +54,33 @@ tailwind.config = {
 
   <!-- HERO -->
   <div class="inline-block bg-yellow border-2 border-black px-3 py-1 tilt-l mb-4">
-    <span class="display font-black text-xs uppercase">Pentru clase 9-12 · 5 min · Fără cont, fără email</span>
+    <span class="display font-black text-xs uppercase">#MainCharacter · Sesiune de testare · ~15 min</span>
   </div>
   <h1 class="display text-4xl md:text-6xl font-black uppercase leading-[0.95] mb-4">
-    În 5 minute,<br/>
-    afli <span class="bg-neon border-2 border-black inline-block px-2 tilt-l">3 direcții</span><br/>
-    de carieră <span class="bg-yellow border-2 border-black inline-block px-2 tilt-r">ale tale</span>.
+    Suntem în <span class="bg-primary text-white border-2 border-black inline-block px-2 tilt-r">pilot</span>.<br/>
+    Ajută-ne să alegem cel mai <span class="bg-neon border-2 border-black inline-block px-2 tilt-l">bun quiz</span>.
   </h1>
   <p class="text-lg text-on-surface-variant max-w-2xl mb-6">
-    Răspunzi la câteva întrebări scurte. Nu tip „descrie-te în 3 cuvinte" — ci situații reale, din viața ta. La final: <b>primele 3 arhetipuri</b> care se potrivesc cu tine și <b>programe concrete</b> din universități din România. Fără cont, fără email, fără marketing.
+    Avem 3 versiuni de quiz. Toate duc la <b class="bg-neon border-2 border-black inline-block px-1">3 direcții de carieră</b>, dar fiecare te „citește” altfel.
+    Te rugăm să le faci pe <b>toate 3</b> — sau măcar <b>2 din 3</b> — și să ne spui care s-a simțit mai potrivit.
+    Durează ~15 min cap-coadă. Răspunsurile tale rămân pe telefonul/laptopul tău (nu urcă pe niciun server).
   </p>
 
-  <!-- VALUE PROPS — "what's in it for me" -->
-  <div class="grid md:grid-cols-2 gap-4 mb-8">
-    <div class="bg-white border-2 border-black shadow-neo-2 p-4">
-      <div class="flex items-center gap-3 mb-2">
-        <span class="display text-xl font-black bg-neon border-2 border-black w-10 h-10 flex items-center justify-center tilt-l">3</span>
-        <h3 class="display font-black uppercase text-base">Direcții, nu doar una</h3>
-      </div>
-      <p class="text-sm">Nu-ți spunem „fă asta, gata". Primești top 3 arhetipuri cu explicații, ca să vezi între ce poți alege.</p>
+  <!-- WHY & HOW -->
+  <div class="bg-white border-2 border-black shadow-neo-4 p-5 mb-8">
+    <h2 class="display text-xl font-black uppercase mb-3">Cum merge testul</h2>
+    <div class="flex items-start gap-3 mb-3">
+      <span class="display text-2xl font-black bg-yellow border-2 border-black w-8 h-8 flex items-center justify-center tilt-l">1</span>
+      <p class="text-base">Alegi o variantă de mai jos și o faci cap-coadă. La final, quiz-ul te întreabă: „care direcție sună cel mai mult ca tine?”</p>
     </div>
-    <div class="bg-white border-2 border-black shadow-neo-2 p-4">
-      <div class="flex items-center gap-3 mb-2">
-        <span class="display text-xs font-black bg-yellow border-2 border-black w-10 h-10 flex items-center justify-center tilt-r">RO</span>
-        <h3 class="display font-black uppercase text-base">Programe din România</h3>
-      </div>
-      <p class="text-sm">Nu teorie. Specializări concrete din universități românești, potrivite cu ce ai răspuns — nu un top generic.</p>
+    <div class="flex items-start gap-3 mb-3">
+      <span class="display text-2xl font-black bg-neon border-2 border-black w-8 h-8 flex items-center justify-center tilt-r">2</span>
+      <p class="text-base">Te întorci aici și mai faci o variantă. Ordinea nu contează.</p>
     </div>
-    <div class="bg-white border-2 border-black shadow-neo-2 p-4">
-      <div class="flex items-center gap-3 mb-2">
-        <span class="display text-xl font-black bg-primary text-white border-2 border-black w-10 h-10 flex items-center justify-center tilt-l">→</span>
-        <h3 class="display font-black uppercase text-base">Bazat pe cum reacționezi</h3>
-      </div>
-      <p class="text-sm">„Sâmbătă 17:00, 3 prieteni te sună deodată — pe cine ajuți primul?" Măsurăm alegeri reale, nu cum crezi că suni bine.</p>
+    <div class="flex items-start gap-3">
+      <span class="display text-2xl font-black bg-primary text-white border-2 border-black w-8 h-8 flex items-center justify-center tilt-l">3</span>
+      <p class="text-base">Când termini, deschizi <b class="bg-yellow px-1">Raport rezultate</b> și ne trimiți screenshot-ul sau apeși „Copiază date” și ni-l dai pe WhatsApp.</p>
     </div>
-    <div class="bg-white border-2 border-black shadow-neo-2 p-4">
-      <div class="flex items-center gap-3 mb-2">
-        <span class="display text-xl font-black bg-surface-container border-2 border-black w-10 h-10 flex items-center justify-center tilt-r">🔒</span>
-        <h3 class="display font-black uppercase text-base">Stă pe device-ul tău</h3>
-      </div>
-      <p class="text-sm">Răspunsurile rămân pe telefon/laptop. Nu-ți cerem nume, nu-ți cerem email. Vedem doar statistici anonime, explicate mai jos.</p>
-    </div>
-  </div>
-
-  <!-- PILOT ASK (softer, secondary) -->
-  <div class="bg-primary text-white border-2 border-black shadow-neo-4 p-5 mb-8">
-    <h2 class="display text-xl font-black uppercase mb-2">Bonus: ajută-ne să-l facem mai bun</h2>
-    <p class="text-primary-dim mb-2">Acum suntem în <b>pilot</b>: avem 3 versiuni de quiz care te „citesc" diferit. Poți face <b>doar una</b> (5-7 min) ca să vezi rezultatul tău, sau <b>toate 3</b> (~15 min) și ne spui care s-a potrivit cel mai bine — ne ajuți să alegem versiunea finală.</p>
-    <p class="text-primary-dim text-sm">După ce termini, apasă <b class="bg-yellow text-ink px-1">„Am terminat"</b> pe cartea variantei și deschide <b class="bg-neon text-ink px-1">Raportul</b> de mai jos — ni-l poți trimite pe WhatsApp cu un click.</p>
   </div>
 
   <!-- VARIANTS -->
