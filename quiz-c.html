@@ -41,6 +41,11 @@ tailwind.config = {
     .hover\:bg-yellow:hover { background-color:#ffffff !important; }
     .hover\:bg-surface-container-high:hover { background-color:#f2ede5 !important; }
   }
+  /* Tappable options: kill text selection, iOS callout and 300ms tap delay */
+  .option-btn { -webkit-user-select:none; -moz-user-select:none; user-select:none; -webkit-touch-callout:none; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+  /* Tap feedback: chosen option locks in visually (~220ms) before next question renders */
+  .option-picked { background-color:#6b38d4 !important; color:#ffffff !important; transform:translate(4px,4px); box-shadow:none !important; transition:background-color .12s ease, color .12s ease, transform .08s ease; }
+  .option-picked .bg-primary { background-color:#ffffff !important; color:#6b38d4 !important; }
   .hidden-screen { display:none; }
   .slide-in { animation: slide .35s ease; }
   @keyframes slide { from { transform:translateY(12px); opacity:0 } to { transform:translateY(0); opacity:1 } }
@@ -408,29 +413,38 @@ function renderQuestion() {
   opts.innerHTML = "";
   q.opts.forEach((opt, i) => {
     const btn = document.createElement("button");
-    btn.className = "press text-left bg-white border-2 border-black shadow-neo-4 p-4 flex items-center gap-3 hover:bg-primary-dim transition-all";
+    btn.className = "option-btn press text-left bg-white border-2 border-black shadow-neo-4 p-4 flex items-center gap-3 hover:bg-primary-dim transition-all";
     btn.innerHTML = `
       <span class="display font-black text-lg w-9 h-9 bg-primary text-white border-2 border-black rounded-full flex items-center justify-center shrink-0">${String.fromCharCode(65+i)}</span>
       <span class="text-base md:text-lg">${opt.t}</span>
     `;
-    btn.onclick = () => choose(i);
+    btn.onclick = (e) => choose(i, e.currentTarget);
     opts.appendChild(btn);
   });
 }
 
-function choose(i) {
+function choose(i, btn) {
   // Mobile fix: release focus/hover before re-render so next question doesn't inherit "pressed" look
   if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
-  const q = QUESTIONS[state.current];
-  const weights = q.opts[i].s;
-  for (const k in weights) state.scores[k] += weights[k];
-  state.answers.push(i);
-  state.current++;
-  if (state.current < QUESTIONS.length) {
-    renderQuestion();
-  } else {
-    showFeedbackScreen();
+  // Visual + haptic feedback: lock in the pick, then advance after a short pause
+  if (btn) {
+    btn.classList.add("option-picked");
+    try { if (navigator.vibrate) navigator.vibrate(15); } catch(e) {}
   }
+  const advance = () => {
+    const q = QUESTIONS[state.current];
+    const weights = q.opts[i].s;
+    for (const k in weights) state.scores[k] += weights[k];
+    state.answers.push(i);
+    state.current++;
+    if (state.current < QUESTIONS.length) {
+      renderQuestion();
+    } else {
+      showFeedbackScreen();
+    }
+  };
+  if (btn) setTimeout(advance, 220);
+  else advance();
 }
 
 function back() {
@@ -456,7 +470,7 @@ function showFeedbackScreen() {
   container.innerHTML = "";
   top.forEach((t, i) => {
     const card = document.createElement("button");
-    card.className = "press text-left bg-white border-2 border-black shadow-neo-4 p-4 hover:bg-yellow transition-all";
+    card.className = "option-btn press text-left bg-white border-2 border-black shadow-neo-4 p-4 hover:bg-yellow transition-all";
     card.innerHTML = `
       <div class="flex items-start gap-3">
         <span class="display font-black text-2xl w-10 h-10 bg-primary text-white border-2 border-black flex items-center justify-center shrink-0">${i+1}</span>
@@ -476,7 +490,7 @@ function showFeedbackScreen() {
   });
 
   const noneCard = document.createElement("button");
-  noneCard.className = "press text-left bg-surface-container border-2 border-black shadow-neo-2 p-4 hover:bg-surface-container-high transition-all";
+  noneCard.className = "option-btn press text-left bg-surface-container border-2 border-black shadow-neo-2 p-4 hover:bg-surface-container-high transition-all";
   noneCard.innerHTML = `<span class="display font-black text-sm uppercase">Niciuna nu-mi sună ca mine</span><span class="text-xs block text-on-surface-variant mt-1">E util să știm și asta.</span>`;
   noneCard.onclick = () => {
     state.feedback = "none";
