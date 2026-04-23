@@ -158,7 +158,7 @@ tailwind.config = {
 
   <div class="bg-yellow border-2 border-black shadow-neo-4 p-5 mb-6">
     <p class="display font-black text-xs uppercase mb-2">Share pe Story</p>
-    <p class="display text-2xl font-black leading-tight mb-3">"Eu sunt <span id="r-share-pct">78%</span> potrivit pentru <span id="r-share-top">Analist</span>. Tu ce ești?"</p>
+    <p class="display text-2xl font-black leading-tight mb-3">„Eu sunt <span id="r-share-pct">78%</span> <span id="r-share-top">Analist</span>. Ce să fiu? adichiriac.github.io/CeSaFiu"</p>
     <button onclick="copyShare()" class="press bg-black text-white border-2 border-black shadow-neo-2 px-4 py-2 display font-black text-sm uppercase">Copiază textul</button>
     <span id="copied" class="text-sm ml-3 font-bold hidden">Copiat!</span>
   </div>
@@ -181,36 +181,42 @@ tailwind.config = {
 const ARCHETYPES = {
   constructor: {
     title: "Constructorul",
+    share: "Constructor",
     tagline: "Rezolvi cu mâinile. Dacă nu merge, îl desfaci.",
     desc: "Te atrag lucrurile concrete — mecanică, structuri, tehnologie aplicată. Preferi să fixezi decât să dezbați. Ai intuiție pentru cum funcționează lucrurile.",
     color: "#6b38d4"
   },
   analist: {
     title: "Analistul",
+    share: "Analist",
     tagline: "Dacă ceva nu are logică, îți strică ziua.",
     desc: "Vrei să înțelegi cauzele, nu simptomele. Ai răbdare cu datele, probleme grele și întrebări deschise. Te enervează răspunsurile ușoare.",
     color: "#6b38d4"
   },
   ajutor: {
     title: "Ajutorul",
+    share: "Aliat",
     tagline: "Prietenii te sună primii când e rău.",
-    desc: "Ai antenă pentru oameni. Știi când cineva nu e ok înainte să spună. Îți place să lucrezi DIRECT cu oameni, nu din spatele unui ecran.",
+    desc: "Ai antenă pentru oameni. Știi când cineva nu e ok înainte să spună. Îți place să lucrezi direct cu oameni, nu din spatele unui ecran.",
     color: "#6b38d4"
   },
   creator: {
     title: "Creatorul",
+    share: "Creator",
     tagline: "Ceva nou fiecare săptămână sau îți e rău.",
-    desc: "Gândești vizual / narativ / estetic. Ai un cheek pentru stil și un disconfort când lucrurile sunt generice. Vrei să semnezi ce faci.",
+    desc: "Gândești vizual / narativ / estetic. Ai ochi pentru stil și un disconfort când lucrurile sunt generice. Vrei să semnezi ce faci.",
     color: "#6b38d4"
   },
   leader: {
     title: "Liderul",
+    share: "Lider",
     tagline: "Dacă vrei să se întâmple, îl faci să se întâmple.",
-    desc: "Mișcă lucrurile. Ai energie pentru convins oameni, structurat planuri, luat decizii sub presiune. Te plictisește executarea, te prinde strategia.",
+    desc: "Mișcă lucrurile. Ai energie să convingi oameni, să structurezi planuri, să iei decizii sub presiune. Te plictisește execuția, te prinde strategia.",
     color: "#6b38d4"
   },
   explorator: {
     title: "Exploratorul",
+    share: "Explorator",
     tagline: "Un subiect nou la 2 săptămâni, altfel te plictisești.",
     desc: "Curios la extrem, rapid, versatil. Te descurci în medii noi și ambigue. Nu ești cel mai organizat, dar ești cel mai adaptabil.",
     color: "#6b38d4"
@@ -282,7 +288,7 @@ const QUESTIONS = [
     ]
   },
   {
-    q: "Cel mai nervos te face când:",
+    q: "Cel mai tare te enervează când:",
     opts: [
       { t: "Ceva e făcut prost și nu vrea nimeni să corecteze", s: { constructor:2, analist:1 } },
       { t: "Cineva susține ceva fără dovezi, și toată lumea îl crede", s: { analist:2, leader:1 } },
@@ -605,8 +611,8 @@ function showResults(top) {
     progBox.appendChild(row);
   });
 
-  $("r-share-top").textContent = top[0].title;
-  $("r-share-pct").textContent = Math.round((top[0].value / sum) * 100);
+  $("r-share-top").textContent = top[0].share;
+  $("r-share-pct").textContent = Math.round((top[0].value / sum) * 100) + "%";
 
   show("scr-results");
 }
@@ -615,7 +621,7 @@ function copyShare() {
   const top = topThree();
   const sum = top.reduce((a,t) => a+t.value, 0);
   const pct = Math.round((top[0].value / sum) * 100);
-  const text = `Eu sunt ${pct}% ${top[0].title}. Ce să fiu? Află la cesafiu.ro`;
+  const text = `Eu sunt ${pct}% ${top[0].share}. Ce să fiu? https://adichiriac.github.io/CeSaFiu/`;
   umamiTrack("share_click", { variant: state.variant, top1: top[0].key });
   navigator.clipboard.writeText(text).then(() => {
     $("copied").classList.remove("hidden");

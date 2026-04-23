@@ -192,7 +192,7 @@ tailwind.config = {
 
   <!-- PROGRAMS -->
   <div class="bg-white border-2 border-black shadow-neo-4 p-5 mb-6">
-    <h3 class="display font-black text-xl uppercase mb-3">Programe care ating toate cele 3 lentile</h3>
+    <h3 class="display font-black text-xl uppercase mb-3">Programe care acoperă toate cele 3 lentile</h3>
     <div id="r-programs" class="grid gap-3"></div>
     <p class="text-xs text-on-surface-variant mt-3">Potrivirea ține cont de interese × valori × stil. Verifică pragul de admitere pe site-ul universității.</p>
   </div>
@@ -295,7 +295,7 @@ const QUESTIONS = [
     opts:[
       { t:"Să stăpânesc o disciplină foarte tehnică — codat, chirurgie, arhitectură", s:{val:{mastery:2}} },
       { t:"Să construiesc o organizație care să-mi supraviețuiască",                s:{val:{impact:2}} },
-      { t:"Să fiu cel mai bun într-un nisa plătită bine, să îmi asigur familia",     s:{val:{stabilitate:2}} },
+      { t:"Să fiu cel mai bun într-o nișă plătită bine, să îmi asigur familia",     s:{val:{stabilitate:2}} },
       { t:"Să fiu recunoscut public, să am o voce, să influențez oameni",            s:{val:{recunoastere:2}} }
     ]},
   { lens:"valori", q:"Care din următoarele te-ar deranja CEL MAI TARE într-un job:",
@@ -318,8 +318,8 @@ const QUESTIONS = [
     opts:[
       { t:"Un task mare, zile întregi, fără întreruperi. Pierd timpul dacă trebuie să comut.", s:{style:{ritm:1}} },
       { t:"Prefer 2-3 task-uri pe zi, trec între ele relaxat, un pic de structură.",           s:{style:{ritm:2}} },
-      { t:"Îmi place să mișc repede pe mai multe — am energie când jonglez",                   s:{style:{ritm:3}} },
-      { t:"Vreau variație extremă. 10 lucruri diferite, schimbare constantă, trade-offs rapizi.", s:{style:{ritm:4}} }
+      { t:"Îmi place să trec repede prin mai multe — am energie când jonglez",                s:{style:{ritm:3}} },
+      { t:"Vreau variație extremă. 10 lucruri diferite, schimbare constantă, schimbări rapide de context.", s:{style:{ritm:4}} }
     ]},
   { lens:"stil", axis:"structura", q:"Ce fel de mediu de muncă te face să dai maxim?",
     opts:[
@@ -704,7 +704,7 @@ function narrative(ti, tv, st) {
   else bits.push("calm cu risc mic");
   const styleBits = bits.join(", ");
 
-  return `Interesele tale spun <b>${i1}</b> cu <b>${i2}</b>. Valorile tale vor <b>${v1}</b> mai mult decât restul. Lucrezi cel mai bine <b>${styleBits}</b>. Programele de mai jos se așază exact la intersecția aia — nu doar pe interese, ci pe toate trei.`;
+  return `Interesele tale spun <b>${i1}</b> cu <b>${i2}</b>. Valorile tale vor <b>${v1}</b> mai mult decât restul. Lucrezi cel mai bine <b>${styleBits}</b>. Programele de mai jos se așază exact la intersecția asta — nu doar pe interese, ci pe toate trei.`;
 }
 
 function showFeedbackScreen() {
@@ -782,10 +782,10 @@ function showResults(topPrograms) {
   const ti = topInterests(), tv = topValues(), st = styleProfile();
 
   $("r-interests-top").textContent = `${ti[0].label} + ${ti[1].label}`;
-  $("r-interests-detail").textContent = `Ai rezonat cu ${ti[0].label.toLowerCase()} mai ales, și ${ti[1].label.toLowerCase()} pe loc secund.`;
+  $("r-interests-detail").textContent = `Ai rezonat cu ${ti[0].label.toLowerCase()} mai ales, și ${ti[1].label.toLowerCase()} pe locul doi.`;
 
   $("r-values-top").textContent = `${tv[0].label}${tv[1].value > 0 ? " + " + tv[1].label : ""}`;
-  $("r-values-detail").textContent = `Nu negociezi ${tv[0].label.toLowerCase()} pentru nimic.`;
+  $("r-values-detail").textContent = `Nu renunți la ${tv[0].label.toLowerCase()} pentru nimic.`;
 
   const styleLabel = (v, axis) => {
     const a = STYLE_AXES[axis];
