@@ -1,0 +1,323 @@
+/* CeSaFiu — Neo-brutalist Gen Z career quiz */
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;800;900&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --paper: #FEF9F1;
+  --paper-2: #f8f3eb;
+  --ink: #1d1c17;
+  --ink-soft: #494454;
+  --purple: #6B38D4;
+  --purple-light: #8455ef;
+  --purple-fixed: #e9ddff;
+  --yellow: #FFE170;
+  --yellow-bold: #E9C400;
+  --green: #A9F900;
+  --green-deep: #94db00;
+  --error: #ba1a1a;
+  --shadow-2: 4px 4px 0 0 #000;
+  --shadow-3: 8px 8px 0 0 #000;
+  --shadow-1: 0 0 0 0 #000;
+  --border: 2px solid #000;
+  --radius: 4px;
+  --radius-lg: 8px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+button { font-family: inherit; cursor: pointer; }
+
+.h-xl { font-family: 'Epilogue', sans-serif; font-weight: 900; font-size: 48px; line-height: 1.0; letter-spacing: -0.03em; }
+.h-lg { font-family: 'Epilogue', sans-serif; font-weight: 800; font-size: 32px; line-height: 1.05; letter-spacing: -0.02em; }
+.h-md { font-family: 'Epilogue', sans-serif; font-weight: 800; font-size: 24px; line-height: 1.15; letter-spacing: -0.01em; }
+.h-sm { font-family: 'Epilogue', sans-serif; font-weight: 800; font-size: 18px; line-height: 1.15; letter-spacing: -0.01em; }
+.body-lg { font-size: 17px; line-height: 1.5; font-weight: 500; }
+.body-md { font-size: 15px; line-height: 1.5; }
+.body-sm { font-size: 13px; line-height: 1.45; }
+.label-bold { font-size: 13px; font-weight: 800; line-height: 1.2; letter-spacing: 0.02em; text-transform: uppercase; }
+.label-sm { font-size: 11px; font-weight: 600; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; }
+.mono { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+
+/* ── PHONE ── */
+.phone {
+  width: 390px;
+  height: 844px;
+  background: var(--paper);
+  border: 2px solid #000;
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 12px 12px 0 0 #000;
+}
+.phone-screen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.phone-stack {
+  position: absolute;
+  inset: 0;
+}
+
+/* status bar */
+.status-bar {
+  height: 44px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 28px 0;
+  font-weight: 700; font-size: 15px;
+  position: relative; z-index: 5;
+  pointer-events: none;
+}
+.status-icons { display: flex; gap: 5px; align-items: center; }
+
+/* nav bar */
+.nav-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px 12px;
+  position: relative; z-index: 4;
+}
+.nav-bar .brand {
+  font-family: 'Epilogue', sans-serif; font-weight: 900; font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 14px 22px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  background: #fff;
+  color: #000;
+  box-shadow: var(--shadow-2);
+  transition: transform .08s ease, box-shadow .08s ease, background .12s;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  user-select: none;
+  position: relative;
+}
+.btn:hover { transform: translate(1px, 1px); box-shadow: 3px 3px 0 0 #000; }
+.btn:active, .btn.is-pressed { transform: translate(4px, 4px); box-shadow: 0 0 0 0 #000; }
+.btn-primary { background: var(--purple); color: #fff; }
+.btn-yellow { background: var(--yellow); }
+.btn-green { background: var(--green); }
+.btn-ghost { background: transparent; box-shadow: 0 0 0 0 #000; border-color: transparent; }
+.btn-lg { padding: 18px 26px; font-size: 17px; box-shadow: var(--shadow-3); }
+.btn-lg:hover { transform: translate(2px, 2px); box-shadow: 6px 6px 0 0 #000; }
+.btn-lg:active { transform: translate(8px, 8px); box-shadow: 0 0 0 0 #000; }
+.btn-icon {
+  width: 44px; height: 44px; padding: 0; border-radius: var(--radius);
+}
+
+/* ── CARD ── */
+.card {
+  background: #fff;
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-2);
+}
+.card-flat { box-shadow: 0 0 0 0 #000; }
+.card-pop { box-shadow: var(--shadow-3); }
+
+/* ── STICKERS ── */
+.sticker {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: var(--border);
+  background: var(--yellow);
+  padding: 6px 12px;
+  border-radius: var(--radius-lg);
+  font-weight: 800; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  box-shadow: 2px 2px 0 0 #000;
+}
+.sticker-purple { background: var(--purple); color: #fff; }
+.sticker-green { background: var(--green); }
+.sticker-white { background: #fff; }
+
+/* ── PROGRESS BAR ── */
+.progress {
+  border: var(--border);
+  border-radius: 0;
+  height: 18px;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--green);
+  border-right: 2px solid #000;
+  transition: width .45s cubic-bezier(.7,.1,.2,1);
+  position: relative;
+  background-image: repeating-linear-gradient(45deg, transparent 0 8px, rgba(0,0,0,0.08) 8px 10px);
+}
+
+/* ── INPUTS ── */
+.input, .textarea {
+  width: 100%;
+  background: var(--paper);
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 16px;
+  outline: none;
+}
+.input:focus { background: var(--purple-fixed); }
+
+/* ── ANIMATIONS ── */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes slide-up {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes stamp {
+  0% { transform: scale(1.5) rotate(-8deg); opacity: 0; }
+  60% { transform: scale(0.9) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.anim-pop { animation: pop .3s cubic-bezier(.5,1.6,.4,1) forwards; }
+.anim-slide-up { animation: slide-up .4s cubic-bezier(.2,.7,.3,1) forwards; }
+.anim-stamp { animation: stamp .5s cubic-bezier(.5,1.6,.4,1) forwards; }
+.anim-wiggle { animation: wiggle 2s ease-in-out infinite; }
+
+/* hard-shadow text — used for the big "stamp" headlines */
+.text-stamp {
+  -webkit-text-stroke: 2px #000;
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 #000;
+  color: var(--paper);
+}
+
+/* paper texture (subtle) */
+.paper-tex {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,0.025) 0, transparent 1px),
+    radial-gradient(circle at 70% 60%, rgba(0,0,0,0.02) 0, transparent 1px),
+    radial-gradient(circle at 40% 80%, rgba(0,0,0,0.025) 0, transparent 1px);
+  background-size: 7px 7px, 11px 11px, 13px 13px;
+}
+
+/* career card hatching */
+.hatch {
+  background-image: repeating-linear-gradient(45deg, #000 0 1.5px, transparent 1.5px 8px);
+}
+.hatch-light {
+  background-image: repeating-linear-gradient(45deg, rgba(0,0,0,.15) 0 1px, transparent 1px 6px);
+}
+
+/* a subtle wobble for stickers */
+.tilt-l { transform: rotate(-2deg); }
+.tilt-r { transform: rotate(2deg); }
+.tilt-l-3 { transform: rotate(-3deg); }
+.tilt-r-3 { transform: rotate(3deg); }
+
+/* segmented (chip rail) */
+.chip {
+  border: var(--border); border-radius: var(--radius-lg);
+  padding: 8px 14px; background: #fff;
+  font-weight: 700; font-size: 13px;
+  box-shadow: 2px 2px 0 0 #000;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.chip[aria-selected="true"] { background: var(--purple); color: #fff; }
+
+/* scroll fade */
+.scroll-y { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.scroll-y::-webkit-scrollbar { display: none; }
+
+/* layout grid for backgrounds */
+.bg-noise::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 23px, rgba(0,0,0,0.04) 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, rgba(0,0,0,0.04) 23px 24px);
+}
+
+/* tab bar */
+.tabbar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: #fff;
+  border-top: var(--border);
+  display: flex; justify-content: space-around;
+  padding: 10px 8px 18px;
+  z-index: 6;
+}
+.tab {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 6px 12px; border-radius: var(--radius);
+  font-size: 11px; font-weight: 700;
+  background: transparent; border: none; cursor: pointer;
+  color: var(--ink-soft);
+}
+.tab[aria-current="true"] {
+  background: var(--purple); color: #fff;
+  border: var(--border);
+  box-shadow: 2px 2px 0 0 #000;
+}
+
+/* placeholder image — striped sticker style */
+.ph {
+  border: var(--border);
+  background:
+    repeating-linear-gradient(135deg, var(--purple-fixed) 0 14px, #fff 14px 28px);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--ink-soft);
+  border-radius: var(--radius);
+}
+
+/* big abstract blob (career visual) — pure CSS */
+.blob {
+  position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%;
+  background: var(--purple);
+  border: var(--border);
+}
+.blob::before, .blob::after {
+  content: ""; position: absolute; border: var(--border); border-radius: 50%;
+}
+.blob::before {
+  width: 55%; height: 55%; background: var(--yellow);
+  top: 10%; left: 12%;
+}
+.blob::after {
+  width: 35%; height: 35%; background: var(--green);
+  bottom: 8%; right: 10%;
+}
+
+/* selection-mark "stamp" stroke for chosen quiz answer */
+.stamp-mark {
+  position: absolute; pointer-events: none;
+  top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-6deg);
+  font-family: 'Epilogue', sans-serif; font-weight: 900;
+  font-size: 28px; color: var(--error);
+  border: 3px solid var(--error);
+  padding: 6px 14px; border-radius: 4px;
+  letter-spacing: 0.06em;
+  opacity: 0;
+}
