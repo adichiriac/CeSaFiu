@@ -395,7 +395,7 @@ window.QUIZ_DATA = {
       id: 'facultate', name: 'Facultate clasică', emoji: '◆', color: 'purple',
       tagline: 'Diploma, comunitatea, structura',
       duration: '3-6 ani',
-      cost: '0 (la stat) — 12.000€/an (privat)',
+      cost: '0 (loc bugetat) — 1.000-2.000 €/an cu taxă (stat sau privat)',
       pros: ['Diplomă recunoscută internațional', 'Comunitate de colegi & profi', 'Structură care te ține pe drum', 'Acces la cercetare, laboratoare'],
       cons: ['Lent — 3+ ani până la primul job real', 'Curricula uneori desincronizată cu industria', 'Cost de oportunitate'],
       bestFor: ['Medicină, drept, inginerie', 'Cercetare, academic', 'Cariere care cer licență'],

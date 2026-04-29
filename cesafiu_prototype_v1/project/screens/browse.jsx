@@ -145,7 +145,7 @@ function BrowsePaths({ onPick }) {
     <div className="scroll-y" style={{ position: 'absolute', inset: 0, paddingBottom: 24 }}>
       <div style={{ padding: '0 20px 16px' }}>
         <div className="card" style={{ padding: 16, background: 'var(--paper-2)' }}>
-          <div className="label-bold" style={{ color: 'var(--purple)' }}>5 DRUMURI · NU UNUL</div>
+          <div className="label-bold" style={{ color: 'var(--purple)' }}>{paths.length} DRUMURI · NU UNUL</div>
           <div className="body-md" style={{ marginTop: 6 }}>
             Facultatea nu e singura opțiune. Aici vezi toate variantele cu pro/contra real.
           </div>
