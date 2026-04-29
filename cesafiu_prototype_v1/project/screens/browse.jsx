@@ -429,6 +429,37 @@ function UniDetailScreen({ uniId, onBack }) {
           <div className="body-md">{u.notes}</div>
         </div>
 
+        {/* Programe utile — direct deep-links into specific specialties when known */}
+        {(u.programs || []).length > 0 && (
+          <>
+            <div className="h-md" style={{ marginBottom: 10 }}>Programe utile</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24 }}>
+              {(u.programs || []).map((p, i) => (
+                <a
+                  key={i}
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    try {
+                      const fn = window.umamiTrack || (window.umami && window.umami.track);
+                      if (fn) fn('uni_program_click', { id: u.id, program: p.name });
+                    } catch (e) {}
+                  }}
+                  className="card"
+                  style={{
+                    padding: 14, background: '#fff', textDecoration: 'none', color: 'inherit',
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10,
+                  }}
+                >
+                  <div className="body-md" style={{ fontWeight: 700 }}>{p.name}</div>
+                  <span style={{ fontSize: 16, color: 'var(--ink-soft)', flexShrink: 0 }}>↗</span>
+                </a>
+              ))}
+            </div>
+          </>
+        )}
+
         <div className="h-md" style={{ marginBottom: 10 }}>Domenii</div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
           {(u.domains || []).map((d, i) => (
