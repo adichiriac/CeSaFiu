@@ -151,7 +151,7 @@ function App() {
   const [selectedThisQ, setSelectedThisQ] = useState(null);
   const [transitioning, setTransitioning] = useState(false);
   const [browseSection, setBrowseSection] = useState('careers');
-  const [deepScores, setDeepScores] = useState({ personality: null, vocational: null });
+  const [deepScores, setDeepScores] = useState({ personality: null, vocational: null, ipipNeo60: null });
 
   const data = window.QUIZ_DATA;
   const matches = useMemo(() => computeMatches(answers, data.careers), [answers, data.careers]);
@@ -252,8 +252,16 @@ function App() {
           {route.name === 'quiz' && transitioning && <Computing />}
           {route.name === 'personality' && (
             <PersonalityScreen
+              dataKey="personality"
               onBack={() => goto('welcome')}
               onComplete={(scores) => { setDeepScores((p) => ({ ...p, personality: scores })); goto('deepResults', { kind: 'personality' }); }}
+            />
+          )}
+          {route.name === 'ipip-neo' && (
+            <PersonalityScreen
+              dataKey="ipipNeo60"
+              onBack={() => goto('welcome')}
+              onComplete={(scores) => { setDeepScores((p) => ({ ...p, ipipNeo60: scores })); goto('deepResults', { kind: 'ipipNeo60' }); }}
             />
           )}
           {route.name === 'vocational' && (
@@ -267,8 +275,9 @@ function App() {
               kind={route.kind}
               scores={deepScores[route.kind]}
               onBrowse={() => { setBrowseSection('careers'); goto('browse'); }}
-              onRetake={() => goto(route.kind)}
+              onRetake={() => goto(route.kind === 'ipipNeo60' ? 'ipip-neo' : route.kind)}
               onProfile={() => goto('profile')}
+              onIpipNeo={() => goto('ipip-neo')}
             />
           )}
           {route.name === 'results' && (
@@ -335,7 +344,8 @@ function App() {
         <TweakSection label="Quick jump">
           <TweakButton label="→ Welcome" onClick={() => goto('welcome')} />
           <TweakButton label="→ Quiz rapid" onClick={() => { setQIndex(0); setSelectedThisQ(null); goto('quiz'); }} />
-          <TweakButton label="→ Personality test" onClick={() => goto('personality')} />
+          <TweakButton label="→ Personality test (15 short)" onClick={() => goto('personality')} />
+          <TweakButton label="→ IPIP-NEO-60 (validated)" onClick={() => goto('ipip-neo')} />
           <TweakButton label="→ Vocational test" onClick={() => goto('vocational')} />
           <TweakButton label="→ Browse cariere" onClick={() => { setBrowseSection('careers'); goto('browse'); }} />
           <TweakButton label="→ Browse trasee" onClick={() => { setBrowseSection('paths'); goto('browse'); }} />

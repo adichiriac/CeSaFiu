@@ -1,6 +1,12 @@
-// Personality test (Big Five-inspired) — sliding scale, 15 statements
-function PersonalityScreen({ onComplete, onBack }) {
-  const data = window.QUIZ_DATA && window.QUIZ_DATA.personality;
+// Personality test (Big Five) — sliding scale Likert.
+// Generalized to render any dataset with the same shape (items[] with
+// {id, dim, text, r?}). Default dataKey 'personality' = legacy 15-item
+// short version. dataKey 'ipipNeo60' = full validated IPIP-NEO-60.
+// Both produce identical Big Five score format so DeepResultsScreen
+// can render either.
+function PersonalityScreen({ onComplete, onBack, dataKey }) {
+  const key = dataKey || 'personality';
+  const data = window.QUIZ_DATA && window.QUIZ_DATA[key];
   if (!data) {
     return (
       <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
@@ -54,7 +60,7 @@ function PersonalityScreen({ onComplete, onBack }) {
       </div>
 
       <div className="sticker sticker-purple tilt-l" style={{ alignSelf: 'flex-start', marginBottom: 16, background: '#000', color: 'var(--green)' }}>
-        TEST PERSONALITATE
+        {key === 'ipipNeo60' ? 'IPIP-NEO-60 · BIG FIVE' : 'TEST PERSONALITATE'}
       </div>
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>

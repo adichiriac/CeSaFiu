@@ -104,6 +104,103 @@ window.QUIZ_DATA = {
     },
   },
 
+  // ── IPIP-NEO-60 (Big Five — validated, public domain) ──────────────────
+  // Source: International Personality Item Pool (Goldberg et al.), public
+  // domain — see docs/PSYCHOMETRICS.md for licensing notes. Items selected
+  // from IPIP-NEO-120 (Johnson 2014) by factor loading; 12 per dimension.
+  // Romanian translation v1 — drafted 2026-04-29, NEEDS REVIEW by an RO
+  // psycholinguist before public/paid launch.
+  // Same Likert 1-5 scoring + reverse-flag pattern as the legacy
+  // `personality` dataset, so the existing PersonalityScreen + computeBig5
+  // logic works without changes (just a different dataKey).
+  ipipNeo60: {
+    name: 'Test complet de personalitate',
+    subtitle: 'IPIP-NEO-60 — instrument științific public-domain (Goldberg)',
+    estimateMin: 10,
+    sourceLicense: 'public-domain',
+    sourceCitation: 'IPIP — Goldberg, L. R., Johnson, J. A., et al. International Personality Item Pool',
+    items: [
+      // ── Openness (12) ──
+      { id: 'o01', dim: 'O', text: 'Am o imaginație vie.' },
+      { id: 'o02', dim: 'O', text: 'Cred în importanța artei.' },
+      { id: 'o03', dim: 'O', text: 'Am idei excelente.' },
+      { id: 'o04', dim: 'O', text: 'Înțeleg rapid lucruri noi.' },
+      { id: 'o05', dim: 'O', text: 'Folosesc cuvinte complexe.' },
+      { id: 'o06', dim: 'O', text: 'Petrec timp gândindu-mă în profunzime.' },
+      { id: 'o07', dim: 'O', text: 'Sunt plin de idei.' },
+      { id: 'o08', dim: 'O', r: true, text: 'Nu am o imaginație bună.' },
+      { id: 'o09', dim: 'O', r: true, text: 'Mi-e greu să înțeleg idei abstracte.' },
+      { id: 'o10', dim: 'O', r: true, text: 'Nu mă interesează ideile abstracte.' },
+      { id: 'o11', dim: 'O', r: true, text: 'Nu am un vocabular bogat.' },
+      { id: 'o12', dim: 'O', r: true, text: 'Nu îmi place arta.' },
+
+      // ── Conscientiousness (12) ──
+      { id: 'c01', dim: 'C', text: 'Sunt mereu pregătit.' },
+      { id: 'c02', dim: 'C', text: 'Acord atenție detaliilor.' },
+      { id: 'c03', dim: 'C', text: 'Termin treburile imediat ce le am de făcut.' },
+      { id: 'c04', dim: 'C', text: 'Îmi place ordinea.' },
+      { id: 'c05', dim: 'C', text: 'Urmez un program.' },
+      { id: 'c06', dim: 'C', text: 'Sunt exigent în munca mea.' },
+      { id: 'c07', dim: 'C', r: true, text: 'Îmi las lucrurile aruncate prin casă.' },
+      { id: 'c08', dim: 'C', r: true, text: 'Fac dezordine în jurul meu.' },
+      { id: 'c09', dim: 'C', r: true, text: 'Adesea uit să pun lucrurile la locul lor.' },
+      { id: 'c10', dim: 'C', r: true, text: 'Îmi neglijez datoriile.' },
+      { id: 'c11', dim: 'C', r: true, text: 'Mi-e greu să mă apuc de treabă.' },
+      { id: 'c12', dim: 'C', r: true, text: 'Îmi pierd timpul.' },
+
+      // ── Extraversion (12) ──
+      { id: 'e01', dim: 'E', text: 'Sunt sufletul petrecerii.' },
+      { id: 'e02', dim: 'E', text: 'Mă simt confortabil printre oameni.' },
+      { id: 'e03', dim: 'E', text: 'Inițiez conversații.' },
+      { id: 'e04', dim: 'E', text: 'Vorbesc cu mulți oameni diferiți la petreceri.' },
+      { id: 'e05', dim: 'E', text: 'Nu mă deranjează să fiu în centrul atenției.' },
+      { id: 'e06', dim: 'E', text: 'Îmi fac prieteni cu ușurință.' },
+      { id: 'e07', dim: 'E', r: true, text: 'Nu vorbesc mult.' },
+      { id: 'e08', dim: 'E', r: true, text: 'Stau în plan secund.' },
+      { id: 'e09', dim: 'E', r: true, text: 'Am puține lucruri de spus.' },
+      { id: 'e10', dim: 'E', r: true, text: 'Nu îmi place să atrag atenția asupra mea.' },
+      { id: 'e11', dim: 'E', r: true, text: 'Sunt tăcut în prezența necunoscuților.' },
+      { id: 'e12', dim: 'E', r: true, text: 'Mi-e greu să mă apropii de alți oameni.' },
+
+      // ── Agreeableness (12) ──
+      { id: 'a01', dim: 'A', text: 'Mă interesează oamenii.' },
+      { id: 'a02', dim: 'A', text: 'Empatizez cu sentimentele altora.' },
+      { id: 'a03', dim: 'A', text: 'Sunt o persoană sensibilă.' },
+      { id: 'a04', dim: 'A', text: 'Îmi fac timp pentru ceilalți.' },
+      { id: 'a05', dim: 'A', text: 'Simt emoțiile altora.' },
+      { id: 'a06', dim: 'A', text: 'Fac oamenii să se simtă în largul lor.' },
+      { id: 'a07', dim: 'A', r: true, text: 'Nu mă interesează cu adevărat ceilalți.' },
+      { id: 'a08', dim: 'A', r: true, text: 'Insult oameni.' },
+      { id: 'a09', dim: 'A', r: true, text: 'Nu mă interesează problemele altora.' },
+      { id: 'a10', dim: 'A', r: true, text: 'Mă preocupă puțin ceilalți.' },
+      { id: 'a11', dim: 'A', r: true, text: 'Sunt indiferent la sentimentele altora.' },
+      { id: 'a12', dim: 'A', r: true, text: 'Profit de pe urma altora.' },
+
+      // ── Neuroticism (12) ──
+      { id: 'n01', dim: 'N', text: 'Mă stresez ușor.' },
+      { id: 'n02', dim: 'N', text: 'Mă îngrijorez de multe lucruri.' },
+      { id: 'n03', dim: 'N', text: 'Sunt ușor de tulburat.' },
+      { id: 'n04', dim: 'N', text: 'Mă supăr ușor.' },
+      { id: 'n05', dim: 'N', text: 'Îmi schimb dispoziția des.' },
+      { id: 'n06', dim: 'N', text: 'Am schimbări frecvente de dispoziție.' },
+      { id: 'n07', dim: 'N', text: 'Mă irit ușor.' },
+      { id: 'n08', dim: 'N', text: 'Adesea mă simt trist.' },
+      { id: 'n09', dim: 'N', r: true, text: 'Sunt relaxat majoritatea timpului.' },
+      { id: 'n10', dim: 'N', r: true, text: 'Mă simt rareori trist.' },
+      { id: 'n11', dim: 'N', r: true, text: 'Rareori mă simt anxios.' },
+      { id: 'n12', dim: 'N', r: true, text: 'Nu mă deranjează ușor lucrurile.' },
+    ],
+    // Same dimension keys + display data as the short personality test —
+    // PersonalityResults can render either dataset.
+    dimensions: {
+      O: { name: 'Deschidere', short: 'OPEN', color: 'purple', high: 'Curiozitate, creativitate, ideile abstracte te încarcă.', low: 'Practică, focus pe ce funcționează deja.' },
+      C: { name: 'Conștiinciozitate', short: 'PLAN', color: 'green', high: 'Disciplină, structură, duci la capăt.', low: 'Spontan, flexibil, mai puțin rigid pe planuri.' },
+      E: { name: 'Extraversiune', short: 'PEOPLE', color: 'yellow', high: 'Te încarci cu oameni, vorbești ușor, iei inițiativa.', low: 'Energie internă, preferi grupuri mici sau singur.' },
+      A: { name: 'Agreabilitate', short: 'CARE', color: 'green', high: 'Empatic, cooperant, atent la ceilalți.', low: 'Direct, competitiv, pui propriile interese pe primul loc.' },
+      N: { name: 'Stabilitate emoțională', short: 'CALM', color: 'purple', high: 'Sensibil emoțional — simți totul intens.', low: 'Calm sub presiune, te recuperezi rapid.' },
+    },
+  },
+
   // ── VOCATIONAL (RIASEC / Holland Code, forced-choice 12 perechi) ──
   // Each item has two options, each contributes 1 point to one of: R, I, A, S, E, C
   vocational: {

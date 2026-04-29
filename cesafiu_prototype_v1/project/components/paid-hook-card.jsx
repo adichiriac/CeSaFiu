@@ -15,7 +15,10 @@
 //             'personality', 'vocational') so analytics can split funnels
 //   summary — optional one-line summary of the user's result, included
 //             in the Formspree payload so manual fulfillment has context
-function PaidHookCard({ context, summary }) {
+//   onUpgradeFree — optional callback invoked when the user clicks the
+//             FREE secondary CTA (IPIP-NEO-60 full test). Only rendered
+//             on the personality-test surface.
+function PaidHookCard({ context, summary, onUpgradeFree }) {
   const [stage, setStage] = React.useState('idle'); // idle | email | sending | sent | error
   const [email, setEmail] = React.useState('');
   const [agree, setAgree] = React.useState(false);
@@ -159,6 +162,43 @@ function PaidHookCard({ context, summary }) {
 
   // idle (default)
   return (
+    <>
+      {/* Free secondary CTA — only on the personality short-test surface,
+          upsells to the validated IPIP-NEO-60. Same visual language as
+          the paid card so it feels native. */}
+      {onUpgradeFree && (
+        <div className="card" style={{
+          marginTop: 16, padding: 16,
+          background: 'var(--green)', color: '#000', border: '2px solid #000',
+        }}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 8, flexWrap: 'wrap' }}>
+            <span style={{
+              background: '#000', color: 'var(--green)',
+              padding: '3px 8px', fontSize: 10, fontWeight: 800,
+              letterSpacing: '.06em',
+            }}>GRATUIT · VALIDAT ȘTIINȚIFIC</span>
+          </div>
+          <div className="h-sm" style={{ fontSize: 16 }}>Testul complet IPIP-NEO-60</div>
+          <div className="body-sm" style={{ marginTop: 6 }}>
+            Versiune validată internațional (Goldberg, public-domain). 60 întrebări, ~10 min.
+            Mult mai precis decât testul scurt — folosit ca bază pentru raportul plătit.
+          </div>
+          <button
+            onClick={() => {
+              try {
+                const fn = window.umamiTrack || (window.umami && window.umami.track);
+                if (fn) fn('ipip_neo_started', { from: context || 'unknown' });
+              } catch (e) {}
+              onUpgradeFree();
+            }}
+            className="btn"
+            style={{ marginTop: 12, width: '100%', background: '#000', color: '#fff', fontWeight: 800 }}
+          >
+            IA TESTUL COMPLET (10 MIN) →
+          </button>
+        </div>
+      )}
+
     <div className="card" style={{
       marginTop: 16, padding: 20,
       background: 'var(--purple)', color: '#fff', border: '2px solid #000',
@@ -200,6 +240,7 @@ function PaidHookCard({ context, summary }) {
         Fără card acum — doar îți rezervi locul la prețul de pre-lansare.
       </div>
     </div>
+    </>
   );
 }
 

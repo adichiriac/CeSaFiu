@@ -1,11 +1,15 @@
-// Results for the deep tests (personality + vocational)
-function DeepResultsScreen({ kind, scores, onBrowse, onRetake, onProfile }) {
-  if (kind === 'personality') return <PersonalityResults scores={scores} onBrowse={onBrowse} onRetake={onRetake} onProfile={onProfile} />;
+// Results for the deep tests (personality 15-item + ipipNeo60 + vocational)
+function DeepResultsScreen({ kind, scores, onBrowse, onRetake, onProfile, onIpipNeo }) {
+  if (kind === 'personality' || kind === 'ipipNeo60') {
+    return <PersonalityResults dataKey={kind} scores={scores} onBrowse={onBrowse} onRetake={onRetake} onProfile={onProfile} onIpipNeo={onIpipNeo} />;
+  }
   return <VocationalResults scores={scores} onBrowse={onBrowse} onRetake={onRetake} onProfile={onProfile} />;
 }
 
-function PersonalityResults({ scores, onBrowse, onRetake, onProfile }) {
-  const dims = window.QUIZ_DATA.personality.dimensions;
+function PersonalityResults({ dataKey, scores, onBrowse, onRetake, onProfile, onIpipNeo }) {
+  const key = dataKey || 'personality';
+  const isValidated = key === 'ipipNeo60';
+  const dims = window.QUIZ_DATA[key].dimensions;
   const colors = { purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)' };
   const PaidHookCard = window.PaidHookCard;
   // Ranked
@@ -15,10 +19,28 @@ function PersonalityResults({ scores, onBrowse, onRetake, onProfile }) {
   return (
     <div className="scroll-y" style={{ position: 'absolute', inset: 0, paddingBottom: 100 }}>
       <div style={{ background: 'var(--purple)', color: '#fff', padding: '20px 20px 36px', borderBottom: '2px solid #000', position: 'relative' }}>
-        <div className="sticker sticker-white tilt-l" style={{ marginBottom: 14 }}>BIG FIVE · PROFIL</div>
+        <div className="sticker sticker-white tilt-l" style={{ marginBottom: 14 }}>
+          {isValidated ? 'IPIP-NEO-60 · VALIDAT' : 'BIG FIVE · VERSIUNE SCURTĂ'}
+        </div>
         <div className="h-xl" style={{ fontSize: 44 }}>Profilul<br/>tău</div>
         <div className="body-lg" style={{ marginTop: 12, fontWeight: 600, fontStyle: 'italic' }}>
           Dominantă: <span style={{ background: 'var(--yellow)', color: '#000', padding: '0 6px' }}>{dims[top[0]].name}</span>
+        </div>
+      </div>
+
+      {/* Honest framing — short version is a hint; IPIP-60 is validated public-domain. */}
+      <div className="card" style={{
+        margin: '12px 20px 0', padding: 12,
+        background: isValidated ? 'var(--paper-2)' : 'var(--yellow)',
+        border: '2px solid #000',
+      }}>
+        <div className="label-bold" style={{ fontSize: 11, marginBottom: 4 }}>
+          {isValidated ? '✓ TEST VALIDAT ȘTIINȚIFIC' : '⚠ DOAR ORIENTATIV'}
+        </div>
+        <div className="body-sm" style={{ fontSize: 13 }}>
+          {isValidated
+            ? 'IPIP-NEO-60 (Goldberg) — instrument public-domain, validat pe populație internațională. Versiune RO v1.'
+            : 'Acesta e un test scurt inspirat din Big Five — nu e versiune validată. Pentru evaluare reală, ia testul complet IPIP-NEO-60 (gratuit, mai jos).'}
         </div>
       </div>
 
@@ -50,11 +72,15 @@ function PersonalityResults({ scores, onBrowse, onRetake, onProfile }) {
           </div>
         </div>
 
-        {/* Paid in-depth report hook — Phase 1 willingness-to-pay validator */}
+        {/* Paid in-depth report hook — Phase 1 willingness-to-pay validator.
+            On the legacy short test, also offers a free upgrade to IPIP-NEO-60
+            (validated). On the IPIP results screen, no upgrade — that IS the
+            upgrade. */}
         {PaidHookCard && (
           <PaidHookCard
-            context="personality-test"
-            summary={`Big Five top dimension: ${dims[top[0]].name} (${top[1]}%)`}
+            context={isValidated ? 'ipip-neo-60' : 'personality-test'}
+            summary={`${isValidated ? 'IPIP-NEO-60' : 'Big Five short'} top dimension: ${dims[top[0]].name} (${top[1]}%)`}
+            onUpgradeFree={!isValidated && onIpipNeo ? onIpipNeo : undefined}
           />
         )}
       </div>
@@ -81,7 +107,7 @@ function VocationalResults({ scores, onBrowse, onRetake, onProfile }) {
   return (
     <div className="scroll-y" style={{ position: 'absolute', inset: 0, paddingBottom: 100 }}>
       <div style={{ background: 'var(--green)', padding: '20px 20px 36px', borderBottom: '2px solid #000', position: 'relative' }}>
-        <div className="sticker sticker-purple tilt-r" style={{ marginBottom: 14 }}>HOLLAND · COD</div>
+        <div className="sticker sticker-purple tilt-r" style={{ marginBottom: 14 }}>HOLLAND · VERSIUNE SCURTĂ</div>
         <div className="h-xl" style={{ fontSize: 38, lineHeight: 1.0 }}>Codul tău</div>
         <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>
           {top3.map((t, i) => {
@@ -98,6 +124,17 @@ function VocationalResults({ scores, onBrowse, onRetake, onProfile }) {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      {/* Honest framing for the short Holland version */}
+      <div className="card" style={{
+        margin: '12px 20px 0', padding: 12,
+        background: 'var(--yellow)', border: '2px solid #000',
+      }}>
+        <div className="label-bold" style={{ fontSize: 11, marginBottom: 4 }}>⚠ DOAR ORIENTATIV</div>
+        <div className="body-sm" style={{ fontSize: 13 }}>
+          Test scurt inspirat din Holland Code — nu versiune validată. Pentru evaluare oficială, vezi <a href="https://www.mynextmove.org/explore/ip" target="_blank" rel="noopener noreferrer" style={{ color: '#000', textDecoration: 'underline' }}>O*NET Interest Profiler</a> (gratuit, US Dept. of Labor) sau consultă un consilier vocațional autorizat.
         </div>
       </div>
 
