@@ -10,20 +10,136 @@ const TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
   "showStatusBar": true
 }/*EDITMODE-END*/;
 
-function computeMatches(answers, careers) {
-  const scores = {};
-  careers.forEach((c) => { scores[c.id] = 0; });
+// ── Quiz → career match scoring ────────────────────────────────────────────
+// Multi-axis cosine similarity across three signal sources:
+//   1. RIASEC (Holland Code) — strongest validated career-matching framework
+//   2. Path-type bias (facultate / autodidact / antreprenor / etc.)
+//   3. Traits (legacy 7-bucket: build/tech/analyze/social/lead/create/visual)
+// Honest 0-100 mapping — no floor, no compression.
+// Top-N is diversified via MMR so the user doesn't see four near-clones of #1.
+
+const RIASEC_KEYS = ['R', 'I', 'A', 'S', 'E', 'C'];
+const PATH_KEYS = ['facultate', 'autodidact', 'antreprenor', 'profesional', 'freelance', 'creator', 'mixt'];
+const TRAIT_KEYS = ['build', 'tech', 'analyze', 'social', 'lead', 'create', 'visual'];
+
+function vecFromTallyKeys(tally, keys) {
+  return keys.map((k) => tally[k] || 0);
+}
+function l2(v) {
+  return Math.sqrt(v.reduce((s, x) => s + x * x, 0));
+}
+function cosine(a, b) {
+  const na = l2(a), nb = l2(b);
+  if (na === 0 || nb === 0) return 0;
+  let dot = 0;
+  for (let i = 0; i < a.length; i++) dot += a[i] * b[i];
+  return dot / (na * nb);
+}
+
+function buildUserProfile(answers) {
+  const riasec = {}; const paths = {}; const traits = {};
   Object.values(answers).forEach((opt) => {
-    if (!opt || !opt.traits) return;
-    careers.forEach((c) => {
-      const overlap = opt.traits.filter((t) => c.traits.includes(t)).length;
-      scores[c.id] += overlap;
-    });
+    if (!opt) return;
+    (opt.riasec || []).forEach((c) => { riasec[c] = (riasec[c] || 0) + 1; });
+    if (opt.path) { paths[opt.path] = (paths[opt.path] || 0) + 1; }
+    (opt.traits || []).forEach((t) => { traits[t] = (traits[t] || 0) + 1; });
   });
-  const max = Math.max(...Object.values(scores), 1);
-  return careers
-    .map((c) => ({ career: c, score: Math.round(60 + (scores[c.id] / max) * 38) }))
-    .sort((a, b) => b.score - a.score);
+  return { riasec, paths, traits };
+}
+
+function buildCareerProfile(career) {
+  const riasec = {}; const paths = {}; const traits = {};
+  // RIASEC codes are listed primary→tertiary; weight them 3/2/1.
+  (career.riasec || []).forEach((c, i) => { riasec[c] = i < 3 ? (3 - i) : 1; });
+  if (career.pathType) { paths[career.pathType] = 1; }
+  // 'mixt' careers also resonate with facultate + autodidact paths half-weight
+  if (career.pathType === 'mixt') { paths.facultate = 0.5; paths.autodidact = 0.5; }
+  (career.traits || []).forEach((t) => { traits[t] = 1; });
+  return { riasec, paths, traits };
+}
+
+function rawScore(userProfile, careerProfile) {
+  // Weights: RIASEC dominates (validated framework), path is direction signal, traits are texture.
+  const W = { riasec: 0.55, paths: 0.25, traits: 0.20 };
+  const sR = cosine(vecFromTallyKeys(userProfile.riasec, RIASEC_KEYS), vecFromTallyKeys(careerProfile.riasec, RIASEC_KEYS));
+  const sP = cosine(vecFromTallyKeys(userProfile.paths, PATH_KEYS),   vecFromTallyKeys(careerProfile.paths, PATH_KEYS));
+  const sT = cosine(vecFromTallyKeys(userProfile.traits, TRAIT_KEYS), vecFromTallyKeys(careerProfile.traits, TRAIT_KEYS));
+  return W.riasec * sR + W.paths * sP + W.traits * sT;
+}
+
+function explainMatch(userProfile, career) {
+  const top2riasec = Object.entries(userProfile.riasec).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k]) => k);
+  const topPath = Object.entries(userProfile.paths).sort((a, b) => b[1] - a[1])[0];
+  const riasecHit = (career.riasec || []).filter((c) => top2riasec.includes(c));
+  const pathHit = topPath && career.pathType === topPath[0];
+  const bits = [];
+  if (riasecHit.length) bits.push(`RIASEC ${riasecHit.join('+')}`);
+  if (pathHit) bits.push(`drum ${topPath[0]}`);
+  return bits.length ? bits.join(' · ') : 'profil mixt';
+}
+
+function computeMatches(answers, careers) {
+  const userProfile = buildUserProfile(answers);
+  const noAnswers = Object.keys(userProfile.riasec).length === 0
+                 && Object.keys(userProfile.paths).length === 0
+                 && Object.keys(userProfile.traits).length === 0;
+
+  // 1. Raw scores per career
+  const scored = careers.map((c) => {
+    const cp = buildCareerProfile(c);
+    const raw = rawScore(userProfile, cp);
+    return { career: c, careerProfile: cp, raw, why: explainMatch(userProfile, c) };
+  });
+
+  if (noAnswers) {
+    return scored.map((s) => ({ career: s.career, score: 0, why: '' }));
+  }
+
+  // 2. Calibrate to 0-100 honestly: map [0, maxRaw] → [floor, ceil] where ceil ≤ 92
+  //    Floor at 25% so a poor match still shows visible bar; cap at 92% so we never
+  //    promise certainty from a 6-question quiz (honesty principle from ROADMAP).
+  const maxRaw = Math.max(...scored.map((s) => s.raw), 0.001);
+  const FLOOR = 25, CEIL = 92;
+  scored.forEach((s) => {
+    const norm = s.raw / maxRaw;          // 0..1 within this user's career space
+    const pct = FLOOR + norm * (CEIL - FLOOR);
+    // Slight power curve so weak matches stay visibly weak and strong matches separate
+    const curved = FLOOR + Math.pow(norm, 0.85) * (CEIL - FLOOR);
+    s.score = Math.round(curved);
+  });
+
+  // 3. Sort by raw, then diversify top-N via MMR (Maximum Marginal Relevance)
+  //    so the secondary matches aren't 3 clones of the primary.
+  const sorted = scored.slice().sort((a, b) => b.raw - a.raw);
+  const picked = [sorted[0]];
+  const pool = sorted.slice(1);
+  const LAMBDA = 0.7; // 0.7 favors relevance, 0.3 favors diversity
+  const TOP_N = 6;
+
+  while (picked.length < TOP_N && pool.length) {
+    let bestIdx = 0, bestVal = -Infinity;
+    for (let i = 0; i < pool.length; i++) {
+      const cand = pool[i];
+      // similarity to already-picked = max cosine on RIASEC vector (the strongest axis)
+      const candVec = vecFromTallyKeys(cand.careerProfile.riasec, RIASEC_KEYS);
+      let maxSim = 0;
+      picked.forEach((p) => {
+        const pv = vecFromTallyKeys(p.careerProfile.riasec, RIASEC_KEYS);
+        maxSim = Math.max(maxSim, cosine(candVec, pv));
+      });
+      const mmr = LAMBDA * cand.raw - (1 - LAMBDA) * maxSim;
+      if (mmr > bestVal) { bestVal = mmr; bestIdx = i; }
+    }
+    picked.push(pool.splice(bestIdx, 1)[0]);
+  }
+
+  // Sort the diversified top-N by display score descending so the user sees
+  // a clean monotonic ranking. (MMR's diversity benefit is in WHICH careers
+  // got picked, not in the order they're displayed.)
+  picked.sort((a, b) => b.score - a.score);
+  // Tail = whatever's left, in raw order, so the full list still works.
+  const tail = pool.sort((a, b) => b.raw - a.raw);
+  return [...picked, ...tail].map(({ career, score, why }) => ({ career, score, why }));
 }
 
 function App() {

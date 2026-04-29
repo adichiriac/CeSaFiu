@@ -6,11 +6,13 @@ window.QUIZ_DATA = {
       id: 'q1', sticker: '01 / 06', stickerColor: 'yellow',
       title: 'Sâmbătă seara. Cum arată vibe-ul tău?',
       subtitle: 'Nu există răspuns greșit. Doar tu, autentic.',
+      // Each option carries: traits (legacy), riasec (Holland Code weights),
+      // path (preferred career-path bias). Empty path = neutral.
       options: [
-        { id: 'a', label: 'Construiesc ceva — un site, un proiect, ceva tangibil', tag: 'BUILDER', traits: ['build', 'tech'] },
-        { id: 'b', label: 'Ies cu prietenii și organizez tot grupul', tag: 'CONNECTOR', traits: ['social', 'lead'] },
-        { id: 'c', label: 'Citesc, scriu, sau mă pierd într-un documentar', tag: 'THINKER', traits: ['analyze', 'create'] },
-        { id: 'd', label: 'Editez clipuri / desenez / fac muzică', tag: 'CREATOR', traits: ['create', 'visual'] },
+        { id: 'a', label: 'Construiesc ceva — un site, un proiect, ceva tangibil', tag: 'BUILDER', traits: ['build', 'tech'], riasec: ['R', 'I'], path: 'autodidact' },
+        { id: 'b', label: 'Ies cu prietenii și organizez tot grupul', tag: 'CONNECTOR', traits: ['social', 'lead'], riasec: ['S', 'E'], path: 'mixt' },
+        { id: 'c', label: 'Citesc, scriu, sau mă pierd într-un documentar', tag: 'THINKER', traits: ['analyze', 'create'], riasec: ['I', 'A'], path: 'facultate' },
+        { id: 'd', label: 'Editez clipuri / desenez / fac muzică', tag: 'CREATOR', traits: ['create', 'visual'], riasec: ['A'], path: 'creator' },
       ],
     },
     {
@@ -18,10 +20,10 @@ window.QUIZ_DATA = {
       title: 'Care problemă te enervează cel mai tare?',
       subtitle: 'Cea pe care simți că TU ai putea-o rezolva.',
       options: [
-        { id: 'a', label: 'Apps proaste care nu fac sens. Pierdere de timp.', tag: 'UX', traits: ['build', 'analyze'] },
-        { id: 'b', label: 'Oameni care nu se înțeleg între ei.', tag: 'EMPATHY', traits: ['social', 'analyze'] },
-        { id: 'c', label: 'Informații false care circulă peste tot.', tag: 'TRUTH', traits: ['analyze', 'lead'] },
-        { id: 'd', label: 'Lucruri urâte care ar putea arăta mult mai bine.', tag: 'AESTHETIC', traits: ['create', 'visual'] },
+        { id: 'a', label: 'Apps proaste care nu fac sens. Pierdere de timp.', tag: 'UX', traits: ['build', 'analyze'], riasec: ['I', 'A'], path: 'mixt' },
+        { id: 'b', label: 'Oameni care nu se înțeleg între ei.', tag: 'EMPATHY', traits: ['social', 'analyze'], riasec: ['S'], path: 'facultate' },
+        { id: 'c', label: 'Informații false care circulă peste tot.', tag: 'TRUTH', traits: ['analyze', 'lead'], riasec: ['I', 'E'], path: 'facultate' },
+        { id: 'd', label: 'Lucruri urâte care ar putea arăta mult mai bine.', tag: 'AESTHETIC', traits: ['create', 'visual'], riasec: ['A'], path: 'creator' },
       ],
     },
     {
@@ -29,10 +31,10 @@ window.QUIZ_DATA = {
       title: 'Profesorul îți dă proiect liber. Tu alegi:',
       subtitle: 'Ce te face să vrei să stai treaz până la 3 dimineața?',
       options: [
-        { id: 'a', label: 'Să programez un joc / o aplicație care chiar funcționează', tag: 'CODE', traits: ['build', 'tech'] },
-        { id: 'b', label: 'Să fac un documentar / podcast despre ceva real', tag: 'STORY', traits: ['create', 'analyze'] },
-        { id: 'c', label: 'Să organizez un eveniment care adună oameni', tag: 'EVENT', traits: ['social', 'lead'] },
-        { id: 'd', label: 'Să cercetez o întrebare ciudată până găsesc răspunsul', tag: 'RESEARCH', traits: ['analyze', 'tech'] },
+        { id: 'a', label: 'Să programez un joc / o aplicație care chiar funcționează', tag: 'CODE', traits: ['build', 'tech'], riasec: ['I', 'R'], path: 'autodidact' },
+        { id: 'b', label: 'Să fac un documentar / podcast despre ceva real', tag: 'STORY', traits: ['create', 'analyze'], riasec: ['A', 'I'], path: 'creator' },
+        { id: 'c', label: 'Să organizez un eveniment care adună oameni', tag: 'EVENT', traits: ['social', 'lead'], riasec: ['E', 'S'], path: 'antreprenor' },
+        { id: 'd', label: 'Să cercetez o întrebare ciudată până găsesc răspunsul', tag: 'RESEARCH', traits: ['analyze', 'tech'], riasec: ['I'], path: 'facultate' },
       ],
     },
     {
@@ -40,10 +42,10 @@ window.QUIZ_DATA = {
       title: 'În 10 ani te vezi:',
       subtitle: 'Fii sincer. Nu cu ce zice mama.',
       options: [
-        { id: 'a', label: 'Cu propria afacere / produs lansat', tag: 'FOUNDER', traits: ['build', 'lead'] },
-        { id: 'b', label: 'Schimbând cum funcționează un sistem mare', tag: 'IMPACT', traits: ['lead', 'analyze'] },
-        { id: 'c', label: 'Făcând artă / conținut care contează', tag: 'ARTIST', traits: ['create', 'visual'] },
-        { id: 'd', label: 'Lucrând cu oameni — ajutând, mentorând, conectând', tag: 'HELPER', traits: ['social', 'analyze'] },
+        { id: 'a', label: 'Cu propria afacere / produs lansat', tag: 'FOUNDER', traits: ['build', 'lead'], riasec: ['E', 'R'], path: 'antreprenor' },
+        { id: 'b', label: 'Schimbând cum funcționează un sistem mare', tag: 'IMPACT', traits: ['lead', 'analyze'], riasec: ['E', 'I'], path: 'facultate' },
+        { id: 'c', label: 'Făcând artă / conținut care contează', tag: 'ARTIST', traits: ['create', 'visual'], riasec: ['A'], path: 'creator' },
+        { id: 'd', label: 'Lucrând cu oameni — ajutând, mentorând, conectând', tag: 'HELPER', traits: ['social', 'analyze'], riasec: ['S'], path: 'facultate' },
       ],
     },
     {
@@ -51,10 +53,10 @@ window.QUIZ_DATA = {
       title: 'Ce te încarcă cu energie?',
       subtitle: 'Ce faci când ai 2 ore libere și nimeni nu te vede?',
       options: [
-        { id: 'a', label: 'Să rezolv un puzzle / să debugez un cod', tag: 'PROBLEM', traits: ['analyze', 'tech'] },
-        { id: 'b', label: 'Să discut cu cineva despre viața lor', tag: 'TALK', traits: ['social', 'analyze'] },
-        { id: 'c', label: 'Să creez ceva vizual — moodboard, video, design', tag: 'MAKE', traits: ['create', 'visual'] },
-        { id: 'd', label: 'Să citesc despre ceva complet nou pentru mine', tag: 'LEARN', traits: ['analyze', 'create'] },
+        { id: 'a', label: 'Să rezolv un puzzle / să debugez un cod', tag: 'PROBLEM', traits: ['analyze', 'tech'], riasec: ['I', 'R'], path: 'autodidact' },
+        { id: 'b', label: 'Să discut cu cineva despre viața lor', tag: 'TALK', traits: ['social', 'analyze'], riasec: ['S', 'A'], path: 'facultate' },
+        { id: 'c', label: 'Să creez ceva vizual — moodboard, video, design', tag: 'MAKE', traits: ['create', 'visual'], riasec: ['A'], path: 'creator' },
+        { id: 'd', label: 'Să citesc despre ceva complet nou pentru mine', tag: 'LEARN', traits: ['analyze', 'create'], riasec: ['I', 'A'], path: 'facultate' },
       ],
     },
     {
@@ -62,10 +64,10 @@ window.QUIZ_DATA = {
       title: 'Ultima întrebare. Banii sau impactul?',
       subtitle: 'Răspunde rapid. Prima reacție.',
       options: [
-        { id: 'a', label: 'Banii. Vreau libertate și opțiuni.', tag: 'AMBITION', traits: ['build', 'lead'] },
-        { id: 'b', label: 'Impactul. Vreau să las ceva în urmă.', tag: 'PURPOSE', traits: ['lead', 'social'] },
-        { id: 'c', label: 'Echilibru. Pot avea amândouă.', tag: 'BALANCE', traits: ['analyze', 'social'] },
-        { id: 'd', label: 'Procesul. Banii și impactul vin pe parcurs.', tag: 'CRAFT', traits: ['create', 'build'] },
+        { id: 'a', label: 'Banii. Vreau libertate și opțiuni.', tag: 'AMBITION', traits: ['build', 'lead'], riasec: ['E'], path: 'antreprenor' },
+        { id: 'b', label: 'Impactul. Vreau să las ceva în urmă.', tag: 'PURPOSE', traits: ['lead', 'social'], riasec: ['S', 'E'], path: 'facultate' },
+        { id: 'c', label: 'Echilibru. Pot avea amândouă.', tag: 'BALANCE', traits: ['analyze', 'social'], riasec: ['C', 'S'], path: 'mixt' },
+        { id: 'd', label: 'Procesul. Banii și impactul vin pe parcurs.', tag: 'CRAFT', traits: ['create', 'build'], riasec: ['A', 'R'], path: 'profesional' },
       ],
     },
   ],

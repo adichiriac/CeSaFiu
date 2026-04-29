@@ -17,12 +17,12 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile }) {
         padding: '24px 20px 48px', borderBottom: '2px solid #000', position: 'relative', overflow: 'hidden',
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div className="sticker sticker-white tilt-l">REZULTAT · 100%</div>
+          <div className="sticker sticker-white tilt-l">VIBE-UL TĂU</div>
           <button onClick={onRetake} className="label-bold" style={{ background: 'none', border: 'none', color: 'inherit', textDecoration: 'underline', cursor: 'pointer' }}>
             REIA ↻
           </button>
         </div>
-        <div className="label-bold" style={{ marginTop: 28, opacity: 0.7 }}>TU EȘTI MADE PENTRU:</div>
+        <div className="label-bold" style={{ marginTop: 28, opacity: 0.7 }}>POTRIVIT PENTRU TINE:</div>
         <div className="h-xl anim-pop" style={{ fontSize: 52, marginTop: 8, lineHeight: 0.95 }}>
           {top.career.name.split(' ').map((w, i) => (
             <div key={i}>{w}</div>
@@ -31,6 +31,11 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile }) {
         <div className="body-lg" style={{ marginTop: 16, fontWeight: 600, fontStyle: 'italic' }}>
           „{top.career.tagline}."
         </div>
+        {top.why && (
+          <div className="label-sm" style={{ marginTop: 12, opacity: 0.85, fontFamily: 'JetBrains Mono, monospace' }}>
+            DE CE: {top.why}
+          </div>
+        )}
 
         {/* big abstract emoji-ish */}
         <div style={{
