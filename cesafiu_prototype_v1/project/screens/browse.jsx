@@ -255,7 +255,15 @@ function BrowseUnis({ onPick }) {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10 }}>
               <div style={{ flex: 1 }}>
-                <div className="h-sm" style={{ fontSize: 16 }}>{u.name}</div>
+                <div className="h-sm" style={{ fontSize: 16 }}>
+                  {u.name}
+                  {u.url && (
+                    <span title="Site oficial disponibil" style={{
+                      display: 'inline-block', marginLeft: 6,
+                      fontSize: 11, color: 'var(--ink-soft)', verticalAlign: 'middle',
+                    }}>↗</span>
+                  )}
+                </div>
                 <div className="label-sm" style={{ color: 'var(--ink-soft)', marginTop: 2 }}>{u.city} · {u.kind}</div>
               </div>
               <div style={{
@@ -363,9 +371,28 @@ function PathDetailScreen({ pathId, onBack }) {
 }
 
 // ── UNI DETAIL ──
+// Helper: returns the institution's official URL when available, otherwise
+// falls back to a Google search for the name+city. Falls-back are honest:
+// the user clicks and Google handles discovery, no broken-link UX.
+function uniLinkFor(u) {
+  if (u.url) return { url: u.url, isFallback: false };
+  const q = encodeURIComponent(`${u.name} ${u.city}`);
+  return { url: `https://www.google.com/search?q=${q}`, isFallback: true };
+}
+function trackUniLink(u, fallback) {
+  try {
+    if (window.umamiTrack) {
+      window.umamiTrack('uni_link_click', { id: u.id, fallback });
+    } else if (window.umami) {
+      window.umami.track('uni_link_click', { id: u.id, fallback });
+    }
+  } catch (e) {}
+}
+
 function UniDetailScreen({ uniId, onBack }) {
   const u = window.QUIZ_DATA.universities.find((x) => x.id === uniId);
   if (!u) return null;
+  const { url, isFallback } = uniLinkFor(u);
 
   return (
     <div className="scroll-y" style={{ position: 'absolute', inset: 0, paddingBottom: 100 }}>
@@ -377,6 +404,27 @@ function UniDetailScreen({ uniId, onBack }) {
       </div>
 
       <div style={{ padding: '0 20px' }}>
+        {/* Primary action — go to the official site (or Google search fallback) */}
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackUniLink(u, isFallback)}
+          className="btn btn-primary btn-lg"
+          style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            width: '100%', marginBottom: 16, textDecoration: 'none',
+          }}
+        >
+          <span>{isFallback ? 'CAUTĂ PE GOOGLE' : 'VEZI SITE-UL OFICIAL'}</span>
+          <span style={{ fontSize: 18, marginLeft: 12 }}>↗</span>
+        </a>
+        {isFallback && (
+          <div className="label-sm" style={{ color: 'var(--ink-soft)', marginTop: -8, marginBottom: 14, fontSize: 11 }}>
+            Site-ul oficial nu e încă în baza noastră — căutare Google pentru {u.name}.
+          </div>
+        )}
+
         <div className="card" style={{ padding: 18, background: 'var(--paper-2)', marginBottom: 16 }}>
           <div className="body-md">{u.notes}</div>
         </div>
