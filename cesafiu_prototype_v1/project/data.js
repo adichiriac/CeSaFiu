@@ -824,7 +824,7 @@ window.QUIZ_DATA = {
       pros: ['Libertate totală', 'Upside nelimitat', 'Înveți rapid', 'Faci ce vrei tu'],
       cons: ['Stres ridicat', 'Venit incert ani la rând', 'Risc real de eșec', 'Nu există off-time'],
       bestFor: ['Oameni cu toleranță la risc', 'Idei validate', 'Cei care vor control total'],
-      next: ['Validează 10 conversații cu utilizatori', 'Construiește MVP în 30 zile', 'Aplicii la accelerator (Innovation Labs, Techstars)'],
+      next: ['Validează 10 conversații cu utilizatori', 'Construiește MVP în 30 zile', 'Aplică la un accelerator (Innovation Labs, Techstars)'],
     },
     {
       id: 'freelance', name: 'Freelance / Solo', emoji: '✦', color: 'yellow',

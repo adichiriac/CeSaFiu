@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "title": "Ce Să Fiu?",
+    "description": "Platformă de orientare în carieră pentru elevi."
+  },
+  "home": {
+    "eyebrow": "Faza 2",
+    "title": "Ce Să Fiu?",
+    "lead": "Noua aplicație pornește de aici: local-first, profil opțional și date sensibile ținute sub control."
+  },
+  "error": {
+    "eyebrow": "Eroare",
+    "title": "Ceva nu a mers.",
+    "lead": "Am primit semnalul tehnic fără date de test sau date de părinte. Poți încerca din nou.",
+    "action": "Încearcă din nou"
+  }
+}

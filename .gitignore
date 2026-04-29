@@ -9,3 +9,12 @@ _inspect/
 Thumbs.db
 .vscode/
 .idea/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+coverage/
+.env
+.env*.local
+*.tsbuildinfo

@@ -44,7 +44,7 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile }) {
           background: 'rgba(0,0,0,0.15)', border: '2px solid #000',
           fontSize: 11, lineHeight: 1.4, fontWeight: 600,
         }}>
-          ⚠ TEST RAPID DE ORIENTARE · 6 întrebări nu pot prezice cariera ta. E un punct de pornire — testele aprofundate (mai jos) îți dau date reale.
+          ⚠ TEST RAPID DE ORIENTARE · 6 întrebări nu pot prezice cariera ta. E un punct de pornire — testele aprofundate (mai jos) îți dau indicii mai solide.
         </div>
 
         {/* big abstract emoji-ish */}

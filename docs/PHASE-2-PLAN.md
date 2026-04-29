@@ -504,13 +504,19 @@ create table parent_consent_tokens (
 
 create table consent_records (
   id                bigserial primary key,
-  user_id           uuid not null references auth.users(id) on delete cascade,
+  user_id           uuid references auth.users(id) on delete set null,  -- nullable + set null on erasure: row survives as pseudonymous evidence
   event             text not null,           -- 'self_consent' | 'parent_consent_requested' | 'parent_confirmed' | 'parent_revoked' | 'erasure_requested' | 'erasure_completed'
   metadata          jsonb,
   ip_address_hash   text,                    -- hashed for audit, never cleartext
   user_agent_hash   text,
   created_at        timestamptz not null default now()
 );
+
+-- Retention policy on consent_records (enforced via scheduled cleanup, not FK):
+--   * On user account deletion: user_id is nulled (FK = on delete set null), row survives.
+--   * Pseudonymised rows are hard-deleted after 3 years from created_at (Romanian civil
+--     limitation period, Law 287/2009 Art. 2517 — pending lawyer confirmation in M0).
+--   * Cleanup runs as a Supabase scheduled Edge Function nightly.
 ```
 
 ### Paid intent (migrated from Formspree)
@@ -582,14 +588,14 @@ Persist in localStorage. Re-prompt yearly. **Replay is OFF by default** — only
 
 ### 5.5 Right-to-erasure & data subject access (Art. 15, 17)
 
-- Settings → Account → Șterge contul: hard-deletes all `profiles`, `saved_*`, `quiz_runs`, `paid_intents` rows associated with that user_id. Cascades via FK. Confirms via email.
+- Settings → Account → Șterge contul: hard-deletes `profiles`, `saved_*`, `quiz_runs`/`personality_runs`/`vocational_runs`, and unused parent-consent tokens associated with that `user_id`. `consent_records` and `paid_intents` are pseudonymised (`user_id` nulled) according to the retention rules in §4. Confirms via email.
 - Settings → Account → Descarcă datele mele: returns a JSON blob with all the user's records.
 
 Both must be implemented as Edge Functions, not just SQL — needs to actually run end-to-end before launch.
 
 ### 5.6 Session replay gating
 
-Add a flag to the Umami recorder load: only enable for `consentStatus === 'analytics_full'` AND `ageBand !== '14-15'`. The current 15% sample at moderate masking is too permissive for minors.
+Add a flag to the Umami recorder load: only enable when `consent.categories.replay === true`, the server-derived replay permission is true, and `ageBand !== '14-15'`. The current 15% sample at moderate masking is too permissive for minors.
 
 ---
 
@@ -598,6 +604,27 @@ Add a flag to the Umami recorder load: only enable for `consentStatus === 'analy
 ### Anonymous-first
 
 User lands → can take any test, browse careers, save up to 3 careers locally (Zustand persisted to localStorage). No account required for discovery.
+
+### Scoring vs. save — server boundaries (architectural decision, 2026-04-30)
+
+The natural tension between (a) "anonymous/local-first for minors" and (b) "server-side scoring for IP protection" is resolved by splitting the two server operations:
+
+1. **`score-quiz` Edge Function** — *compute-only, no writes.* Takes answers in, returns scores out. No row written to `quiz_runs`/`personality_runs`/`vocational_runs`. No `anonymous_id` persisted server-side. Stateless.
+2. **`save-quiz-run` Edge Function** — *the gated write.* Inserts a row into the appropriate `*_runs` table with `user_id` populated. Refuses to run unless ALL of the following hold:
+   - User is authenticated (valid Supabase session).
+   - `profiles.age_band` is `'16-17'` or `'18+'` or `'adult'`, **OR** `profiles.consent_status` is `'parent_confirmed'`.
+   - Browser-side persistence (Zustand) signals the user explicitly opted to "Salvează rezultatul" or syncs from localStorage at auth.
+
+Consequences:
+
+- **Anonymous users** (no account): see scores via `score-quiz`, persistence is localStorage only. Server has no record of their test runs. The `anonymous_id` column in the schema is reserved for future use but **not populated in v2** — drop or comment out at migration time, re-introduce only if Phase 3 needs cross-device anonymous resume.
+- **Under-16 users in pending_parent state**: behave like anonymous on the test surface — `score-quiz` runs, `save-quiz-run` refuses. Once parent confirms, retroactive sync of localStorage runs is allowed (and explicit — UI prompt, not silent).
+- **Authenticated 16+ / parent_confirmed**: full save path.
+- **Saved careers / programs** continue to sync at auth, separate from test runs (those are user-controlled selections, not psychometric output, and their privacy posture is the same as any other user choice).
+
+Why this matters for the privacy/DPIA story: under this split, the server **never** holds a pseudonymous quiz_run row that later "becomes" identified — the row only exists once consent and age band qualify. There is no orphaned-anonymous-data backlog to defend.
+
+[TODO: confirm with lawyer in M0 consult that this split is sufficient to honour the "no cloud sync until parent_confirmed" promise; flag any further restriction if counsel disagrees.]
 
 ### Account creation triggers
 
@@ -675,7 +702,7 @@ What carries forward, what gets discarded.
 
 ### DISCARD
 
-- React-UMD + Babel-standalone setup. Replaced by Vite build.
+- React-UMD + Babel-standalone setup. Replaced by Next.js 15 (App Router) build.
 - Tweaks panel (`tweaks-panel.jsx`). Was for design exploration; not needed in product.
 - "PREVIEW PHASE 1" banner. Gone.
 - iOS frame (`ios-frame.jsx`). Just be a normal mobile-first webapp — the frame was a Figma-style decoration.
@@ -712,7 +739,7 @@ Honest scope: **8-10 weeks at solo full-time pace**, longer at evenings/weekends
 - [ ] `next-intl` configured: middleware, `[locale]` routing, default `ro`, `messages/ro.json` populated with the keys we know we need
 - [ ] CSS Modules pipeline (port the existing tokens, no Tailwind)
 - [ ] Supabase server + browser client helpers (`lib/supabase/`)
-- [ ] Sentry integrated (frontend + server)
+- [ ] Sentry integrated (frontend + server) with **default scrubbing from day 1**: `beforeSend` hook strips emails, auth/parent_consent tokens, test answers, and any field prefixed `parent_*`. `user_id` is omitted from breadcrumbs for sessions where age_band is unknown or `'14-15'`; only attached for confirmed `'16-17'` / `'18+'` / `'adult'`. Verified by unit test that simulates an under-16 error and asserts no PII reaches the SDK envelope.
 - [ ] CI: PR previews, type check, lint, basic tests
 - [ ] Resend account + first transactional email test (RO template)
 - [ ] Translation discipline check: lint rule that fails on hardcoded user-facing strings
@@ -738,9 +765,11 @@ Honest scope: **8-10 weeks at solo full-time pace**, longer at evenings/weekends
 
 - [ ] Move `programs[]`, scoring weights, full faculty mappings to Supabase tables
 - [ ] Public reads via Supabase client (RLS allows anon read on `careers`, `institutions`, `programs` minus weight columns)
-- [ ] `score-quiz` Edge Function: takes answers, returns matches. Algorithm runs server-side.
+- [ ] `score-quiz` Edge Function: takes answers, returns matches. **Compute-only — no DB writes.** Algorithm runs server-side; weights stay server-side. (See §6 "Scoring vs. save".)
+- [ ] `save-quiz-run` Edge Function: separate gated write path. Refuses unless authenticated AND (age_band ≥ 16 OR consent_status = parent_confirmed). Same gate for `save-personality-run` and `save-vocational-run`.
 - [ ] Public `data.js`-equivalent in the frontend stays only for *display* fields (career names, taglines) for SEO + initial paint
 - [ ] Smoke test: viewing source HTML of public site doesn't leak the scoring weights or full mappings
+- [ ] Smoke test: anonymous user takes quiz → DB has zero new `quiz_runs` rows; localStorage holds the result.
 
 ### M4 — Auth + sync (weeks 5-6)
 
@@ -793,7 +822,7 @@ Honest scope: **8-10 weeks at solo full-time pace**, longer at evenings/weekends
 
 All boxes ticked:
 
-- [ ] cesafiu.ro serves the new Vite/React/TS app
+- [ ] cesafiu.ro serves the new Next.js / React / TS app (per §2 stack lock-in)
 - [ ] phase1.html redirects to / (or is gone)
 - [ ] User can: anonymous quiz → save → create profile → confirm parent consent (if minor) → save more → return next visit and see state
 - [ ] All sensitive data + scoring is server-side; public source doesn't leak
@@ -818,7 +847,7 @@ All boxes ticked:
 | Closed-beta migration loses saves | L | H | Keep Phase 1 localStorage format readable; write explicit migration code in M4 |
 | Romanian-vs-Moldovan language drift surfaces in IPIP translation | L | L | Already flagged as Phase 1.5 leftover; defer to post-M7 |
 | TestCentral / Cognitrom files a complaint over "Big Five" labeling | L | M | Disclaimers shipped; if escalates, switch to "5-factor profile" framing |
-| Vite + Vercel + Supabase combo hits an edge bug | L | M | All three are proven stacks; sentry catches issues |
+| Next.js + Vercel + Supabase combo hits an edge bug | L | M | All three are proven stacks; Sentry catches issues |
 | Adi spreads thin (booking platform / accounting app continue eating time) | M | H | Adi explicitly chooses CeSaFiu primary for Phase 2; adjust other commitments |
 
 ### External dependencies

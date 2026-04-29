@@ -102,7 +102,7 @@ function PersonalityScreen({ onComplete, onBack, dataKey }) {
       </div>
 
       <div className="body-sm" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>
-        Tap-uiește un număr. Următoarea apare automat.
+        Atinge un număr. Următoarea apare automat.
       </div>
     </div>
   );

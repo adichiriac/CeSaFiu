@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "title": "Ce Să Fiu?",
+    "description": "Career orientation platform for students."
+  },
+  "home": {
+    "eyebrow": "Phase 2",
+    "title": "Ce Să Fiu?",
+    "lead": "The new application starts here: local-first, optional profile, and sensitive data kept under control."
+  },
+  "error": {
+    "eyebrow": "Error",
+    "title": "Something went wrong.",
+    "lead": "We received the technical signal without test answers or parent data. You can try again.",
+    "action": "Try again"
+  }
+}

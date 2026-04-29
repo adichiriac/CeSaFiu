@@ -39,7 +39,7 @@ function PersonalityResults({ dataKey, scores, onBrowse, onRetake, onProfile, on
         </div>
         <div className="body-sm" style={{ fontSize: 13 }}>
           {isValidated
-            ? 'IPIP-NEO-60 (Goldberg) — instrument public-domain, validat pe populație internațională. Versiune RO v1.'
+            ? 'IPIP-NEO-60 (Goldberg) — instrument din domeniul public, validat pe populație internațională. Versiune RO v1.'
             : 'Acesta e un test scurt inspirat din Big Five — nu e versiune validată. Pentru evaluare reală, ia testul complet IPIP-NEO-60 (gratuit, mai jos).'}
         </div>
       </div>

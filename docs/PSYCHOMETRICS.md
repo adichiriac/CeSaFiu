@@ -20,7 +20,9 @@ This page is the canonical answer to: *"are these real tests? are we exposed leg
 
 **What it isn't:** a psychometric assessment. 6 questions cannot reliably measure anything. It's a discovery hook.
 
-**Disclaimer text shown to users:** *"⚠ TEST RAPID DE ORIENTARE · 6 întrebări nu pot prezice cariera ta. E un punct de pornire — testele aprofundate îți dau date reale."*
+**Disclaimer text shown to users (current prototype copy):** *"⚠ TEST RAPID DE ORIENTARE · 6 întrebări nu pot prezice cariera ta. E un punct de pornire — testele aprofundate (mai jos) îți dau indicii mai solide."*
+
+**[Note 2026-04-30]:** previous version said "îți dau date reale". Replaced with "indicii mai solide" because none of our deeper tests in v2 produce psychometrically validated data in Romanian (IPIP-NEO-60 translation is v1 unreviewed); calling it "real data" overstates.
 
 **Licensing:** zero exposure — original items, no derivative work.
 
@@ -30,7 +32,9 @@ This page is the canonical answer to: *"are these real tests? are we exposed leg
 
 **What it isn't:** the Big Five Inventory (BFI), NEO-PI-R, or any other validated instrument. Items haven't been factor-analyzed, reliability-tested, or validated against a population. No published psychometric data.
 
-**Disclaimer text shown to users:** *"⚠ DOAR ORIENTATIV · Acesta e un test scurt inspirat din Big Five — nu e versiune validată. Pentru evaluare reală, ia testul complet IPIP-NEO-60 (gratuit, mai jos)."*
+**Disclaimer text shown to users (current prototype copy):** *"⚠ DOAR ORIENTATIV · Acesta e un test scurt inspirat din Big Five — nu e versiune validată. Pentru o evaluare mai serioasă, ia testul complet IPIP-NEO-60 (gratuit, mai jos)."*
+
+**[Note 2026-04-30]:** previous version said "Pentru evaluare reală". Same reasoning as the quick quiz — softened to "o evaluare mai serioasă" since IPIP-NEO-60 RO v1 is internationally validated only in the original-language form; the Romanian translation needs psycholinguist review and a small-sample factor check before we can claim the RO version itself is "real" / validated.
 
 **Licensing:** the items are original, so no copyright issue. But we cannot label results "Big Five" without the disclaimer; that would be misrepresentation.
 
@@ -40,7 +44,9 @@ This page is the canonical answer to: *"are these real tests? are we exposed leg
 
 **What it is officially:** a validated public-domain alternative to the proprietary NEO-PI-R. Used in thousands of peer-reviewed studies. Factor structure mirrors the Five-Factor Model.
 
-**Disclaimer text shown to users:** *"✓ TEST VALIDAT ȘTIINȚIFIC · IPIP-NEO-60 (Goldberg) — instrument public-domain, validat pe populație internațională. Versiune RO v1."*
+**Disclaimer text shown to users (current prototype copy):** *"✓ TEST VALIDAT ȘTIINȚIFIC · IPIP-NEO-60 (Goldberg) — instrument din domeniul public, validat pe populație internațională. Versiune RO v1."*
+
+**[Note 2026-04-30 — copy update pending in M2]:** the current copy is technically defensible (the *instrument* is internationally validated), but it can be read by a teen as "this Romanian version is also scientifically validated" — which is not yet true. The RO translation is v1, not psycholinguist-reviewed, not factor-checked on a Romanian sample. M2 port should ship the more honest copy: *"✓ INSTRUMENT INTERNAȚIONAL VALIDAT · IPIP-NEO-60 (Goldberg) — validat în engleză pe populație internațională. Traducere română (v1) în pregătire pentru revizie de specialitate. Folosește scorurile ca indicații, nu ca diagnostic."* Same posture must be reflected wherever paid-report copy mentions IPIP scores until the RO translation passes review.
 
 **Licensing — confirmed via primary source:**
 - Wikipedia (IPIP entry): *"because the IPIP has been placed in the public domain, permission has already been automatically granted for any person to use IPIP items, scales, and inventories for any purpose, commercial or non-commercial."*
