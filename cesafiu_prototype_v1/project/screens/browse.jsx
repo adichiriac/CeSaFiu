@@ -393,6 +393,11 @@ function UniDetailScreen({ uniId, onBack }) {
   const u = window.QUIZ_DATA.universities.find((x) => x.id === uniId);
   if (!u) return null;
   const { url, isFallback } = uniLinkFor(u);
+  // Source-of-truth: top-level programs[] filtered by universityId.
+  // Fall back to the legacy inline u.programs only if no top-level matches.
+  const topLevelPrograms = (window.QUIZ_DATA.programs || []).filter((p) => p.universityId === uniId);
+  const programs = topLevelPrograms.length > 0 ? topLevelPrograms : (u.programs || []);
+  const careersById = Object.fromEntries((window.QUIZ_DATA.careers || []).map((c) => [c.id, c]));
 
   return (
     <div className="scroll-y" style={{ position: 'absolute', inset: 0, paddingBottom: 100 }}>
@@ -429,33 +434,65 @@ function UniDetailScreen({ uniId, onBack }) {
           <div className="body-md">{u.notes}</div>
         </div>
 
-        {/* Programe utile — direct deep-links into specific specialties when known */}
-        {(u.programs || []).length > 0 && (
+        {/* Programe — source of truth is top-level programs[] filtered by uniId.
+            Falls back to legacy inline u.programs (just {name, url}) when present. */}
+        {programs.length > 0 && (
           <>
-            <div className="h-md" style={{ marginBottom: 10 }}>Programe utile</div>
+            <div className="h-md" style={{ marginBottom: 10 }}>
+              Programe oferite · {programs.length}
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24 }}>
-              {(u.programs || []).map((p, i) => (
-                <a
-                  key={i}
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => {
-                    try {
-                      const fn = window.umamiTrack || (window.umami && window.umami.track);
-                      if (fn) fn('uni_program_click', { id: u.id, program: p.name });
-                    } catch (e) {}
-                  }}
-                  className="card"
-                  style={{
-                    padding: 14, background: '#fff', textDecoration: 'none', color: 'inherit',
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10,
-                  }}
-                >
-                  <div className="body-md" style={{ fontWeight: 700 }}>{p.name}</div>
-                  <span style={{ fontSize: 16, color: 'var(--ink-soft)', flexShrink: 0 }}>↗</span>
-                </a>
-              ))}
+              {programs.map((p, i) => {
+                // Detect which schema we got: top-level (has careerIds) vs inline legacy ({name,url} only).
+                const isTopLevel = !!p.careerIds || !!p.pathType || !!p.duration;
+                const linkUrl = p.url || (isFallback ? null : url);
+                const careerNames = (p.careerIds || []).map((cid) => (careersById[cid] || {}).name).filter(Boolean);
+                return (
+                  <a
+                    key={p.id || i}
+                    href={linkUrl || `https://www.google.com/search?q=${encodeURIComponent(u.name + ' ' + p.name)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      try {
+                        const fn = window.umamiTrack || (window.umami && window.umami.track);
+                        if (fn) fn('uni_program_click', { id: u.id, program: p.name, source: 'uni-detail' });
+                      } catch (e) {}
+                    }}
+                    className="card"
+                    style={{
+                      padding: 14, background: '#fff', textDecoration: 'none', color: 'inherit', display: 'block',
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10 }}>
+                      <div className="body-md" style={{ fontWeight: 700, flex: 1 }}>{p.name}</div>
+                      <span style={{ fontSize: 16, color: 'var(--ink-soft)', flexShrink: 0 }}>↗</span>
+                    </div>
+                    {isTopLevel && (
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
+                        {p.duration && (
+                          <span style={{
+                            fontSize: 10, fontWeight: 700, padding: '3px 7px',
+                            border: '2px solid #000', background: 'var(--paper-2)', color: 'var(--ink-soft)',
+                          }}>{p.duration}</span>
+                        )}
+                        {(p.language || []).slice(0, 2).map((lng) => (
+                          <span key={lng} style={{
+                            fontSize: 10, fontWeight: 700, padding: '3px 7px',
+                            border: '2px solid #000', background: '#fff', textTransform: 'uppercase',
+                          }}>{lng}</span>
+                        ))}
+                        {careerNames.slice(0, 3).map((cn) => (
+                          <span key={cn} style={{
+                            fontSize: 10, fontWeight: 700, padding: '3px 7px',
+                            border: '2px solid #000', background: 'var(--green)', color: '#000',
+                          }}>→ {cn}</span>
+                        ))}
+                      </div>
+                    )}
+                  </a>
+                );
+              })}
             </div>
           </>
         )}

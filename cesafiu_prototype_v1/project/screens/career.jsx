@@ -116,21 +116,101 @@ function CareerDetailScreen({ career, onBack, onSave, isSaved }) {
           </div>
         )}
 
-        {tab === 'schools' && (
-          <div className="card" style={{ padding: 18 }}>
-            <div className="label-bold" style={{ marginBottom: 12, color: 'var(--purple)' }}>ROMÂNIA · TOP 3</div>
-            {career.schools.map((s, i) => (
-              <div key={s} style={{
-                padding: '12px 0',
-                borderBottom: i < career.schools.length - 1 ? '2px solid #000' : 'none',
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              }}>
-                <div className="body-md" style={{ fontWeight: 700 }}>{s}</div>
-                <div style={{ fontSize: 18 }}>↗</div>
+        {tab === 'schools' && (() => {
+          // Pull real programs that lead to this career, joined to their institution.
+          // Falls back to the legacy career.schools[] strings only if no programs are mapped yet.
+          const allPrograms = (window.QUIZ_DATA.programs || []).filter(
+            (p) => (p.careerIds || []).includes(career.id)
+          );
+          const unisById = Object.fromEntries((window.QUIZ_DATA.universities || []).map((u) => [u.id, u]));
+          const pathLabel = { facultate: 'FACULTATE', autodidact: 'AUTODIDACT', bootcamp: 'BOOTCAMP', antreprenor: 'ANTREPRENOR', mixt: 'MIXT', profesional: 'PROFESIONAL', postliceala: 'POSTLICEAL', creator: 'CREATOR', freelance: 'FREELANCE' };
+          const pathColor = { facultate: 'var(--purple)', autodidact: 'var(--green)', bootcamp: 'var(--green)', antreprenor: 'var(--purple)', profesional: 'var(--yellow)', postliceala: 'var(--yellow)', mixt: '#fff', creator: 'var(--green)', freelance: 'var(--yellow)' };
+          const pathTextC = { facultate: '#fff', autodidact: '#000', bootcamp: '#000', antreprenor: '#fff', profesional: '#000', postliceala: '#000', mixt: '#000', creator: '#000', freelance: '#000' };
+
+          const trackProgClick = (pid, name) => {
+            try {
+              const fn = window.umamiTrack || (window.umami && window.umami.track);
+              if (fn) fn('uni_program_click', { id: pid, program: name, source: 'career-detail' });
+            } catch (e) {}
+          };
+
+          if (allPrograms.length > 0) {
+            return (
+              <>
+                <div className="label-bold" style={{ marginBottom: 12, color: 'var(--purple)' }}>
+                  PROGRAME CARE DUC AICI · {allPrograms.length}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {allPrograms.map((p) => {
+                    const u = unisById[p.universityId];
+                    const url = p.url || (u && u.url) || `https://www.google.com/search?q=${encodeURIComponent((u ? u.name + ' ' : '') + p.name)}`;
+                    return (
+                      <a
+                        key={p.id}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackProgClick(p.id, p.name)}
+                        className="card"
+                        style={{ padding: 14, background: '#fff', textDecoration: 'none', color: 'inherit', display: 'block' }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10, marginBottom: 6 }}>
+                          <div style={{ flex: 1 }}>
+                            <div className="h-sm" style={{ fontSize: 15 }}>{p.name}</div>
+                            <div className="label-sm" style={{ color: 'var(--ink-soft)', marginTop: 2 }}>
+                              {u ? u.name : p.universityId} · {u ? u.city : ''}
+                            </div>
+                          </div>
+                          <span style={{ fontSize: 16, color: 'var(--ink-soft)', flexShrink: 0 }}>↗</span>
+                        </div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
+                          <span style={{
+                            fontSize: 10, fontWeight: 800, padding: '3px 7px',
+                            border: '2px solid #000', background: pathColor[p.pathType] || '#fff',
+                            color: pathTextC[p.pathType] || '#000', letterSpacing: '.04em',
+                          }}>{pathLabel[p.pathType] || p.pathType.toUpperCase()}</span>
+                          <span style={{
+                            fontSize: 10, fontWeight: 700, padding: '3px 7px',
+                            border: '2px solid #000', background: 'var(--paper-2)', color: 'var(--ink-soft)',
+                          }}>{p.duration}</span>
+                          {(p.language || []).slice(0, 2).map((lng) => (
+                            <span key={lng} style={{
+                              fontSize: 10, fontWeight: 700, padding: '3px 7px',
+                              border: '2px solid #000', background: '#fff', textTransform: 'uppercase',
+                            }}>{lng}</span>
+                          ))}
+                        </div>
+                        {p.notes && (
+                          <div className="body-sm" style={{ marginTop: 8, color: 'var(--ink)' }}>{p.notes}</div>
+                        )}
+                      </a>
+                    );
+                  })}
+                </div>
+              </>
+            );
+          }
+
+          // Fallback — legacy career.schools[] strings
+          return (
+            <div className="card" style={{ padding: 18 }}>
+              <div className="label-bold" style={{ marginBottom: 6, color: 'var(--purple)' }}>RECOMANDATE</div>
+              <div className="body-sm" style={{ color: 'var(--ink-soft)', marginBottom: 10 }}>
+                Programe specifice nu sunt încă în baza noastră — adăugăm pe măsură ce verificăm.
               </div>
-            ))}
-          </div>
-        )}
+              {(career.schools || []).map((s, i) => (
+                <div key={s} style={{
+                  padding: '12px 0',
+                  borderBottom: i < (career.schools || []).length - 1 ? '2px solid #000' : 'none',
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                }}>
+                  <div className="body-md" style={{ fontWeight: 700 }}>{s}</div>
+                  <div style={{ fontSize: 18 }}>↗</div>
+                </div>
+              ))}
+            </div>
+          );
+        })()}
       </div>
 
       <div style={{ padding: 20, marginTop: 8 }}>
