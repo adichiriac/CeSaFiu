@@ -7,6 +7,7 @@ function DeepResultsScreen({ kind, scores, onBrowse, onRetake, onProfile }) {
 function PersonalityResults({ scores, onBrowse, onRetake, onProfile }) {
   const dims = window.QUIZ_DATA.personality.dimensions;
   const colors = { purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)' };
+  const PaidHookCard = window.PaidHookCard;
   // Ranked
   const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
   const top = ranked[0];
@@ -48,6 +49,14 @@ function PersonalityResults({ scores, onBrowse, onRetake, onProfile }) {
             <button onClick={onRetake} className="btn btn-icon" style={{ background: '#fff' }}>↻</button>
           </div>
         </div>
+
+        {/* Paid in-depth report hook — Phase 1 willingness-to-pay validator */}
+        {PaidHookCard && (
+          <PaidHookCard
+            context="personality-test"
+            summary={`Big Five top dimension: ${dims[top[0]].name} (${top[1]}%)`}
+          />
+        )}
       </div>
     </div>
   );
@@ -56,6 +65,7 @@ function PersonalityResults({ scores, onBrowse, onRetake, onProfile }) {
 function VocationalResults({ scores, onBrowse, onRetake, onProfile }) {
   const codes = window.QUIZ_DATA.vocational.codes;
   const colors = { purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)' };
+  const PaidHookCard = window.PaidHookCard;
   const top3 = scores.top;
 
   // Match careers
@@ -140,6 +150,14 @@ function VocationalResults({ scores, onBrowse, onRetake, onProfile }) {
             EXPLOREAZĂ →
           </button>
         </div>
+
+        {/* Paid in-depth report hook — Phase 1 willingness-to-pay validator */}
+        {PaidHookCard && (
+          <PaidHookCard
+            context="vocational-test"
+            summary={`RIASEC top: ${(top3 || []).map(t => t.code).join('+')}`}
+          />
+        )}
       </div>
     </div>
   );

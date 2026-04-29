@@ -8,6 +8,7 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile }) {
   const top = matches[0];
   const others = matches.slice(1, 4);
   const colors = { purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)' };
+  const PaidHookCard = window.PaidHookCard;
 
   return (
     <div className="scroll-y" style={{ position: 'absolute', inset: 0, paddingBottom: 100 }}>
@@ -116,7 +117,7 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile }) {
           ))}
         </div>
 
-        {/* CTA */}
+        {/* Save (free) — keeps the existing waitlist flow */}
         <div className="card" style={{ marginTop: 32, padding: 20, background: 'var(--green)' }}>
           <div className="h-sm">Salvează rezultatul</div>
           <div className="body-sm" style={{ marginTop: 6 }}>Îți trimitem un mini-plan și școli din România. Fără spam, jur.</div>
@@ -124,6 +125,14 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile }) {
             SALVEAZĂ-MI VIBE-UL →
           </button>
         </div>
+
+        {/* Paid in-depth report hook — Phase 1 willingness-to-pay validator */}
+        {PaidHookCard && (
+          <PaidHookCard
+            context="quick-quiz"
+            summary={`Quick quiz top match: ${top.career.name} (${top.score}%)`}
+          />
+        )}
 
         <div style={{ height: 24 }}></div>
       </div>
