@@ -136,10 +136,75 @@ App fetches with the locale parameter and `tr()` resolves. Missing translations 
 Every translatable record has `translation_status jsonb` with shape:
 
 ```json
-{ "ro": "complete", "hu": "missing", "en": "draft" }
+{ "ro": "complete", "en": "missing" }
 ```
 
-A small admin page (Phase 2.5) shows "X programs missing HU translation" so the gap is visible. Built into `scripts/check-data-freshness.js` as a second pass.
+Possible values per locale:
+- `"complete"` — translated and reviewed (or original RO content)
+- `"missing"` — null in the JSONB, fallback to RO via `tr()` helper
+- `"llm-draft"` — auto-translated by LLM, not yet human-reviewed
+- `"in-review"` — under human review
+- `"complete"` — passes review
+
+A small admin page (Phase 2.5) shows "X programs missing EN translation" so the gap is visible. Built into `scripts/check-data-freshness.js` as a second pass.
+
+### LLM-automatic translation pipeline
+
+**Decided 2026-04-29:** translations are auto-generated via LLM (Anthropic Claude), triggered manually by Adi when a new locale is being added. Not a continuous background job — explicit one-shot per locale.
+
+**Trigger:**
+
+```bash
+pnpm translate --locale=en
+# or per-domain:
+pnpm translate --locale=en --scope=ui     # messages/*.json only
+pnpm translate --locale=en --scope=db     # database content only
+pnpm translate --locale=en --scope=db --table=careers
+```
+
+**Pipeline shape (`scripts/translate.ts`):**
+
+1. **Discovery:** read records where `translation_status.<locale>` is `"missing"` (or null), plus UI message keys missing in `messages/<locale>.json`.
+2. **Glossary load:** `scripts/translation-glossary.json` holds proper-noun preservation rules — terms that must NOT be translated:
+   - `RIASEC`, `IPIP-NEO-60`, `Big Five`, `Holland Code`, `O*NET`
+   - All proper nouns: institution names (`UMF Carol Davila`, `Politehnica București`), program names where they have an official Latin/RO name
+   - Career IDs and other slugs (never translated)
+3. **Style guide load:** `scripts/translation-style-en.md` (one per target locale) tells the LLM:
+   - Target audience: 14-19yo Romanian teens, but reading in English
+   - Tone: direct, slightly cheeky, never patronizing — same register as the existing RO copy ("Nu vorbi cu mama, vorbește cu tine.")
+   - Length budget: ≤ source length × 1.25 (English is usually denser; we don't blow up the layout)
+   - What to keep verbatim (per glossary)
+4. **Batch call to Claude:** items chunked (e.g., 50 at a time) to stay under context limits and to allow partial recovery on failure.
+5. **Write-back:** UPDATE the JSONB column setting `<locale>` value, set `translation_status.<locale> = "llm-draft"`. Same for `messages/<locale>.json`.
+6. **Diff report:** outputs `scripts/translate-output/<locale>-<timestamp>.diff` showing every translation generated, sorted by item type. Adi reviews the diff before pushing.
+7. **Promotion to "complete":** a separate command flips `llm-draft` → `complete` after human review (or sample-review if Adi accepts the LLM output as-is).
+
+**Idempotency:** the script never overwrites `"complete"` translations. Only fills `"missing"` or re-translates `"llm-draft"` if explicitly told (`--force-redraft`).
+
+**What is NOT auto-translated (human-only):**
+
+- `docs/PRIVACY-POLICY.md` — legal text, mistranslation = legal exposure
+- `docs/DPIA.md` — same
+- Parent consent email body — sets the tone for the most important touch with parents
+- Auth flow emails (magic link, password reset) — short, high-trust, do them by hand
+- Terms of Service when we have one
+
+These get a separate human-translated version per locale. The LLM pipeline skips them by file glob.
+
+**Cost estimate:**
+
+- Total RO content: ~40K words (UI messages + careers + programs + institutions notes + IPIP items)
+- Claude Sonnet at translation-quality settings: ~$8-15 per full pass
+- Run cost is negligible relative to the value of EN reach. Don't over-engineer.
+
+**What lives in the repo for next session to pick up:**
+
+- `scripts/translate.ts` — the runner
+- `scripts/translation-glossary.json` — preserved terms
+- `scripts/translation-style-<locale>.md` — per-locale style guide
+- `scripts/prompts/translate-<scope>.md` — the actual prompt template
+
+Build this in M7 (post-launch polish), not earlier — RO-only at v1, EN comes when Adi calls for it.
 
 ### What's NOT in scope at v1
 
@@ -782,8 +847,11 @@ These need calls *before or during* M0:
 7. **Privacy lawyer.** Recommend: book a 1-hour consult in week 1 to review the DPIA draft, ANSPDCP threshold, parent-consent legal text. Romanian lawyer with EU privacy specialization.
 8. **Branding final.** "Ce Să Fiu?" stays as the name — confirm. Logo/typography: keep current direction or commission?
 9. **Stack: Next.js 15 + Supabase + next-intl.** Reviewed in §2 alongside Vite/Remix/SvelteKit/Astro/Solid/Cloudflare/Firebase/Convex alternatives. Locked-in unless Adi prefers a specific alternative — say if so before M1.
-10. **Locales for HU placeholder.** Hungarian first (Sapientia + Cluj/Mureș + Hungary export market) or English first (international visibility)? Both are placeholder JSON files at v1; decision matters when we actually translate.
-11. **Translation pipeline for v2.** Once HU/EN go from placeholder to real, who translates? Native speakers (paid translation), professional service, or a controlled-language LLM pass with native review? Affects budget.
+
+### Decided 2026-04-29
+
+- **Locale priority: EN as the second locale.** HU placeholder dropped from v1 architecture; only `messages/ro.json` (full) and `messages/en.json` (placeholder/null) exist at launch. HU added later if Sapientia/Mureș export market materializes.
+- **Translation pipeline: LLM-automatic, manually triggered by Adi when ready to add EN.** Pipeline spec in §2.1 — `pnpm translate --locale=en` runs Claude over RO content, writes back as `"llm-draft"`, Adi reviews diff, promotes to `"complete"`. Glossary preserves terms (RIASEC, IPIP-NEO-60, institution names). Legal docs (privacy, DPIA, parent emails) are NOT auto-translated — human-only.
 
 ---
 
