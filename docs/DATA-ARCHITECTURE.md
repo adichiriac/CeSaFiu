@@ -209,12 +209,45 @@ The prototype's current state (as of 2026-04-29):
 4. **Source-tag everything you can't fact-check.** In `notes`, prefix with `[v1]` if the entry is from training-data knowledge and hasn't been verified against the institution's site.
 5. **No partial deletion.** Removing a program is a breaking change — always supersede with `{deprecated: true, supersededBy: 'newId'}` rather than deleting.
 
-## Open architectural questions
+## Architectural decisions (2026-04-29)
 
-- **i18n.** Eventually we ship Moldova (RO same), Hungary (HU primary). At which layer does language live? Per-record (`name_ro`, `name_hu`) or per-table (separate `programs_hu` table joined by `program_translations`)? Lean toward per-record JSON for v2, separate tables for v3.
-- **Specialty as entity.** When the paid report says "you're a fit for medicine" — does it list 5 medicine programs, or does it say "specialty: Medicine" and list institutions that offer it? The former is cleaner; the latter is what users actually want to read. May need both.
-- **Time-varying admission data.** Last-year admission scores change every September. Where does the timestamp live? Suggest adding `admission.year` and a yearly refresh script.
-- **Profile drift.** A career's RIASEC profile published in 2026 may not reflect labor market reality in 2030. Need a yearly review cadence; flag in `notes` when last reviewed.
+These were the open questions; deferred to delivery date below where possible.
+
+### i18n strategy — **decided: per-record JSON for v2, separate tables for v3**
+
+Two-stage approach. Reasoning:
+
+- **v2 (Phase 2 prep, RO + Moldova)**: Moldova is ~99% Romanian-speaking; the only translation work is for legal/educational vocabulary that diverges between RO and MD. Volume is low. Use per-record JSON columns: `name: { ro: "...", md: "..." }` where MD overrides only when needed. Avoids the schema explosion of separate translated tables for what is essentially an 80% overlap dataset.
+- **v3 (HU + EN at scale)**: When Hungarian and English become first-class (real translation, not a Moldova-tweak), promote to a separate translation table: `program_translations(program_id fk, locale, name, notes, ...)` joined at query time. This is the standard relational i18n pattern; we adopt it once volume justifies it.
+
+The migration v2→v3 is mechanical: for each per-record JSON column, denormalize into the translations table, drop the JSON column, repoint the API. Doable in a single migration.
+
+### `Specialty` as entity — **decided: defer until paid report engine demands it (Phase 2 mid)**
+
+Currently `tags[]` on programs and institutions is doing the grouping work — `tags: ['medicină']` covers it. The decision rule: introduce `Specialty` as a top-level entity *only when* we hit a query the tag system can't answer cleanly. The likely trigger is the paid PDF report — if its template needs to say "all medicine programs grouped by specialty (general medicine, dentistry, pharmacy, paramedical, ...)", that's when we promote.
+
+Until then: keep tags free-form, but **enforce a controlled vocabulary** in `CONTRIBUTING-DATA.md` so the tag set stays closed and tag-based grouping is reliable.
+
+### Time-varying data + profile drift — **decided: `lastReviewed` field + yearly build-time warning**
+
+Add an optional `lastReviewed: 'YYYY-MM-DD'` field on every Career, Program, and Institution. A small build-time check (or a Node script run pre-commit) emits a console warning for records whose `lastReviewed` is more than 12 months old:
+
+```bash
+node scripts/check-data-freshness.js
+# warns: 'umf-iasi-medicina lastReviewed=2025-09-12 — 14 months old, consider refresh'
+```
+
+Doesn't block the build, just surfaces stale records for the next maintenance pass. Yearly cadence (September, after admission cycle wraps) is enough for admission scores; biennial probably enough for RIASEC profile drift.
+
+The architecture explicitly **does not** auto-pull live admission data from each institution's site — that's a separate ingestion service for Phase 3 once we have B2B partners feeding us structured data. For Phase 1+2, manual refresh once a year keeps the data honest without infrastructure cost.
+
+### Inheriting decisions for new entities
+
+When we add new top-level entities (e.g., `User`, `SavedProgram` in Phase 2), they follow the same rules:
+- Stable slug-style IDs
+- `lastReviewed` (or `updatedAt` for user-touched records)
+- per-record i18n JSON until v3
+- No deletion — supersede with `deprecated: true, supersededBy: 'newId'`
 
 ---
 
