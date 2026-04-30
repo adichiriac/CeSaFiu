@@ -236,6 +236,9 @@ function computeMatches(answers, careers, deepScores) {
   result.sources = userProfile.sources;
   result.weights = weights;
   result.nextTest = recommendNextTest(userProfile);
+  // Expose the user's tallies so the UI can show plain-language "your style"
+  // (top RIASEC codes), top Big Five trait, etc. — without re-deriving them.
+  result.userProfile = userProfile;
   return result;
 }
 
