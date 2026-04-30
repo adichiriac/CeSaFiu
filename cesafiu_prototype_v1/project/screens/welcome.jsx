@@ -1,8 +1,47 @@
 // Welcome screen — neo-brutal hi-energy entry with test mode picker
-function WelcomeScreen({ onStart, onPickTest, layout }) {
-  if (layout === 'magazine') return <WelcomeMagazine onStart={onStart} onPickTest={onPickTest} />;
-  if (layout === 'minimal') return <WelcomeMinimal onStart={onStart} onPickTest={onPickTest} />;
-  return <WelcomeDefault onStart={onStart} onPickTest={onPickTest} />;
+function WelcomeScreen({ onStart, onPickTest, onExplore, layout }) {
+  if (layout === 'magazine') return <WelcomeMagazine onStart={onStart} onPickTest={onPickTest} onExplore={onExplore} />;
+  if (layout === 'minimal') return <WelcomeMinimal onStart={onStart} onPickTest={onPickTest} onExplore={onExplore} />;
+  return <WelcomeDefault onStart={onStart} onPickTest={onPickTest} onExplore={onExplore} />;
+}
+
+// Secondary CTA — for users who don't want a quiz, just browse the library.
+// Visually different from the TestModeRail so it reads as an alternative path.
+function ExploreShortcut({ onExplore }) {
+  if (!onExplore) return null;
+  return (
+    <div style={{ marginTop: 18 }}>
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 10,
+        margin: '4px 0 12px', color: 'var(--ink-soft)',
+      }}>
+        <div style={{ flex: 1, height: 2, background: '#000', opacity: 0.15 }}></div>
+        <span className="label-sm" style={{ fontWeight: 800, letterSpacing: '.08em' }}>SAU</span>
+        <div style={{ flex: 1, height: 2, background: '#000', opacity: 0.15 }}></div>
+      </div>
+      <button
+        onClick={onExplore}
+        className="card"
+        style={{
+          width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: 14,
+          background: '#fff', border: '2px solid #000', cursor: 'pointer',
+          textAlign: 'left', font: 'inherit',
+        }}
+      >
+        <div style={{
+          width: 40, height: 40, background: 'var(--yellow)', border: '2px solid #000',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0,
+        }}>⌕</div>
+        <div style={{ flex: 1 }}>
+          <div className="h-sm" style={{ fontSize: 15 }}>Explorează direct biblioteca</div>
+          <div className="label-sm" style={{ color: 'var(--ink-soft)', marginTop: 2 }}>
+            Cariere · trasee · universități · fără quiz
+          </div>
+        </div>
+        <div style={{ fontSize: 18, fontWeight: 800 }}>→</div>
+      </button>
+    </div>
+  );
 }
 
 function TestModeRail({ onStart, onPickTest }) {
@@ -40,7 +79,7 @@ function TestModeRail({ onStart, onPickTest }) {
   );
 }
 
-function WelcomeDefault({ onStart, onPickTest }) {
+function WelcomeDefault({ onStart, onPickTest, onExplore }) {
   return (
     <div className="scroll-y" style={{ position: 'absolute', inset: 0, padding: '0 20px 24px' }}>
       <div className="sticker tilt-l-3" style={{ position: 'absolute', top: 16, right: 28, background: '#fff', zIndex: 3 }}>
@@ -69,6 +108,8 @@ function WelcomeDefault({ onStart, onPickTest }) {
 
       <TestModeRail onStart={onStart} onPickTest={onPickTest} />
 
+      <ExploreShortcut onExplore={onExplore} />
+
       <div style={{ marginTop: 18, display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ display: 'flex' }}>
           {['#FFE170', '#A9F900', '#8455ef', '#fff'].map((c, i) => (
@@ -81,7 +122,7 @@ function WelcomeDefault({ onStart, onPickTest }) {
   );
 }
 
-function WelcomeMagazine({ onStart, onPickTest }) {
+function WelcomeMagazine({ onStart, onPickTest, onExplore }) {
   return (
     <div className="scroll-y" style={{ position: 'absolute', inset: 0 }}>
       <div style={{ background: 'var(--purple)', borderBottom: '2px solid #000', padding: '20px 24px 32px', position: 'relative' }}>
@@ -107,12 +148,13 @@ function WelcomeMagazine({ onStart, onPickTest }) {
           </div>
         </div>
         <TestModeRail onStart={onStart} onPickTest={onPickTest} />
+        <ExploreShortcut onExplore={onExplore} />
       </div>
     </div>
   );
 }
 
-function WelcomeMinimal({ onStart, onPickTest }) {
+function WelcomeMinimal({ onStart, onPickTest, onExplore }) {
   return (
     <div className="scroll-y" style={{ position: 'absolute', inset: 0, padding: '36px 32px 24px' }}>
       <div className="label-bold" style={{ color: 'var(--purple)' }}>· CESAFIU ·</div>
@@ -124,6 +166,7 @@ function WelcomeMinimal({ onStart, onPickTest }) {
         3 teste de profunzimi diferite. Tu alegi cât de adânc vrei să mergi.
       </div>
       <TestModeRail onStart={onStart} onPickTest={onPickTest} />
+      <ExploreShortcut onExplore={onExplore} />
     </div>
   );
 }

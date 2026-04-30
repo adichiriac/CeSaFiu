@@ -240,7 +240,12 @@ function App() {
 
         <div className="phone-stack" style={{ top: tweaks.showStatusBar ? 92 : 60, bottom: tabBarVisible ? 70 : 0 }}>
           {route.name === 'welcome' && (
-            <WelcomeScreen onStart={handleStart} onPickTest={handlePickTest} layout={tweaks.welcomeLayout} />
+            <WelcomeScreen
+              onStart={handleStart}
+              onPickTest={handlePickTest}
+              onExplore={() => { setBrowseSection('careers'); goto('browse'); }}
+              layout={tweaks.welcomeLayout}
+            />
           )}
           {route.name === 'quiz' && !transitioning && (
             <QuizScreen
