@@ -8,6 +8,67 @@ This file is the source of truth for what's left. Edit freely. Tick items as `[x
 
 ---
 
+## Strategic priority — Iași-first depth pass
+
+**Decision (2026-04-30, Adi):** Before adding more cities, make Iași as clean and complete as possible. Validate the model in one city we can ground-truth, then scale the methodology to other cities. UGAL (udjg/Galați) and other regional gaps are real but **deferred** until Iași is the gold standard.
+
+### Current Iași state (audit 2026-04-30)
+
+- **17 institutions** covered: UAIC, TUIASI, UMF, USAMV, Arte Iași, 3 private (Petre Andrei, Apollonia, Mihail Kogălniceanu), 1 trade school (CT Asachi), Postliceala Grigore Ghica Vodă, FEG Iași, Wantsome, Innovation Labs, LT Economic Turism, Oby Ink Academy, LT Construcții Iași, Arte Iași — Conservare-Restaurare.
+- **39 program edges** anchored in Iași.
+
+### Gaps to close (Iași completeness pass)
+
+**UAIC — missing programs** (faculty exists in our data, but no career edge):
+
+- [ ] Drept → `avocat`, plus add `notar`/`magistrat`/`procuror` careers if not present
+- [ ] Informatică → `software-engineer`, `data-scientist`, `cybersecurity`, `freelance-developer`
+- [ ] Matematică-Informatică → `data-scientist`, `researcher`, `software-engineer`
+- [ ] Psihologie → `psiholog`, `hr-specialist`
+- [ ] FEAA — Marketing → `marketing-specialist`
+- [ ] FEAA — Finanțe → `functionar-bancar`, `contabil` (partially wired)
+- [ ] Litere → `jurnalist`, `traducator`, `profesor`
+- [ ] Geografie → `ghid-turistic`, `profesor`
+- [ ] Istorie → `profesor`, `restaurator`
+- [ ] Sociologie → `asistent-social`
+- [ ] Fizică / Chimie → `researcher`, `biolog`
+
+**TUIASI — missing programs:**
+
+- [ ] Calculatoare și Tehnologia Informației → `software-engineer`, `data-scientist`, `cybersecurity`
+- [ ] Automatică și Informatică Aplicată → `software-engineer`, `inginer-auto`
+- [ ] Electronică, Telecomunicații → `software-engineer`, `inginer`
+- [ ] Mecanică → `inginer`, `inginer-auto`
+- [ ] Chimie → `inginer` (chimist)
+
+**USAMV Iași — missing programs:**
+
+- [ ] Agronomie → `agronom`
+- [ ] Horticultură → `agronom`, `florar`
+- [ ] Zootehnie → `agronom`
+
+**Arte Iași — extend:**
+
+- [ ] Muzică (departament UAGE) → `dj-producer`, music careers
+- [ ] Design Vizual → `croitor`, `bijutier`, `artist-plastic`
+
+**Trade schools / postliceale Iași — research + add:**
+
+- [ ] More licee tehnologice in Iași: mecanică, electronică, IT (look up via ISJ Iași)
+- [ ] Postliceale sanitare Iași beyond Grigore Ghica (Henri Coandă filiala Iași? Sanity? Atlas?)
+- [ ] Bootcamps + școli IT Iași beyond Wantsome (Codecool Iași? IT 6 Hub? Continental Academy?)
+- [ ] Hospitality schools beyond LT Economic Turism (Christine Hotelier, Comaț, Ciornei?)
+
+**Iași-specific employer pipelines** (for the "where do graduates work" angle if the schema gets it later):
+
+- Continental Iași, Amazon Iași, Endava Iași, Cognizant Iași — IT employers
+- Antibiotice Iași — pharma
+- Iulius Mall, Palas — retail/HR pipeline
+
+**Estimated effort:** 3-5 hours focused work — research each UAIC + TUIASI faculty page, add ~30-50 new programs anchored in Iași, possibly add 5-10 missing careers (notar, magistrat, etc.) if gaps surface.
+
+---
+
 ## Tonight (2026-04-30 evening)
 
 ### [ ] ARACIS + RNCIS validation pass
