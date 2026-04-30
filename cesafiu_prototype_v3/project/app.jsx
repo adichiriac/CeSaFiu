@@ -55,12 +55,24 @@ function buildUserProfile(answers, deepScores) {
     (opt.traits || []).forEach((t) => { traits[t] = (traits[t] || 0) + 1; });
   });
 
-  // 2. Vocational (Holland) test → fold raw RIASEC into the same tally,
-  //    weighted higher than quick-quiz because it has 12 dedicated items.
-  //    Previously this was collected but never used.
-  const voc = deepScores && deepScores.vocational;
-  if (voc && voc.raw) {
-    Object.entries(voc.raw).forEach(([code, val]) => {
+  // 2. Vocational (Holland) test → fold raw RIASEC into the same tally.
+  //    DEEP overrides LIGHT (60-item O*NET wins over 12-item forced-choice),
+  //    same pattern as ipip-neo-60 over personality-15. Deep raw is mean
+  //    Likert per code (1-5), light raw is count of choices per code (0-12).
+  //    Both normalized to roughly comparable scales before adding weight.
+  const vocDeep = deepScores && deepScores.vocationalDeep;
+  const vocLight = deepScores && deepScores.vocational;
+  if (vocDeep && vocDeep.raw) {
+    // Deep: each code's raw is mean Likert (1-5). Center on 3 (neutral)
+    // and scale to give heavy weight: (mean - 3) * 6 → range -12..+12.
+    // Floor at 0 so neutral/dislike doesn't penalize, only like contributes.
+    Object.entries(vocDeep.raw).forEach(([code, val]) => {
+      const contribution = Math.max(0, (val - 3) * 6);
+      riasec[code] = (riasec[code] || 0) + contribution;
+    });
+  } else if (vocLight && vocLight.raw) {
+    // Light fallback (12-item forced-choice).
+    Object.entries(vocLight.raw).forEach(([code, val]) => {
       riasec[code] = (riasec[code] || 0) + val * VOCATIONAL_WEIGHT;
     });
   }
@@ -75,9 +87,11 @@ function buildUserProfile(answers, deepScores) {
   }
 
   // 4. Track which sources contributed — drives confidence + adaptive weights.
+  //    Deep Holland counts as a higher-tier source than light.
   const sources = [];
   if (Object.keys(answers || {}).length > 0) sources.push('quick');
-  if (voc && voc.raw) sources.push('vocational');
+  if (vocDeep && vocDeep.raw) sources.push('vocational-deep');
+  else if (vocLight && vocLight.raw) sources.push('vocational');
   if (deepScores && deepScores.ipipNeo60) sources.push('ipip-neo-60');
   else if (deepScores && deepScores.personality) sources.push('personality-15');
 
@@ -104,11 +118,16 @@ function buildCareerProfile(career) {
 // joins the calculation. With only the quick quiz, RIASEC carries everything
 // because it's the only axis with enough signal.
 function getWeights(userProfile) {
+  const sources = userProfile.sources || [];
   const hasBig5 = Object.keys(userProfile.big5 || {}).length > 0;
-  const hasVoc = (userProfile.sources || []).includes('vocational');
-  if (hasBig5 && hasVoc) return { riasec: 0.45, paths: 0.15, traits: 0.10, big5: 0.30 };
-  if (hasBig5)           return { riasec: 0.45, paths: 0.20, traits: 0.10, big5: 0.25 };
-  if (hasVoc)            return { riasec: 0.65, paths: 0.20, traits: 0.15, big5: 0.00 };
+  const hasVocDeep = sources.includes('vocational-deep');
+  const hasVocLight = sources.includes('vocational') || hasVocDeep;
+  // Deep Holland gets even higher RIASEC trust than light (more items, validated).
+  if (hasBig5 && hasVocDeep)  return { riasec: 0.50, paths: 0.10, traits: 0.10, big5: 0.30 };
+  if (hasBig5 && hasVocLight) return { riasec: 0.45, paths: 0.15, traits: 0.10, big5: 0.30 };
+  if (hasBig5)                return { riasec: 0.45, paths: 0.20, traits: 0.10, big5: 0.25 };
+  if (hasVocDeep)             return { riasec: 0.70, paths: 0.15, traits: 0.15, big5: 0.00 };
+  if (hasVocLight)            return { riasec: 0.65, paths: 0.20, traits: 0.15, big5: 0.00 };
   return { riasec: 0.60, paths: 0.25, traits: 0.15, big5: 0.00 };
 }
 
@@ -243,24 +262,30 @@ function computeMatches(answers, careers, deepScores) {
 }
 
 // Diagnose what test the user should take next to refine their profile most.
-// Returns null if the user has done all three or the recommendation isn't strong.
+// Chain order (priority): quick → light Holland → personality short → deep
+// Holland (O*NET, 60 items) → IPIP-NEO-60. Each step adds meaningful signal.
+// Returns null if the user has done all the steps that would help.
 function recommendNextTest(userProfile) {
   const sources = userProfile.sources || [];
   const hasQuick = sources.includes('quick');
-  const hasVoc = sources.includes('vocational');
-  const hasBig5 = sources.includes('ipip-neo-60') || sources.includes('personality-15');
+  const hasVocLight = sources.includes('vocational') || sources.includes('vocational-deep');
+  const hasVocDeep = sources.includes('vocational-deep');
+  const hasBig5Light = sources.includes('personality-15') || sources.includes('ipip-neo-60');
+  const hasBig5Full = sources.includes('ipip-neo-60');
 
   if (!hasQuick) return { kind: 'quick', reason: 'Începe cu quiz-ul rapid — 6 întrebări, 90s.' };
-  if (!hasVoc) {
-    // RIASEC tally tightness — if top 3 codes are within 1 vote of each other, recommend Holland.
-    const sorted = Object.entries(userProfile.riasec || {}).sort((a, b) => b[1] - a[1]);
-    if (sorted.length < 2 || (sorted[0][1] - (sorted[2] ? sorted[2][1] : 0)) < 2) {
-      return { kind: 'vocational', reason: 'Codul tău Holland încă nu e clar — testul vocațional (12 itemi, 5 min) îl ascute.' };
-    }
-    return { kind: 'vocational', reason: 'Validează codul Holland cu testul vocațional (5 min) ca să separăm matches-urile mai precis.' };
+  if (!hasVocLight) {
+    return { kind: 'vocational', reason: 'Validează codul Holland cu testul vocațional scurt (12 itemi, 5 min) ca să separăm matches-urile mai precis.' };
   }
-  if (!hasBig5) {
-    return { kind: 'ipip-neo', reason: 'Big Five (IPIP-NEO-60, 12 min) adaugă fit motivațional + 30% precizie suplimentară.' };
+  // After light Holland, prioritize Big Five (different signal type) before deep Holland (same signal, refining).
+  if (!hasBig5Light) {
+    return { kind: 'personality', reason: 'Personalitate (15 itemi, 4 min) adaugă fit motivațional la matching — diferit de Holland.' };
+  }
+  if (!hasVocDeep) {
+    return { kind: 'vocational-deep', reason: 'Codul Holland validat cu O*NET (60 itemi, 8-10 min) — testul folosit oficial în SUA. Suprascrie testul scurt cu un profil mai precis.' };
+  }
+  if (!hasBig5Full) {
+    return { kind: 'ipip-neo', reason: 'IPIP-NEO-60 (60 itemi, 12 min) — versiunea validată științific a Big Five. Suprascrie testul scurt.' };
   }
   return null;
 }
@@ -300,7 +325,7 @@ function App() {
   const [selectedThisQ, setSelectedThisQ] = useState(null);
   const [transitioning, setTransitioning] = useState(false);
   const [browseSection, setBrowseSection] = useState('careers');
-  const [deepScores, setDeepScores] = useState({ personality: null, vocational: null, ipipNeo60: null });
+  const [deepScores, setDeepScores] = useState({ personality: null, vocational: null, vocationalDeep: null, ipipNeo60: null });
 
   const data = window.QUIZ_DATA;
   // Phase A: deepScores now flows into matching. Vocational test (Holland)
@@ -331,6 +356,7 @@ function App() {
     if (kind === 'personality') goto('personality');
     else if (kind === 'ipip-neo') goto('ipip-neo');
     else if (kind === 'vocational') goto('vocational');
+    else if (kind === 'vocational-deep') goto('vocational-deep');
   };
 
   const currentQuestion = data.questions[qIndex];
@@ -446,6 +472,12 @@ function App() {
             <VocationalScreen
               onBack={() => goto('welcome')}
               onComplete={(scores) => { setDeepScores((p) => ({ ...p, vocational: scores })); goto('deepResults', { kind: 'vocational' }); }}
+            />
+          )}
+          {route.name === 'vocational-deep' && window.VocationalDeepScreen && (
+            <VocationalDeepScreen
+              onBack={() => goto('welcome')}
+              onComplete={(scores) => { setDeepScores((p) => ({ ...p, vocationalDeep: scores })); goto('deepResults', { kind: 'vocationalDeep' }); }}
             />
           )}
           {route.name === 'deepResults' && (

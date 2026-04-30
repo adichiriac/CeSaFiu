@@ -231,6 +231,94 @@ window.QUIZ_DATA = {
     },
   },
 
+  // ── VOCATIONAL DEEP (O*NET Interest Profiler · 60 itemi · validat US Dept. of Labor) ──
+  // 10 itemi × 6 coduri RIASEC. Likert 1-5 (Foarte mult NU → Foarte mult DA).
+  // Suprascrie testul vocațional scurt când e completat.
+  // Sursă: O*NET Interest Profiler (mynextmove.org/explore/ip) — domeniu public.
+  // Tradus în română 2026-04-30. Itemii cu culturalFlag: true ar putea fi
+  // adaptați pentru contextul român — vezi notes pe fiecare item.
+  vocationalDeep: {
+    name: 'Test vocațional aprofundat',
+    subtitle: 'O*NET Interest Profiler · 60 itemi · validat științific',
+    estimateMin: 10,
+    source: 'O*NET Interest Profiler (US Department of Labor) — public domain',
+    sourceUrl: 'https://www.mynextmove.org/explore/ip',
+    items: [
+      // ── R · Realist (10) ──
+      { id: 'd-r-01', code: 'R', text: 'Construiești dulapuri sau mobilier de lemn' },
+      { id: 'd-r-02', code: 'R', text: 'Pui cărămizi, gresie sau faianță' },
+      { id: 'd-r-03', code: 'R', text: 'Repari electrocasnice (frigider, mașină de spălat)' },
+      { id: 'd-r-04', code: 'R', text: 'Crești pești într-o crescătorie sau albine pentru miere', culturalFlag: true, flagNote: 'Original O*NET „raise fish in a fish hatchery" — adaptat la realitate RO (apicultura e mai relatable).' },
+      { id: 'd-r-05', code: 'R', text: 'Asamblezi piese electronice pe o placă' },
+      { id: 'd-r-06', code: 'R', text: 'Conduci un camion (TIR) ca să livrezi marfă' },
+      { id: 'd-r-07', code: 'R', text: 'Repari și montezi încuietori și sisteme de securitate' },
+      { id: 'd-r-08', code: 'R', text: 'Reglezi și operezi utilaje industriale (CNC, presă, strung)' },
+      { id: 'd-r-09', code: 'R', text: 'Stingi incendii ca pompier sau salvamontist' },
+      { id: 'd-r-10', code: 'R', text: 'Lucrezi pe o platformă de foraj sau în industria petrolieră', culturalFlag: true, flagNote: 'Original „offshore oil-drilling rig" — adaptat la contextul Petrom / industria petrolieră RO.' },
+
+      // ── I · Investigative (10) ──
+      { id: 'd-i-01', code: 'I', text: 'Dezvolți un medicament nou într-un laborator farma' },
+      { id: 'd-i-02', code: 'I', text: 'Studiezi cum să reduci poluarea apei sau aerului' },
+      { id: 'd-i-03', code: 'I', text: 'Faci experimente chimice ca să înțelegi reacții noi' },
+      { id: 'd-i-04', code: 'I', text: 'Studiezi mișcarea planetelor și stelelor (astronomie)' },
+      { id: 'd-i-05', code: 'I', text: 'Examinezi probe de sânge la microscop pentru diagnosticare' },
+      { id: 'd-i-06', code: 'I', text: 'Investighezi cauzele unui incendiu sau accident' },
+      { id: 'd-i-07', code: 'I', text: 'Dezvolți o metodă mai bună de a prezice vremea' },
+      { id: 'd-i-08', code: 'I', text: 'Lucrezi într-un laborator de biologie cu plante sau animale' },
+      { id: 'd-i-09', code: 'I', text: 'Inventezi un înlocuitor mai sănătos pentru zahăr' },
+      { id: 'd-i-10', code: 'I', text: 'Faci teste de laborator ca să identifici boli' },
+
+      // ── A · Artistic (10) ──
+      { id: 'd-a-01', code: 'A', text: 'Dirijezi un cor sau o orchestră' },
+      { id: 'd-a-02', code: 'A', text: 'Faci regie pentru o piesă de teatru' },
+      { id: 'd-a-03', code: 'A', text: 'Realizezi grafică / ilustrații pentru reviste' },
+      { id: 'd-a-04', code: 'A', text: 'Compui o melodie originală' },
+      { id: 'd-a-05', code: 'A', text: 'Scrii cărți, povești sau piese de teatru' },
+      { id: 'd-a-06', code: 'A', text: 'Cânți la un instrument muzical' },
+      { id: 'd-a-07', code: 'A', text: 'Faci cascadorii sau efecte fizice pentru filme', culturalFlag: true, flagNote: 'Original „perform stunts" — niche, dar înțeles de teen din filme/Netflix.' },
+      { id: 'd-a-08', code: 'A', text: 'Designezi decoruri și costume pentru piese sau filme' },
+      { id: 'd-a-09', code: 'A', text: 'Prezinți o emisiune de radio sau podcast' },
+      { id: 'd-a-10', code: 'A', text: 'Editezi filme, reels sau clipuri YouTube' },
+
+      // ── S · Social (10) ──
+      { id: 'd-s-01', code: 'S', text: 'Oferi consiliere de carieră oamenilor care nu știu ce să aleagă' },
+      { id: 'd-s-02', code: 'S', text: 'Faci voluntariat la un ONG sau o cantină socială' },
+      { id: 'd-s-03', code: 'S', text: 'Ajuți oameni cu probleme personale sau emoționale' },
+      { id: 'd-s-04', code: 'S', text: 'Înveți pe cineva o rutină de fitness sau un sport' },
+      { id: 'd-s-05', code: 'S', text: 'Ajuți oameni cu probleme de familie sau de cuplu' },
+      { id: 'd-s-06', code: 'S', text: 'Supraveghezi activitățile copiilor la o tabără sau școală' },
+      { id: 'd-s-07', code: 'S', text: 'Înveți copii din clasele primare să citească' },
+      { id: 'd-s-08', code: 'S', text: 'Ajuți persoane în vârstă cu activitățile zilnice' },
+      { id: 'd-s-09', code: 'S', text: 'Predai limbajul semnelor pentru persoane cu deficiențe de auz' },
+      { id: 'd-s-10', code: 'S', text: 'Ajuți oameni care au probleme cu drogurile sau alcoolul' },
+
+      // ── E · Enterprising (10) ──
+      { id: 'd-e-01', code: 'E', text: 'Vinzi francize de restaurant unor antreprenori' },
+      { id: 'd-e-02', code: 'E', text: 'Vinzi marfă într-un magazin universal sau departament' },
+      { id: 'd-e-03', code: 'E', text: 'Conduci un magazin de haine sau de modă' },
+      { id: 'd-e-04', code: 'E', text: 'Vinzi case (agent imobiliar)' },
+      { id: 'd-e-05', code: 'E', text: 'Conduci un magazin de jucării sau de produse pentru copii' },
+      { id: 'd-e-06', code: 'E', text: 'Conduci un departament într-o companie mare (50+ angajați)' },
+      { id: 'd-e-07', code: 'E', text: 'Negociezi contracte de business cu clienți' },
+      { id: 'd-e-08', code: 'E', text: 'Reprezinți un client într-un proces juridic la tribunal' },
+      { id: 'd-e-09', code: 'E', text: 'Lansezi pe piață o linie nouă de haine sau un brand' },
+      { id: 'd-e-10', code: 'E', text: 'Cumperi și vinzi acțiuni la bursă' },
+
+      // ── C · Conventional (10) ──
+      { id: 'd-c-01', code: 'C', text: 'Dezvolți o foaie de calcul Excel cu formule și macros' },
+      { id: 'd-c-02', code: 'C', text: 'Verifici (proofread) documente sau formulare administrative' },
+      { id: 'd-c-03', code: 'C', text: 'Procesezi cereri și formulare la o instituție publică', culturalFlag: true, flagNote: 'Original „schedule postal mail" — adaptat la realitate RO (administrație publică e mai familiar).' },
+      { id: 'd-c-04', code: 'C', text: 'Folosești un program să generezi facturi pentru clienți' },
+      { id: 'd-c-05', code: 'C', text: 'Calculezi salariile angajaților dintr-o firmă' },
+      { id: 'd-c-06', code: 'C', text: 'Ștampilezi, sortezi și distribui corespondență internă' },
+      { id: 'd-c-07', code: 'C', text: 'Menții evidențe ale angajaților (HR records, dosare personal)' },
+      { id: 'd-c-08', code: 'C', text: 'Calculezi și înregistrezi date statistice și numerice' },
+      { id: 'd-c-09', code: 'C', text: 'Folosești tabele și formule pentru analize financiare' },
+      { id: 'd-c-10', code: 'C', text: 'Faci inventarul stocurilor cu un scanner sau device portabil' },
+    ],
+    // Same RIASEC codes definition reused from the light vocational test
+  },
+
   // ── CAREERS — extins cu freelance/antreprenor/auto-didact ──
   careers: [
     {
@@ -2903,6 +2991,33 @@ window.QUIZ_DATA = {
     { id: 'iaa-academy-ecommercefounder-v6', name: 'Curs IAA — track e-commerce', universityId: 'iaa-academy', pathType: 'autodidact', duration: '3-6 luni', durationYears: 0.5, language: ['ro'], riasec: ['E', 'A'], careerIds: ['ecommerce-founder'], tags: ['antreprenoriat', 'business'], notes: '[v6] Accelerator/program — wire schools[] mention.', admission: { exam: 'aplicație + selecție', deadline: 'rolling', tuition: '~1.500 — 3.500 EUR/curs' }, lastVerified: '2026-04-30' },
     { id: 'innovation-labs-ecommercefounder-v6', name: 'Innovation Labs — DTC track', universityId: 'innovation-labs', pathType: 'antreprenor', duration: '3-6 luni', durationYears: 0.5, language: ['ro'], riasec: ['E'], careerIds: ['ecommerce-founder'], tags: ['antreprenoriat', 'business'], notes: '[v6] Accelerator/program — wire schools[] mention.', admission: { exam: 'aplicație + selecție', deadline: 'rolling', tuition: 'gratuit (subvenționat)' }, lastVerified: '2026-04-30' },
     { id: 'iaa-academy-marketinggrowth-v6', name: 'Curs IAA Growth Marketing', universityId: 'iaa-academy', pathType: 'autodidact', duration: '3-6 luni', durationYears: 0.5, language: ['ro'], riasec: ['E', 'I'], careerIds: ['marketing-growth'], tags: ['antreprenoriat', 'business'], notes: '[v6] Accelerator/program — wire schools[] mention.', admission: { exam: 'aplicație + selecție', deadline: 'rolling', tuition: '~1.500 — 3.500 EUR/curs' }, lastVerified: '2026-04-30' },
+
+    // ── v7 PROGRAMS (2026-04-30) — extindere acoperire profesor + cariere către universități regionale ──
+    // Profesor de gimnaziu/liceu: orice facultate de specialitate + DPPD/modul psihopedagogic = profesor.
+    // Adăugăm programele evidente ratate pentru București/Cluj/Iași/Timișoara + universități regionale.
+    { id: 'amgd-profesor-muzica-v7', name: 'Pedagogie Muzicală + modul psihopedagogic', universityId: 'amgd', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['artă'], notes: '[v7] AMGD Cluj — formează profesori de muzică pentru gimnaziu/liceu.', admission: { exam: 'probă practică muzică + dosar', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'unmb-profesor-muzica-v7', name: 'Pedagogie Muzicală + modul psihopedagogic', universityId: 'unmb', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['artă'], notes: '[v7] UNMB București — bază pentru profesor de muzică.', admission: { exam: 'probă practică muzică + dosar', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'arte-iasi-profesor-muzica-v7', name: 'Pedagogie Muzicală / Arte + modul psihopedagogic', universityId: 'arte-iasi', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['artă'], notes: '[v7] George Enescu Iași — singura uni de arte din Moldova; cale către profesor de muzică/arte.', admission: { exam: 'probă practică + dosar', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'uad-profesor-arte-v7', name: 'Pedagogia Artelor Vizuale + modul psihopedagogic', universityId: 'uad', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['artă'], notes: '[v7] UAD Cluj — alternativa clujeană pentru profesor de arte plastice/desen.', admission: { exam: 'probă practică artă + dosar', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'arte-tgm-profesor-arte-v7', name: 'Pedagogie Arte (teatru/muzică) + modul psihopedagogic', universityId: 'arte-tgm', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro', 'hu'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['artă'], notes: '[v7] U. de Arte Tg. Mureș — cale bilingvă RO/HU spre profesor de arte.', admission: { exam: 'probă practică + dosar', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'pub-profesor-stiinte-v7', name: 'Matematică / Fizică / Info + DPPD', universityId: 'pub', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['I', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['științe'], notes: '[v7] UPB are DPPD — profesori de științe exacte pentru liceele de top.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'tuiasi-profesor-stiinte-v7', name: 'Matematică-Informatică + modul psihopedagogic', universityId: 'tuiasi', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['I', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['științe'], notes: '[v7] TUIASI — cale spre profesor de mate/info în zona Moldovei.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 1.500 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'ovidius-profesor-litere-v7', name: 'Litere + modul psihopedagogic', universityId: 'ovidius', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['umaniste'], notes: '[v7] U. Ovidius Constanța — profesor RO/EN/FR pentru zona litorală.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'ucv-profesor-litere-v7', name: 'Litere + modul psihopedagogic', universityId: 'ucv', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['umaniste'], notes: '[v7] U. din Craiova — cale spre profesor în Oltenia, fără să te muți.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'ucv-profesor-mate-v7', name: 'Matematică-Informatică + modul psihopedagogic', universityId: 'ucv', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['I', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['științe'], notes: '[v7] U. din Craiova — profesor de mate/info în sud-vest.', admission: { exam: 'dosar (media BAC) + concurs Mate', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'ulbs-profesor-litere-v7', name: 'Litere + modul psihopedagogic', universityId: 'ulbs', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['umaniste'], notes: '[v7] ULBS Sibiu — profesor pentru centrul țării.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'utbv-profesor-litere-v7', name: 'Litere / Sociologie + modul psihopedagogic', universityId: 'utbv', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['umaniste'], notes: '[v7] U. Transilvania Brașov — profesor în zona Brașovului.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'udjg-profesor-litere-v7', name: 'Litere + modul psihopedagogic', universityId: 'udjg', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['umaniste'], notes: '[v7] UDJG Galați — profesor în sud-estul Moldovei.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'uoradea-profesor-litere-v7', name: 'Litere + modul psihopedagogic', universityId: 'uoradea', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['umaniste'], notes: '[v7] U. din Oradea — profesor pentru zona Crișanei.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'usv-profesor-litere-v7', name: 'Litere + modul psihopedagogic', universityId: 'usv', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['umaniste'], notes: '[v7] USV Suceava — profesor pentru Bucovina.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'umfst-profesor-stiinte-v7', name: 'Inginerie / Mate-Info + modul psihopedagogic', universityId: 'umfst', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['I', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['științe'], notes: '[v7] UMFST Tg. Mureș — profesor de științe exacte în centru.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+
+    // Data-scientist — bază reală (UPB, ASE, UBB) lipsea deși era în schools[]
+    { id: 'pub-data-scientist-v7', name: 'Calculatoare & Tehnologia Informației (cale data science)', universityId: 'pub', pathType: 'facultate', duration: '3-4 ani', durationYears: 4, language: ['ro'], riasec: ['I', 'C'], careerIds: ['data-scientist'], tags: ['IT', 'data'], notes: '[v7] UPB Calculatoare — bază solidă pentru data science / ML.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'ase-data-scientist-v7', name: 'Cibernetică-Informatică Economică', universityId: 'ase', pathType: 'facultate', duration: '3-4 ani', durationYears: 4, language: ['ro'], riasec: ['I', 'C'], careerIds: ['data-scientist'], tags: ['IT', 'business', 'data'], notes: '[v7] ASE — Cibernetică = data science aplicat în business.', admission: { exam: 'dosar (media BAC) + concurs Mate', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.500 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'ubb-data-scientist-v7', name: 'Matematică-Informatică', universityId: 'ubb', pathType: 'facultate', duration: '3-4 ani', durationYears: 4, language: ['ro'], riasec: ['I', 'C'], careerIds: ['data-scientist'], tags: ['IT', 'data'], notes: '[v7] UBB — Mate-Info, cea mai bine clasată internațional pentru cale academică spre ML.', admission: { exam: 'dosar + concurs Mate', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    // Content-creator & YouTuber — schools[] menționează UNATC ca opțional
+    { id: 'unatc-content-creator-v7', name: 'Multimedia / Imagine (cale spre creator video)', universityId: 'unatc', pathType: 'facultate', duration: '3 ani', durationYears: 3, language: ['ro'], riasec: ['A', 'E'], careerIds: ['content-creator', 'youtuber'], tags: ['artă'], notes: '[v7] UNATC — bază tehnică pentru creatori video care vor structură formală.', admission: { exam: 'probă practică + dosar', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
 
   ],
 };

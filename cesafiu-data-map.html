@@ -625,12 +625,27 @@
       c.paths.forEach(p => ul.appendChild(el('li', {}, p)));
       body.appendChild(ul);
     }
-    // School recommendations
-    const linkedUniIds = new Set(careerToUnis.get(cid) || []);
-    if (linkedUniIds.size) {
-      body.appendChild(el('h4', {}, `Instituții (${linkedUniIds.size})`));
+    // School recommendations — respect active tier filter so the count
+    // matches what the diagram actually shows.
+    const allLinkedIds = [...new Set(careerToUnis.get(cid) || [])];
+    let visibleLinkedIds = allLinkedIds;
+    if (state.tierFilter !== 'all') {
+      visibleLinkedIds = allLinkedIds.filter(uid => {
+        const u = byUniId.get(uid);
+        return u && u.tier === state.tierFilter;
+      });
+    }
+    if (allLinkedIds.length) {
+      const heading = (state.tierFilter !== 'all' && visibleLinkedIds.length < allLinkedIds.length)
+        ? `Instituții (${visibleLinkedIds.length} din ${allLinkedIds.length} — filtru ${state.tierFilter})`
+        : `Instituții (${visibleLinkedIds.length})`;
+      body.appendChild(el('h4', {}, heading));
+      if (!visibleLinkedIds.length) {
+        body.appendChild(el('p', { style: 'color: var(--ink-500); font-size: 0.9em;' },
+          'Niciuna din instituțiile carierei nu se potrivește cu filtrul activ. Schimbă filtrul în „Toate" ca să le vezi pe toate.'));
+      }
       const ul = el('ul', {});
-      [...linkedUniIds].slice(0, 8).forEach(uid => {
+      visibleLinkedIds.slice(0, 8).forEach(uid => {
         const u = byUniId.get(uid);
         if (u) ul.appendChild(el('li', {}, `${u.name} (${u.city || ''})`));
       });
@@ -711,6 +726,8 @@
     btn.addEventListener('click', () => {
       state.tierFilter = btn.dataset.tierFilter;
       document.querySelectorAll('[data-tier-filter]').forEach(b => b.classList.toggle('active', b === btn));
+      // Re-render detail panel so its institution count respects the filter
+      if (state.selectedCareer) showDetail(state.selectedCareer);
       render();
     });
   });

@@ -293,6 +293,7 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer,
             </div>
             <div className="h-sm" style={{ color: '#fff', marginBottom: 8, lineHeight: 1.2 }}>
               {nextTest.kind === 'vocational' && 'Testul vocațional · 12 itemi · 5 min'}
+              {nextTest.kind === 'vocational-deep' && 'Holland validat (O*NET) · 60 itemi · 8-10 min'}
               {nextTest.kind === 'ipip-neo' && 'Big Five validat · 60 itemi · 12 min'}
               {nextTest.kind === 'personality' && 'Personalitate (scurt) · 15 itemi · 4 min'}
             </div>
@@ -310,6 +311,7 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer,
                 style={{ background: 'var(--yellow)', color: '#000', fontWeight: 800, width: '100%' }}
               >
                 {nextTest.kind === 'vocational' && 'FĂ TESTUL VOCAȚIONAL →'}
+                {nextTest.kind === 'vocational-deep' && 'FĂ HOLLAND VALIDAT (10 MIN) →'}
                 {nextTest.kind === 'ipip-neo' && 'FĂ BIG FIVE (12 MIN) →'}
                 {nextTest.kind === 'personality' && 'FĂ PERSONALITATE (4 MIN) →'}
               </button>
