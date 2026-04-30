@@ -285,10 +285,10 @@ function recommendNextTest(userProfile) {
     return { kind: 'personality', reason: 'Continuă cu testul de personalitate scurt (15 itemi, 4 min) ca să vedem și ce te motivează cu adevărat.' };
   }
   if (!hasVocDeep) {
-    return { kind: 'vocational-deep', reason: 'Continuă cu testul vocațional aprofundat (60 itemi, 8-10 min). E cel folosit oficial în SUA — îți dă o lectură mult mai precisă decât testul scurt.' };
+    return { kind: 'vocational-deep', reason: 'Continuă cu testul vocațional aprofundat (60 itemi, 8-10 min). E cel folosit oficial în SUA — îți dă o predicție mult mai precisă decât testul scurt.' };
   }
   if (!hasBig5Full) {
-    return { kind: 'ipip-neo', reason: 'Continuă cu testul de personalitate validat (60 itemi, 12 min). E versiunea științifică a celui scurt — cea mai precisă lectură a profilului tău.' };
+    return { kind: 'ipip-neo', reason: 'Continuă cu testul de personalitate validat (60 itemi, 12 min). E versiunea științifică a celui scurt — cea mai precisă predicție a profilului tău.' };
   }
   return null;
 }
