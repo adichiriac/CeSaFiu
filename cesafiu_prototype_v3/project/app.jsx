@@ -36,91 +36,174 @@ function cosine(a, b) {
   return dot / (na * nb);
 }
 
-function buildUserProfile(answers) {
-  const riasec = {}; const paths = {}; const traits = {};
-  Object.values(answers).forEach((opt) => {
+// Big Five axis added in Phase A (2026-04-30). Career anchors stored as
+// shorthand letter array (e.g., big5: ['O','C']); user big5 stored as
+// percentages {O:75, C:60, ...} from personality / IPIP-NEO-60 tests.
+const BIG5_KEYS = ['O', 'C', 'E', 'A', 'N'];
+
+// Vocational (Holland) test weight relative to a single quick-quiz answer.
+// 12 forced-choice items × this multiplier vs. the 6 quick-quiz answers.
+const VOCATIONAL_WEIGHT = 2;
+
+function buildUserProfile(answers, deepScores) {
+  const riasec = {}; const paths = {}; const traits = {}; const big5 = {};
+  // 1. Quick-quiz answers (each option carries riasec / path / traits).
+  Object.values(answers || {}).forEach((opt) => {
     if (!opt) return;
     (opt.riasec || []).forEach((c) => { riasec[c] = (riasec[c] || 0) + 1; });
     if (opt.path) { paths[opt.path] = (paths[opt.path] || 0) + 1; }
     (opt.traits || []).forEach((t) => { traits[t] = (traits[t] || 0) + 1; });
   });
-  return { riasec, paths, traits };
+
+  // 2. Vocational (Holland) test → fold raw RIASEC into the same tally,
+  //    weighted higher than quick-quiz because it has 12 dedicated items.
+  //    Previously this was collected but never used.
+  const voc = deepScores && deepScores.vocational;
+  if (voc && voc.raw) {
+    Object.entries(voc.raw).forEach(([code, val]) => {
+      riasec[code] = (riasec[code] || 0) + val * VOCATIONAL_WEIGHT;
+    });
+  }
+
+  // 3. Big Five → store as percentages (0-100). IPIP-NEO-60 wins over short
+  //    test if both taken (more validated). Previously collected but unused.
+  const big5Source = deepScores && (deepScores.ipipNeo60 || deepScores.personality);
+  if (big5Source) {
+    BIG5_KEYS.forEach((k) => {
+      if (typeof big5Source[k] === 'number') big5[k] = big5Source[k];
+    });
+  }
+
+  // 4. Track which sources contributed — drives confidence + adaptive weights.
+  const sources = [];
+  if (Object.keys(answers || {}).length > 0) sources.push('quick');
+  if (voc && voc.raw) sources.push('vocational');
+  if (deepScores && deepScores.ipipNeo60) sources.push('ipip-neo-60');
+  else if (deepScores && deepScores.personality) sources.push('personality-15');
+
+  return { riasec, paths, traits, big5, sources };
 }
 
 function buildCareerProfile(career) {
-  const riasec = {}; const paths = {}; const traits = {};
-  // RIASEC codes are listed primary→tertiary; weight them 3/2/1.
+  const riasec = {}; const paths = {}; const traits = {}; const big5 = {};
+  // RIASEC codes listed primary→tertiary; weight 3/2/1.
   (career.riasec || []).forEach((c, i) => { riasec[c] = i < 3 ? (3 - i) : 1; });
   if (career.pathType) { paths[career.pathType] = 1; }
-  // 'mixt' careers also resonate with facultate + autodidact paths half-weight
+  // 'mixt' careers also resonate with facultate + autodidact half-weight.
   if (career.pathType === 'mixt') { paths.facultate = 0.5; paths.autodidact = 0.5; }
   (career.traits || []).forEach((t) => { traits[t] = 1; });
-  return { riasec, paths, traits };
+  // Big Five anchors: each declared letter = full weight (1.0). Filter
+  // unknown chars (one career has 'I' = legacy data typo). Anchors mean
+  // "high preferred" — non-anchors are neutral, not penalized.
+  (career.big5 || []).forEach((k) => { if (BIG5_KEYS.includes(k)) big5[k] = 1; });
+  return { riasec, paths, traits, big5 };
 }
 
-function rawScore(userProfile, careerProfile) {
-  // Weights: RIASEC dominates (validated framework), path is direction signal, traits are texture.
-  const W = { riasec: 0.55, paths: 0.25, traits: 0.20 };
+// Sample-size-aware weights. When the user has more test sources, RIASEC's
+// share comes down (because the data is denser everywhere) and Big Five
+// joins the calculation. With only the quick quiz, RIASEC carries everything
+// because it's the only axis with enough signal.
+function getWeights(userProfile) {
+  const hasBig5 = Object.keys(userProfile.big5 || {}).length > 0;
+  const hasVoc = (userProfile.sources || []).includes('vocational');
+  if (hasBig5 && hasVoc) return { riasec: 0.45, paths: 0.15, traits: 0.10, big5: 0.30 };
+  if (hasBig5)           return { riasec: 0.45, paths: 0.20, traits: 0.10, big5: 0.25 };
+  if (hasVoc)            return { riasec: 0.65, paths: 0.20, traits: 0.15, big5: 0.00 };
+  return { riasec: 0.60, paths: 0.25, traits: 0.15, big5: 0.00 };
+}
+
+function big5Cosine(userBig5, careerBig5) {
+  // Convert user percentages 0-100 → 0-1 normalized.
+  // Subtract 0.5 (centered) so "high O" matches "career needs high O" better
+  // than "average O" matches it. Without centering, average users would
+  // appear to match every career's anchor pattern roughly equally.
+  const userVec = BIG5_KEYS.map((k) => {
+    const v = userBig5[k];
+    if (typeof v !== 'number') return 0;
+    return Math.max(0, (v / 100) - 0.5);  // only the "above average" part counts
+  });
+  const careerVec = BIG5_KEYS.map((k) => careerBig5[k] || 0);
+  return cosine(userVec, careerVec);
+}
+
+function rawScore(userProfile, careerProfile, weights) {
   const sR = cosine(vecFromTallyKeys(userProfile.riasec, RIASEC_KEYS), vecFromTallyKeys(careerProfile.riasec, RIASEC_KEYS));
   const sP = cosine(vecFromTallyKeys(userProfile.paths, PATH_KEYS),   vecFromTallyKeys(careerProfile.paths, PATH_KEYS));
   const sT = cosine(vecFromTallyKeys(userProfile.traits, TRAIT_KEYS), vecFromTallyKeys(careerProfile.traits, TRAIT_KEYS));
-  return W.riasec * sR + W.paths * sP + W.traits * sT;
+  let sB = 0;
+  if (weights.big5 > 0 && Object.keys(careerProfile.big5 || {}).length > 0) {
+    sB = big5Cosine(userProfile.big5, careerProfile.big5);
+  }
+  return weights.riasec * sR + weights.paths * sP + weights.traits * sT + weights.big5 * sB;
 }
 
-function explainMatch(userProfile, career) {
-  const top2riasec = Object.entries(userProfile.riasec).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k]) => k);
-  const topPath = Object.entries(userProfile.paths).sort((a, b) => b[1] - a[1])[0];
+function explainMatch(userProfile, career, careerProfile, weights) {
+  const top2riasec = Object.entries(userProfile.riasec || {}).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k]) => k);
+  const topPath = Object.entries(userProfile.paths || {}).sort((a, b) => b[1] - a[1])[0];
   const riasecHit = (career.riasec || []).filter((c) => top2riasec.includes(c));
   const pathHit = topPath && career.pathType === topPath[0];
+  // Per-axis sub-scores so the UI can show "RIASEC strong / paths weak / Big Five solid".
+  const sR = cosine(vecFromTallyKeys(userProfile.riasec, RIASEC_KEYS), vecFromTallyKeys(careerProfile.riasec, RIASEC_KEYS));
+  const sP = cosine(vecFromTallyKeys(userProfile.paths, PATH_KEYS),   vecFromTallyKeys(careerProfile.paths, PATH_KEYS));
+  const sT = cosine(vecFromTallyKeys(userProfile.traits, TRAIT_KEYS), vecFromTallyKeys(careerProfile.traits, TRAIT_KEYS));
+  const sB = (weights.big5 > 0 && Object.keys(careerProfile.big5 || {}).length > 0)
+    ? big5Cosine(userProfile.big5, careerProfile.big5) : null;
+  // Short text version for results screen tagline.
   const bits = [];
   if (riasecHit.length) bits.push(`RIASEC ${riasecHit.join('+')}`);
   if (pathHit) bits.push(`drum ${topPath[0]}`);
-  return bits.length ? bits.join(' · ') : 'profil mixt';
+  if (sB !== null && sB > 0.4) bits.push(`Big Five aliniate`);
+  return {
+    text: bits.length ? bits.join(' · ') : 'profil mixt',
+    axes: { riasec: sR, paths: sP, traits: sT, big5: sB },
+    riasecHit, pathHit,
+  };
 }
 
-function computeMatches(answers, careers) {
-  const userProfile = buildUserProfile(answers);
+function computeMatches(answers, careers, deepScores) {
+  const userProfile = buildUserProfile(answers, deepScores);
   const noAnswers = Object.keys(userProfile.riasec).length === 0
                  && Object.keys(userProfile.paths).length === 0
-                 && Object.keys(userProfile.traits).length === 0;
+                 && Object.keys(userProfile.traits).length === 0
+                 && Object.keys(userProfile.big5).length === 0;
+  const weights = getWeights(userProfile);
 
   // 1. Raw scores per career
   const scored = careers.map((c) => {
     const cp = buildCareerProfile(c);
-    const raw = rawScore(userProfile, cp);
-    return { career: c, careerProfile: cp, raw, why: explainMatch(userProfile, c) };
+    const raw = rawScore(userProfile, cp, weights);
+    const why = explainMatch(userProfile, c, cp, weights);
+    return { career: c, careerProfile: cp, raw, why };
   });
 
   if (noAnswers) {
-    return scored.map((s) => ({ career: s.career, score: 0, why: '' }));
+    return Object.assign(scored.map((s) => ({ career: s.career, score: 0, why: '' })), { confidence: 0, sources: [] });
   }
 
-  // 2. Calibrate to 0-100 honestly: map [0, maxRaw] → [floor, ceil] where ceil ≤ 92
-  //    Floor at 25% so a poor match still shows visible bar; cap at 92% so we never
-  //    promise certainty from a 6-question quiz (honesty principle from ROADMAP).
+  // 2. Calibrate to 0-100. Cap raised dynamically based on test breadth:
+  //    quick-only caps at 80% (don't oversell 6 Q's),
+  //    +vocational caps at 88%, +Big Five caps at 95%.
   const maxRaw = Math.max(...scored.map((s) => s.raw), 0.001);
-  const FLOOR = 25, CEIL = 92;
+  const breadth = userProfile.sources.length;
+  const FLOOR = 25;
+  const CEIL = breadth >= 3 ? 95 : breadth === 2 ? 88 : 80;
   scored.forEach((s) => {
-    const norm = s.raw / maxRaw;          // 0..1 within this user's career space
-    const pct = FLOOR + norm * (CEIL - FLOOR);
-    // Slight power curve so weak matches stay visibly weak and strong matches separate
+    const norm = s.raw / maxRaw;
     const curved = FLOOR + Math.pow(norm, 0.85) * (CEIL - FLOOR);
     s.score = Math.round(curved);
   });
 
-  // 3. Sort by raw, then diversify top-N via MMR (Maximum Marginal Relevance)
-  //    so the secondary matches aren't 3 clones of the primary.
+  // 3. Sort by raw, diversify top-N via MMR.
   const sorted = scored.slice().sort((a, b) => b.raw - a.raw);
   const picked = [sorted[0]];
   const pool = sorted.slice(1);
-  const LAMBDA = 0.7; // 0.7 favors relevance, 0.3 favors diversity
+  const LAMBDA = 0.7;
   const TOP_N = 6;
 
   while (picked.length < TOP_N && pool.length) {
     let bestIdx = 0, bestVal = -Infinity;
     for (let i = 0; i < pool.length; i++) {
       const cand = pool[i];
-      // similarity to already-picked = max cosine on RIASEC vector (the strongest axis)
       const candVec = vecFromTallyKeys(cand.careerProfile.riasec, RIASEC_KEYS);
       let maxSim = 0;
       picked.forEach((p) => {
@@ -132,14 +215,51 @@ function computeMatches(answers, careers) {
     }
     picked.push(pool.splice(bestIdx, 1)[0]);
   }
-
-  // Sort the diversified top-N by display score descending so the user sees
-  // a clean monotonic ranking. (MMR's diversity benefit is in WHICH careers
-  // got picked, not in the order they're displayed.)
   picked.sort((a, b) => b.score - a.score);
-  // Tail = whatever's left, in raw order, so the full list still works.
   const tail = pool.sort((a, b) => b.raw - a.raw);
-  return [...picked, ...tail].map(({ career, score, why }) => ({ career, score, why }));
+  const result = [...picked, ...tail].map(({ career, score, why }) => ({ career, score, why }));
+
+  // 4. Confidence: dominated by test breadth (more sources = more confident),
+  //    with spread between top-1 and top-3 as a secondary signal.
+  //    Quick-only: ~0.10-0.35 (low). +Vocational: ~0.40-0.70 (medium).
+  //    +Big Five: ~0.70-1.00 (high). Normalized 0-1.
+  const top1 = picked[0] ? picked[0].raw : 0;
+  const top3 = picked[2] ? picked[2].raw : 0;
+  const spread = top1 > 0 ? (top1 - top3) / top1 : 0;
+  // breadth-driven base: 0.10 / 0.40 / 0.70 for 1 / 2 / 3 sources
+  const breadthBase = breadth >= 3 ? 0.70 : breadth === 2 ? 0.40 : 0.10;
+  // spread bonus: max 0.30 when sources fully separate the top
+  const spreadBonus = Math.min(0.30, spread * 1.5);
+  const confidence = Math.min(1, breadthBase + spreadBonus);
+
+  result.confidence = confidence;
+  result.sources = userProfile.sources;
+  result.weights = weights;
+  result.nextTest = recommendNextTest(userProfile);
+  return result;
+}
+
+// Diagnose what test the user should take next to refine their profile most.
+// Returns null if the user has done all three or the recommendation isn't strong.
+function recommendNextTest(userProfile) {
+  const sources = userProfile.sources || [];
+  const hasQuick = sources.includes('quick');
+  const hasVoc = sources.includes('vocational');
+  const hasBig5 = sources.includes('ipip-neo-60') || sources.includes('personality-15');
+
+  if (!hasQuick) return { kind: 'quick', reason: 'Începe cu quiz-ul rapid — 6 întrebări, 90s.' };
+  if (!hasVoc) {
+    // RIASEC tally tightness — if top 3 codes are within 1 vote of each other, recommend Holland.
+    const sorted = Object.entries(userProfile.riasec || {}).sort((a, b) => b[1] - a[1]);
+    if (sorted.length < 2 || (sorted[0][1] - (sorted[2] ? sorted[2][1] : 0)) < 2) {
+      return { kind: 'vocational', reason: 'Codul tău Holland încă nu e clar — testul vocațional (12 itemi, 5 min) îl ascute.' };
+    }
+    return { kind: 'vocational', reason: 'Validează codul Holland cu testul vocațional (5 min) ca să separăm matches-urile mai precis.' };
+  }
+  if (!hasBig5) {
+    return { kind: 'ipip-neo', reason: 'Big Five (IPIP-NEO-60, 12 min) adaugă fit motivațional + 30% precizie suplimentară.' };
+  }
+  return null;
 }
 
 // localStorage layer: persist user picks across reloads. Without these, every
@@ -180,7 +300,11 @@ function App() {
   const [deepScores, setDeepScores] = useState({ personality: null, vocational: null, ipipNeo60: null });
 
   const data = window.QUIZ_DATA;
-  const matches = useMemo(() => computeMatches(answers, data.careers), [answers, data.careers]);
+  // Phase A: deepScores now flows into matching. Vocational test (Holland)
+  // doubles the RIASEC vote weight; personality / IPIP-NEO-60 unlocks the
+  // Big Five axis. Without this dependency, taking the personality or
+  // vocational test would NOT change the recommendation.
+  const matches = useMemo(() => computeMatches(answers, data.careers, deepScores), [answers, data.careers, deepScores]);
 
   // Persist every user-pick state slice whenever it changes.
   useEffect(() => { lsSet(SAVED_KEY, savedIds); }, [savedIds]);
@@ -339,6 +463,7 @@ function App() {
               onProfile={() => goto('profile')}
               onSaveCareer={handleSaveCareer}
               savedIds={savedIds}
+              onPickTest={handlePickTest}
               layout={tweaks.resultsLayout}
             />
           )}

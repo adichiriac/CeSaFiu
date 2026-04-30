@@ -1,16 +1,39 @@
 // Results screen — career match reveal with sticker explosion
-function ResultsScreen({ matches, onPickCareer, onRetake, onProfile, onSaveCareer, savedIds, layout }) {
+function ResultsScreen({ matches, onPickCareer, onRetake, onProfile, onSaveCareer, savedIds, onPickTest, layout }) {
   if (layout === 'list') return <ResultsList matches={matches} onPickCareer={onPickCareer} onRetake={onRetake} />;
-  return <ResultsHero matches={matches} onPickCareer={onPickCareer} onRetake={onRetake} onProfile={onProfile} onSaveCareer={onSaveCareer} savedIds={savedIds || []} />;
+  return <ResultsHero matches={matches} onPickCareer={onPickCareer} onRetake={onRetake} onProfile={onProfile} onSaveCareer={onSaveCareer} savedIds={savedIds || []} onPickTest={onPickTest} />;
 }
 
-function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer, savedIds }) {
+function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer, savedIds, onPickTest }) {
   const top = matches[0];
   const others = matches.slice(1, 4);
   const colors = { purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)' };
   const PaidHookCard = window.PaidHookCard;
   const isAlreadySaved = top && savedIds && savedIds.includes(top.career.id);
   const [justSaved, setJustSaved] = React.useState(false);
+
+  // Phase A: matches now carries confidence + sources + nextTest. Confidence
+  // is 0..1; sources lists test types that fed the algorithm; nextTest is
+  // an adaptive recommendation { kind, reason } or null when nothing helpful.
+  const confidence = (typeof matches.confidence === 'number') ? matches.confidence : 0;
+  const sources = matches.sources || [];
+  const nextTest = matches.nextTest || null;
+  const sourceLabels = {
+    'quick': 'Quiz rapid',
+    'vocational': 'Holland (vocațional)',
+    'personality-15': 'Big Five (15 itemi)',
+    'ipip-neo-60': 'Big Five (IPIP-NEO-60)',
+  };
+  // Aligned with the new breadth-driven confidence scale (Phase A):
+  // <0.30 (quick-only typical) = Scăzută
+  // 0.30-0.60 (+vocational typical) = Medie
+  // >0.60 (+Big Five typical) = Solidă
+  const confLabel = confidence < 0.30 ? 'Scăzută' : confidence < 0.60 ? 'Medie' : 'Solidă';
+  const confColor = confidence < 0.30 ? 'var(--yellow)' : confidence < 0.60 ? 'var(--green)' : 'var(--purple)';
+
+  // top.why is now an object: { text, axes: { riasec, paths, traits, big5 }, riasecHit, pathHit }
+  const whyText = top && top.why && (typeof top.why === 'object' ? top.why.text : top.why);
+  const whyAxes = top && top.why && top.why.axes;
 
   const handleSaveAndGo = () => {
     if (top && onSaveCareer && !isAlreadySaved) onSaveCareer(top.career.id);
@@ -40,19 +63,32 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer,
         <div className="body-lg" style={{ marginTop: 16, fontWeight: 600, fontStyle: 'italic' }}>
           „{top.career.tagline}."
         </div>
-        {top.why && (
+        {whyText && (
           <div className="label-sm" style={{ marginTop: 12, opacity: 0.85, fontFamily: 'JetBrains Mono, monospace' }}>
-            DE CE: {top.why}
+            DE CE: {whyText}
           </div>
         )}
 
-        {/* Honest disclaimer — quick quiz is orientation, not assessment */}
+        {/* Confidence + sources strip — replaces the static disclaimer.
+            Honest about what the algorithm has to work with. */}
         <div style={{
-          marginTop: 16, padding: '8px 12px',
+          marginTop: 16, padding: '10px 12px',
           background: 'rgba(0,0,0,0.15)', border: '2px solid #000',
-          fontSize: 11, lineHeight: 1.4, fontWeight: 600,
+          fontSize: 11, lineHeight: 1.45, fontWeight: 600,
         }}>
-          ⚠ TEST RAPID DE ORIENTARE · 6 întrebări nu pot prezice cariera ta. E un punct de pornire — testele aprofundate (mai jos) îți dau indicii mai solide.
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+            <span style={{ background: confColor, color: '#000', padding: '2px 8px', border: '2px solid #000', fontWeight: 800 }}>
+              ÎNCREDERE: {confLabel}
+            </span>
+            <span style={{ opacity: 0.85 }}>
+              Bazat pe: {(sources.length ? sources.map(s => sourceLabels[s] || s).join(' + ') : 'fără date')}
+            </span>
+          </div>
+          {confidence < 0.60 && nextTest && (
+            <div style={{ marginTop: 6, opacity: 0.9 }}>
+              Mai multe teste = matches mai precise. {nextTest.reason}
+            </div>
+          )}
         </div>
 
         {/* big abstract emoji-ish */}
@@ -98,6 +134,73 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer,
         >
           VEZI TOT DESPRE ASTA →
         </button>
+
+        {/* Per-axis breakdown — explains the match honestly. Phase A.
+            Each bar = sub-score on one of: RIASEC, drum (path), traits, Big Five.
+            Big Five only shown when user has personality data. */}
+        {whyAxes && (
+          <div style={{ marginTop: 24, padding: 14, background: 'var(--paper-2)', border: '2px solid #000' }}>
+            <div className="label-bold" style={{ marginBottom: 10 }}>DE CE — pe axe</div>
+            {[
+              { key: 'riasec', label: 'RIASEC (Holland)', help: 'Tipul tău dominant + codul carierei' },
+              { key: 'paths',  label: 'Drum educațional',  help: 'Facultate / autodidact / antreprenor / etc.' },
+              { key: 'traits', label: 'Trăsături',         help: 'Build, analyze, social, create…' },
+              { key: 'big5',   label: 'Big Five',          help: 'Profil de personalitate (necesar test)' },
+            ].map((row) => {
+              const v = whyAxes[row.key];
+              const has = (typeof v === 'number');
+              const pct = has ? Math.round(v * 100) : 0;
+              return (
+                <div key={row.key} style={{ marginBottom: 10 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 700, marginBottom: 4 }}>
+                    <span>{row.label}</span>
+                    <span style={{ color: has ? 'var(--ink)' : 'var(--ink-soft)' }}>
+                      {has ? `${pct}%` : 'fără date'}
+                    </span>
+                  </div>
+                  <div style={{ height: 8, background: '#fff', border: '2px solid #000', overflow: 'hidden' }}>
+                    {has && (
+                      <div style={{
+                        width: `${pct}%`, height: '100%',
+                        background: pct > 60 ? 'var(--green)' : pct > 30 ? 'var(--yellow)' : 'var(--purple)',
+                      }}></div>
+                    )}
+                  </div>
+                  {!has && (
+                    <div className="label-sm" style={{ color: 'var(--ink-soft)', marginTop: 3, fontSize: 11 }}>
+                      {row.help}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Adaptive next-test CTA — shows the most useful next test based on
+            what the user has done so far. Phase A. */}
+        {nextTest && nextTest.kind !== 'quick' && (
+          <div style={{
+            marginTop: 16, padding: 16, background: 'var(--purple)', color: '#fff',
+            border: '2px solid #000', boxShadow: '4px 4px 0 #000',
+          }}>
+            <div className="label-bold" style={{ color: 'var(--yellow)', marginBottom: 6 }}>
+              PASUL URMĂTOR · MAI MULT DETALIU
+            </div>
+            <div className="body-md" style={{ marginBottom: 10, fontWeight: 600 }}>
+              {nextTest.reason}
+            </div>
+            {onPickTest && (
+              <button
+                onClick={() => onPickTest(nextTest.kind === 'ipip-neo' ? 'ipip-neo' : nextTest.kind)}
+                className="btn"
+                style={{ background: 'var(--yellow)', color: '#000', fontWeight: 800 }}
+              >
+                {nextTest.kind === 'vocational' ? 'TESTUL VOCAȚIONAL →' : nextTest.kind === 'ipip-neo' ? 'BIG FIVE (12 MIN) →' : 'PERSONALITATE (4 MIN) →'}
+              </button>
+            )}
+          </div>
+        )}
 
         {/* other matches */}
         <div className="h-md" style={{ marginTop: 36, marginBottom: 12 }}>
