@@ -142,15 +142,38 @@ function computeMatches(answers, careers) {
   return [...picked, ...tail].map(({ career, score, why }) => ({ career, score, why }));
 }
 
+// localStorage layer: persist user picks across reloads. Without these, every
+// refresh wiped saved careers, saved unis, chosen path, and chosen career —
+// and the „SALVEAZĂ-MI VIBE-UL" button only navigated, it never persisted.
+const SAVED_KEY = 'cesafiu_saved_career_ids_v1';
+const SAVED_UNI_KEY = 'cesafiu_saved_uni_ids_v1';
+const CHOSEN_PATH_KEY = 'cesafiu_chosen_path_id_v1';
+const CHOSEN_CAREER_KEY = 'cesafiu_chosen_career_id_v1';
+function lsLoadArr(k) {
+  try { const r = localStorage.getItem(k); const p = r ? JSON.parse(r) : []; return Array.isArray(p) ? p : []; }
+  catch (e) { return []; }
+}
+function lsLoadStr(k) {
+  try { return localStorage.getItem(k) || null; } catch (e) { return null; }
+}
+function lsSet(k, v) {
+  try {
+    if (v === null || v === undefined) localStorage.removeItem(k);
+    else if (typeof v === 'string') localStorage.setItem(k, v);
+    else localStorage.setItem(k, JSON.stringify(v));
+  } catch (e) { /* full or unavailable — fail silent */ }
+}
+
 function App() {
   const [tweaks, setTweak] = useTweaks(TWEAKS_DEFAULTS);
   const [route, setRoute] = useState({ name: 'welcome' });
   const [qIndex, setQIndex] = useState(0);
   const [answers, setAnswers] = useState({});
-  const [savedIds, setSavedIds] = useState([]);
-  const [savedUniIds, setSavedUniIds] = useState([]);
-  const [chosenPathId, setChosenPathId] = useState(null);
-  const [chosenCareerId, setChosenCareerId] = useState(null);
+  // Hydrate persisted picks so „Vibe-uri" survives reloads.
+  const [savedIds, setSavedIds] = useState(() => lsLoadArr(SAVED_KEY));
+  const [savedUniIds, setSavedUniIds] = useState(() => lsLoadArr(SAVED_UNI_KEY));
+  const [chosenPathId, setChosenPathId] = useState(() => lsLoadStr(CHOSEN_PATH_KEY));
+  const [chosenCareerId, setChosenCareerId] = useState(() => lsLoadStr(CHOSEN_CAREER_KEY));
   const [selectedThisQ, setSelectedThisQ] = useState(null);
   const [transitioning, setTransitioning] = useState(false);
   const [browseSection, setBrowseSection] = useState('careers');
@@ -158,6 +181,12 @@ function App() {
 
   const data = window.QUIZ_DATA;
   const matches = useMemo(() => computeMatches(answers, data.careers), [answers, data.careers]);
+
+  // Persist every user-pick state slice whenever it changes.
+  useEffect(() => { lsSet(SAVED_KEY, savedIds); }, [savedIds]);
+  useEffect(() => { lsSet(SAVED_UNI_KEY, savedUniIds); }, [savedUniIds]);
+  useEffect(() => { lsSet(CHOSEN_PATH_KEY, chosenPathId); }, [chosenPathId]);
+  useEffect(() => { lsSet(CHOSEN_CAREER_KEY, chosenCareerId); }, [chosenCareerId]);
 
   useEffect(() => {
     document.documentElement.style.setProperty('--purple', tweaks.primaryColor);
@@ -298,7 +327,15 @@ function App() {
             />
           )}
           {route.name === 'results' && (
-            <ResultsScreen matches={matches} onPickCareer={handlePickCareer} onRetake={handleStart} onProfile={() => goto('profile')} layout={tweaks.resultsLayout} />
+            <ResultsScreen
+              matches={matches}
+              onPickCareer={handlePickCareer}
+              onRetake={handleStart}
+              onProfile={() => goto('profile')}
+              onSaveCareer={handleSaveCareer}
+              savedIds={savedIds}
+              layout={tweaks.resultsLayout}
+            />
           )}
           {route.name === 'career' && (
             <CareerDetailScreen
