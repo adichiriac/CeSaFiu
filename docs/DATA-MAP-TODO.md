@@ -2,7 +2,7 @@
 
 Living todo list for the career/institution/program data layer (`cesafiu_prototype_v3/project/data.js`) and the data map UI (`cesafiu-data-map.html`).
 
-**Status snapshot (2026-04-30, post-v5):** 107 careers · 160 institutions · 212 programs · **100% admission coverage**.
+**Status snapshot (2026-04-30, post-v6):** 107 careers · **157 institutions** · **329 programs** · **100% admission coverage** · **0 ghost links**.
 
 This file is the source of truth for what's left. Edit freely. Tick items as `[x]` when done.
 
@@ -71,7 +71,7 @@ This file is the source of truth for what's left. Edit freely. Tick items as `[x
 
 ## Tonight (2026-04-30 evening)
 
-### [ ] schools[] vs programs[] consistency audit (do FIRST tonight, before ARACIS)
+### [x] schools[] vs programs[] consistency audit — DONE (2026-04-30)
 
 **Why:** The HTML map renders column 3 (institutions) using two layers — `programs[]` canonical edges + a fuzzy match against `career.schools[]` strings. After tonight's fixes:
 
