@@ -2,7 +2,7 @@
 
 Living todo list for the career/institution/program data layer (`cesafiu_prototype_v3/project/data.js`) and the data map UI (`cesafiu-data-map.html`).
 
-**Status snapshot (2026-04-30, post-v4):** 94 careers · 160 institutions · 188 programs · **100% admission coverage**.
+**Status snapshot (2026-04-30, post-v5):** 107 careers · 160 institutions · 212 programs · **100% admission coverage**.
 
 This file is the source of truth for what's left. Edit freely. Tick items as `[x]` when done.
 
@@ -107,19 +107,6 @@ Decision: leave these at current state unless validation pass surfaces specific 
 
 ## Next session — medium priority
 
-### [ ] Split monolithic careers into sub-roles
-
-Several current career entries collapse very different sub-roles. Audit and split where the daily work + skills + salary diverge significantly:
-
-- `psiholog` → clinician / școlar / organizațional / consilier vocational
-- `profesor` → învățător primar / profesor gimnaziu / profesor liceu / profesor universitar
-- `jurnalist` → reporter / editor / podcast / corespondent investigativ
-- `marketing-specialist` → SEO / paid media / content / brand / growth
-- `inginer` (mecanic/electric) → too generic, split by domain
-- `medic-generalist` → medicină de familie / specialități clinice (oncologie, cardio, ATI) — at minimum link to specialization rezidențiat
-
-Aim: ~8-12 additional sub-role entries from existing umbrella careers.
-
 ### [ ] Regional trade school coverage
 
 Most current trade schools (licee tehnologice, școli profesionale) are concentrated in București, Cluj, Iași, Timișoara, Brașov, Ploiești. Romania has 41 județe and many trade schools in smaller regional centers.
@@ -180,3 +167,4 @@ The 2026-04-30 v3 pass added 20 high-volume careers. There are still missing rol
 - 2026-04-30 — Removed original Figma-Make bundle (replaced functionally)
 - 2026-04-30 — **v4 expansion: regional edge coverage** for under-linked careers — added 29 institutions (CT Pallady Constanța, Liceul Dacia Pitești, LT Auto Craiova, Henri Coandă filiale Tim/Bv, FEG filiale Tim/Galați/Cta, ASR Galați, UAB/UTBV/UAV/ULBS/UPIT kineto, etc.) and 44 programs. Most under-linked careers now have 4-11 edges (was 1-2): ospătar/bucătar 11, asistent medical 16, mecanic auto 7, kinetoterapeut 9, sudor 7.
 - 2026-04-30 — **Admission backfill: 100% coverage** — every program (188/188) now has `admission: { exam, deadline, deadlineYear, tuition }` plus `lastVerified` timestamp. Templates grouped by family (UMF medicine, ASE business, UNARTE arts, postliceal sanitar, ANC short courses, licee tehnologice). Tuition reflects stat-buget-vs-taxă for facultate, RON/an for postliceal privat, RON/curs for ANC providers.
+- 2026-04-30 — **v5 expansion: monolithic split** — replaced 5 umbrella careers with 18 sub-roles: `psiholog` → clinician / școlar / organizațional · `marketing-specialist` → performance / content-seo / brand / growth · `profesor` → gimnaziu-liceu / universitar (`educator` already separate for primar/preșcolar) · `inginer` → mecanic / electric / electronic / energetic / chimist · `jurnalist` → reporter / editor / podcast / investigativ. Existing `programs[]` careerIds remapped contextually (UPB-Electronică → inginer-electronic, ASE-Marketing → marketing-brand, IAA → marketing-performance, UB-Litere → jurnalist-editor, etc.). 24 new program edges added with admission details. Umbrella careers explicitly kept for stomatolog / medic-generalist / avocat / arhitect (residency-driven specializations).
