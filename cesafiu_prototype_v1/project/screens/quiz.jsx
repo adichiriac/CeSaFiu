@@ -28,7 +28,11 @@ function QuizDefault({ question, qIndex, total, selected, onSelect, onNext, onBa
       <div className="h-lg" style={{ marginBottom: 8, textWrap: 'pretty' }}>{question.title}</div>
       <div className="body-md" style={{ color: 'var(--ink-soft)', marginBottom: 24 }}>{question.subtitle}</div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
+      {/* flex:1 + minHeight:0 + overflowY:auto so on questions with long titles
+          the options container shrinks/scrolls instead of pushing the next
+          button past the bottom of the phone frame (where it became invisible
+          and unreachable on Q5/Q6). */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flex: 1, minHeight: 0, overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}>
         {question.options.map((opt, i) => {
           const isSel = selected === opt.id;
           return (
@@ -84,6 +88,7 @@ function QuizDefault({ question, qIndex, total, selected, onSelect, onNext, onBa
         disabled={!selected}
         style={{
           marginTop: 16, width: '100%',
+          flexShrink: 0,
           opacity: selected ? 1 : 0.4,
           cursor: selected ? 'pointer' : 'not-allowed',
         }}
@@ -155,7 +160,7 @@ function QuizSplit({ question, qIndex, total, selected, onSelect, onNext, onBack
         <div className="label-bold" style={{ color: 'var(--yellow)' }}>{question.sticker}</div>
         <div className="h-lg" style={{ color: '#fff', marginTop: 12 }}>{question.title}</div>
       </div>
-      <div style={{ flex: 1, padding: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+      <div style={{ flex: 1, padding: 20, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, minHeight: 0, overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}>
         {question.options.map((opt) => {
           const isSel = selected === opt.id;
           return (
