@@ -92,7 +92,14 @@ function VocationalResults({ scores, onBrowse, onRetake, onProfile }) {
   const codes = window.QUIZ_DATA.vocational.codes;
   const colors = { purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)' };
   const PaidHookCard = window.PaidHookCard;
-  const top3 = scores.top;
+  // Defensive: deep variant produces { raw, top, validated:true }; light produces
+  // { raw, top }. If anything's missing fall back to deriving from raw.
+  const top3 = (scores && scores.top && scores.top.length)
+    ? scores.top
+    : (scores && scores.raw)
+      ? Object.entries(scores.raw).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k, v]) => ({ code: k, score: v }))
+      : [];
+  const isValidated = !!(scores && scores.validated);
 
   // Match careers
   const careers = window.QUIZ_DATA.careers
@@ -107,7 +114,7 @@ function VocationalResults({ scores, onBrowse, onRetake, onProfile }) {
   return (
     <div className="scroll-y" style={{ position: 'absolute', inset: 0, paddingBottom: 100 }}>
       <div style={{ background: 'var(--green)', padding: '20px 20px 36px', borderBottom: '2px solid #000', position: 'relative' }}>
-        <div className="sticker sticker-purple tilt-r" style={{ marginBottom: 14 }}>HOLLAND · VERSIUNE SCURTĂ</div>
+        <div className="sticker sticker-purple tilt-r" style={{ marginBottom: 14 }}>{isValidated ? 'HOLLAND · VERSIUNE VALIDATĂ ✓' : 'HOLLAND · VERSIUNE SCURTĂ'}</div>
         <div className="h-xl" style={{ fontSize: 38, lineHeight: 1.0 }}>Codul tău</div>
         <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>
           {top3.map((t, i) => {
@@ -127,16 +134,28 @@ function VocationalResults({ scores, onBrowse, onRetake, onProfile }) {
         </div>
       </div>
 
-      {/* Honest framing for the short Holland version */}
-      <div className="card" style={{
-        margin: '12px 20px 0', padding: 12,
-        background: 'var(--yellow)', border: '2px solid #000',
-      }}>
-        <div className="label-bold" style={{ fontSize: 11, marginBottom: 4 }}>⚠ DOAR ORIENTATIV</div>
-        <div className="body-sm" style={{ fontSize: 13 }}>
-          Test scurt inspirat din Holland Code — nu versiune validată. Pentru evaluare oficială, vezi <a href="https://www.mynextmove.org/explore/ip" target="_blank" rel="noopener noreferrer" style={{ color: '#000', textDecoration: 'underline' }}>O*NET Interest Profiler</a> (gratuit, US Dept. of Labor) sau consultă un consilier vocațional autorizat.
+      {/* Disclaimer differs based on which Holland variant produced the result */}
+      {isValidated ? (
+        <div className="card" style={{
+          margin: '12px 20px 0', padding: 12,
+          background: 'var(--green)', border: '2px solid #000',
+        }}>
+          <div className="label-bold" style={{ fontSize: 11, marginBottom: 4 }}>✓ TEST VALIDAT · 60 ITEMI</div>
+          <div className="body-sm" style={{ fontSize: 13 }}>
+            Acesta e codul tău Holland calculat din 60 de răspunsuri — versiunea folosită oficial. E cea mai precisă predicție a profilului tău vocațional din ce-ți putem oferi automat.
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="card" style={{
+          margin: '12px 20px 0', padding: 12,
+          background: 'var(--yellow)', border: '2px solid #000',
+        }}>
+          <div className="label-bold" style={{ fontSize: 11, marginBottom: 4 }}>⚠ DOAR ORIENTATIV</div>
+          <div className="body-sm" style={{ fontSize: 13 }}>
+            Test scurt — orientativ. Pentru o predicție mai precisă, fă testul vocațional aprofundat (60 de itemi).
+          </div>
+        </div>
+      )}
 
       <div style={{ padding: 20 }}>
         {top3.map((t) => {

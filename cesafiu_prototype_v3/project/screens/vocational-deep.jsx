@@ -116,7 +116,7 @@ function computeVocationalDeep(responses, data) {
   const sums = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
   const counts = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
   data.items.forEach((it) => {
-    const raw = responses[it.id] || 3;  // default to neutral if skipped
+    const raw = responses[it.id] || 3;
     sums[it.code] += raw;
     counts[it.code]++;
   });
@@ -124,7 +124,11 @@ function computeVocationalDeep(responses, data) {
   Object.keys(sums).forEach((k) => {
     raw[k] = counts[k] > 0 ? (sums[k] / counts[k]) : 3;
   });
-  return { raw };
+  // Top 3 codes — required by DeepResultsScreen / VocationalResults.
+  // Same shape as light vocational test so the same rendering works.
+  const sorted = Object.entries(raw).sort((a, b) => b[1] - a[1]);
+  const top = sorted.slice(0, 3).map(([k, v]) => ({ code: k, score: v }));
+  return { raw, top, validated: true };
 }
 
 window.VocationalDeepScreen = VocationalDeepScreen;
