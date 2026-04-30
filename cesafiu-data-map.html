@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<title>CeSaFiu — Data Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Harta de date CeSaFiu: căi → cariere → instituții → pași următori. Generată din cesafiu_prototype_v3/project/data.js.">
+<style>
+  :root {
+    --ink: #0F0F10;
+    --paper: #F5EFE3;
+    --paper-warm: #FAF6EC;
+    --surface: #FFFFFF;
+    --purple-600: #6B4AFF;
+    --purple-100: #E9E4F5;
+    --lime-500: #BFFF3A;
+    --mustard-500: #F5D94B;
+    --mustard-600: #ECC94B;
+    --green-500: #4ADE80;
+    --green-100: #DCFCE7;
+    --pink-500: #F472B6;
+    --pink-100: #FCE7F3;
+    --teal-500: #14B8A6;
+    --teal-100: #CCFBF1;
+    --orange-500: #FB923C;
+    --orange-100: #FFEDD5;
+    --red-500: #EF4444;
+    --red-100: #FEE2E2;
+    --blue-500: #3B82F6;
+    --blue-100: #DBEAFE;
+    --yellow-500: #FACC15;
+    --yellow-100: #FEF9C3;
+    --border: 2px solid var(--ink);
+    --shadow: 4px 4px 0 var(--ink);
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    overflow: hidden;
+  }
+
+  .app { display: grid; grid-template-rows: auto auto 1fr auto; height: 100vh; }
+
+  header {
+    padding: 16px 24px;
+    border-bottom: var(--border);
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+  }
+  header h1 { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; }
+  header .sub { font-size: 12px; color: #555; font-weight: 500; }
+  header .search {
+    border: var(--border); border-radius: var(--radius);
+    padding: 8px 12px; font-size: 14px; min-width: 280px;
+    background: var(--paper-warm);
+  }
+  header .search:focus { outline: none; box-shadow: var(--shadow); }
+  header .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+  .filter-bar {
+    padding: 12px 24px;
+    border-bottom: var(--border);
+    background: var(--paper-warm);
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  }
+  .filter-bar .label { font-weight: 700; font-size: 12px; text-transform: uppercase; margin-right: 8px; }
+  .chip {
+    border: var(--border); border-radius: 999px;
+    padding: 6px 14px; font-size: 13px; font-weight: 700;
+    cursor: pointer; background: var(--surface);
+    transition: transform 0.05s ease;
+  }
+  .chip:hover { transform: translate(-1px, -1px); box-shadow: 2px 2px 0 var(--ink); }
+  .chip.active { background: var(--mustard-500); }
+  .chip[data-color="purple"].active { background: var(--purple-600); color: white; }
+  .chip[data-color="green"].active { background: var(--green-500); }
+  .chip[data-color="yellow"].active { background: var(--mustard-500); }
+  .chip[data-color="red"].active { background: var(--red-500); color: white; }
+  .chip[data-color="blue"].active { background: var(--blue-500); color: white; }
+  .chip[data-color="teal"].active { background: var(--teal-500); color: white; }
+  .chip[data-color="orange"].active { background: var(--orange-500); color: white; }
+  .chip[data-color="pink"].active { background: var(--pink-500); }
+
+  .columns {
+    display: grid; grid-template-columns: 1fr 1.4fr 1.4fr 1fr;
+    gap: 16px; padding: 16px 24px; overflow: hidden;
+    position: relative;
+  }
+  .col { display: flex; flex-direction: column; min-height: 0; }
+  .col h2 {
+    font-size: 11px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.08em; padding: 8px 12px;
+    border: var(--border); border-radius: var(--radius);
+    background: var(--surface); margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .col h2 .count {
+    font-size: 11px; color: #555;
+    border: 1.5px solid var(--ink); border-radius: 999px;
+    padding: 2px 10px; background: var(--paper);
+  }
+  .col-body {
+    flex: 1; overflow-y: auto; padding: 4px; display: flex; flex-direction: column; gap: 8px;
+    scrollbar-width: thin;
+  }
+  .col-body::-webkit-scrollbar { width: 8px; }
+  .col-body::-webkit-scrollbar-thumb { background: var(--ink); border-radius: 999px; }
+
+  .node {
+    border: var(--border); border-radius: var(--radius);
+    padding: 10px 12px; background: var(--surface);
+    cursor: pointer; transition: all 0.08s ease;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .node:hover { transform: translate(-1px, -1px); box-shadow: var(--shadow); }
+  .node.dim { opacity: 0.32; }
+  .node.selected { box-shadow: var(--shadow); transform: translate(-1px, -1px); }
+  .node .emoji { font-size: 18px; line-height: 1; flex-shrink: 0; }
+  .node .body { flex: 1; min-width: 0; }
+  .node .name { font-weight: 700; font-size: 13.5px; line-height: 1.25; }
+  .node .meta { font-size: 11px; color: #555; margin-top: 2px; }
+  .node .tag {
+    display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase;
+    padding: 1px 6px; border: 1.5px solid var(--ink); border-radius: 999px; margin-top: 4px;
+    background: var(--paper-warm);
+  }
+
+  /* color tints */
+  .node[data-color="purple"] { background: var(--purple-100); }
+  .node[data-color="purple"].selected { background: var(--purple-600); color: white; }
+  .node[data-color="purple"].selected .meta, .node[data-color="purple"].selected .tag { color: white; border-color: white; }
+  .node[data-color="green"] { background: var(--green-100); }
+  .node[data-color="green"].selected { background: var(--green-500); }
+  .node[data-color="yellow"] { background: var(--yellow-100); }
+  .node[data-color="yellow"].selected { background: var(--mustard-500); }
+  .node[data-color="red"] { background: var(--red-100); }
+  .node[data-color="red"].selected { background: var(--red-500); color: white; }
+  .node[data-color="red"].selected .meta { color: rgba(255,255,255,0.85); }
+  .node[data-color="blue"] { background: var(--blue-100); }
+  .node[data-color="blue"].selected { background: var(--blue-500); color: white; }
+  .node[data-color="blue"].selected .meta { color: rgba(255,255,255,0.85); }
+  .node[data-color="teal"] { background: var(--teal-100); }
+  .node[data-color="teal"].selected { background: var(--teal-500); color: white; }
+  .node[data-color="teal"].selected .meta { color: rgba(255,255,255,0.85); }
+  .node[data-color="orange"] { background: var(--orange-100); }
+  .node[data-color="orange"].selected { background: var(--orange-500); }
+  .node[data-color="pink"] { background: var(--pink-100); }
+  .node[data-color="pink"].selected { background: var(--pink-500); }
+
+  /* tier styling for institutions */
+  .node[data-tier="TOP"] { border-left: 6px solid var(--purple-600); }
+  .node[data-tier="GOOD"] { border-left: 6px solid var(--mustard-600); }
+  .node[data-tier="TRADE"] { border-left: 6px solid var(--orange-500); }
+  .node[data-tier="POST"] { border-left: 6px solid var(--green-500); }
+  .node[data-tier="BOOTCAMP"] { border-left: 6px solid var(--blue-500); }
+  .node[data-tier="PROGRAM"] { border-left: 6px solid var(--teal-500); }
+
+  .empty {
+    text-align: center; color: #777; font-size: 13px; font-style: italic;
+    padding: 30px 12px; border: 1.5px dashed #999; border-radius: var(--radius);
+  }
+
+  /* Detail panel (career deep-dive) */
+  .detail {
+    position: fixed; right: 16px; top: 16px; bottom: 16px; width: 380px;
+    background: var(--surface); border: var(--border); border-radius: var(--radius);
+    box-shadow: 8px 8px 0 var(--ink); padding: 20px; overflow-y: auto;
+    transform: translateX(120%); transition: transform 0.25s ease;
+    z-index: 50;
+  }
+  .detail.open { transform: translateX(0); }
+  .detail .close {
+    position: absolute; top: 12px; right: 12px;
+    border: var(--border); border-radius: 999px;
+    width: 32px; height: 32px; cursor: pointer; background: var(--surface);
+    font-size: 16px; font-weight: 900;
+  }
+  .detail h3 { font-size: 22px; font-weight: 900; margin-bottom: 4px; padding-right: 30px; }
+  .detail .tagline { font-size: 13px; font-style: italic; color: #444; margin-bottom: 14px; }
+  .detail h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; margin: 14px 0 6px; letter-spacing: 0.05em; }
+  .detail p { font-size: 13px; margin-bottom: 4px; }
+  .detail ul { list-style: none; padding: 0; }
+  .detail li {
+    font-size: 12.5px; padding: 4px 8px; border-left: 3px solid var(--ink);
+    margin-bottom: 4px; background: var(--paper-warm); border-radius: 4px;
+  }
+  .detail .pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .detail .pill {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    padding: 2px 8px; border: 1.5px solid var(--ink); border-radius: 999px;
+    background: var(--mustard-500);
+  }
+
+  /* SVG edges between columns */
+  .edges {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none; z-index: 1;
+  }
+  .edges path {
+    fill: none; stroke: var(--ink); stroke-width: 1.5; opacity: 0.18;
+    stroke-linecap: round;
+  }
+  .edges path.active { opacity: 0.85; stroke: var(--purple-600); stroke-width: 2.5; }
+
+  footer {
+    padding: 10px 24px; border-top: var(--border); background: var(--surface);
+    display: flex; gap: 24px; align-items: center; justify-content: space-between;
+    font-size: 12px; color: #555;
+  }
+  footer .stats { display: flex; gap: 18px; }
+  footer .stats b { color: var(--ink); }
+  footer .src { font-family: ui-monospace, monospace; font-size: 11px; }
+
+  @media (max-width: 1100px) {
+    .columns { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+    .detail { width: calc(100vw - 32px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <div>
+      <h1>CeSaFiu — Data Map</h1>
+      <div class="sub">Căi educaționale → cariere → instituții → pași următori. Click pe un nod pentru a-i evidenția conexiunile.</div>
+    </div>
+    <div class="controls">
+      <input type="search" class="search" id="search" placeholder="Caută o carieră, instituție sau cuvânt cheie..." />
+      <button class="chip" id="reset" style="background: var(--ink); color: white;">Reset</button>
+    </div>
+  </header>
+
+  <div class="filter-bar">
+    <span class="label">Tier instituție:</span>
+    <button class="chip" data-tier-filter="all">Toate</button>
+    <button class="chip" data-tier-filter="TOP">Stat — top</button>
+    <button class="chip" data-tier-filter="GOOD">Stat — solid</button>
+    <button class="chip" data-tier-filter="TRADE">Liceu profesional / dual</button>
+    <button class="chip" data-tier-filter="POST">Postliceal</button>
+    <button class="chip" data-tier-filter="BOOTCAMP">Bootcamp / centru calificare</button>
+    <button class="chip" data-tier-filter="PROGRAM">Program / accelerator</button>
+  </div>
+
+  <div class="columns" id="columns">
+    <div class="col" id="col-paths">
+      <h2>Căi <span class="count" id="count-paths">0</span></h2>
+      <div class="col-body" id="body-paths"></div>
+    </div>
+    <div class="col" id="col-careers">
+      <h2>Cariere <span class="count" id="count-careers">0</span></h2>
+      <div class="col-body" id="body-careers"></div>
+    </div>
+    <div class="col" id="col-schools">
+      <h2>Instituții <span class="count" id="count-schools">0</span></h2>
+      <div class="col-body" id="body-schools"></div>
+    </div>
+    <div class="col" id="col-next">
+      <h2>Pași următori <span class="count" id="count-next">0</span></h2>
+      <div class="col-body" id="body-next"></div>
+    </div>
+    <svg class="edges" id="edges"></svg>
+  </div>
+
+  <footer>
+    <div class="stats">
+      <span><b id="stat-careers">0</b> cariere</span>
+      <span><b id="stat-schools">0</b> instituții</span>
+      <span><b id="stat-programs">0</b> programe (edges)</span>
+    </div>
+    <div class="src">data: cesafiu_prototype_v3/project/data.js · v2 expansion 2026-04-30</div>
+  </footer>
+</div>
+
+<aside class="detail" id="detail">
+  <button class="close" id="detailClose">×</button>
+  <div id="detailBody"></div>
+</aside>
+
+<!-- Load canonical data -->
+<script src="cesafiu_prototype_v3/project/data.js"></script>
+
+<script>
+(function() {
+  'use strict';
+
+  if (!window.QUIZ_DATA) {
+    document.body.innerHTML = '<div style="padding:40px;font-family:monospace">ERROR: data.js failed to load. Check that cesafiu_prototype_v3/project/data.js exists relative to this HTML file.</div>';
+    return;
+  }
+
+  const D = window.QUIZ_DATA;
+  const careers = D.careers || [];
+  const universities = D.universities || [];
+  const programs = D.programs || [];
+  const paths = D.paths || [];
+
+  // Index for O(1) lookups
+  const byCareerId = new Map(careers.map(c => [c.id, c]));
+  const byUniId = new Map(universities.map(u => [u.id, u]));
+
+  // Build career → universityIds map (via programs)
+  const careerToUnis = new Map();
+  const uniToCareerIds = new Map();
+  for (const p of programs) {
+    const unis = careerToUnis.get(p.universityId) || [];
+    if (!careerToUnis.has(p.universityId)) careerToUnis.set(p.universityId, []);
+    for (const cid of (p.careerIds || [])) {
+      const list = careerToUnis.get(cid) || [];
+      if (!list.includes(p.universityId)) list.push(p.universityId);
+      careerToUnis.set(cid, list);
+      const ulist = uniToCareerIds.get(p.universityId) || [];
+      if (!ulist.includes(cid)) ulist.push(cid);
+      uniToCareerIds.set(p.universityId, ulist);
+    }
+  }
+
+  // Path normalization — careers may have pathType not all in paths array
+  const pathLabels = {
+    facultate: { name: 'Facultate clasică', emoji: '🎓', color: 'purple' },
+    profesional: { name: 'Profesional / meserii', emoji: '🔧', color: 'yellow' },
+    mixt: { name: 'Mixt (facultate + skill)', emoji: '◆', color: 'teal' },
+    autodidact: { name: 'Autodidact / bootcamp', emoji: '⚡', color: 'green' },
+    antreprenor: { name: 'Antreprenor / founder', emoji: '🚀', color: 'red' },
+    creator: { name: 'Creator / artist', emoji: '🎨', color: 'pink' },
+    freelance: { name: 'Freelance', emoji: '💼', color: 'orange' },
+  };
+
+  // State
+  const state = {
+    selectedPath: null,
+    selectedCareer: null,
+    selectedUni: null,
+    tierFilter: 'all',
+    searchQuery: '',
+  };
+
+  // --- DOM helpers ---
+  function el(tag, props = {}, children = []) {
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(props)) {
+      if (k === 'class') e.className = v;
+      else if (k === 'data') for (const [dk, dv] of Object.entries(v)) e.dataset[dk] = dv;
+      else if (k === 'on') for (const [ek, ev] of Object.entries(v)) e.addEventListener(ek, ev);
+      else e[k] = v;
+    }
+    for (const c of (Array.isArray(children) ? children : [children])) {
+      if (c == null) continue;
+      e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    }
+    return e;
+  }
+
+  // --- Render ---
+  function render() {
+    renderPaths();
+    renderCareers();
+    renderSchools();
+    renderNext();
+    updateStats();
+    requestAnimationFrame(drawEdges);
+  }
+
+  function renderPaths() {
+    const body = document.getElementById('body-paths');
+    body.innerHTML = '';
+    // Count careers per path
+    const pathCounts = {};
+    for (const c of careers) pathCounts[c.pathType] = (pathCounts[c.pathType] || 0) + 1;
+    const orderedPaths = Object.keys(pathLabels).sort((a, b) => (pathCounts[b]||0) - (pathCounts[a]||0));
+    for (const pid of orderedPaths) {
+      if (!pathCounts[pid]) continue;
+      const meta = pathLabels[pid];
+      const node = el('div', {
+        class: 'node' + (state.selectedPath === pid ? ' selected' : ''),
+        data: { color: meta.color, type: 'path', id: pid },
+        on: { click: () => selectPath(pid) },
+      }, [
+        el('div', { class: 'emoji' }, meta.emoji),
+        el('div', { class: 'body' }, [
+          el('div', { class: 'name' }, meta.name),
+          el('div', { class: 'meta' }, `${pathCounts[pid]} cariere`),
+        ]),
+      ]);
+      body.appendChild(node);
+    }
+    document.getElementById('count-paths').textContent = orderedPaths.filter(p => pathCounts[p]).length;
+  }
+
+  function renderCareers() {
+    const body = document.getElementById('body-careers');
+    body.innerHTML = '';
+    let visible = careers;
+    if (state.selectedPath) visible = visible.filter(c => c.pathType === state.selectedPath);
+    if (state.selectedUni) {
+      const uniCareerIds = new Set(uniToCareerIds.get(state.selectedUni) || []);
+      visible = visible.filter(c => uniCareerIds.has(c.id) || (c.schools || []).some(s => matchesUni(s, state.selectedUni)));
+    }
+    if (state.searchQuery) {
+      const q = state.searchQuery.toLowerCase();
+      visible = visible.filter(c =>
+        (c.name || '').toLowerCase().includes(q) ||
+        (c.tagline || '').toLowerCase().includes(q) ||
+        (c.description || '').toLowerCase().includes(q) ||
+        (c.skills || []).some(s => s.toLowerCase().includes(q))
+      );
+    }
+    if (!visible.length) {
+      body.appendChild(el('div', { class: 'empty' }, 'Niciun rezultat. Resetează filtrele.'));
+    }
+    for (const c of visible) {
+      const node = el('div', {
+        class: 'node' + (state.selectedCareer === c.id ? ' selected' : '') + ((state.selectedCareer && state.selectedCareer !== c.id) ? ' dim' : ''),
+        data: { color: c.color || 'purple', type: 'career', id: c.id },
+        on: { click: () => selectCareer(c.id) },
+      }, [
+        el('div', { class: 'emoji' }, c.emoji || '◆'),
+        el('div', { class: 'body' }, [
+          el('div', { class: 'name' }, c.name),
+          el('div', { class: 'meta' }, c.salary || ''),
+          el('span', { class: 'tag' }, c.pathType),
+        ]),
+      ]);
+      body.appendChild(node);
+    }
+    document.getElementById('count-careers').textContent = visible.length;
+  }
+
+  function matchesUni(schoolStr, uniId) {
+    const u = byUniId.get(uniId);
+    if (!u) return false;
+    return schoolStr && u.name && schoolStr.toLowerCase().includes(u.name.split('—')[0].split('„')[0].split('(')[0].trim().toLowerCase());
+  }
+
+  function renderSchools() {
+    const body = document.getElementById('body-schools');
+    body.innerHTML = '';
+    let visible = universities;
+    if (state.tierFilter !== 'all') visible = visible.filter(u => u.tier === state.tierFilter);
+    if (state.selectedCareer) {
+      const linkedUniIds = new Set(careerToUnis.get(state.selectedCareer) || []);
+      // Augment with legacy career.schools[] string match
+      const career = byCareerId.get(state.selectedCareer);
+      if (career && career.schools) {
+        for (const u of universities) {
+          for (const s of career.schools) {
+            if (matchesUni(s, u.id)) linkedUniIds.add(u.id);
+          }
+        }
+      }
+      visible = visible.filter(u => linkedUniIds.has(u.id));
+    }
+    if (state.searchQuery) {
+      const q = state.searchQuery.toLowerCase();
+      visible = visible.filter(u =>
+        (u.name || '').toLowerCase().includes(q) ||
+        (u.city || '').toLowerCase().includes(q) ||
+        (u.tags || []).some(t => t.toLowerCase().includes(q)) ||
+        (u.domains || []).some(d => d.toLowerCase().includes(q))
+      );
+    }
+    // Sort: TOP first, then GOOD, TRADE, POST, BOOTCAMP, PROGRAM
+    const tierOrder = { TOP: 0, GOOD: 1, TRADE: 2, POST: 3, BOOTCAMP: 4, PROGRAM: 5 };
+    visible = visible.slice().sort((a, b) => (tierOrder[a.tier] || 9) - (tierOrder[b.tier] || 9) || a.name.localeCompare(b.name));
+    if (!visible.length) {
+      body.appendChild(el('div', { class: 'empty' }, state.selectedCareer ? 'Nicio instituție conectată cu această carieră în datele curente.' : 'Niciun rezultat.'));
+    }
+    for (const u of visible) {
+      const node = el('div', {
+        class: 'node' + (state.selectedUni === u.id ? ' selected' : '') + ((state.selectedUni && state.selectedUni !== u.id) ? ' dim' : ''),
+        data: { tier: u.tier, type: 'school', id: u.id },
+        on: { click: () => selectUni(u.id) },
+      }, [
+        el('div', { class: 'body' }, [
+          el('div', { class: 'name' }, u.name),
+          el('div', { class: 'meta' }, `${u.city || ''} · ${u.kind || ''}`),
+          el('span', { class: 'tag' }, u.tier),
+        ]),
+      ]);
+      body.appendChild(node);
+    }
+    document.getElementById('count-schools').textContent = visible.length;
+  }
+
+  function renderNext() {
+    const body = document.getElementById('body-next');
+    body.innerHTML = '';
+    let nextSteps = [];
+    if (state.selectedCareer) {
+      const career = byCareerId.get(state.selectedCareer);
+      if (career && career.paths) nextSteps = career.paths.map(p => ({ name: p, parent: career.name }));
+    }
+    if (!nextSteps.length) {
+      body.appendChild(el('div', { class: 'empty' }, state.selectedCareer ? 'Nicio cale ulterioară definită.' : 'Selectează o carieră pentru a vedea pașii următori.'));
+    }
+    for (const ns of nextSteps) {
+      const node = el('div', {
+        class: 'node',
+        data: { color: 'yellow', type: 'next' },
+      }, [
+        el('div', { class: 'emoji' }, '→'),
+        el('div', { class: 'body' }, [
+          el('div', { class: 'name' }, ns.name),
+          el('div', { class: 'meta' }, `din ${ns.parent}`),
+        ]),
+      ]);
+      body.appendChild(node);
+    }
+    document.getElementById('count-next').textContent = nextSteps.length;
+  }
+
+  function updateStats() {
+    document.getElementById('stat-careers').textContent = careers.length;
+    document.getElementById('stat-schools').textContent = universities.length;
+    document.getElementById('stat-programs').textContent = programs.length;
+  }
+
+  // --- Select / interact ---
+  function selectPath(pid) {
+    if (state.selectedPath === pid) {
+      state.selectedPath = null;
+    } else {
+      state.selectedPath = pid;
+      state.selectedCareer = null;
+      state.selectedUni = null;
+    }
+    render();
+  }
+  function selectCareer(cid) {
+    if (state.selectedCareer === cid) {
+      state.selectedCareer = null;
+      hideDetail();
+    } else {
+      state.selectedCareer = cid;
+      state.selectedUni = null;
+      showDetail(cid);
+    }
+    render();
+  }
+  function selectUni(uid) {
+    if (state.selectedUni === uid) {
+      state.selectedUni = null;
+    } else {
+      state.selectedUni = uid;
+    }
+    render();
+  }
+
+  // --- Detail panel ---
+  function showDetail(cid) {
+    const c = byCareerId.get(cid);
+    if (!c) return hideDetail();
+    const body = document.getElementById('detailBody');
+    body.innerHTML = '';
+    body.appendChild(el('h3', {}, `${c.emoji || ''} ${c.name}`));
+    if (c.tagline) body.appendChild(el('div', { class: 'tagline' }, `"${c.tagline}"`));
+
+    const pillRow = el('div', { class: 'pill-row' });
+    pillRow.appendChild(el('span', { class: 'pill' }, c.pathType));
+    if (c.demand) pillRow.appendChild(el('span', { class: 'pill' }, `cerere: ${c.demand}`));
+    body.appendChild(pillRow);
+
+    if (c.salary) {
+      body.appendChild(el('h4', {}, 'Salariu'));
+      body.appendChild(el('p', {}, c.salary));
+    }
+    if (c.description) {
+      body.appendChild(el('h4', {}, 'Descriere'));
+      body.appendChild(el('p', {}, c.description));
+    }
+    if (c.day && c.day.length) {
+      body.appendChild(el('h4', {}, 'O zi obișnuită'));
+      const ul = el('ul', {});
+      c.day.forEach(d => ul.appendChild(el('li', {}, d)));
+      body.appendChild(ul);
+    }
+    if (c.skills && c.skills.length) {
+      body.appendChild(el('h4', {}, 'Skill-uri'));
+      const sk = el('div', { class: 'pill-row' });
+      c.skills.forEach(s => sk.appendChild(el('span', { class: 'pill' }, s)));
+      body.appendChild(sk);
+    }
+    if (c.riasec && c.riasec.length) {
+      body.appendChild(el('h4', {}, 'RIASEC'));
+      const rk = el('div', { class: 'pill-row' });
+      c.riasec.forEach(r => rk.appendChild(el('span', { class: 'pill' }, r)));
+      body.appendChild(rk);
+    }
+    if (c.paths && c.paths.length) {
+      body.appendChild(el('h4', {}, 'Pași următori'));
+      const ul = el('ul', {});
+      c.paths.forEach(p => ul.appendChild(el('li', {}, p)));
+      body.appendChild(ul);
+    }
+    // School recommendations
+    const linkedUniIds = new Set(careerToUnis.get(cid) || []);
+    if (linkedUniIds.size) {
+      body.appendChild(el('h4', {}, `Instituții (${linkedUniIds.size})`));
+      const ul = el('ul', {});
+      [...linkedUniIds].slice(0, 8).forEach(uid => {
+        const u = byUniId.get(uid);
+        if (u) ul.appendChild(el('li', {}, `${u.name} (${u.city || ''})`));
+      });
+      body.appendChild(ul);
+    } else if (c.schools && c.schools.length) {
+      body.appendChild(el('h4', {}, 'Instituții (legacy)'));
+      const ul = el('ul', {});
+      c.schools.forEach(s => ul.appendChild(el('li', {}, s)));
+      body.appendChild(ul);
+    }
+    document.getElementById('detail').classList.add('open');
+  }
+  function hideDetail() { document.getElementById('detail').classList.remove('open'); }
+
+  // --- Edges (SVG curves) ---
+  function drawEdges() {
+    const svg = document.getElementById('edges');
+    svg.innerHTML = '';
+    const cols = document.getElementById('columns').getBoundingClientRect();
+    svg.setAttribute('viewBox', `0 0 ${cols.width} ${cols.height}`);
+    if (!state.selectedCareer) return;
+    const career = byCareerId.get(state.selectedCareer);
+    if (!career) return;
+
+    const careerEl = document.querySelector(`.node[data-type="career"][data-id="${career.id}"]`);
+    if (!careerEl) return;
+    const cR = careerEl.getBoundingClientRect();
+    const x1 = cR.right - cols.left;
+    const y1 = cR.top + cR.height / 2 - cols.top;
+
+    // Career → connected schools
+    const linkedUniIds = careerToUnis.get(career.id) || [];
+    for (const uid of linkedUniIds) {
+      const sEl = document.querySelector(`.node[data-type="school"][data-id="${uid}"]`);
+      if (!sEl) continue;
+      const sR = sEl.getBoundingClientRect();
+      const x2 = sR.left - cols.left;
+      const y2 = sR.top + sR.height / 2 - cols.top;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const dx = (x2 - x1) / 2;
+      path.setAttribute('d', `M${x1},${y1} C${x1+dx},${y1} ${x2-dx},${y2} ${x2},${y2}`);
+      path.setAttribute('class', 'active');
+      svg.appendChild(path);
+    }
+
+    // Career → next-step nodes
+    const nextNodes = document.querySelectorAll('#body-next .node');
+    nextNodes.forEach(n => {
+      const r = n.getBoundingClientRect();
+      const xN = r.left - cols.left;
+      const yN = r.top + r.height / 2 - cols.top;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const dx = (xN - x1) / 2;
+      path.setAttribute('d', `M${x1},${y1} C${x1+dx},${y1} ${xN-dx},${yN} ${xN},${yN}`);
+      path.setAttribute('class', 'active');
+      svg.appendChild(path);
+    });
+
+    // Path → career
+    if (state.selectedPath || career.pathType) {
+      const pid = state.selectedPath || career.pathType;
+      const pEl = document.querySelector(`.node[data-type="path"][data-id="${pid}"]`);
+      if (pEl) {
+        const pR = pEl.getBoundingClientRect();
+        const xP = pR.right - cols.left;
+        const yP = pR.top + pR.height / 2 - cols.top;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const dx = (x1 - xP) / 2;
+        path.setAttribute('d', `M${xP},${yP} C${xP+dx},${yP} ${x1-dx},${y1} ${x1},${y1}`);
+        path.setAttribute('class', 'active');
+        svg.appendChild(path);
+      }
+    }
+  }
+
+  // --- Filter chips, search, reset ---
+  document.querySelectorAll('[data-tier-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.tierFilter = btn.dataset.tierFilter;
+      document.querySelectorAll('[data-tier-filter]').forEach(b => b.classList.toggle('active', b === btn));
+      render();
+    });
+  });
+  document.querySelector('[data-tier-filter="all"]').classList.add('active');
+
+  document.getElementById('search').addEventListener('input', (e) => {
+    state.searchQuery = e.target.value.trim();
+    render();
+  });
+
+  document.getElementById('reset').addEventListener('click', () => {
+    state.selectedPath = null;
+    state.selectedCareer = null;
+    state.selectedUni = null;
+    state.tierFilter = 'all';
+    state.searchQuery = '';
+    document.getElementById('search').value = '';
+    document.querySelectorAll('[data-tier-filter]').forEach(b => b.classList.toggle('active', b.dataset.tierFilter === 'all'));
+    hideDetail();
+    render();
+  });
+
+  document.getElementById('detailClose').addEventListener('click', () => {
+    state.selectedCareer = null;
+    hideDetail();
+    render();
+  });
+
+  window.addEventListener('resize', () => requestAnimationFrame(drawEdges));
+
+  // Initial render
+  render();
+})();
+</script>
+</body>
+</html>
