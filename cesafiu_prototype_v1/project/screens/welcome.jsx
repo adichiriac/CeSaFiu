@@ -33,7 +33,7 @@ function ExploreShortcut({ onExplore }) {
           display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0,
         }}>⌕</div>
         <div style={{ flex: 1 }}>
-          <div className="h-sm" style={{ fontSize: 15 }}>Explorează direct biblioteca</div>
+          <div className="h-sm" style={{ fontSize: 15 }}>Explorează direct toate opțiunile</div>
           <div className="label-sm" style={{ color: 'var(--ink-soft)', marginTop: 2 }}>
             Cariere · trasee · universități · fără quiz
           </div>

@@ -34,7 +34,7 @@ function ExploreShortcut({ onExplore }) {
           display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0,
         }}>⌕</div>
         <div style={{ flex: 1 }}>
-          <div className="h-sm" style={{ fontSize: 15 }}>Explorează direct biblioteca</div>
+          <div className="h-sm" style={{ fontSize: 15 }}>Explorează direct toate opțiunile</div>
           <div className="label-sm" style={{ color: 'var(--ink-soft)', marginTop: 2 }}>
             Cariere · trasee · universități · fără quiz
           </div>
@@ -46,11 +46,20 @@ function ExploreShortcut({ onExplore }) {
 }
 
 function TestModeRail({ onStart, onPickTest }) {
+  // Order = the natural progression each step refines the recommendation:
+  // 1. Quick quiz (top of funnel)
+  // 2. Vocațional light (12-item Holland, sharpens RIASEC)
+  // 3. Personalitate scurt (15-item Big Five, adds a different signal type)
+  // 4. Vocațional aprofundat (60-item O*NET, validated; overrides #2)
+  // 5. IPIP-NEO-60 (60-item validated Big Five; overrides #3)
+  // The two „validated" tiers (deep Holland + IPIP-NEO-60) share black bg
+  // so they read as „the deep / scientific layer" visually.
   const tests = [
-    { id: 'quick', label: 'QUIZ rapid', sub: '6 întrebări · 90s', bg: 'var(--purple)', color: '#fff', onClick: onStart, emoji: '✦' },
-    { id: 'personality', label: 'Personalitate (scurt)', sub: 'Big Five · 15 itemi · 4 min', bg: 'var(--green)', color: '#000', onClick: () => onPickTest('personality'), emoji: '◆' },
-    { id: 'ipip-neo', label: 'IPIP-NEO-60 ✓', sub: 'Validat științific · 60 itemi · 12 min', bg: '#000', color: '#fff', onClick: () => onPickTest('ipip-neo'), emoji: '✓' },
-    { id: 'vocational', label: 'Vocațional', sub: 'Holland · 5 min', bg: 'var(--yellow)', color: '#000', onClick: () => onPickTest('vocational'), emoji: '◉' },
+    { id: 'quick',           label: 'QUIZ rapid',            sub: '6 întrebări · 90s',                            bg: 'var(--purple)', color: '#fff',         onClick: onStart, emoji: '✦' },
+    { id: 'vocational',      label: 'Vocațional (scurt)',    sub: 'Holland · 12 itemi · 5 min',                   bg: 'var(--yellow)', color: '#000',         onClick: () => onPickTest('vocational'), emoji: '◉' },
+    { id: 'personality',     label: 'Personalitate (scurt)', sub: 'Big Five · 15 itemi · 4 min',                  bg: 'var(--green)',  color: '#000',         onClick: () => onPickTest('personality'), emoji: '◆' },
+    { id: 'vocational-deep', label: 'Vocațional validat ✓',  sub: 'O*NET (US Dept Labor) · 60 itemi · 8-10 min',  bg: '#000',          color: 'var(--yellow)', onClick: () => onPickTest('vocational-deep'), emoji: '◉' },
+    { id: 'ipip-neo',        label: 'IPIP-NEO-60 ✓',         sub: 'Big Five validat științific · 60 itemi · 12 min', bg: '#000',       color: '#fff',         onClick: () => onPickTest('ipip-neo'), emoji: '✓' },
   ];
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20 }}>
@@ -105,7 +114,8 @@ function WelcomeDefault({ onStart, onPickTest, onExplore }) {
       </div>
 
       <div className="body-md" style={{ marginTop: 20, color: 'var(--ink-soft)', fontWeight: 500 }}>
-        Quiz-uri care nu te judecă. Plus o bibliotecă cu toate variantele — facultate, autodidact, antreprenor.
+        Descoperă ce ți se potrivește, fără stres.<br/>
+        Quiz-uri rapide + idei reale: facultate, meserii, freelancing.
       </div>
 
       <TestModeRail onStart={onStart} onPickTest={onPickTest} />
@@ -140,7 +150,7 @@ function WelcomeMagazine({ onStart, onPickTest, onExplore }) {
         </div>
         <div style={{ marginTop: 16, display: 'flex', gap: 8 }}>
           <div style={{ flex: 1, border: '2px solid #000', padding: 10, textAlign: 'center', background: '#fff' }}>
-            <div className="h-sm">3</div><div className="label-sm">teste</div>
+            <div className="h-sm">5</div><div className="label-sm">teste</div>
           </div>
           <div style={{ flex: 1, border: '2px solid #000', padding: 10, textAlign: 'center', background: 'var(--yellow)' }}>
             <div className="h-sm">15+</div><div className="label-sm">cariere</div>
