@@ -49,7 +49,7 @@ function VocationalDeepScreen({ onComplete, onBack }) {
     );
   }
 
-  const labels = ['Foarte mult NU', 'NU', 'Indiferent', 'DA', 'Foarte mult DA'];
+  const labels = ['Foarte PUȚIN', 'Puțin', 'Indiferent', 'Mult', 'Foarte MULT'];
   const cur = responses[item.id];
 
   return (
