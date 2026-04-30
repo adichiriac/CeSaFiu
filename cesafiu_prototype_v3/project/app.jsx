@@ -273,19 +273,22 @@ function recommendNextTest(userProfile) {
   const hasBig5Light = sources.includes('personality-15') || sources.includes('ipip-neo-60');
   const hasBig5Full = sources.includes('ipip-neo-60');
 
+  // Reason copy is calibrated for students: imperative voice, no jargon
+  // (Holland / RIASEC / matching / Big Five only when they're proper names),
+  // benefit in plain language ("ca să afli mai precis ce ți se potrivește").
   if (!hasQuick) return { kind: 'quick', reason: 'Începe cu quiz-ul rapid — 6 întrebări, 90s.' };
   if (!hasVocLight) {
-    return { kind: 'vocational', reason: 'Validează codul Holland cu testul vocațional scurt (12 itemi, 5 min) ca să separăm matches-urile mai precis.' };
+    return { kind: 'vocational', reason: 'Continuă cu testul vocațional scurt (12 itemi, 5 min) ca să afli mai precis ce ți se potrivește.' };
   }
   // After light Holland, prioritize Big Five (different signal type) before deep Holland (same signal, refining).
   if (!hasBig5Light) {
-    return { kind: 'personality', reason: 'Personalitate (15 itemi, 4 min) adaugă fit motivațional la matching — diferit de Holland.' };
+    return { kind: 'personality', reason: 'Continuă cu testul de personalitate scurt (15 itemi, 4 min) ca să vedem și ce te motivează cu adevărat.' };
   }
   if (!hasVocDeep) {
-    return { kind: 'vocational-deep', reason: 'Codul Holland validat cu O*NET (60 itemi, 8-10 min) — testul folosit oficial în SUA. Suprascrie testul scurt cu un profil mai precis.' };
+    return { kind: 'vocational-deep', reason: 'Continuă cu testul vocațional aprofundat (60 itemi, 8-10 min). E cel folosit oficial în SUA — îți dă o lectură mult mai precisă decât testul scurt.' };
   }
   if (!hasBig5Full) {
-    return { kind: 'ipip-neo', reason: 'IPIP-NEO-60 (60 itemi, 12 min) — versiunea validată științific a Big Five. Suprascrie testul scurt.' };
+    return { kind: 'ipip-neo', reason: 'Continuă cu testul de personalitate validat (60 itemi, 12 min). E versiunea științifică a celui scurt — cea mai precisă lectură a profilului tău.' };
   }
   return null;
 }
