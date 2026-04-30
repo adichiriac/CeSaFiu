@@ -101,12 +101,8 @@ function VocationalDeepScreen({ onComplete, onBack }) {
         </div>
       </div>
 
-      <div className="body-sm" style={{ textAlign: 'center', color: 'var(--ink-soft)', marginBottom: 8 }}>
+      <div className="body-sm" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>
         Atinge un număr. Următoarea apare automat.
-      </div>
-      {/* O*NET attribution — academic honesty + signals seriousness */}
-      <div className="label-sm" style={{ textAlign: 'center', color: 'var(--ink-soft)', fontSize: 10, opacity: 0.7 }}>
-        Bazat pe O*NET Interest Profiler · US Department of Labor · public domain
       </div>
     </div>
   );

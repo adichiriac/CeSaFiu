@@ -311,7 +311,7 @@ window.QUIZ_DATA = {
       { id: 'd-c-04', code: 'C', text: 'Folosești un program să generezi facturi pentru clienți' },
       { id: 'd-c-05', code: 'C', text: 'Calculezi salariile angajaților dintr-o firmă' },
       { id: 'd-c-06', code: 'C', text: 'Ștampilezi, sortezi și distribui corespondență internă' },
-      { id: 'd-c-07', code: 'C', text: 'Menții evidențe ale angajaților (HR records, dosare personal)' },
+      { id: 'd-c-07', code: 'C', text: 'Organizezi documente și dosare personal' },
       { id: 'd-c-08', code: 'C', text: 'Calculezi și înregistrezi date statistice și numerice' },
       { id: 'd-c-09', code: 'C', text: 'Folosești tabele și formule pentru analize financiare' },
       { id: 'd-c-10', code: 'C', text: 'Faci inventarul stocurilor cu un scanner sau device portabil' },
