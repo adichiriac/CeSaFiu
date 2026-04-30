@@ -71,6 +71,23 @@ This file is the source of truth for what's left. Edit freely. Tick items as `[x
 
 ## Tonight (2026-04-30 evening)
 
+### [ ] schools[] vs programs[] consistency audit (do FIRST tonight, before ARACIS)
+
+**Why:** The HTML map renders column 3 (institutions) using two layers — `programs[]` canonical edges + a fuzzy match against `career.schools[]` strings. After tonight's fixes:
+
+- The fuzzy matcher (`matchesUni`) was rewritten to be acronym-aware (UAIC / UPB / UTCN tokens with word-boundary matching) — false-positive ghost cascade fixed.
+- v5 sub-roles got 25 new program edges (UAIC + UVT psihologie, TUIASI/UPT/UTCN engineering, UBB/UAIC jurnalism, UNARTE pedagogie artă, UNEFS sport, etc.).
+- Remaining ghosts: **116 across 65 careers** (down from 369 across 81). All real candidates.
+
+**What to do tonight:** for each ghost link, decide:
+
+- **(a) Add the missing `programs[]` entry** if the school is actually a real route to the career. Use full schema (admission, lastVerified). Most ghosts in this bucket are facultăți / postliceale that have the relevant program but I never wrote the edge.
+- **(b) Prune the school string from `career.schools[]`** if the mention was vague or aspirational ("Autodidact + reps", generic "any university with engineering"). These are noise in the v1-era schools[] arrays.
+
+**End-state goal:** zero ghost links → `programs[]` becomes the single source of truth and we can drop the `career.schools[]` fallback entirely from the HTML map. Then the detail panel and column 3 always agree.
+
+**Audit script:** the inline node script in `cesafiu_prototype_v3/project/data.js`-adjacent work shows the current ghost list per career. Re-run after each batch of fixes.
+
 ### [ ] ARACIS + RNCIS validation pass
 
 For every institution + program tagged `[v2]` or `[v3]` in `data.js` — about 30 new institutions and ~110 new programs added across the v2/v3 expansions — validate against authoritative sources.

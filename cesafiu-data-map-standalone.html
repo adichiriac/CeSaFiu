@@ -3057,6 +3057,49 @@ window.QUIZ_DATA = {
     { id: 'rise-project-investigativ', name: 'RISE Project — Formare jurnalism investigativ', universityId: 'snspa', pathType: 'facultate', duration: 'modulară (3-12 luni)', durationYears: 0.5, language: ['ro', 'en'], riasec: ['I', 'A'], careerIds: ['jurnalist-investigativ'], tags: ['comunicare'], notes: '[v5] Programe de mentorat + colaborare RISE Project + OCCRP după licență jurnalism.', admission: { exam: 'aplicație + portfolio + interviu', deadline: 'rolling', tuition: 'gratuit (subvenționat)' }, lastVerified: '2026-04-30' },
     { id: 'snspa-jurnalism-investigativ', name: 'Master Jurnalism Investigativ', universityId: 'snspa', pathType: 'facultate', duration: '2 ani master', durationYears: 2, language: ['ro'], riasec: ['I', 'A'], careerIds: ['jurnalist-investigativ'], tags: ['comunicare'], notes: '[v5] Master specializat post-licență jurnalism.', admission: { exam: 'dosar + interviu + eseu', deadline: 'septembrie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.500 — 2.500 EUR/an' }, lastVerified: '2026-04-30' },
     { id: 'autodidact-podcast', name: 'Autodidact + community (Skillshare, mentoring)', universityId: 'sae-institute-bg', pathType: 'creator', duration: 'continuă', durationYears: 1, language: ['ro', 'en'], riasec: ['A', 'E'], careerIds: ['jurnalist-podcast', 'editor-video'], tags: ['artă'], notes: '[v5] Drumul real e autodidact — consistență 2+ ani + nișă clară. Echipament audio ~500-2.000 EUR.', admission: { exam: 'auto-selectie', deadline: 'rolling', tuition: 'minim (echipament audio + cursuri online)' }, lastVerified: '2026-04-30' },
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // v5.1 PROGRAMS (2026-04-30) — close ghost links from schools[]→programs[]
+    // audit. Only legitimate gaps; false positives from old matcher already
+    // fixed by acronym-aware matchesUni() in cesafiu-data-map.html.
+    // ═══════════════════════════════════════════════════════════════════════
+
+    // Psiholog: UAIC + UVT for clinician + scolar paths (real căile)
+    { id: 'uaic-psihologie', name: 'Psihologie (licență)', universityId: 'uaic', pathType: 'facultate', duration: '3 ani', durationYears: 3, language: ['ro'], riasec: ['S', 'I'], careerIds: ['psiholog-clinician', 'psiholog-scolar'], tags: ['umaniste'], notes: '[v5.1] UAIC — bază pentru ambele căile psihologie + master specializat.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'uvt-psihologie', name: 'Psihologie (licență + master)', universityId: 'uvt', pathType: 'facultate', duration: '3+2 ani', durationYears: 5, language: ['ro'], riasec: ['S', 'I'], careerIds: ['psiholog-clinician', 'psiholog-scolar'], tags: ['umaniste'], notes: '[v5.1] UVT — facultate psihologie diversificată + master Consiliere.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~800 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'snspa-mru', name: 'Master Resurse Umane', universityId: 'snspa', pathType: 'facultate', duration: '2 ani master', durationYears: 2, language: ['ro'], riasec: ['S', 'E'], careerIds: ['psiholog-organizational', 'hr-specialist'], tags: ['comunicare', 'business'], notes: '[v5.1] SNSPA Master MRU — alternativă la ASE.', admission: { exam: 'dosar + interviu', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 2.000 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'ubb-psihologie-org', name: 'Psihologie organizațională (master)', universityId: 'ubb', pathType: 'facultate', duration: '2 ani master', durationYears: 2, language: ['ro'], riasec: ['S', 'E'], careerIds: ['psiholog-organizational'], tags: ['umaniste', 'business'], notes: '[v5.1] UBB Cluj — master Psihologie organizațională.', admission: { exam: 'dosar + interviu', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+
+    // Marketing sub-roles
+    { id: 'snspa-content-strategy', name: 'Comunicare + master Content Strategy', universityId: 'snspa', pathType: 'facultate', duration: '3+2 ani', durationYears: 5, language: ['ro'], riasec: ['A', 'I'], careerIds: ['marketing-content-seo', 'marketing-performance'], tags: ['comunicare'], notes: '[v5.1] SNSPA — bază pentru content + digital marketing.', admission: { exam: 'dosar + interviu', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 2.000 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'uaic-litere-content', name: 'Litere — track Content Writing', universityId: 'uaic', pathType: 'facultate', duration: '3+2 ani', durationYears: 5, language: ['ro'], riasec: ['A', 'I'], careerIds: ['marketing-content-seo', 'jurnalist-editor'], tags: ['umaniste'], notes: '[v5.1] UAIC Litere — bază pentru content writers + editori.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'how-to-web-growth', name: 'How to Web — Mission accelerator', universityId: 'how-to-web', pathType: 'antreprenor', duration: '4-6 luni', durationYears: 0.5, language: ['ro', 'en'], riasec: ['E', 'I'], careerIds: ['marketing-growth', 'startup-founder'], tags: ['antreprenoriat'], notes: '[v5.1] Conferință + accelerator — bun pentru founder marketing + growth.', admission: { exam: 'aplicație + selecție', deadline: 'rolling', tuition: 'gratuit (sponsor-funded)' }, lastVerified: '2026-04-30' },
+
+    // Profesor sub-roles — extra paths
+    { id: 'unarte-profesor-arta', name: 'Pedagogie Arte Vizuale (modul psihopedagogic)', universityId: 'unarte', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['artă'], notes: '[v5.1] UNARTE — pentru profesori de educație plastică / arte la gimnaziu/liceu.', admission: { exam: 'probă practică artă + dosar', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'unefs-profesor-sport', name: 'Educație Fizică + modul psihopedagogic', universityId: 'unefs', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['R', 'S'], careerIds: ['profesor-gimnaziu-liceu', 'antrenor-sportiv'], tags: ['științe'], notes: '[v5.1] UNEFS — pentru profesori sport gimnaziu/liceu + antrenori.', admission: { exam: 'dosar + probă fizică', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~800 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'uaic-litere-profesor', name: 'Litere + modul psihopedagogic', universityId: 'uaic', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['umaniste'], notes: '[v5.1] UAIC Litere — bază pentru profesor RO/EN/FR la gimnaziu/liceu.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'uvt-litere-profesor', name: 'Litere + modul psihopedagogic', universityId: 'uvt', pathType: 'facultate', duration: '3+2 ani + modul', durationYears: 5, language: ['ro'], riasec: ['A', 'S'], careerIds: ['profesor-gimnaziu-liceu'], tags: ['umaniste'], notes: '[v5.1] UVT Litere.', admission: { exam: 'dosar (media BAC)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~800 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+
+    // PhD doctorat for profesor-universitar at multiple unis (real)
+    { id: 'phd-uaic', name: 'Doctorat la UAIC', universityId: 'uaic', pathType: 'facultate', duration: '3-4 ani', durationYears: 4, language: ['ro', 'en'], riasec: ['I'], careerIds: ['profesor-universitar', 'researcher'], tags: ['științe'], notes: '[v5.1] UAIC — Școlile Doctorale.', admission: { exam: 'concurs + dosar publicații', deadline: 'septembrie 2026', deadlineYear: 2026, tuition: 'gratuit la buget cu bursă · taxă: ~1.500 — 2.500 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'phd-umfcd', name: 'Doctorat la UMF Carol Davila', universityId: 'umfcd', pathType: 'facultate', duration: '3-4 ani', durationYears: 4, language: ['ro', 'en'], riasec: ['I'], careerIds: ['profesor-universitar', 'researcher'], tags: ['medicină'], notes: '[v5.1] Cercetare biomedicală + post universitar UMF.', admission: { exam: 'concurs + dosar', deadline: 'septembrie 2026', deadlineYear: 2026, tuition: 'gratuit la buget · taxă: ~3.000 — 5.000 EUR/an' }, lastVerified: '2026-04-30' },
+
+    // Inginer sub-roles — TUIASI/UPT/UTCN
+    { id: 'tuiasi-mecanica', name: 'Inginerie Mecanică', universityId: 'tuiasi', pathType: 'facultate', duration: '4 ani', durationYears: 4, language: ['ro'], riasec: ['R', 'I'], careerIds: ['inginer-mecanic'], tags: ['inginerie'], notes: '[v5.1] TUIASI — opțiune Moldova pentru mecanică.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 1.500 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'upt-mecanica', name: 'Inginerie Mecanică', universityId: 'upt', pathType: 'facultate', duration: '4 ani', durationYears: 4, language: ['ro'], riasec: ['R'], careerIds: ['inginer-mecanic', 'inginer-auto'], tags: ['inginerie'], notes: '[v5.1] UPT Timișoara — pol Continental, Bosch, Siemens.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'upt-electrotehnica', name: 'Inginerie Electrică', universityId: 'upt', pathType: 'facultate', duration: '4 ani', durationYears: 4, language: ['ro'], riasec: ['R', 'I'], careerIds: ['inginer-electric'], tags: ['inginerie'], notes: '[v5.1] UPT Electrotehnică.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'utcn-electronica', name: 'Electronică, Telecomunicații', universityId: 'utcn', pathType: 'facultate', duration: '4 ani', durationYears: 4, language: ['ro'], riasec: ['I', 'R'], careerIds: ['inginer-electronic'], tags: ['inginerie'], notes: '[v5.1] UTCN Electronică.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'tuiasi-electronica', name: 'Electronică, Telecomunicații', universityId: 'tuiasi', pathType: 'facultate', duration: '4 ani', durationYears: 4, language: ['ro'], riasec: ['I', 'R'], careerIds: ['inginer-electronic'], tags: ['inginerie'], notes: '[v5.1] TUIASI Electronică.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.000 — 1.500 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'upt-electronica', name: 'Electronică, Telecomunicații', universityId: 'upt', pathType: 'facultate', duration: '4 ani', durationYears: 4, language: ['ro'], riasec: ['I'], careerIds: ['inginer-electronic'], tags: ['inginerie'], notes: '[v5.1] UPT Electronică.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'utcn-energetica', name: 'Inginerie Energetică', universityId: 'utcn', pathType: 'facultate', duration: '4 ani', durationYears: 4, language: ['ro'], riasec: ['R', 'I'], careerIds: ['inginer-energetic'], tags: ['inginerie'], notes: '[v5.1] UTCN Energetică.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'upt-energetica', name: 'Inginerie Energetică', universityId: 'upt', pathType: 'facultate', duration: '4 ani', durationYears: 4, language: ['ro'], riasec: ['R'], careerIds: ['inginer-energetic'], tags: ['inginerie'], notes: '[v5.1] UPT Energetică.', admission: { exam: 'concurs (Mate + Fizică)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'upt-chimie', name: 'Chimie Industrială', universityId: 'upt', pathType: 'facultate', duration: '4 ani', durationYears: 4, language: ['ro'], riasec: ['I', 'R'], careerIds: ['inginer-chimist'], tags: ['inginerie'], notes: '[v5.1] UPT Chimie Industrială — pol industrial Banat.', admission: { exam: 'concurs (Mate + Chimie)', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~1.200 — 1.800 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'usamv-iasi-alimentara', name: 'Inginerie Alimentară', universityId: 'usamv-iasi', pathType: 'facultate', duration: '4 ani', durationYears: 4, language: ['ro'], riasec: ['I', 'R'], careerIds: ['inginer-chimist', 'agronom'], tags: ['științe'], notes: '[v5.1] USAMV Iași — alimentație + biotech.', admission: { exam: 'dosar + concurs', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~800 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
+
+    // Jurnalist: UBB + UAIC reporter/editor
+    { id: 'ubb-jurnalism', name: 'Jurnalism', universityId: 'ubb', pathType: 'facultate', duration: '3 ani', durationYears: 3, language: ['ro', 'hu'], riasec: ['A', 'E'], careerIds: ['jurnalist-reporter', 'jurnalist-editor'], tags: ['comunicare'], notes: '[v5.1] UBB Cluj — bilingv RO/HU.', admission: { exam: 'dosar + interviu', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~800 — 1.500 EUR/an' }, lastVerified: '2026-04-30' },
+    { id: 'uaic-jurnalism', name: 'Jurnalism + Comunicare', universityId: 'uaic', pathType: 'facultate', duration: '3 ani', durationYears: 3, language: ['ro'], riasec: ['A', 'E'], careerIds: ['jurnalist-reporter', 'jurnalist-editor', 'jurnalist-podcast'], tags: ['comunicare'], notes: '[v5.1] UAIC Jurnalism — acoperire Moldova.', admission: { exam: 'dosar + interviu', deadline: 'iulie 2026', deadlineYear: 2026, tuition: 'stat: gratuit la buget · taxă: ~700 — 1.200 EUR/an' }, lastVerified: '2026-04-30' },
   ],
 };
 
@@ -3208,10 +3251,36 @@ window.QUIZ_DATA = {
     document.getElementById('count-careers').textContent = visible.length;
   }
 
+  // Acronym-aware fuzzy match. Avoids the false-positive cascade where the
+  // old matcher stripped on `„` and reduced names like „Universitatea
+  // Ovidius..." to just "universitatea", matching every other uni.
+  // Strategy: extract the leading uppercase acronym (e.g., UAIC, UPB, UTCN)
+  // OR a parenthesized one (e.g., "(UB)") and require the school string to
+  // contain that exact token. If no acronym is available, fall back to the
+  // full lowercased name as a strict substring.
   function matchesUni(schoolStr, uniId) {
     const u = byUniId.get(uniId);
-    if (!u) return false;
-    return schoolStr && u.name && schoolStr.toLowerCase().includes(u.name.split('—')[0].split('„')[0].split('(')[0].trim().toLowerCase());
+    if (!u || !u.name || !schoolStr) return false;
+    const sLow = schoolStr.toLowerCase();
+    const nLow = u.name.toLowerCase();
+    // 1. Strict full-name substring (covers "Universitatea Apollonia Iași")
+    if (sLow.includes(nLow)) return true;
+    // 2. Leading acronym ("UAIC — ...", "UBB — ...")
+    const lead = u.name.match(/^[A-ZĂÂÎȘȚ]{2,8}(?=\s*[—\-(]|\s+[A-Z])/);
+    if (lead) {
+      const tok = lead[0].toLowerCase();
+      // Use word-boundary matching so "ub" doesn't match "publicat"
+      const re = new RegExp('(^|[^a-zăâîșț])' + tok + '($|[^a-zăâîșț])', 'i');
+      if (re.test(schoolStr)) return true;
+    }
+    // 3. Parenthesized acronym ("Universitatea ... (UB)")
+    const paren = u.name.match(/\(([A-ZĂÂÎȘȚ]{2,8})\)/);
+    if (paren) {
+      const tok = paren[1].toLowerCase();
+      const re = new RegExp('(^|[^a-zăâîșț])' + tok + '($|[^a-zăâîșț])', 'i');
+      if (re.test(schoolStr)) return true;
+    }
+    return false;
   }
 
   function renderSchools() {

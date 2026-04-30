@@ -433,10 +433,36 @@
     document.getElementById('count-careers').textContent = visible.length;
   }
 
+  // Acronym-aware fuzzy match. Avoids the false-positive cascade where the
+  // old matcher stripped on `„` and reduced names like „Universitatea
+  // Ovidius..." to just "universitatea", matching every other uni.
+  // Strategy: extract the leading uppercase acronym (e.g., UAIC, UPB, UTCN)
+  // OR a parenthesized one (e.g., "(UB)") and require the school string to
+  // contain that exact token. If no acronym is available, fall back to the
+  // full lowercased name as a strict substring.
   function matchesUni(schoolStr, uniId) {
     const u = byUniId.get(uniId);
-    if (!u) return false;
-    return schoolStr && u.name && schoolStr.toLowerCase().includes(u.name.split('—')[0].split('„')[0].split('(')[0].trim().toLowerCase());
+    if (!u || !u.name || !schoolStr) return false;
+    const sLow = schoolStr.toLowerCase();
+    const nLow = u.name.toLowerCase();
+    // 1. Strict full-name substring (covers "Universitatea Apollonia Iași")
+    if (sLow.includes(nLow)) return true;
+    // 2. Leading acronym ("UAIC — ...", "UBB — ...")
+    const lead = u.name.match(/^[A-ZĂÂÎȘȚ]{2,8}(?=\s*[—\-(]|\s+[A-Z])/);
+    if (lead) {
+      const tok = lead[0].toLowerCase();
+      // Use word-boundary matching so "ub" doesn't match "publicat"
+      const re = new RegExp('(^|[^a-zăâîșț])' + tok + '($|[^a-zăâîșț])', 'i');
+      if (re.test(schoolStr)) return true;
+    }
+    // 3. Parenthesized acronym ("Universitatea ... (UB)")
+    const paren = u.name.match(/\(([A-ZĂÂÎȘȚ]{2,8})\)/);
+    if (paren) {
+      const tok = paren[1].toLowerCase();
+      const re = new RegExp('(^|[^a-zăâîșț])' + tok + '($|[^a-zăâîșț])', 'i');
+      if (re.test(schoolStr)) return true;
+    }
+    return false;
   }
 
   function renderSchools() {
