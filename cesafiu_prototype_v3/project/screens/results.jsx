@@ -44,6 +44,14 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer,
   const sources = matches.sources || [];
   const nextTest = matches.nextTest || null;
   const userProfile = matches.userProfile || null;  // exposed by app.jsx Phase A
+  // Plain-language labels for the source-strip ("Bazat pe: …").
+  const sourceLabels = {
+    'quick':            'Quiz rapid',
+    'vocational':       'Vocațional scurt',
+    'vocational-deep':  'Vocațional validat (O*NET)',
+    'personality-15':   'Personalitate scurt',
+    'ipip-neo-60':      'Big Five validat (IPIP-NEO-60)',
+  };
   const confLabel = confidence < 0.30 ? 'Scăzută' : confidence < 0.60 ? 'Medie' : 'Solidă';
   const confColor = confidence < 0.30 ? 'var(--yellow)' : confidence < 0.60 ? 'var(--green)' : 'var(--purple)';
 
