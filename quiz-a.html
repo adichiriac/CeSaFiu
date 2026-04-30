@@ -413,6 +413,7 @@ function migrateSchemaV2() {
 migrateSchemaV2();
 
 const state = {
+  advancing: false,
   current: 0,
   scores: { constructor:0, analist:0, ajutor:0, creator:0, leader:0, explorator:0 },
   answers: [],
@@ -431,6 +432,7 @@ function show(id) {
 }
 
 function start() {
+  state.advancing = false;
   state.current = 0;
   state.scores = { constructor:0, analist:0, ajutor:0, creator:0, leader:0, explorator:0 };
   state.answers = [];
@@ -440,6 +442,10 @@ function start() {
 }
 
 function renderQuestion() {
+  // Reset any stale UI: scroll to top of question and clear lingering pressed state.
+  // (Without this, after auto-advance the user could be left mid-page and assume
+  // the button "didn't work" because they don't see the new question.)
+  window.scrollTo(0, 0);
   const q = QUESTIONS[state.current];
   $("q-num").textContent = state.current + 1;
   $("q-fill").style.width = (((state.current + 1) / QUESTIONS.length) * 100) + "%";
@@ -460,6 +466,11 @@ function renderQuestion() {
 }
 
 function choose(i, btn) {
+  // Re-entrancy guard: prevent rapid double-taps from queueing two advance()s,
+  // which previously caused "the button does nothing" UX (a second tap during
+  // the 220ms visual-feedback window would advance twice or hit stale state).
+  if (state.advancing) return;
+  state.advancing = true;
   // Mobile fix: release focus/hover before re-render so next question doesn't inherit "pressed" look
   if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
   // Visual + haptic feedback: lock in the pick, then advance after a short pause
@@ -479,8 +490,8 @@ function choose(i, btn) {
       showFeedbackScreen();
     }
   };
-  if (btn) setTimeout(advance, 220);
-  else advance();
+  if (btn) setTimeout(() => { advance(); state.advancing = false; }, 220);
+  else { advance(); state.advancing = false; }
 }
 
 function back() {
