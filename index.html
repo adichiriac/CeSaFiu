@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Ce Să Fiu? — Pilot de testare</title>
 <script defer src="https://umami-production-00d8.up.railway.app/script.js" data-website-id="b582fdd9-94f2-47c2-86ce-54bcc810e434"></script>
-<script defer src="https://umami-production-00d8.up.railway.app/recorder.js" data-website-id="b582fdd9-94f2-47c2-86ce-54bcc810e434" data-sample-rate="1.0" data-mask-level="moderate" data-max-duration="300000"></script>
+<script defer src="https://umami-production-00d8.up.railway.app/recorder.js" data-website-id="b582fdd9-94f2-47c2-86ce-54bcc810e434" data-sample-rate="0.20" data-mask-level="moderate" data-max-duration="300000"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=Epilogue:wght@700;800;900&display=swap" rel="stylesheet"/>
@@ -188,11 +188,18 @@ tailwind.config = {
     </div>
   </div>
 
+  <!-- TEST HONESTY DISCLAIMER -->
+  <div class="bg-white border-2 border-black p-4 mb-4 text-sm">
+    <b class="display uppercase text-xs">Despre test:</b>
+    Sunt teste de <b>orientare</b>, nu evaluări psihometrice validate.
+    <span class="block mt-2">Cele 3 variante folosesc itemi originali inspirați din modele cunoscute (Big Five, Holland Code) — îți dau <b>indicii</b> de direcție în câteva minute, nu un diagnostic de personalitate. Numărul de întrebări e prea mic pentru o măsurare validă științific. Pentru o evaluare profesională, vorbește cu un psiholog autorizat sau folosește instrumente validate (de exemplu <a href="https://www.mynextmove.org/explore/ip" target="_blank" rel="noopener noreferrer" class="underline">O*NET Interest Profiler</a>, gratuit, US Department of Labor).</span>
+  </div>
+
   <!-- PRIVACY / DEV NOTE -->
   <div class="bg-white border-2 border-black p-4 mb-8 text-sm">
     <b class="display uppercase text-xs">Ce vedem noi, ce nu vedem:</b>
     Răspunsurile tale individuale (ce alegi la fiecare întrebare) rămân doar pe telefonul sau laptopul pe care faci testul — tu le vezi în raportul de mai sus, noi nu. La noi ajung doar statistici simple: câți au început fiecare variantă, câți au terminat, ce direcție a ieșit cel mai des. Fără nume, fără ce scrii în alte aplicații, fără conturi.
-    <span class="block mt-2"><b class="display uppercase text-xs bg-yellow px-1">Pe durata pilotului</b> mai înregistrăm și niște sesiuni scurte — doar click-uri și scroll, maxim 5 minute. Textul pe care îl tastezi e ascuns automat, nu-l vedem. Ne ajută să descoperim locurile în care se blochează lumea. După pilot oprim înregistrarea; oricum dispare automat după 30 de zile.</span>
+    <span class="block mt-2"><b class="display uppercase text-xs bg-yellow px-1">Pe durata pilotului</b> înregistrăm aproximativ <b>1 din 5 sesiuni</b> — doar click-uri și scroll, maxim 5 minute, fără audio sau video. Textul pe care îl tastezi e ascuns automat, nu-l vedem. Ne ajută să descoperim locurile în care se blochează lumea. După pilot oprim înregistrarea; oricum dispare automat după 30 de zile.</span>
     <span class="block mt-2">Datele astea rămân la noi — nu le vindem, nu le trimitem la alte companii și nu facem marketing cu ele.</span>
     <button onclick="resetProgress()" class="mt-2 underline text-xs">Resetează progresul</button>
   </div>

@@ -4,9 +4,66 @@
     "description": "Platformă de orientare în carieră pentru elevi."
   },
   "home": {
-    "eyebrow": "Faza 2",
-    "title": "Ce Să Fiu?",
-    "lead": "Noua aplicație pornește de aici: local-first, profil opțional și date sensibile ținute sub control."
+    "brand": "Ce Să Fiu?",
+    "brandCe": "Ce",
+    "brandRest": "să fiu?",
+    "helpLabel": "Ajutor",
+    "helpGlyph": "?",
+    "noRobots": "Fără roboți",
+    "eyebrow": "4 teste · la alegerea ta",
+    "titleLine1": "Ce",
+    "titleLine2": "să fiu",
+    "titleLine3": "când mă",
+    "titleLine4": "fac mare?",
+    "lead": "Quiz-uri care nu te judecă. Plus o bibliotecă cu toate variantele — facultate, autodidact, antreprenor.",
+    "tests": [
+      {
+        "id": "scenarii",
+        "label": "Scenarii reale",
+        "sub": "Pilot winner · 12 situații · 5 min",
+        "description": "Înlocuiește Quiz Rapid. Te citește prin reacții concrete, nu prin auto-descrieri abstracte.",
+        "href": "/test/scenarii",
+        "action": "Start scenarii"
+      },
+      {
+        "id": "personalitate",
+        "label": "Personalitate (scurt)",
+        "sub": "Big Five · 15 itemi · 4 min",
+        "description": "Un prim profil despre energie, structură, curiozitate și felul în care lucrezi cu oamenii.",
+        "href": "/test/personalitate",
+        "action": "Start personalitate"
+      },
+      {
+        "id": "ipip",
+        "label": "IPIP-NEO-60",
+        "sub": "Validat științific · 60 itemi · 12 min",
+        "description": "Versiunea serioasă pentru raportul detaliat. Mai lung, dar mult mai relevant.",
+        "href": "/test/ipip-neo-60",
+        "action": "Start IPIP"
+      },
+      {
+        "id": "vocational",
+        "label": "Vocațional",
+        "sub": "Holland · 5 min",
+        "description": "Află ce tip de activități te atrag: construit, cercetat, creat, ajutat, condus sau organizat.",
+        "href": "/test/vocational",
+        "action": "Start vocațional"
+      }
+    ],
+    "deepLinksTitle": "Deep links pregătite pentru ads",
+    "deepLinks": [
+      "/ro/test/scenarii",
+      "/ro/test/personalitate",
+      "/ro/test/ipip-neo-60",
+      "/ro/test/vocational"
+    ],
+    "arrowLabel": "Deschide",
+    "arrowGlyph": "→",
+    "placeholderEyebrow": "Urmează chestionarul",
+    "placeholderLead": "Ruta există pentru deep links și campanii. Implementăm întrebările după ce validăm landing page-ul.",
+    "placeholderBack": "Înapoi la landing",
+    "libraryTitle": "Nu doar facultate",
+    "libraryLead": "Rezultatele trebuie să poată recomanda facultate, profesional, autodidact, creator, antreprenor sau traseu mixt. Asta rămâne direcția produsului."
   },
   "error": {
     "eyebrow": "Eroare",

@@ -4,9 +4,66 @@
     "description": "Career orientation platform for students."
   },
   "home": {
-    "eyebrow": "Phase 2",
-    "title": "Ce Să Fiu?",
-    "lead": "The new application starts here: local-first, optional profile, and sensitive data kept under control."
+    "brand": "Ce Să Fiu?",
+    "brandCe": "Ce",
+    "brandRest": "să fiu?",
+    "helpLabel": "Help",
+    "helpGlyph": "?",
+    "noRobots": "No robots",
+    "eyebrow": "4 tests · your choice",
+    "titleLine1": "What",
+    "titleLine2": "should I be",
+    "titleLine3": "when I",
+    "titleLine4": "grow up?",
+    "lead": "Quizzes that do not judge you. Plus a library with every path — university, self-taught, founder.",
+    "tests": [
+      {
+        "id": "scenarii",
+        "label": "Real scenarios",
+        "sub": "Pilot winner · 12 situations · 5 min",
+        "description": "Replaces Quick Quiz. It reads concrete reactions, not abstract self-descriptions.",
+        "href": "/test/scenarii",
+        "action": "Start scenarios"
+      },
+      {
+        "id": "personalitate",
+        "label": "Short personality",
+        "sub": "Big Five · 15 items · 4 min",
+        "description": "A first profile for energy, structure, curiosity, and how you work with people.",
+        "href": "/test/personalitate",
+        "action": "Start personality"
+      },
+      {
+        "id": "ipip",
+        "label": "IPIP-NEO-60",
+        "sub": "Validated · 60 items · 12 min",
+        "description": "The serious version for the detailed report. Longer, but much more relevant.",
+        "href": "/test/ipip-neo-60",
+        "action": "Start IPIP"
+      },
+      {
+        "id": "vocational",
+        "label": "Vocational",
+        "sub": "Holland · 5 min",
+        "description": "Find what kinds of activities attract you: building, researching, creating, helping, leading, or organizing.",
+        "href": "/test/vocational",
+        "action": "Start vocational"
+      }
+    ],
+    "deepLinksTitle": "Deep links ready for ads",
+    "deepLinks": [
+      "/en/test/scenarii",
+      "/en/test/personalitate",
+      "/en/test/ipip-neo-60",
+      "/en/test/vocational"
+    ],
+    "arrowLabel": "Open",
+    "arrowGlyph": "→",
+    "placeholderEyebrow": "Questionnaire next",
+    "placeholderLead": "This route exists for deep links and campaigns. We will implement the questions after validating the landing page.",
+    "placeholderBack": "Back to landing",
+    "libraryTitle": "Not just university",
+    "libraryLead": "Results should be able to recommend university, trade school, self-taught, creator, founder, or a mixed path. That remains the product direction."
   },
   "error": {
     "eyebrow": "Error",

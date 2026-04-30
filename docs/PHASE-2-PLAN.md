@@ -748,6 +748,11 @@ Honest scope: **8-10 weeks at solo full-time pace**, longer at evenings/weekends
 
 - [ ] Port `welcome` screen
 - [ ] Port `quiz` screen (1 quiz variant, the one Phase 1 testing surfaces as winner)
+- [ ] Preserve direct questionnaire deep links for ads and shares:
+  - `/ro/test/scenarii` — Pilot winner / Variant 1, replaces V2's old `Quiz rapid`
+  - `/ro/test/personalitate` — short Big Five
+  - `/ro/test/ipip-neo-60` — IPIP-NEO-60
+  - `/ro/test/vocational` — Holland / RIASEC vocational test
 - [ ] Port `personality.jsx` → both 15-item and IPIP-NEO-60 variants
 - [ ] Port `vocational.jsx`
 - [ ] Port `results.jsx` with the cosine matcher (in TS)
