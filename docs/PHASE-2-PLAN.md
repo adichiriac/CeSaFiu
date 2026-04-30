@@ -809,6 +809,8 @@ Honest scope: **8-10 weeks at solo full-time pace**, longer at evenings/weekends
 - [ ] Share-card preview screen
 - [ ] "Share pe Instagram Story" deep-link button
 - [ ] K-factor instrumentation (UTM-tagged share links → Umami)
+- [ ] **"Pentru tine" match-aware sort on Browse → Universități, scored at PROGRAM level**, not institution level. Cards show "Best for you: <Program X> · 87%" subtitle when toggle on; tap opens institution detail with matching programs surfaced first. Logic ports from the existing `scoreCareersForProfile` in `cesafiu_prototype_v1/project/app.jsx` — apply the same cosine matcher to programs, aggregate per institution by max-program-score. (Roadmap §1.7.)
+- [ ] Same toggle on Browse → Trasee: sort paths by user's path-type tally (already in profile state).
 
 ### M7 — Soft launch (weeks 9-10)
 

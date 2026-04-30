@@ -57,6 +57,13 @@ The free, viral, "find your direction" experience. Most of this is already in th
 - Goal: validate willingness-to-pay before building the report engine.
 - Test instruments for the report: **public-domain first** (IPIP-NEO for Big Five, O\*NET Interest Profiler for RIASEC). Zero licensing cost. License COGNITROM/SDS only if conversion data justifies it.
 
+**1.7 — Match-aware sort on universities — at PROGRAM level** *(deferred from Phase 1.5)*
+- Browse → Cariere already has a "Pentru tine" toggle that sorts by match score against the user profile (shipped 2026-04-30 in `cesafiu_prototype_v1`).
+- The natural extension is the same toggle on Browse → Universități, but the score has to be computed at **program level**, not institution level. Reasoning: UMF Iași has 9 programs spanning Realistic + Investigative + Social profiles — scoring the *institution* by its average loses the signal. We score each program against the user profile (already feasible — programs[] has riasec[] and pathType), then surface the institution by its *best-program* match (or top-N programs).
+- UI shape: institution card shows "Best for you: <Program X> · 87%" subtitle when toggle is on. Tap opens the institution detail with the matching programs surfaced first.
+- Same posture for Browse → Trasee: not redundant with the path filter once we're scoring against multiple test sources (e.g., a user who scores high RIASEC-S but answered "antreprenor" in the quiz still sees `antreprenor` highlighted as their preferred path, but `facultate` programs in social fields rank well).
+- Build this in Phase 2 once auth is live — no point computing match-aware uni rankings before profiles are persistent.
+
 ### Phase 2 — Commitment layer (8-16 weeks out)
 
 Triggered only when Phase 1 retention numbers justify it. Lives behind auth.
