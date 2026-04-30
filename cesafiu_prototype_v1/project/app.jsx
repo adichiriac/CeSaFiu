@@ -247,16 +247,36 @@ if (typeof window !== 'undefined') {
   };
 }
 
+// localStorage key for saved careers (vibe-uri)
+const SAVED_KEY = 'cesafiu_saved_career_ids_v1';
+function loadSavedIds() {
+  try {
+    const raw = localStorage.getItem(SAVED_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) { return []; }
+}
+function persistSavedIds(ids) {
+  try { localStorage.setItem(SAVED_KEY, JSON.stringify(ids || [])); }
+  catch (e) { /* full or unavailable — fail silent */ }
+}
+
 function App() {
   const [tweaks, setTweak] = useTweaks(TWEAKS_DEFAULTS);
   const [route, setRoute] = useState({ name: 'welcome' });
   const [qIndex, setQIndex] = useState(0);
   const [answers, setAnswers] = useState({});
-  const [savedIds, setSavedIds] = useState([]);
+  // Hydrate saved careers from localStorage so „SALVEAZĂ-MI VIBE-UL" persists
+  // across reloads (was in-memory only — refresh wiped vibe-uri).
+  const [savedIds, setSavedIds] = useState(() => loadSavedIds());
   const [selectedThisQ, setSelectedThisQ] = useState(null);
   const [transitioning, setTransitioning] = useState(false);
   const [browseSection, setBrowseSection] = useState('careers');
   const [deepScores, setDeepScores] = useState({ personality: null, vocational: null, ipipNeo60: null });
+
+  // Persist savedIds whenever they change
+  useEffect(() => { persistSavedIds(savedIds); }, [savedIds]);
 
   const data = window.QUIZ_DATA;
   const matches = useMemo(() => computeMatches(answers, data.careers), [answers, data.careers]);
@@ -416,7 +436,15 @@ function App() {
             />
           )}
           {route.name === 'results' && (
-            <ResultsScreen matches={matches} onPickCareer={handlePickCareer} onRetake={handleStart} onProfile={() => goto('profile')} layout={tweaks.resultsLayout} />
+            <ResultsScreen
+              matches={matches}
+              onPickCareer={handlePickCareer}
+              onRetake={handleStart}
+              onProfile={() => goto('profile')}
+              onSaveCareer={handleSaveCareer}
+              savedIds={savedIds}
+              layout={tweaks.resultsLayout}
+            />
           )}
           {route.name === 'career' && (
             <CareerDetailScreen

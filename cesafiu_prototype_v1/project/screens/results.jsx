@@ -1,14 +1,23 @@
 // Results screen — career match reveal with sticker explosion
-function ResultsScreen({ matches, onPickCareer, onRetake, onProfile, layout }) {
+function ResultsScreen({ matches, onPickCareer, onRetake, onProfile, onSaveCareer, savedIds, layout }) {
   if (layout === 'list') return <ResultsList matches={matches} onPickCareer={onPickCareer} onRetake={onRetake} />;
-  return <ResultsHero matches={matches} onPickCareer={onPickCareer} onRetake={onRetake} onProfile={onProfile} />;
+  return <ResultsHero matches={matches} onPickCareer={onPickCareer} onRetake={onRetake} onProfile={onProfile} onSaveCareer={onSaveCareer} savedIds={savedIds || []} />;
 }
 
-function ResultsHero({ matches, onPickCareer, onRetake, onProfile }) {
+function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer, savedIds }) {
   const top = matches[0];
   const others = matches.slice(1, 4);
   const colors = { purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)' };
   const PaidHookCard = window.PaidHookCard;
+  const isAlreadySaved = top && savedIds && savedIds.includes(top.career.id);
+  const [justSaved, setJustSaved] = React.useState(false);
+
+  const handleSaveAndGo = () => {
+    if (top && onSaveCareer && !isAlreadySaved) onSaveCareer(top.career.id);
+    setJustSaved(true);
+    // Brief confirmation pause so the user sees the state change before nav.
+    setTimeout(() => { setJustSaved(false); if (onProfile) onProfile(); }, 600);
+  };
 
   return (
     <div className="scroll-y" style={{ position: 'absolute', inset: 0, paddingBottom: 100 }}>
@@ -126,12 +135,32 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile }) {
           ))}
         </div>
 
-        {/* Save (free) — keeps the existing waitlist flow */}
+        {/* Save vibe — actually persists the top career to localStorage and
+            visits Profile so the user sees it in „Salvate". Previously this
+            button only navigated, never saved. */}
         <div className="card" style={{ marginTop: 32, padding: 20, background: 'var(--green)' }}>
-          <div className="h-sm">Salvează rezultatul</div>
-          <div className="body-sm" style={{ marginTop: 6 }}>Îți trimitem un mini-plan și școli din România. Fără spam, jur.</div>
-          <button onClick={onProfile} className="btn" style={{ marginTop: 14, width: '100%', background: '#000', color: '#fff' }}>
-            SALVEAZĂ-MI VIBE-UL →
+          <div className="h-sm">{isAlreadySaved ? 'Vibe-ul tău e salvat' : 'Salvează rezultatul'}</div>
+          <div className="body-sm" style={{ marginTop: 6 }}>
+            {isAlreadySaved
+              ? 'Îl găsești în Vibe-uri oricând. Apasă mai jos să-l deschizi.'
+              : 'Îl găsești în profilul tău. Toate datele rămân pe device-ul tău.'}
+          </div>
+          <button
+            onClick={handleSaveAndGo}
+            disabled={justSaved}
+            className="btn"
+            style={{
+              marginTop: 14, width: '100%',
+              background: justSaved ? 'var(--purple)' : '#000',
+              color: '#fff',
+              transition: 'background .15s',
+            }}
+          >
+            {justSaved
+              ? '✓ SALVAT — DESCHID PROFILUL'
+              : isAlreadySaved
+                ? 'DESCHIDE PROFILUL →'
+                : 'SALVEAZĂ-MI VIBE-UL →'}
           </button>
         </div>
 

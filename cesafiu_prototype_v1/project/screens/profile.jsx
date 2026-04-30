@@ -18,8 +18,9 @@ function ProfileScreen({ savedCareerIds, careers, userProfile, onPickCareer, onR
   const topPath = Object.entries(pathCounts).sort((a, b) => b[1] - a[1]).slice(0, 1)[0];
 
   // Top career matches against the profile.
+  // Top 3 in carousel; "Explorează toate" leads to the full browse list.
   const topMatches = (hasProfile && profileApi)
-    ? profileApi.scoreCareers(userProfile, careers).slice(0, 6)
+    ? profileApi.scoreCareers(userProfile, careers).slice(0, 3)
     : [];
 
   return (
@@ -89,10 +90,11 @@ function ProfileScreen({ savedCareerIds, careers, userProfile, onPickCareer, onR
         </div>
       </div>
 
-      {/* top matches from profile */}
+      {/* top matches from profile — top 3 in horizontal carousel + explore-more.
+          Saves vertical space vs. the old stacked list. */}
       {hasProfile && topMatches.length > 0 && (
-        <div style={{ padding: '0 20px 24px' }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 12 }}>
+        <div style={{ paddingBottom: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 12, padding: '0 20px' }}>
             <div className="h-md">Pentru tine</div>
             {onExplore && (
               <button onClick={onExplore} className="label-bold" style={{ background: 'none', border: 'none', textDecoration: 'underline', cursor: 'pointer', color: 'var(--purple)' }}>
@@ -100,35 +102,85 @@ function ProfileScreen({ savedCareerIds, careers, userProfile, onPickCareer, onR
               </button>
             )}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div
+            style={{
+              display: 'flex', gap: 12,
+              overflowX: 'auto',
+              scrollSnapType: 'x mandatory',
+              scrollPaddingLeft: 20,
+              padding: '4px 20px 8px',
+              WebkitOverflowScrolling: 'touch',
+              // Hide scrollbar visually (still functional, fingers know).
+              scrollbarWidth: 'none',
+            }}
+          >
             {topMatches.map((m, i) => (
               <button
                 key={m.career.id}
                 onClick={() => onPickCareer(m.career.id)}
                 className="card"
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 14, padding: 14,
-                  background: i === 0 ? 'var(--yellow)' : '#fff', textAlign: 'left',
-                  font: 'inherit', cursor: 'pointer', width: '100%',
+                  flex: '0 0 78%',           // each card = ~78% of viewport, peek of next
+                  scrollSnapAlign: 'start',
+                  display: 'flex', flexDirection: 'column',
+                  padding: 16, minHeight: 160,
+                  background: i === 0 ? 'var(--yellow)' : '#fff',
+                  textAlign: 'left',
+                  font: 'inherit', cursor: 'pointer',
+                  position: 'relative',
                 }}
               >
-                <div style={{
-                  width: 44, height: 44, flexShrink: 0,
-                  background: colors[m.career.color], border: '2px solid #000',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 22, color: m.career.color === 'purple' ? '#fff' : '#000',
-                }}>{m.career.emoji}</div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div className="h-sm" style={{ fontSize: 15 }}>{m.career.name}</div>
-                  <div className="body-sm" style={{ color: 'var(--ink-soft)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{m.career.tagline}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{
+                    width: 44, height: 44, flexShrink: 0,
+                    background: colors[m.career.color], border: '2px solid #000',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 22, color: m.career.color === 'purple' ? '#fff' : '#000',
+                  }}>{m.career.emoji}</div>
+                  <span style={{
+                    fontSize: 11, fontWeight: 900, padding: '3px 8px',
+                    background: '#000', color: 'var(--green)',
+                    fontFamily: 'JetBrains Mono, monospace',
+                    marginLeft: 'auto',
+                  }}>{m.score}%</span>
                 </div>
-                <span style={{
-                  fontSize: 11, fontWeight: 900, padding: '3px 8px',
-                  background: '#000', color: 'var(--green)',
-                  fontFamily: 'JetBrains Mono, monospace',
-                }}>{m.score}%</span>
+                <div className="h-sm" style={{ fontSize: 16, marginTop: 12, lineHeight: 1.2 }}>{m.career.name}</div>
+                <div className="body-sm" style={{ color: 'var(--ink-soft)', marginTop: 6, lineHeight: 1.35 }}>{m.career.tagline}</div>
+                <div style={{
+                  marginTop: 'auto', paddingTop: 12,
+                  fontSize: 11, fontWeight: 800, letterSpacing: '.04em',
+                  color: 'var(--purple)',
+                }}>VEZI MAI MULT →</div>
               </button>
             ))}
+            {/* Explore-more end-card — always visible, regardless of count */}
+            {onExplore && (
+              <button
+                onClick={onExplore}
+                className="card"
+                style={{
+                  flex: '0 0 64%',
+                  scrollSnapAlign: 'start',
+                  display: 'flex', flexDirection: 'column',
+                  padding: 16, minHeight: 160,
+                  background: 'var(--paper-2)',
+                  textAlign: 'left',
+                  font: 'inherit', cursor: 'pointer',
+                  borderStyle: 'dashed',
+                }}
+              >
+                <div style={{ fontSize: 32 }}>＋</div>
+                <div className="h-sm" style={{ fontSize: 16, marginTop: 8, lineHeight: 1.2 }}>Explorează tot</div>
+                <div className="body-sm" style={{ color: 'var(--ink-soft)', marginTop: 6, lineHeight: 1.35 }}>
+                  Vezi toate cariere în ordinea potrivirii cu profilul tău.
+                </div>
+                <div style={{
+                  marginTop: 'auto', paddingTop: 12,
+                  fontSize: 11, fontWeight: 800, letterSpacing: '.04em',
+                  color: 'var(--purple)',
+                }}>EXPLOREAZĂ →</div>
+              </button>
+            )}
           </div>
         </div>
       )}
