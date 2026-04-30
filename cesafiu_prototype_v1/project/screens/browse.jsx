@@ -39,6 +39,21 @@ function BrowseCareers({ onPick }) {
   const careers = window.QUIZ_DATA.careers;
   const [filter, setFilter] = React.useState('all');
   const [search, setSearch] = React.useState('');
+  // "Pentru tine" — sort by match score against the user profile if any test data exists.
+  // Doesn't filter out careers; just reorders them. Match badges visible only when on.
+  const profileApi = window.cesafiuProfile;
+  const userProfile = profileApi ? profileApi.load() : {};
+  const hasProfile = profileApi ? profileApi.hasData(userProfile) : false;
+  const [forMe, setForMe] = React.useState(hasProfile);
+
+  // Pre-compute scores when forMe is on, so sorting + badge rendering both have access.
+  const scoreById = React.useMemo(() => {
+    if (!forMe || !hasProfile) return null;
+    const scored = profileApi.scoreCareers(userProfile, careers);
+    const map = {};
+    scored.forEach((s) => { map[s.career.id] = s.score; });
+    return map;
+  }, [forMe, hasProfile, careers]);
 
   const filters = [
     { id: 'all', label: 'Toate' },
@@ -49,11 +64,14 @@ function BrowseCareers({ onPick }) {
     { id: 'mixt', label: 'Mixt' },
   ];
 
-  const filtered = careers.filter((c) => {
+  let filtered = careers.filter((c) => {
     if (filter !== 'all' && c.pathType !== filter) return false;
     if (search && !(c.name + c.tagline + c.description).toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   });
+  if (forMe && scoreById) {
+    filtered = [...filtered].sort((a, b) => (scoreById[b.id] || 0) - (scoreById[a.id] || 0));
+  }
 
   const colors = { purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)' };
   const pathLabel = { facultate: 'FAC', autodidact: 'AUTO', antreprenor: 'ENTRE', mixt: 'MIX', bootcamp: 'BOOT', profesional: 'PROF', creator: 'CREATOR', freelance: 'FREE' };
@@ -74,6 +92,38 @@ function BrowseCareers({ onPick }) {
           <div style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', fontSize: 18 }}>⌕</div>
         </div>
       </div>
+
+      {hasProfile && (
+        <div style={{ padding: '0 20px 12px' }}>
+          <button
+            onClick={() => setForMe((v) => !v)}
+            className="card"
+            style={{
+              width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
+              background: forMe ? 'var(--purple)' : '#fff',
+              color: forMe ? '#fff' : '#000',
+              border: '2px solid #000', cursor: 'pointer', font: 'inherit', textAlign: 'left',
+            }}
+          >
+            <span style={{ fontSize: 18 }}>🎯</span>
+            <div style={{ flex: 1 }}>
+              <div className="label-bold" style={{ color: 'inherit' }}>
+                {forMe ? 'PENTRU TINE · ON' : 'PENTRU TINE · OFF'}
+              </div>
+              <div className="label-sm" style={{ marginTop: 2, opacity: 0.85 }}>
+                {forMe
+                  ? 'Sortat după potrivirea cu profilul tău. Apasă pentru ordine standard.'
+                  : 'Sortează după ce ai răspuns în quiz/teste.'}
+              </div>
+            </div>
+            <span style={{
+              fontSize: 11, fontWeight: 800, padding: '3px 8px',
+              background: forMe ? 'var(--yellow)' : 'var(--paper-2)', color: '#000',
+              border: '2px solid #000',
+            }}>{forMe ? 'ON' : 'OFF'}</span>
+          </button>
+        </div>
+      )}
 
       <div style={{ display: 'flex', gap: 6, padding: '0 20px 16px', overflowX: 'auto' }} className="scroll-y">
         {filters.map((f) => (
@@ -114,7 +164,16 @@ function BrowseCareers({ onPick }) {
               fontSize: 28, color: c.color === 'purple' ? '#fff' : '#000',
             }}>{c.emoji}</div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div className="h-sm" style={{ fontSize: 17 }}>{c.name}</div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, justifyContent: 'space-between' }}>
+                <div className="h-sm" style={{ fontSize: 17 }}>{c.name}</div>
+                {forMe && scoreById && scoreById[c.id] != null && (
+                  <span style={{
+                    fontSize: 11, fontWeight: 900, padding: '2px 7px', flexShrink: 0,
+                    background: '#000', color: 'var(--green)',
+                    fontFamily: 'JetBrains Mono, monospace',
+                  }}>{scoreById[c.id]}%</span>
+                )}
+              </div>
               <div className="body-sm" style={{ color: 'var(--ink-soft)', marginTop: 4, textWrap: 'pretty' }}>{c.tagline}</div>
               <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>
                 <span style={{

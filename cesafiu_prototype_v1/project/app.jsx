@@ -142,6 +142,111 @@ function computeMatches(answers, careers) {
   return [...picked, ...tail].map(({ career, score, why }) => ({ career, score, why }));
 }
 
+// ── User profile (localStorage) ────────────────────────────────────────────
+// Accumulates RIASEC + path + traits + Big Five across all test sources so the
+// browse views can sort by "match for me" without forcing a specific quiz.
+// Phase 1.5 surface — Phase 2 replaces this with Supabase profile + RLS.
+const PROFILE_KEY = 'cesafiu_user_profile_v1';
+
+function loadProfile() {
+  try { return JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}'); }
+  catch (e) { return {}; }
+}
+
+function persistProfile(p) {
+  try { localStorage.setItem(PROFILE_KEY, JSON.stringify({ ...p, updated_at: Date.now() })); }
+  catch (e) { /* localStorage full or unavailable — fail silent */ }
+}
+
+function profileHasData(p) {
+  return p && (
+    Object.keys(p.riasec || {}).length > 0 ||
+    Object.keys(p.paths || {}).length > 0 ||
+    Object.keys(p.big5 || {}).length > 0
+  );
+}
+
+// Merge quick-quiz answers into profile. Each option contributes RIASEC + path + traits.
+function mergeQuickQuizIntoProfile(profile, answers) {
+  const next = {
+    ...profile,
+    riasec: { ...(profile.riasec || {}) },
+    paths: { ...(profile.paths || {}) },
+    traits: { ...(profile.traits || {}) },
+  };
+  Object.values(answers).forEach((opt) => {
+    if (!opt) return;
+    (opt.riasec || []).forEach((c) => { next.riasec[c] = (next.riasec[c] || 0) + 1; });
+    if (opt.path) { next.paths[opt.path] = (next.paths[opt.path] || 0) + 1; }
+    (opt.traits || []).forEach((t) => { next.traits[t] = (next.traits[t] || 0) + 1; });
+  });
+  next.sources = Array.from(new Set([...(profile.sources || []), 'quick-quiz']));
+  return next;
+}
+
+// Big Five test (short or IPIP-NEO-60) → store the O/C/E/A/N percent scores.
+// IPIP overrides the short test if both taken (more validated).
+function mergeBig5IntoProfile(profile, big5Scores, source) {
+  const isIpip = source === 'ipip-neo-60';
+  const existingFromIpip = profile.big5_source === 'ipip-neo-60';
+  // Don't let the short test overwrite IPIP scores.
+  if (existingFromIpip && !isIpip) return profile;
+  return {
+    ...profile,
+    big5: { ...big5Scores },
+    big5_source: source,
+    sources: Array.from(new Set([...(profile.sources || []), source])),
+  };
+}
+
+// Vocational test → fold its raw RIASEC tally into the profile riasec aggregator,
+// weighted higher than quick-quiz because it has more dedicated items.
+function mergeVocationalIntoProfile(profile, vocScores) {
+  const next = { ...profile, riasec: { ...(profile.riasec || {}) } };
+  if (vocScores && vocScores.raw) {
+    Object.entries(vocScores.raw).forEach(([code, val]) => {
+      next.riasec[code] = (next.riasec[code] || 0) + val * 2;
+    });
+  }
+  next.sources = Array.from(new Set([...(profile.sources || []), 'vocational']));
+  next.vocational_top = vocScores && vocScores.top;
+  return next;
+}
+
+// Score every career against the profile. Returns array sorted by score desc,
+// where score is a 0-100 percent (same calibration as computeMatches but without
+// MMR — for browse-list sorting we want pure relevance).
+function scoreCareersForProfile(profile, careers) {
+  if (!profileHasData(profile)) return careers.map((c) => ({ career: c, score: 0 }));
+  const u = {
+    riasec: profile.riasec || {},
+    paths: profile.paths || {},
+    traits: profile.traits || {},
+  };
+  const scored = careers.map((c) => {
+    const cp = buildCareerProfile(c);
+    return { career: c, raw: rawScore(u, cp) };
+  });
+  const maxRaw = Math.max(...scored.map((s) => s.raw), 0.001);
+  const FLOOR = 25, CEIL = 92;
+  return scored
+    .map((s) => ({
+      career: s.career,
+      score: Math.round(FLOOR + Math.pow(s.raw / maxRaw, 0.85) * (CEIL - FLOOR)),
+    }))
+    .sort((a, b) => b.score - a.score);
+}
+
+// Expose to other screens that don't have the helpers in scope.
+if (typeof window !== 'undefined') {
+  window.cesafiuProfile = {
+    load: loadProfile,
+    persist: persistProfile,
+    hasData: profileHasData,
+    scoreCareers: scoreCareersForProfile,
+  };
+}
+
 function App() {
   const [tweaks, setTweak] = useTweaks(TWEAKS_DEFAULTS);
   const [route, setRoute] = useState({ name: 'welcome' });
@@ -155,6 +260,16 @@ function App() {
 
   const data = window.QUIZ_DATA;
   const matches = useMemo(() => computeMatches(answers, data.careers), [answers, data.careers]);
+  const [userProfile, setUserProfile] = useState(() => loadProfile());
+
+  // After quick quiz completes, fold its answers into the persistent profile.
+  useEffect(() => {
+    if (Object.keys(answers).length === data.questions.length) {
+      const next = mergeQuickQuizIntoProfile(loadProfile(), answers);
+      persistProfile(next);
+      setUserProfile(next);
+    }
+  }, [answers, data.questions.length]);
 
   useEffect(() => {
     document.documentElement.style.setProperty('--purple', tweaks.primaryColor);
@@ -259,20 +374,35 @@ function App() {
             <PersonalityScreen
               dataKey="personality"
               onBack={() => goto('welcome')}
-              onComplete={(scores) => { setDeepScores((p) => ({ ...p, personality: scores })); goto('deepResults', { kind: 'personality' }); }}
+              onComplete={(scores) => {
+                setDeepScores((p) => ({ ...p, personality: scores }));
+                const next = mergeBig5IntoProfile(loadProfile(), scores, 'personality-15');
+                persistProfile(next); setUserProfile(next);
+                goto('deepResults', { kind: 'personality' });
+              }}
             />
           )}
           {route.name === 'ipip-neo' && (
             <PersonalityScreen
               dataKey="ipipNeo60"
               onBack={() => goto('welcome')}
-              onComplete={(scores) => { setDeepScores((p) => ({ ...p, ipipNeo60: scores })); goto('deepResults', { kind: 'ipipNeo60' }); }}
+              onComplete={(scores) => {
+                setDeepScores((p) => ({ ...p, ipipNeo60: scores }));
+                const next = mergeBig5IntoProfile(loadProfile(), scores, 'ipip-neo-60');
+                persistProfile(next); setUserProfile(next);
+                goto('deepResults', { kind: 'ipipNeo60' });
+              }}
             />
           )}
           {route.name === 'vocational' && (
             <VocationalScreen
               onBack={() => goto('welcome')}
-              onComplete={(scores) => { setDeepScores((p) => ({ ...p, vocational: scores })); goto('deepResults', { kind: 'vocational' }); }}
+              onComplete={(scores) => {
+                setDeepScores((p) => ({ ...p, vocational: scores }));
+                const next = mergeVocationalIntoProfile(loadProfile(), scores);
+                persistProfile(next); setUserProfile(next);
+                goto('deepResults', { kind: 'vocational' });
+              }}
             />
           )}
           {route.name === 'deepResults' && (
@@ -308,7 +438,15 @@ function App() {
           {route.name === 'pathDetail' && <PathDetailScreen pathId={route.pathId} onBack={() => goto('browse')} />}
           {route.name === 'uniDetail' && <UniDetailScreen uniId={route.uniId} onBack={() => goto('browse')} />}
           {route.name === 'profile' && (
-            <ProfileScreen savedCareerIds={savedIds} careers={data.careers} onPickCareer={handlePickCareer} onRetake={handleStart} />
+            <ProfileScreen
+              savedCareerIds={savedIds}
+              careers={data.careers}
+              userProfile={userProfile}
+              onPickCareer={handlePickCareer}
+              onRetake={handleStart}
+              onExplore={() => { setBrowseSection('careers'); goto('browse'); }}
+              onPickTest={(kind) => goto(kind === 'ipip-neo' ? 'ipip-neo' : kind)}
+            />
           )}
         </div>
 
