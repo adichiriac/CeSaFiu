@@ -2,7 +2,7 @@
 
 Living todo list for the career/institution/program data layer (`cesafiu_prototype_v3/project/data.js`) and the data map UI (`cesafiu-data-map.html`).
 
-**Status snapshot (2026-04-30):** 94 careers · 131 institutions · 144 programs.
+**Status snapshot (2026-04-30, post-v4):** 94 careers · 160 institutions · 188 programs · **100% admission coverage**.
 
 This file is the source of truth for what's left. Edit freely. Tick items as `[x]` when done.
 
@@ -33,19 +33,14 @@ For every institution + program tagged `[v2]` or `[v3]` in `data.js` — about 3
 
 ## Next session — high priority
 
-### [ ] Expand edges for under-linked careers
+### [ ] Edges for the still-thin niche careers
 
-Several high-demand careers have only 2-3 institution edges in `programs[]`. Bring each to 6-10 schools spread across regions.
+Most under-linked careers were expanded to 4-11 edges in v4 (2026-04-30). A handful remain thin and probably should stay that way (inherently niche), but worth a second look:
 
-Targets: `mecanic-auto`, `frizer`, `coafor`, `ospatar`, `bucatar`, `instalator-sanitar`, `sudor`, `electrician-autorizat`, `asistent-medical` (postliceal options), `tehnician-dentar`, `optician`, `paramedic`, `kinetoterapeut`.
+- `paramedic` (2 edges) — IGSU formare internă is hard to map cleanly to fixed institutions
+- `manichiurista`, `bijutier`, `florar`, `agent-securitate`, `agent-imobiliar`, `operator-depozit`, `instalator-pv`, `ingrijitor-batrani` (2-3 edges each) — covered by ANC providers (FEG, Eurojobs) which have national coverage but as single entries
 
-Goal: cover at least 5 județe per career where the school type exists locally.
-
-### [ ] Add admission details to programs
-
-Only UMF Iași programs (5 entries) currently have full `admission: { exam, deadline, deadlineYear }` and `tuition` data. Backfill the other ~140 programs with admission specifics where the Phase 1 paid PDF report needs them: exam type (concurs, dosar, probă practică), deadline cycle, tuition for stat (taxă) vs privat, language options.
-
-Use the `umf-iasi-*` entries in `data.js` as the schema template.
+Decision: leave these at current state unless validation pass surfaces specific regional providers worth adding.
 
 ---
 
@@ -122,3 +117,5 @@ The 2026-04-30 v3 pass added 20 high-volume careers. There are still missing rol
 - 2026-04-30 — Salary corrections: 8 unrealistic ranges fixed with tiered Junior/Mid/Senior bands
 - 2026-04-30 — New `cesafiu-data-map.html` (data-driven 4-column interactive map) + standalone version + `scripts/build-data-map.js` build script
 - 2026-04-30 — Removed original Figma-Make bundle (replaced functionally)
+- 2026-04-30 — **v4 expansion: regional edge coverage** for under-linked careers — added 29 institutions (CT Pallady Constanța, Liceul Dacia Pitești, LT Auto Craiova, Henri Coandă filiale Tim/Bv, FEG filiale Tim/Galați/Cta, ASR Galați, UAB/UTBV/UAV/ULBS/UPIT kineto, etc.) and 44 programs. Most under-linked careers now have 4-11 edges (was 1-2): ospătar/bucătar 11, asistent medical 16, mecanic auto 7, kinetoterapeut 9, sudor 7.
+- 2026-04-30 — **Admission backfill: 100% coverage** — every program (188/188) now has `admission: { exam, deadline, deadlineYear, tuition }` plus `lastVerified` timestamp. Templates grouped by family (UMF medicine, ASE business, UNARTE arts, postliceal sanitar, ANC short courses, licee tehnologice). Tuition reflects stat-buget-vs-taxă for facultate, RON/an for postliceal privat, RON/curs for ANC providers.
