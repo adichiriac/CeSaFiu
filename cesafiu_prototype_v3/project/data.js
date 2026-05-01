@@ -18,7 +18,7 @@ window.QUIZ_DATA = {
     {
       id: 'q2', sticker: '02 / 06', stickerColor: 'green',
       title: 'Care problemă te enervează cel mai tare?',
-      subtitle: 'Cea pe care simți că TU ai putea-o rezolva.',
+      subtitle: 'Pe care simți că ai putea să o rezolvi TU.',
       options: [
         { id: 'a', label: 'Aplicații proaste care nu au sens. Pierdere de timp.', tag: 'UX', traits: ['build', 'analyze'], riasec: ['I', 'A'], path: 'mixt' },
         { id: 'b', label: 'Oameni care nu se înțeleg între ei.', tag: 'EMPATHY', traits: ['social', 'analyze'], riasec: ['S'], path: 'facultate' },
@@ -212,7 +212,7 @@ window.QUIZ_DATA = {
       { id: 'v02', a: { text: 'Pictezi un perete dintr-un café', code: 'A' }, b: { text: 'Ții un workshop pentru elevi mai mici', code: 'S' } },
       { id: 'v03', a: { text: 'Conduci o echipă într-un proiect', code: 'E' }, b: { text: 'Organizezi un buget Excel impecabil', code: 'C' } },
       { id: 'v04', a: { text: 'Construiești un raft din lemn', code: 'R' }, b: { text: 'Compui o melodie originală', code: 'A' } },
-      { id: 'v05', a: { text: 'Scrii un eseu cercetător', code: 'I' }, b: { text: 'Vinzi un produs la o expoziție', code: 'E' } },
+      { id: 'v05', a: { text: 'Documentezi și scrii despre un subiect care te fascinează', code: 'I' }, b: { text: 'Vinzi un produs la o expoziție', code: 'E' } },
       { id: 'v06', a: { text: 'Ajuți o colegă cu temele', code: 'S' }, b: { text: 'Sortezi documente după reguli stricte', code: 'C' } },
       { id: 'v07', a: { text: 'Faci un experiment de chimie', code: 'I' }, b: { text: 'Planifici un eveniment de 100 oameni', code: 'E' } },
       { id: 'v08', a: { text: 'Filmezi un scurt documentar', code: 'A' }, b: { text: 'Faci voluntariat la o cantină', code: 'S' } },
