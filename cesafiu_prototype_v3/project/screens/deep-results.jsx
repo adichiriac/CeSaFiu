@@ -1,9 +1,9 @@
 // Results for the deep tests (personality 15-item + ipipNeo60 + vocational)
-function DeepResultsScreen({ kind, scores, onBrowse, onRetake, onProfile, onIpipNeo }) {
+function DeepResultsScreen({ kind, scores, onBrowse, onRetake, onProfile, onIpipNeo, onDeepVoc }) {
   if (kind === 'personality' || kind === 'ipipNeo60') {
     return <PersonalityResults dataKey={kind} scores={scores} onBrowse={onBrowse} onRetake={onRetake} onProfile={onProfile} onIpipNeo={onIpipNeo} />;
   }
-  return <VocationalResults scores={scores} onBrowse={onBrowse} onRetake={onRetake} onProfile={onProfile} />;
+  return <VocationalResults scores={scores} onBrowse={onBrowse} onRetake={onRetake} onProfile={onProfile} onDeepVoc={onDeepVoc} />;
 }
 
 function PersonalityResults({ dataKey, scores, onBrowse, onRetake, onProfile, onIpipNeo }) {
@@ -88,7 +88,7 @@ function PersonalityResults({ dataKey, scores, onBrowse, onRetake, onProfile, on
   );
 }
 
-function VocationalResults({ scores, onBrowse, onRetake, onProfile }) {
+function VocationalResults({ scores, onBrowse, onRetake, onProfile, onDeepVoc }) {
   const codes = window.QUIZ_DATA.vocational.codes;
   const colors = { purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)' };
   const PaidHookCard = window.PaidHookCard;
@@ -152,7 +152,11 @@ function VocationalResults({ scores, onBrowse, onRetake, onProfile }) {
         }}>
           <div className="label-bold" style={{ fontSize: 11, marginBottom: 4 }}>⚠ DOAR ORIENTATIV</div>
           <div className="body-sm" style={{ fontSize: 13 }}>
-            Test scurt — orientativ. Pentru o predicție mai precisă, fă testul vocațional aprofundat (60 de itemi).
+            Test scurt — orientativ. Pentru o predicție mai precisă,{' '}
+            {onDeepVoc
+              ? <button onClick={onDeepVoc} style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', fontSize: 13, fontWeight: 700, textDecoration: 'underline', cursor: 'pointer' }}>fă testul vocațional aprofundat (60 de itemi)</button>
+              : 'fă testul vocațional aprofundat (60 de itemi)'
+            }.
           </div>
         </div>
       )}

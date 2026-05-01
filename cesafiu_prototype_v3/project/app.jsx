@@ -491,6 +491,7 @@ function App() {
               onRetake={() => goto(route.kind === 'ipipNeo60' ? 'ipip-neo' : route.kind)}
               onProfile={() => goto('profile')}
               onIpipNeo={() => goto('ipip-neo')}
+              onDeepVoc={route.kind === 'vocational' ? () => goto('vocational-deep') : undefined}
             />
           )}
           {route.name === 'results' && (
