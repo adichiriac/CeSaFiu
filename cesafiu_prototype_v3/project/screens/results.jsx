@@ -300,7 +300,7 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer,
               PASUL URMĂTOR
             </div>
             <div className="h-sm" style={{ color: '#fff', marginBottom: 8, lineHeight: 1.2 }}>
-              {nextTest.kind === 'vocational' && 'Testul vocațional · 12 itemi · 5 min'}
+              {nextTest.kind === 'vocational' && 'Testul vocațional · 18 itemi · 4 min'}
               {nextTest.kind === 'vocational-deep' && 'Holland validat (O*NET) · 60 itemi · 8-10 min'}
               {nextTest.kind === 'ipip-neo' && 'Big Five validat · 60 itemi · 12 min'}
               {nextTest.kind === 'personality' && 'Personalitate (scurt) · 15 itemi · 4 min'}

@@ -201,25 +201,40 @@ window.QUIZ_DATA = {
     },
   },
 
-  // ── VOCATIONAL (RIASEC / Holland Code, forced-choice 12 perechi) ──
-  // Each item has two options, each contributes 1 point to one of: R, I, A, S, E, C
+  // ── VOCATIONAL (RIASEC / Holland Code · 18 itemi · Likert 1-5) ──
+  // Quick-Sort format (înlocuiește testul forced-choice de 12 itemi din 2026-04-30):
+  // 3 itemi per cod RIASEC × 6 coduri = 18 itemi · scala 1-5 (foarte puțin → foarte mult)
+  // Avantaj față de forced-choice: capturează intensitate per item (nu doar
+  // preferință relativă), nu forțează alegeri artificiale între coduri,
+  // mapping curat per item (un item → un singur cod).
+  // Ordinea iteme alternează codurile (R-I-A-S-E-C × 3) ca să nu se vadă
+  // pattern-ul. Itemele sunt activități concrete, nu întrebări abstracte.
   vocational: {
     name: 'Test vocațional',
-    subtitle: 'Holland Code (RIASEC) — îți spune CE TE atrage la o activitate',
-    estimateMin: 5,
+    subtitle: 'Cod Holland — îți arată ce tipuri de activități te atrag',
+    estimateMin: 4,
     items: [
-      { id: 'v01', a: { text: 'Repari o bicicletă stricată', code: 'R' }, b: { text: 'Studiezi de ce un motor face zgomot', code: 'I' } },
-      { id: 'v02', a: { text: 'Pictezi un perete dintr-un café', code: 'A' }, b: { text: 'Ții un workshop pentru elevi mai mici', code: 'S' } },
-      { id: 'v03', a: { text: 'Conduci o echipă într-un proiect', code: 'E' }, b: { text: 'Organizezi un buget Excel impecabil', code: 'C' } },
-      { id: 'v04', a: { text: 'Construiești un raft din lemn', code: 'R' }, b: { text: 'Compui o melodie originală', code: 'A' } },
-      { id: 'v05', a: { text: 'Documentezi și scrii despre un subiect care te fascinează', code: 'I' }, b: { text: 'Vinzi un produs la o expoziție', code: 'E' } },
-      { id: 'v06', a: { text: 'Ajuți o colegă cu temele', code: 'S' }, b: { text: 'Sortezi documente după reguli stricte', code: 'C' } },
-      { id: 'v07', a: { text: 'Faci un experiment de chimie', code: 'I' }, b: { text: 'Planifici un eveniment de 100 oameni', code: 'E' } },
-      { id: 'v08', a: { text: 'Filmezi un scurt documentar', code: 'A' }, b: { text: 'Faci voluntariat la o cantină', code: 'S' } },
-      { id: 'v09', a: { text: 'Programezi un site web', code: 'I' }, b: { text: 'Faci un raport contabil', code: 'C' } },
-      { id: 'v10', a: { text: 'Organizezi rafturi într-un magazin', code: 'C' }, b: { text: 'Antrenezi o echipă sportivă', code: 'R' } },
-      { id: 'v11', a: { text: 'Negociezi un contract', code: 'E' }, b: { text: 'Scrii o piesă de teatru', code: 'A' } },
-      { id: 'v12', a: { text: 'Mentorezi un coleg nou', code: 'S' }, b: { text: 'Repari o instalație electrică', code: 'R' } },
+      // Round 1
+      { id: 'v01', code: 'R', text: 'Construiești sau repari ceva concret — mobilier, bicicletă, un dispozitiv.' },
+      { id: 'v02', code: 'I', text: 'Cercetezi un subiect ore în șir, până înțelegi cum funcționează cu adevărat.' },
+      { id: 'v03', code: 'A', text: 'Faci muzică, scrii povești sau editezi clipuri.' },
+      { id: 'v04', code: 'S', text: 'Asculți un prieten care trece prin ceva greu și îl ajuți să se descurce.' },
+      { id: 'v05', code: 'E', text: 'Convingi un grup să meargă în direcția ta — la un proiect, o ieșire, o idee.' },
+      { id: 'v06', code: 'C', text: 'Pui ordine în haos — clasifici fișiere, faci un sistem, structurezi un proiect.' },
+      // Round 2
+      { id: 'v07', code: 'R', text: 'Lucrezi cu mâinile, în aer liber — grădină, atelier, șantier.' },
+      { id: 'v08', code: 'I', text: 'Rezolvi probleme grele — matematică, logică, debug pe cod.' },
+      { id: 'v09', code: 'A', text: 'Faci grafică sau design — postere, layout-uri, branding, ilustrații.' },
+      { id: 'v10', code: 'S', text: 'Explici sau predai ceva cuiva mai mic — la o tabără, ca mentor, în voluntariat.' },
+      { id: 'v11', code: 'E', text: 'Lansezi ceva al tău — un mic business, un eveniment, un brand.' },
+      { id: 'v12', code: 'C', text: 'Verifici documente sau date ca să prinzi greșelile mici care trec neobservate.' },
+      // Round 3
+      { id: 'v13', code: 'R', text: 'Reglezi sau operezi mașini, drone, printer 3D, utilaje tehnice.' },
+      { id: 'v14', code: 'I', text: 'Observi un detaliu ciudat și nu te lași până nu afli de ce e așa.' },
+      { id: 'v15', code: 'A', text: 'Apari pe scenă (teatru, stand-up, dans) sau filmezi conținut propriu.' },
+      { id: 'v16', code: 'S', text: 'Lucrezi cu oameni care au nevoie de sprijin — vârstnici, copii, persoane vulnerabile.' },
+      { id: 'v17', code: 'E', text: 'Negociezi sau vinzi — un produs, un parteneriat, o idee la prof sau la un client.' },
+      { id: 'v18', code: 'C', text: 'Urmezi un proces pas cu pas, fără scurtături, până la rezultat curat.' },
     ],
     codes: {
       R: { name: 'Realist', short: 'DOERS', color: 'green', desc: 'Mâini active. Tools, mașini, sport, construit. Înveți făcând.' },

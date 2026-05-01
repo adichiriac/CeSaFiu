@@ -56,7 +56,7 @@ function TestModeRail({ onStart, onPickTest }) {
   // so they read as „the deep / scientific layer" visually.
   const tests = [
     { id: 'quick',           label: 'QUIZ rapid',            sub: '6 întrebări · 90s',                            bg: 'var(--purple)', color: '#fff',         onClick: onStart, emoji: '✦' },
-    { id: 'vocational',      label: 'Vocațional (scurt)',    sub: 'Holland · 12 itemi · 5 min',                   bg: 'var(--yellow)', color: '#000',         onClick: () => onPickTest('vocational'), emoji: '◉' },
+    { id: 'vocational',      label: 'Vocațional (scurt)',    sub: 'Cod Holland · 18 itemi · 4 min',               bg: 'var(--yellow)', color: '#000',         onClick: () => onPickTest('vocational'), emoji: '◉' },
     { id: 'personality',     label: 'Personalitate (scurt)', sub: 'Big Five · 15 itemi · 4 min',                  bg: 'var(--green)',  color: '#000',         onClick: () => onPickTest('personality'), emoji: '◆' },
     { id: 'vocational-deep', label: 'Vocațional validat ✓',  sub: 'O*NET (US Dept Labor) · 60 itemi · 8-10 min',  bg: '#000',          color: 'var(--yellow)', onClick: () => onPickTest('vocational-deep'), emoji: '◉' },
     { id: 'ipip-neo',        label: 'IPIP-NEO-60 ✓',         sub: 'Big Five validat științific · 60 itemi · 12 min', bg: '#000',       color: '#fff',         onClick: () => onPickTest('ipip-neo'), emoji: '✓' },

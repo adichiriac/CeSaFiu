@@ -42,8 +42,11 @@ function cosine(a, b) {
 const BIG5_KEYS = ['O', 'C', 'E', 'A', 'N'];
 
 // Vocational (Holland) test weight relative to a single quick-quiz answer.
-// 12 forced-choice items × this multiplier vs. the 6 quick-quiz answers.
-const VOCATIONAL_WEIGHT = 2;
+// New format (2026-04-30): 18-item Likert Quick-Sort. 3 items per RIASEC code,
+// each rated 1-5. Per-code raw is the SUM (range 3..15). Center on 9 (neutral)
+// and scale the above-neutral part — same shape as the deep test, just thinner.
+const VOCATIONAL_LIGHT_CENTER = 9;       // neutral sum: 3 items × neutral 3
+const VOCATIONAL_LIGHT_SCALE = 1.5;      // multiplier on above-neutral; tuned to match deep magnitude
 
 function buildUserProfile(answers, deepScores) {
   const riasec = {}; const paths = {}; const traits = {}; const big5 = {};
@@ -71,9 +74,14 @@ function buildUserProfile(answers, deepScores) {
       riasec[code] = (riasec[code] || 0) + contribution;
     });
   } else if (vocLight && vocLight.raw) {
-    // Light fallback (12-item forced-choice).
+    // Light test (18-item Quick-Sort Likert): each code's raw is the SUM of
+    // 3 Likert ratings (3..15). Center on 9 (3 items × neutral 3) and scale
+    // the above-neutral part: max(0, (val - 9) × 1.5) → range 0..9 per code.
+    // This keeps the contribution magnitude similar to the deep test (0..12)
+    // and prevents the light test from dominating the quick quiz tally.
     Object.entries(vocLight.raw).forEach(([code, val]) => {
-      riasec[code] = (riasec[code] || 0) + val * VOCATIONAL_WEIGHT;
+      const contribution = Math.max(0, (val - VOCATIONAL_LIGHT_CENTER) * VOCATIONAL_LIGHT_SCALE);
+      riasec[code] = (riasec[code] || 0) + contribution;
     });
   }
 
@@ -278,7 +286,7 @@ function recommendNextTest(userProfile) {
   // benefit in plain language ("ca să afli mai precis ce ți se potrivește").
   if (!hasQuick) return { kind: 'quick', reason: 'Începe cu quiz-ul rapid — 6 întrebări, 90s.' };
   if (!hasVocLight) {
-    return { kind: 'vocational', reason: 'Continuă cu testul vocațional scurt (12 itemi, 5 min) ca să afli mai precis ce ți se potrivește.' };
+    return { kind: 'vocational', reason: 'Continuă cu testul vocațional scurt (18 itemi, 4 min) ca să afli mai precis ce ți se potrivește.' };
   }
   // After light Holland, prioritize Big Five (different signal type) before deep Holland (same signal, refining).
   if (!hasBig5Light) {
