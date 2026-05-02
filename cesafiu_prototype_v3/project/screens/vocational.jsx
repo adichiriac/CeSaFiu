@@ -1,4 +1,4 @@
-// Vocational test (RIASEC / Holland · Quick-Sort 18 items · Likert 1-5).
+// Vocational test (RIASEC / Holland · Quick-Sort 20 items · Likert 1-5).
 // Replaces the older 12-item forced-choice format on 2026-04-30. Better signal
 // per item (intensity, not just preference), no artificial trade-offs between
 // codes, clean 1:1 item-to-code mapping.
@@ -53,7 +53,7 @@ function VocationalScreen({ onComplete, onBack }) {
       <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <div className="anim-wiggle" style={{ width: 120, height: 120, background: 'var(--yellow)', border: '2px solid #000', borderRadius: 99, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 56, boxShadow: '6px 6px 0 #000' }}>◉</div>
         <div className="h-lg" style={{ marginTop: 24, textAlign: 'center' }}>Calculez codul tău…</div>
-        <div className="body-sm" style={{ marginTop: 12, textAlign: 'center', color: 'var(--ink-soft)' }}>Bazat pe 18 răspunsuri.</div>
+        <div className="body-sm" style={{ marginTop: 12, textAlign: 'center', color: 'var(--ink-soft)' }}>Bazat pe 20 răspunsuri.</div>
       </div>
     );
   }
