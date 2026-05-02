@@ -1,9 +1,9 @@
 // Vocational Deep — O*NET Interest Profiler · 60 itemi · validat US Dept of Labor.
 // Likert 1-5 ("Foarte mult NU" → "Foarte mult DA"). Each item maps to one
 // of R/I/A/S/E/C. Output: { raw: {R, I, A, S, E, C} } where each is the
-// average rating for that code (1.0 - 5.0). The matching algorithm in
-// app.jsx treats this as overriding the light 12-item vocational test
-// when both are taken.
+// average rating for that code (1.0 - 5.0), plus signalsRaw for above-neutral
+// answers that clearly point to a subfield. The matching algorithm in app.jsx
+// treats this as overriding the light vocational test when both are taken.
 function VocationalDeepScreen({ onComplete, onBack }) {
   const data = window.QUIZ_DATA && window.QUIZ_DATA.vocationalDeep;
   if (!data) {
@@ -39,6 +39,14 @@ function VocationalDeepScreen({ onComplete, onBack }) {
     }, 180);
   };
 
+  const handleBack = () => {
+    if (idx === 0) {
+      onBack();
+      return;
+    }
+    setIdx(idx - 1);
+  };
+
   if (done) {
     return (
       <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
@@ -55,7 +63,7 @@ function VocationalDeepScreen({ onComplete, onBack }) {
   return (
     <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', padding: '0 20px 20px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-        <button className="btn btn-icon" onClick={onBack} style={{ background: '#fff' }}>←</button>
+        <button className="btn btn-icon" onClick={handleBack} style={{ background: '#fff' }}>←</button>
         <div className="progress" style={{ flex: 1 }}><div className="progress-fill" style={{ width: `${progress}%` }}></div></div>
         <div className="mono" style={{ fontWeight: 700, fontSize: 13 }}>{idx + 1}/{total}</div>
       </div>
@@ -102,23 +110,32 @@ function VocationalDeepScreen({ onComplete, onBack }) {
       </div>
 
       <div className="body-sm" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>
-        Atinge un număr. Următoarea apare automat.
+        Apasă un număr și treci la următoarea întrebare.
       </div>
     </div>
   );
 }
 
+function addVocationalDeepSignals(tally, signals, weight) {
+  if (!Array.isArray(signals) || weight <= 0) return;
+  signals.forEach((signal) => {
+    tally[signal] = (tally[signal] || 0) + weight;
+  });
+}
+
 // Compute average rating per RIASEC code → returns { raw: {R, I, A, S, E, C} }
 // where each value is in [1.0, 5.0]. The matching algorithm reads this as
 // the "validated" RIASEC profile and gives it higher weight than the
-// light 12-item forced-choice test.
+// light vocational test.
 function computeVocationalDeep(responses, data) {
   const sums = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
   const counts = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+  const signalsRaw = {};
   data.items.forEach((it) => {
     const raw = responses[it.id] || 3;
     sums[it.code] += raw;
     counts[it.code]++;
+    addVocationalDeepSignals(signalsRaw, it.signals, Math.max(0, raw - 3));
   });
   const raw = {};
   Object.keys(sums).forEach((k) => {
@@ -128,7 +145,7 @@ function computeVocationalDeep(responses, data) {
   // Same shape as light vocational test so the same rendering works.
   const sorted = Object.entries(raw).sort((a, b) => b[1] - a[1]);
   const top = sorted.slice(0, 3).map(([k, v]) => ({ code: k, score: v }));
-  return { raw, top, validated: true };
+  return { raw, top, signalsRaw, validated: true };
 }
 
 window.VocationalDeepScreen = VocationalDeepScreen;

@@ -102,7 +102,7 @@ function PersonalityScreen({ onComplete, onBack, dataKey }) {
       </div>
 
       <div className="body-sm" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>
-        Atinge un număr. Următoarea apare automat.
+        Apasă un număr și treci la următoarea întrebare.
       </div>
     </div>
   );

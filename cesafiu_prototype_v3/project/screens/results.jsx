@@ -69,6 +69,13 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer,
   // Per-axis scores from the matching algorithm. Rendered as plain-language rows.
   const whyText = top && top.why && (typeof top.why === 'object' ? top.why.text : top.why);
   const whyAxes = top && top.why && top.why.axes;
+  const nextTestLabel = nextTest && ({
+    quick: 'FĂ QUIZ-UL RAPID →',
+    vocational: 'CONTINUĂ CU TESTUL VOCAȚIONAL →',
+    personality: 'CONTINUĂ CU PERSONALITATEA →',
+    'vocational-deep': 'CONTINUĂ CU O*NET →',
+    'ipip-neo': 'CONTINUĂ CU BIG FIVE →',
+  }[nextTest.kind] || 'CONTINUĂ →');
 
   const handleSaveAndGo = () => {
     if (top && onSaveCareer && !isAlreadySaved) onSaveCareer(top.career.id);
@@ -122,6 +129,23 @@ function ResultsHero({ matches, onPickCareer, onRetake, onProfile, onSaveCareer,
           {confidence < 0.60 && nextTest && (
             <div style={{ marginTop: 6, opacity: 0.9 }}>
               Mai multe teste = matches mai precise. {nextTest.reason}
+              {onPickTest && (
+                <button
+                  onClick={() => onPickTest(nextTest.kind)}
+                  className="btn"
+                  style={{
+                    marginTop: 10,
+                    width: '100%',
+                    background: 'var(--yellow)',
+                    color: '#000',
+                    fontSize: 12,
+                    padding: '8px 10px',
+                    boxShadow: '3px 3px 0 #000',
+                  }}
+                >
+                  {nextTestLabel}
+                </button>
+              )}
             </div>
           )}
         </div>

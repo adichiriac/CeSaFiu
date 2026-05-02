@@ -11,16 +11,27 @@ const TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 }/*EDITMODE-END*/;
 
 // ── Quiz → career match scoring ────────────────────────────────────────────
-// Multi-axis cosine similarity across three signal sources:
+// Multi-axis cosine similarity across four signal sources:
 //   1. RIASEC (Holland Code) — strongest validated career-matching framework
 //   2. Path-type bias (facultate / autodidact / antreprenor / etc.)
 //   3. Traits (legacy 7-bucket: build/tech/analyze/social/lead/create/visual)
+//   4. Signals (concrete activity families: software, care, visual, sales...)
 // Honest 0-100 mapping — no floor, no compression.
 // Top-N is diversified via MMR so the user doesn't see four near-clones of #1.
 
 const RIASEC_KEYS = ['R', 'I', 'A', 'S', 'E', 'C'];
 const PATH_KEYS = ['facultate', 'autodidact', 'antreprenor', 'profesional', 'freelance', 'creator', 'mixt'];
 const TRAIT_KEYS = ['build', 'tech', 'analyze', 'social', 'lead', 'create', 'visual'];
+const SIGNAL_KEYS = [
+  'creative.visual', 'creative.writing', 'creative.music', 'creative.video', 'creative.performance', 'creative.craft', 'creative.game',
+  'technical.software', 'technical.hardware', 'technical.mechanical', 'technical.electrical', 'technical.construction', 'technical.energy', 'technical.systems',
+  'investigative.data', 'investigative.science', 'investigative.lab', 'investigative.diagnostic', 'investigative.research', 'investigative.security',
+  'social.teaching', 'social.care', 'social.counseling', 'social.community', 'social.customer', 'social.coaching',
+  'business.sales', 'business.marketing', 'business.entrepreneurship', 'business.product', 'business.finance', 'business.operations', 'business.negotiation',
+  'order.admin', 'order.compliance', 'order.quality', 'order.procurement', 'order.logistics', 'order.documentation', 'order.law_enforcement',
+  'practical.repair', 'practical.install', 'practical.food', 'practical.beauty', 'practical.transport', 'practical.agriculture', 'practical.manual_craft',
+  'health.clinical', 'health.nursing', 'health.dental', 'health.pharma', 'health.therapy', 'health.emergency',
+];
 
 function vecFromTallyKeys(tally, keys) {
   return keys.map((k) => tally[k] || 0);
@@ -36,6 +47,93 @@ function cosine(a, b) {
   return dot / (na * nb);
 }
 
+function addSignals(tally, signals, weight) {
+  (signals || []).forEach((signal) => {
+    if (!SIGNAL_KEYS.includes(signal)) return;
+    tally[signal] = (tally[signal] || 0) + weight;
+  });
+}
+
+function inferCareerSignals(career) {
+  const signals = new Set(career.signals || []);
+  const haystack = [
+    career.id, career.name, career.tagline, career.vibe, career.description,
+    ...(career.skills || []), ...(career.tags || []), ...(career.schools || []),
+  ].join(' ').toLowerCase();
+
+  const add = (...items) => items.forEach((item) => signals.add(item));
+
+  if (/software|developer|program|cod|mobile|devops|sysadmin|qa|tester|cloud|it support|network|sdet|github/.test(haystack)) add('technical.software', 'technical.systems');
+  if (/cyber|securitate|osint|forensic|ameninț/.test(haystack)) add('investigative.security', 'technical.systems');
+  if (/data|statistic|machine learning|analytics|sql|python|dashboard|cohort|metric/.test(haystack)) add('investigative.data');
+  if (/research|cercet|doctorat|academic|metodolog|astronom|biolog|experiment|științific/.test(haystack)) add('investigative.research', 'investigative.science');
+  if (/laborator|chimie|farma|biotech|hplc|gc|probe|microscop/.test(haystack)) add('investigative.lab');
+  if (/diagnostic|diagnoz|defect|testare|bug|qa/.test(haystack)) add('investigative.diagnostic');
+
+  if (/design|figma|vizual|grafic|ilustra|arhitect|foto|brand|moodboard|ux|ui|revit|autocad|croitor|modă/.test(haystack)) add('creative.visual');
+  if (/scris|writing|copy|editor|jurnalist|reporter|traduc|liter|conținut|content|seo|storytelling|podcast/.test(haystack)) add('creative.writing');
+  if (/muzic|dj|orchestr|cor|instrument|audio/.test(haystack)) add('creative.music');
+  if (/video|youtube|stream|film|reels|montaj|premiere|davinci|creator/.test(haystack)) add('creative.video');
+  if (/actor|perform|teatru|scenă|dans|stand-up|animator/.test(haystack)) add('creative.performance');
+  if (/ceramic|bijut|tatu|craft|atelier|lemn|floral|florar|manual|patiser|cofetar/.test(haystack)) add('creative.craft');
+  if (/game|joc|unity|unreal/.test(haystack)) add('creative.game');
+
+  if (/mecanic|auto|motor|cnc|utilaj|solidworks|catia|sudor|strung|frez/.test(haystack)) add('technical.mechanical', 'practical.repair');
+  if (/electric|electro|pcb|embedded|fpga|rf|telecom|plc|scada|eplan|anre/.test(haystack)) add('technical.electrical', 'technical.hardware');
+  if (/construc|șantier|zidar|instalaț|instalator|hvac|frigotehnist|faianță|gaze/.test(haystack)) add('technical.construction', 'practical.install');
+  if (/energie|energetic|fotovoltaic|solar|pv|smart grid|bater/.test(haystack)) add('technical.energy');
+  if (/hardware|electron|pcb|microcontrol|iot|robot/.test(haystack)) add('technical.hardware');
+
+  if (/profesor|preda|educator|învățător|pedagog|mentor|logoped|training|instructor/.test(haystack)) add('social.teaching');
+  if (/asistent|îngrijitor|bătrân|copii|vulnerabil|pacient|nursing|smurd|paramedic|veterinar/.test(haystack)) add('social.care');
+  if (/psiholog|terapeut|consilier|counsel|coaching|cbt|emdr/.test(haystack)) add('social.counseling');
+  if (/community|comunitate|ong|voluntar|facilitare|impact social/.test(haystack)) add('social.community');
+  if (/client|customer|recepționer|ospătar|casier|retail|hotel|front office|support/.test(haystack)) add('social.customer');
+  if (/antrenor|fitness|sport|coach|kineto|fizio/.test(haystack)) add('social.coaching');
+
+  if (/sales|vânz|negoci|account executive|imobiliar|pitch|parteneriat/.test(haystack)) add('business.sales', 'business.negotiation');
+  if (/marketing|brand|seo|growth|ads|media|campanie|audien|funnel/.test(haystack)) add('business.marketing');
+  if (/founder|antreprenor|startup|business|e-commerce|dtc|firmă proprie|salon propriu|studio propriu/.test(haystack)) add('business.entrepreneurship');
+  if (/product manager|produs|roadmap|discovery|prioritizare|prd/.test(haystack)) add('business.product');
+  if (/bancar|finan|contabil|bursă|p&l|roas|cost|buget/.test(haystack)) add('business.finance');
+  if (/operațiuni|logistic|supply|depozit|inventar|manager proiect|pm|procurement|achiziții/.test(haystack)) add('business.operations');
+
+  if (/admin|office|asistent manager|document|dosar|contract|procedur|calendar|raport/.test(haystack)) add('order.admin', 'order.documentation');
+  if (/compliance|reglement|norme|legal|drept|avocat|aml|kyc|anre|iscir|f-gas/.test(haystack)) add('order.compliance');
+  if (/quality|calitate|qa|test cases|verific|control|haccp|gmp/.test(haystack)) add('order.quality');
+  if (/achiziții|procurement|buyer|rfp|rfq|furnizor/.test(haystack)) add('order.procurement');
+  if (/logistic|depozit|stoc|curier|livr|transport|tir|rută/.test(haystack)) add('order.logistics');
+  if (/polițist|jandarm|armată|militar|ofițer|subofițer|mapn|mai|isu|pompier|sri|intelligence|apărare|securitate națională|law enforcement|ordre public/.test(haystack)) add('order.law_enforcement');
+
+  if (/repar|service|mecanic|diagnoz|frigorific|auto|lock|electrocasnic/.test(haystack)) add('practical.repair');
+  if (/bucătar|chef|patiser|cofetar|restaurant|horeca|mâncare|farfurii/.test(haystack)) add('practical.food');
+  if (/coafor|frizer|make-up|manichiur|cosmetician|beauty|skincare|salon/.test(haystack)) add('practical.beauty');
+  if (/șofer|curier|livrator|tir|transport|camion|scuter/.test(haystack)) add('practical.transport');
+  if (/agronom|horticult|agricultur|ferm|plante|animale/.test(haystack)) add('practical.agriculture');
+  if (/manual|atelier|tâmplar|dulgher|ceramic|bijut|croitor|sudor/.test(haystack)) add('practical.manual_craft');
+
+  if (/medic|clinic|spital|pacient|diagnostic|chirurg|radiolog|cardio/.test(haystack)) add('health.clinical');
+  if (/asistent medical|nursing|îngrijitor|pacient|postliceal sanitar/.test(haystack)) add('health.nursing');
+  if (/stomatolog|dentar|dinți|tehnician dentar/.test(haystack)) add('health.dental');
+  if (/farmacist|farma|medicament|pharma/.test(haystack)) add('health.pharma');
+  if (/psihoterapeut|terapeut|kineto|fizio|logoped|recuperare|masaj|maseur/.test(haystack)) add('health.therapy');
+  if (/paramedic|smurd|pompier|urgență|salvamont/.test(haystack)) add('health.emergency');
+
+  // Coarse fallback so every career has at least a useful signal vector.
+  if (signals.size === 0) {
+    (career.traits || []).forEach((trait) => {
+      if (trait === 'tech') add('technical.systems');
+      if (trait === 'analyze') add('investigative.research');
+      if (trait === 'social') add('social.customer');
+      if (trait === 'lead') add('business.operations');
+      if (trait === 'create') add('creative.visual');
+      if (trait === 'build') add('practical.manual_craft');
+    });
+  }
+
+  return Array.from(signals).filter((signal) => SIGNAL_KEYS.includes(signal));
+}
+
 // Big Five axis added in Phase A (2026-04-30). Career anchors stored as
 // shorthand letter array (e.g., big5: ['O','C']); user big5 stored as
 // percentages {O:75, C:60, ...} from personality / IPIP-NEO-60 tests.
@@ -49,19 +147,20 @@ const VOCATIONAL_LIGHT_CENTER = 9;       // neutral sum: 3 items × neutral 3
 const VOCATIONAL_LIGHT_SCALE = 1.5;      // multiplier on above-neutral; tuned to match deep magnitude
 
 function buildUserProfile(answers, deepScores) {
-  const riasec = {}; const paths = {}; const traits = {}; const big5 = {};
+  const riasec = {}; const paths = {}; const traits = {}; const big5 = {}; const signals = {};
   // 1. Quick-quiz answers (each option carries riasec / path / traits).
   Object.values(answers || {}).forEach((opt) => {
     if (!opt) return;
     (opt.riasec || []).forEach((c) => { riasec[c] = (riasec[c] || 0) + 1; });
     if (opt.path) { paths[opt.path] = (paths[opt.path] || 0) + 1; }
     (opt.traits || []).forEach((t) => { traits[t] = (traits[t] || 0) + 1; });
+    addSignals(signals, opt.signals, 1);
   });
 
   // 2. Vocational (Holland) test → fold raw RIASEC into the same tally.
-  //    DEEP overrides LIGHT (60-item O*NET wins over 12-item forced-choice),
+  //    DEEP overrides LIGHT (60-item O*NET wins over 18-item quick sort),
   //    same pattern as ipip-neo-60 over personality-15. Deep raw is mean
-  //    Likert per code (1-5), light raw is count of choices per code (0-12).
+  //    Likert per code (1-5), light raw is sum of Likert ratings per code.
   //    Both normalized to roughly comparable scales before adding weight.
   const vocDeep = deepScores && deepScores.vocationalDeep;
   const vocLight = deepScores && deepScores.vocational;
@@ -73,6 +172,9 @@ function buildUserProfile(answers, deepScores) {
       const contribution = Math.max(0, (val - 3) * 6);
       riasec[code] = (riasec[code] || 0) + contribution;
     });
+    Object.entries(vocDeep.signalsRaw || {}).forEach(([signal, val]) => {
+      addSignals(signals, [signal], val);
+    });
   } else if (vocLight && vocLight.raw) {
     // Light test (18-item Quick-Sort Likert): each code's raw is the SUM of
     // 3 Likert ratings (3..15). Center on 9 (3 items × neutral 3) and scale
@@ -82,6 +184,9 @@ function buildUserProfile(answers, deepScores) {
     Object.entries(vocLight.raw).forEach(([code, val]) => {
       const contribution = Math.max(0, (val - VOCATIONAL_LIGHT_CENTER) * VOCATIONAL_LIGHT_SCALE);
       riasec[code] = (riasec[code] || 0) + contribution;
+    });
+    Object.entries(vocLight.signalsRaw || {}).forEach(([signal, val]) => {
+      addSignals(signals, [signal], val);
     });
   }
 
@@ -103,22 +208,23 @@ function buildUserProfile(answers, deepScores) {
   if (deepScores && deepScores.ipipNeo60) sources.push('ipip-neo-60');
   else if (deepScores && deepScores.personality) sources.push('personality-15');
 
-  return { riasec, paths, traits, big5, sources };
+  return { riasec, paths, traits, big5, signals, sources };
 }
 
 function buildCareerProfile(career) {
-  const riasec = {}; const paths = {}; const traits = {}; const big5 = {};
+  const riasec = {}; const paths = {}; const traits = {}; const big5 = {}; const signals = {};
   // RIASEC codes listed primary→tertiary; weight 3/2/1.
   (career.riasec || []).forEach((c, i) => { riasec[c] = i < 3 ? (3 - i) : 1; });
   if (career.pathType) { paths[career.pathType] = 1; }
   // 'mixt' careers also resonate with facultate + autodidact half-weight.
   if (career.pathType === 'mixt') { paths.facultate = 0.5; paths.autodidact = 0.5; }
   (career.traits || []).forEach((t) => { traits[t] = 1; });
+  addSignals(signals, inferCareerSignals(career), 1);
   // Big Five anchors: each declared letter = full weight (1.0). Filter
   // unknown chars (one career has 'I' = legacy data typo). Anchors mean
   // "high preferred" — non-anchors are neutral, not penalized.
   (career.big5 || []).forEach((k) => { if (BIG5_KEYS.includes(k)) big5[k] = 1; });
-  return { riasec, paths, traits, big5 };
+  return { riasec, paths, traits, big5, signals };
 }
 
 // Sample-size-aware weights. When the user has more test sources, RIASEC's
@@ -131,12 +237,12 @@ function getWeights(userProfile) {
   const hasVocDeep = sources.includes('vocational-deep');
   const hasVocLight = sources.includes('vocational') || hasVocDeep;
   // Deep Holland gets even higher RIASEC trust than light (more items, validated).
-  if (hasBig5 && hasVocDeep)  return { riasec: 0.50, paths: 0.10, traits: 0.10, big5: 0.30 };
-  if (hasBig5 && hasVocLight) return { riasec: 0.45, paths: 0.15, traits: 0.10, big5: 0.30 };
-  if (hasBig5)                return { riasec: 0.45, paths: 0.20, traits: 0.10, big5: 0.25 };
-  if (hasVocDeep)             return { riasec: 0.70, paths: 0.15, traits: 0.15, big5: 0.00 };
-  if (hasVocLight)            return { riasec: 0.65, paths: 0.20, traits: 0.15, big5: 0.00 };
-  return { riasec: 0.60, paths: 0.25, traits: 0.15, big5: 0.00 };
+  if (hasBig5 && hasVocDeep)  return { riasec: 0.40, paths: 0.10, traits: 0.05, signals: 0.15, big5: 0.30 };
+  if (hasBig5 && hasVocLight) return { riasec: 0.35, paths: 0.15, traits: 0.05, signals: 0.15, big5: 0.30 };
+  if (hasBig5)                return { riasec: 0.35, paths: 0.20, traits: 0.05, signals: 0.15, big5: 0.25 };
+  if (hasVocDeep)             return { riasec: 0.55, paths: 0.15, traits: 0.15, signals: 0.15, big5: 0.00 };
+  if (hasVocLight)            return { riasec: 0.50, paths: 0.20, traits: 0.15, signals: 0.15, big5: 0.00 };
+  return { riasec: 0.45, paths: 0.25, traits: 0.15, signals: 0.15, big5: 0.00 };
 }
 
 function big5Cosine(userBig5, careerBig5) {
@@ -157,11 +263,12 @@ function rawScore(userProfile, careerProfile, weights) {
   const sR = cosine(vecFromTallyKeys(userProfile.riasec, RIASEC_KEYS), vecFromTallyKeys(careerProfile.riasec, RIASEC_KEYS));
   const sP = cosine(vecFromTallyKeys(userProfile.paths, PATH_KEYS),   vecFromTallyKeys(careerProfile.paths, PATH_KEYS));
   const sT = cosine(vecFromTallyKeys(userProfile.traits, TRAIT_KEYS), vecFromTallyKeys(careerProfile.traits, TRAIT_KEYS));
+  const sS = cosine(vecFromTallyKeys(userProfile.signals, SIGNAL_KEYS), vecFromTallyKeys(careerProfile.signals, SIGNAL_KEYS));
   let sB = 0;
   if (weights.big5 > 0 && Object.keys(careerProfile.big5 || {}).length > 0) {
     sB = big5Cosine(userProfile.big5, careerProfile.big5);
   }
-  return weights.riasec * sR + weights.paths * sP + weights.traits * sT + weights.big5 * sB;
+  return weights.riasec * sR + weights.paths * sP + weights.traits * sT + weights.signals * sS + weights.big5 * sB;
 }
 
 function explainMatch(userProfile, career, careerProfile, weights) {
@@ -173,6 +280,7 @@ function explainMatch(userProfile, career, careerProfile, weights) {
   const sR = cosine(vecFromTallyKeys(userProfile.riasec, RIASEC_KEYS), vecFromTallyKeys(careerProfile.riasec, RIASEC_KEYS));
   const sP = cosine(vecFromTallyKeys(userProfile.paths, PATH_KEYS),   vecFromTallyKeys(careerProfile.paths, PATH_KEYS));
   const sT = cosine(vecFromTallyKeys(userProfile.traits, TRAIT_KEYS), vecFromTallyKeys(careerProfile.traits, TRAIT_KEYS));
+  const sS = cosine(vecFromTallyKeys(userProfile.signals, SIGNAL_KEYS), vecFromTallyKeys(careerProfile.signals, SIGNAL_KEYS));
   const sB = (weights.big5 > 0 && Object.keys(careerProfile.big5 || {}).length > 0)
     ? big5Cosine(userProfile.big5, careerProfile.big5) : null;
   // Short text version for results screen tagline.
@@ -182,7 +290,7 @@ function explainMatch(userProfile, career, careerProfile, weights) {
   if (sB !== null && sB > 0.4) bits.push(`Big Five aliniate`);
   return {
     text: bits.length ? bits.join(' · ') : 'profil mixt',
-    axes: { riasec: sR, paths: sP, traits: sT, big5: sB },
+    axes: { riasec: sR, paths: sP, traits: sT, signals: sS, big5: sB },
     riasecHit, pathHit,
   };
 }
@@ -192,6 +300,7 @@ function computeMatches(answers, careers, deepScores) {
   const noAnswers = Object.keys(userProfile.riasec).length === 0
                  && Object.keys(userProfile.paths).length === 0
                  && Object.keys(userProfile.traits).length === 0
+                 && Object.keys(userProfile.signals).length === 0
                  && Object.keys(userProfile.big5).length === 0;
   const weights = getWeights(userProfile);
 

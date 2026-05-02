@@ -39,6 +39,14 @@ function PersonalityScreen({ onComplete, onBack, dataKey }) {
     }, 180);
   };
 
+  const handleBack = () => {
+    if (idx === 0) {
+      onBack();
+      return;
+    }
+    setIdx(idx - 1);
+  };
+
   if (done) {
     return (
       <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
@@ -54,7 +62,7 @@ function PersonalityScreen({ onComplete, onBack, dataKey }) {
   return (
     <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', padding: '0 20px 20px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-        <button className="btn btn-icon" onClick={onBack} style={{ background: '#fff' }}>←</button>
+        <button className="btn btn-icon" onClick={handleBack} style={{ background: '#fff' }}>←</button>
         <div className="progress" style={{ flex: 1 }}><div className="progress-fill" style={{ width: `${progress}%` }}></div></div>
         <div className="mono" style={{ fontWeight: 700, fontSize: 13 }}>{idx + 1}/{total}</div>
       </div>
@@ -102,7 +110,7 @@ function PersonalityScreen({ onComplete, onBack, dataKey }) {
       </div>
 
       <div className="body-sm" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>
-        Atinge un număr. Următoarea apare automat.
+        Apasă un număr și treci la următoarea întrebare.
       </div>
     </div>
   );

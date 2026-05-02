@@ -4,6 +4,7 @@
 // codes, clean 1:1 item-to-code mapping.
 // Output shape stays compatible: { raw: {R,I,A,S,E,C}, top: [{code, score}] }
 // where raw values are sums of 3 Likert ratings per code (range 3..15).
+// signalsRaw keeps only above-neutral answers for clearer matching.
 function VocationalScreen({ onComplete, onBack }) {
   const data = window.QUIZ_DATA && window.QUIZ_DATA.vocational;
   if (!data) {
@@ -39,6 +40,14 @@ function VocationalScreen({ onComplete, onBack }) {
     }, 180);
   };
 
+  const handleBack = () => {
+    if (idx === 0) {
+      onBack();
+      return;
+    }
+    setIdx(idx - 1);
+  };
+
   if (done) {
     return (
       <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
@@ -55,7 +64,7 @@ function VocationalScreen({ onComplete, onBack }) {
   return (
     <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', padding: '0 20px 20px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-        <button className="btn btn-icon" onClick={onBack} style={{ background: '#fff' }}>←</button>
+        <button className="btn btn-icon" onClick={handleBack} style={{ background: '#fff' }}>←</button>
         <div className="progress" style={{ flex: 1 }}><div className="progress-fill" style={{ width: `${progress}%` }}></div></div>
         <div className="mono" style={{ fontWeight: 700, fontSize: 13 }}>{idx + 1}/{total}</div>
       </div>
@@ -102,19 +111,29 @@ function VocationalScreen({ onComplete, onBack }) {
       </div>
 
       <div className="body-sm" style={{ textAlign: 'center', color: 'var(--ink-soft)' }}>
-        Atinge un număr. Următoarea apare automat.
+        Apasă un număr și treci la următoarea întrebare.
       </div>
     </div>
   );
 }
 
-// Sum Likert ratings per RIASEC code → returns { raw, top }.
+function addItemSignals(tally, signals, weight) {
+  if (!Array.isArray(signals) || weight <= 0) return;
+  signals.forEach((signal) => {
+    tally[signal] = (tally[signal] || 0) + weight;
+  });
+}
+
+// Sum Likert ratings per RIASEC code → returns { raw, top, signalsRaw }.
 // raw[code] = sum of 3 ratings (range 3..15). Default to 3 (neutral) if skipped.
 function computeRIASEC(responses, data) {
   const sums = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+  const signalsRaw = {};
   data.items.forEach((it) => {
     const v = responses[it.id];
-    sums[it.code] += (typeof v === 'number') ? v : 3;
+    const raw = (typeof v === 'number') ? v : 3;
+    sums[it.code] += raw;
+    addItemSignals(signalsRaw, it.signals, Math.max(0, raw - 3));
   });
   // top 3 codes
   const sorted = Object.entries(sums).sort((a, b) => b[1] - a[1]);
@@ -122,6 +141,7 @@ function computeRIASEC(responses, data) {
     raw: sums,
     code: sorted.slice(0, 3).map((x) => x[0]).join(''),
     top: sorted.slice(0, 3).map(([k, v]) => ({ code: k, score: v })),
+    signalsRaw,
   };
 }
 
