@@ -201,9 +201,9 @@ window.QUIZ_DATA = {
     },
   },
 
-  // ── VOCATIONAL (RIASEC / Holland Code · 18 itemi · Likert 1-5) ──
+  // ── VOCATIONAL (RIASEC / Holland Code · 20 itemi · Likert 1-5) ──
   // Quick-Sort format (înlocuiește testul forced-choice de 12 itemi din 2026-04-30):
-  // 3 itemi per cod RIASEC × 6 coduri = 18 itemi · scala 1-5 (foarte puțin → foarte mult)
+  // 3-4 itemi per cod RIASEC × 6 coduri = 20 itemi · scala 1-5 (foarte puțin → foarte mult)
   // Avantaj față de forced-choice: capturează intensitate per item (nu doar
   // preferință relativă), nu forțează alegeri artificiale între coduri,
   // mapping curat per item (un item → un singur cod).

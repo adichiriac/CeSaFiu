@@ -395,7 +395,7 @@ function recommendNextTest(userProfile) {
   // benefit in plain language ("ca să afli mai precis ce ți se potrivește").
   if (!hasQuick) return { kind: 'quick', reason: 'Începe cu quiz-ul rapid — 6 întrebări, 90s.' };
   if (!hasVocLight) {
-    return { kind: 'vocational', reason: 'Continuă cu testul vocațional scurt (18 itemi, 4 min) ca să afli mai precis ce ți se potrivește.' };
+    return { kind: 'vocational', reason: 'Continuă cu testul vocațional scurt (20 itemi, 4 min) ca să afli mai precis ce ți se potrivește.' };
   }
   // After light Holland, prioritize Big Five (different signal type) before deep Holland (same signal, refining).
   if (!hasBig5Light) {
