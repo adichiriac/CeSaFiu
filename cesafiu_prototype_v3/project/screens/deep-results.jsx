@@ -1,9 +1,9 @@
 // Results for the deep tests (personality 15-item + ipipNeo60 + vocational)
-function DeepResultsScreen({ kind, scores, onBrowse, onRetake, onProfile, onIpipNeo, onDeepVoc }) {
+function DeepResultsScreen({ kind, scores, onBrowse, onRetake, onProfile, onPickCareer, onIpipNeo, onDeepVoc }) {
   if (kind === 'personality' || kind === 'ipipNeo60') {
     return <PersonalityResults dataKey={kind} scores={scores} onBrowse={onBrowse} onRetake={onRetake} onProfile={onProfile} onIpipNeo={onIpipNeo} />;
   }
-  return <VocationalResults scores={scores} onBrowse={onBrowse} onRetake={onRetake} onProfile={onProfile} onDeepVoc={onDeepVoc} />;
+  return <VocationalResults scores={scores} onBrowse={onBrowse} onRetake={onRetake} onProfile={onProfile} onPickCareer={onPickCareer} onDeepVoc={onDeepVoc} />;
 }
 
 function PersonalityResults({ dataKey, scores, onBrowse, onRetake, onProfile, onIpipNeo }) {
@@ -88,7 +88,7 @@ function PersonalityResults({ dataKey, scores, onBrowse, onRetake, onProfile, on
   );
 }
 
-function VocationalResults({ scores, onBrowse, onRetake, onProfile, onDeepVoc }) {
+function VocationalResults({ scores, onBrowse, onRetake, onProfile, onPickCareer, onDeepVoc }) {
   const codes = window.QUIZ_DATA.vocational.codes;
   const colors = { purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)' };
   const PaidHookCard = window.PaidHookCard;
@@ -185,7 +185,15 @@ function VocationalResults({ scores, onBrowse, onRetake, onProfile, onDeepVoc })
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {careers.map((m) => (
-                <div key={m.c.id} className="card" style={{ padding: 14, display: 'flex', gap: 12, alignItems: 'center' }}>
+                <button
+                  key={m.c.id}
+                  onClick={() => onPickCareer && onPickCareer(m.c.id)}
+                  className="card"
+                  style={{
+                    padding: 14, display: 'flex', gap: 12, alignItems: 'center',
+                    background: '#fff', textAlign: 'left', font: 'inherit', cursor: 'pointer', width: '100%',
+                  }}
+                >
                   <div style={{
                     width: 48, height: 48, background: colors[m.c.color], border: '2px solid #000',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -195,13 +203,28 @@ function VocationalResults({ scores, onBrowse, onRetake, onProfile, onDeepVoc })
                     <div className="h-sm" style={{ fontSize: 15 }}>{m.c.name}</div>
                     <div className="body-sm" style={{ color: 'var(--ink-soft)' }}>{m.c.tagline}</div>
                   </div>
-                </div>
+                  <div style={{ color: 'var(--ink-soft)', fontSize: 18, flexShrink: 0 }}>›</div>
+                </button>
               ))}
             </div>
           </>
         )}
 
-        <div className="card" style={{ padding: 18, marginTop: 20, background: 'var(--purple)', color: '#fff' }}>
+        {onProfile && (
+          <button
+            onClick={onProfile}
+            className="btn"
+            style={{
+              marginTop: 16, width: '100%',
+              background: '#000', color: '#fff',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+            }}
+          >
+            <span style={{ fontSize: 16 }}>◉</span> VEZI PROFILUL TĂU →
+          </button>
+        )}
+
+        <div className="card" style={{ padding: 18, marginTop: 16, background: 'var(--purple)', color: '#fff' }}>
           <div className="h-sm" style={{ color: '#fff' }}>Vezi toate variantele</div>
           <div className="body-sm" style={{ marginTop: 6, opacity: 0.9 }}>
             Browse cariere, trasee și universități care se potrivesc.

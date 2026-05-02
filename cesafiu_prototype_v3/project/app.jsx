@@ -607,6 +607,7 @@ function App() {
               onBrowse={() => { setBrowseSection('careers'); goto('browse'); }}
               onRetake={() => goto(route.kind === 'ipipNeo60' ? 'ipip-neo' : route.kind)}
               onProfile={() => goto('profile')}
+              onPickCareer={handlePickCareer}
               onIpipNeo={() => goto('ipip-neo')}
               onDeepVoc={route.kind === 'vocational' ? () => goto('vocational-deep') : undefined}
             />
