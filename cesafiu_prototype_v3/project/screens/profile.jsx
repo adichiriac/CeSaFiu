@@ -78,13 +78,15 @@ const PATH_PLAN = {
 };
 
 const TEST_META = {
-  quick:        { label: 'Quiz rapid',         sub: '6 itemi · orientativ',        bg: 'var(--purple)',  text: '#fff', emoji: '✦' },
-  personality:  { label: 'Personalitate',      sub: 'Big Five · 15 itemi · scurt', bg: 'var(--green)',   text: '#000', emoji: '◆' },
-  ipipNeo60:    { label: 'IPIP-NEO-60',        sub: 'Validat · 60 itemi',          bg: '#000',           text: '#fff', emoji: '✓' },
-  vocational:   { label: 'Vocațional',         sub: 'Holland · 12 itemi',          bg: 'var(--yellow)',  text: '#000', emoji: '◉' },
+  quick:           { label: 'Quiz rapid',          sub: '6 itemi · orientativ',          bg: 'var(--purple)',  text: '#fff', emoji: '✦' },
+  personality:     { label: 'Personalitate',       sub: 'Big Five · 15 itemi · scurt',   bg: 'var(--green)',   text: '#000', emoji: '◆' },
+  ipipNeo60:       { label: 'IPIP-NEO-60',         sub: 'Validat · 60 itemi',            bg: '#000',           text: '#fff', emoji: '✓' },
+  vocational:      { label: 'Vocațional',          sub: 'Holland · 20 itemi',            bg: 'var(--yellow)',  text: '#000', emoji: '◉' },
+  'vocational-deep': { label: 'Vocațional validat', sub: 'O*NET · 60 itemi · validat ✓', bg: '#000',           text: 'var(--yellow)', emoji: '◉' },
 };
 
-const BIG5_LABEL = { O: 'Deschidere', C: 'Conștiinciozitate', E: 'Extraversie', A: 'Agreabilitate', N: 'Stabilitate' };
+// N = Neuroticism (raw score); S = 100−N = Stabilitate Emoțională (derived, not displayed in tests)
+const BIG5_LABEL = { O: 'Deschidere', C: 'Conștiinciozitate', E: 'Extraversie', A: 'Agreabilitate', N: 'Nevrotism', S: 'Stabilitate Emoțională' };
 const HOLLAND_LABEL = { R: 'Realist', I: 'Investigativ', A: 'Artistic', S: 'Social', E: 'Antreprenorial', C: 'Convențional' };
 
 function ProfileScreen({
@@ -120,10 +122,11 @@ function ProfileScreen({
 
   // Test completion summary
   const testsRow = [
-    { key: 'quick',       done: hasAnswers,                     onClick: () => onRetake() },
-    { key: 'personality', done: !!deepScores?.personality,      onClick: () => onPickTest('personality') },
-    { key: 'ipipNeo60',   done: !!deepScores?.ipipNeo60,        onClick: () => onPickTest('ipip-neo') },
-    { key: 'vocational',  done: !!deepScores?.vocational,       onClick: () => onPickTest('vocational') },
+    { key: 'quick',            done: hasAnswers,                          onClick: () => onRetake() },
+    { key: 'personality',      done: !!deepScores?.personality,           onClick: () => onPickTest('personality') },
+    { key: 'ipipNeo60',        done: !!deepScores?.ipipNeo60,             onClick: () => onPickTest('ipip-neo') },
+    { key: 'vocational',       done: !!deepScores?.vocational,            onClick: () => onPickTest('vocational') },
+    { key: 'vocational-deep',  done: !!deepScores?.vocationalDeep,        onClick: () => onPickTest('vocational-deep') },
   ];
   const completed = testsRow.filter((t) => t.done).length;
 
@@ -161,7 +164,7 @@ function ProfileScreen({
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 6, marginTop: 14 }}>
             {[
-              { k: 'TESTE', v: `${completed}/4` },
+              { k: 'TESTE', v: `${completed}/5` },
               { k: 'CARIERE', v: savedCareers.length },
               { k: 'UNI', v: savedUnis.length },
               { k: 'TRASEU', v: chosenPath ? '✓' : '—' },
@@ -528,7 +531,7 @@ function ProfileScreen({
       {/* ── 5. TESTS BAR (compact) ───────────────────────── */}
       <div style={{ padding: '0 20px 22px' }}>
         <div className="label-bold" style={{ marginBottom: 8, color: 'var(--ink-soft)' }}>
-          TESTELE TALE — {completed}/4
+          TESTELE TALE — {completed}/5
         </div>
         <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4, marginRight: -20 }}>
           {testsRow.map((t) => {

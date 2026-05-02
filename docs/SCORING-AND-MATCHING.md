@@ -1,6 +1,6 @@
 # Scoring & Matching — how recommendations are computed
 
-*Living document. Last updated: 2026-04-30.*
+*Living document. Last updated: 2026-05-02.*
 
 This page is the canonical reference for **how a student's test answers turn into a ranked list of careers**. If you're rebuilding the algorithm in another language, designing the paid PDF report, or writing copy that references "match %", read this first.
 
@@ -10,8 +10,9 @@ Companion docs: [PSYCHOMETRICS.md](./PSYCHOMETRICS.md) (what tests we ship and w
 
 ## TL;DR
 
-- Multi-axis cosine similarity between a user profile vector and a career profile vector. Four axes: **RIASEC** (Holland Code), **path bias** (facultate / autodidact / etc.), **traits** (legacy 7-bucket), **Big Five**.
-- Weights are **sample-size-aware**: with only the quick quiz, RIASEC carries 60% of the score. With all 5 tests done, weights redistribute (RIASEC 50, paths 10, traits 10, Big Five 30).
+- Multi-axis cosine similarity between a user profile vector and a career profile vector. Five axes: **RIASEC** (Holland Code), **path bias** (facultate / autodidact / etc.), **traits** (legacy 7-bucket), **signals** (interest/context tags, 15% fixed), **Big Five**.
+- Weights are **sample-size-aware**: with only the quick quiz, RIASEC carries 60% of the score. With all 5 tests done, weights redistribute (RIASEC 55, paths 10, traits 5, signals 15, Big Five 15).
+- **Big Five is capped at 15%** regardless of test breadth (2026-05-02). Previously 25-30%; reduced because C was over-represented in career anchors and dominated the axis.
 - Score is calibrated to a **floor 25%, ceiling 80-95%** range. Ceiling rises with test breadth — a quick-quiz-only user can never exceed 80% match.
 - **Confidence** (0-1) is a separate signal exposed alongside the match list. Driven primarily by test breadth, secondarily by spread between top-1 and top-3.
 - Top-N is **diversified via MMR** so the user doesn't see four near-clones of #1.
@@ -66,7 +67,7 @@ Each "family" contributes at most one entry. Three families → max 3 sources.
   riasec: { R: 4, I: 7, A: 3, S: 1, E: 2, C: 1 },   // counts/sums per Holland code
   paths:  { facultate: 3, autodidact: 1, mixt: 2 }, // counts per path bias
   traits: { build: 2, analyze: 4, create: 3 },     // counts per legacy 7-bucket trait
-  big5:   { O: 75, C: 60, E: 30, A: 55, N: 40 },   // 0-100 percentages, only if Big Five test taken
+  big5:   { O: 75, C: 60, E: 30, A: 55, N: 40, S: 60 }, // 0-100 percentages; S = 100 − N (derived)
   sources: ['quick', 'vocational', 'personality-15'],
 }
 ```
@@ -85,6 +86,8 @@ When the deep test is present, the light test's contribution is **skipped entire
 **Traits (`traits`).** Only the quick quiz contributes. Legacy 7-bucket: `build`, `tech`, `analyze`, `social`, `lead`, `create`, `visual`. Each option's `traits[]` array adds +1 per trait listed.
 
 **Big Five (`big5`).** Only the personality / IPIP test contributes. The result is a `{O, C, E, A, N}` object with values 0-100, copied into `userProfile.big5` directly (no aggregation across tests — most-recent wins; IPIP-NEO-60 wins over short test if both are taken).
+
+**S pseudo-dimension (Stabilitate Emoțională).** Added 2026-05-02. `S = 100 − N` (derived in `buildUserProfile` — no new test required). Careers like pilot, pompier, paramedic, ofițer, cybersecurity carry `big5: ['S']` or `['C', 'S']` anchors. Without S, these careers could only signal "not high-N users are good here" via a penalty — which `big5Cosine`'s centering doesn't do. S flips this: high-stability users (low N) produce a positive S score that rewards stability-anchored careers. `BIG5_KEYS` is now `['O', 'C', 'E', 'A', 'N', 'S']`.
 
 ### Edge case: no answers at all
 
@@ -117,7 +120,7 @@ Careers with `pathType: 'mixt'` are wired to *also* resonate with `facultate` an
 
 Careers declare a list of dominant Big Five letters (e.g., `big5: ['O', 'C']`). Each declared letter becomes weight 1.0; non-anchored letters are 0 (neutral, not penalized). Only the upper Big Five matter — there's no convention to anchor "low N" or "low E", so we don't.
 
-**Known data limitation:** of 107 careers, the Big Five anchor distribution is `O:50, C:84, E:29, A:30, N:0` plus one stray `I` (typo). N is never anchored. This is a real gap (see §13 Open Issues).
+**Big Five anchor distribution** after 2026-05-02 corrections (115 careers): `C:69 (60%), O:53 (46%), E:34 (29%), A:33 (28%), S:12 (10%), N:0`. N is intentionally never anchored — use S instead. Before 2026-05-02, C was on 92/115 (80%) careers, making it effectively useless as a discriminator. See §13 and §15 for the rationale.
 
 ---
 
@@ -132,7 +135,9 @@ rawScore = W.riasec × cos(user.riasec, career.riasec)
          + W.big5   × big5Cosine(user.big5, career.big5)
 ```
 
-Each `cos()` is standard cosine similarity over the 6 / 7 / 7 / 5-dim vectors (RIASEC keys, PATH_KEYS, TRAIT_KEYS, BIG5_KEYS).
+Each `cos()` is standard cosine similarity over the 6 / 7 / 7 / 6-dim vectors (RIASEC keys, PATH_KEYS, TRAIT_KEYS, BIG5_KEYS). Signals axis uses a separate tagged-overlap approach (see `getWeights`).
+
+> **Note on signals axis:** the signals cosine is computed over a controlled vocabulary of 8 families × sub-dimensions (order, service, precision, creativity, etc.). Weight is **fixed at 15%** across all scenarios — signals contribute equally regardless of test breadth. The other axes' weights flex around this constant.
 
 ### Big Five cosine with centering
 
@@ -156,20 +161,24 @@ This means: a user at exactly 50 on Openness contributes 0 to a career anchored 
 
 `getWeights(userProfile)` returns one of six weight tables based on which sources contributed. The principle: **more sources → RIASEC's share comes down, Big Five activates, paths/traits stay roughly stable**.
 
-| Sources contributing | RIASEC | Paths | Traits | Big Five |
-|---|---:|---:|---:|---:|
-| Quick only | **0.60** | 0.25 | 0.15 | 0.00 |
-| Quick + light Holland | **0.65** | 0.20 | 0.15 | 0.00 |
-| Quick + deep Holland | **0.70** | 0.15 | 0.15 | 0.00 |
-| Quick + Big Five (no Holland) | **0.45** | 0.20 | 0.10 | 0.25 |
-| Quick + light Holland + Big Five | **0.45** | 0.15 | 0.10 | 0.30 |
-| Quick + deep Holland + Big Five | **0.50** | 0.10 | 0.10 | 0.30 |
+Signals axis is **fixed at 0.15** across all scenarios; the remaining 0.85 is distributed across the other axes as shown.
+
+| Sources contributing | RIASEC | Paths | Traits | Signals | Big Five |
+|---|---:|---:|---:|---:|---:|
+| Quick only | **0.60** | 0.25 | 0.15 | 0.00 | 0.00 |
+| Quick + light Holland | **0.65** | 0.20 | 0.15 | 0.00 | 0.00 |
+| Quick + deep Holland | **0.70** | 0.15 | 0.15 | 0.00 | 0.00 |
+| Quick + Big Five (no Holland) | **0.40** | 0.20 | 0.10 | 0.15 | **0.15** |
+| Quick + light Holland + Big Five | **0.50** | 0.15 | 0.05 | 0.15 | **0.15** |
+| Quick + deep Holland + Big Five | **0.55** | 0.10 | 0.05 | 0.15 | **0.15** |
+
+> **Big Five cap at 0.15 (from 2026-05-02):** previously 0.25-0.30. Reduced because C was on 80%+ of careers, meaning Big Five contributed mostly "Conscientiousness?" regardless of profile. At 15% it still provides signal without dominating. Signals also activated at 15% fixed when user profile has signals data.
 
 Reasoning:
 
-- **Quick-only user has thin RIASEC data** (~9 votes from 6 questions), so the algorithm needs to lean on RIASEC because that's all it has — but the *score ceiling* (§6) caps confidence to compensate.
+- **Quick-only user has thin RIASEC data** (~9 votes from 6 questions), so the algorithm leans on RIASEC because that's all it has — but the *score ceiling* (§6) caps confidence to compensate.
 - **Adding any Holland test boosts RIASEC's reliability**, so its weight goes up slightly while paths/traits drop. Deep Holland is more reliable than light, so RIASEC gets even higher trust (0.70).
-- **Adding Big Five activates the 4th axis**, redistributing weight toward `big5: 0.25-0.30`. Path and trait shares both shrink because they were partly compensating for missing motivational data.
+- **Adding Big Five activates the 5th axis**, taking 15% — paths and traits both shrink. Signals also activate at 15% when present.
 - **All three families together** yield the most balanced weighting — the algorithm has all the signals it needs.
 
 These tables are tuned by *reasonableness*, not by validation — there's no held-out empirical study saying "0.55 RIASEC weight is optimal." If we ever get user-feedback data (top-1 match validated by user as "yes that's me"), tune these against that.
@@ -345,8 +354,9 @@ These are real gaps. Some are tracked in `DATA-MAP-TODO.md`; others I'm noting h
 ### Career-side data is sparse
 
 - **RIASEC codes per career are 1-3 letters**, ordered, weighted 3/2/1. A real Holland measurement assigns *all 6* codes a percentile. We could enrich the schema to `riasec: { R: 0.2, I: 0.85, A: 0.65, S: 0.1, E: 0.4, C: 0.3 }` — would make matching much more nuanced, but requires re-validating 107 careers. Tracked as `#25` in the task list.
-- **Big Five anchors are sparse and biased toward C and O** (84/107 careers have C, 50/107 have O). Almost no career anchors `E`, `A`, or `N`. This means a high-E (extraverted) user gets little signal from Big Five matching — most careers don't claim E as relevant, even when it should be (sales rep, social entrepreneur, etc.).
-- **No "low N" anchors.** Many careers benefit from emotional stability (medic urgență, paramedic, founder) but the schema only encodes "high X" anchors. A high-N user is never penalized for high-stress careers, when they probably should be steered toward calmer roles.
+- **Big Five anchors were sparse and biased toward C and O** (92/115 = 80% of careers had C, making it useless as discriminator). Fixed 2026-05-02: C pruned to 69/115 (60%), limited to precision/compliance-critical roles. E, A corrected where meaningful. S added as 10% of careers (stability-critical). Still no careers use `N` directly (by design — use S instead).
+- **No "low N" anchors — now addressed via S.** Stability-critical careers (pilot, pompier, paramedic, ofițer, devops etc.) now carry `S` in their big5 array. `S = 100 − N` is derived in `buildUserProfile`. `big5Cosine`'s centering naturally handles this: a user with N=20 gets S=80, scoring 0.30 on that axis; a user with N=70 gets S=30, scoring 0 (neutral, not penalized). High-N users aren't actively steered away, but stability-anchored careers no longer look equally attractive.
+- **E, A still under-represented.** High-E (extraverted) users get limited Big Five signal — social/sales careers only partially anchor E. Calibrate after pilot (20-50 users).
 
 ### Algorithm assumptions worth challenging
 
@@ -391,7 +401,7 @@ Constants you'll find scattered:
 - `RIASEC_KEYS = ['R', 'I', 'A', 'S', 'E', 'C']`
 - `PATH_KEYS = ['facultate', 'autodidact', 'antreprenor', 'profesional', 'freelance', 'creator', 'mixt']`
 - `TRAIT_KEYS = ['build', 'tech', 'analyze', 'social', 'lead', 'create', 'visual']`
-- `BIG5_KEYS = ['O', 'C', 'E', 'A', 'N']`
+- `BIG5_KEYS = ['O', 'C', 'E', 'A', 'N', 'S']` — S is the Stabilitate Emoțională pseudo-dimension (= 100 − N), added 2026-05-02
 - `VOCATIONAL_WEIGHT = 2` (light Holland multiplier)
 
 ---
@@ -399,6 +409,26 @@ Constants you'll find scattered:
 ## 15. Decision log — why each major choice was made
 
 Newest first. Add to this section whenever the algorithm changes.
+
+### 2026-05-02 — S pseudo-dimension (Stabilitate Emoțională) added
+
+Many stability-critical careers (pilot militar, pompier, paramedic, ofițer, cybersecurity, devops, medic generalist etc.) previously had no meaningful Big Five signal. The schema only encodes "high X" anchors; "low N" can't be expressed directly. Fix: `S = 100 − N` derived in `buildUserProfile` — no test changes, no UI changes. `BIG5_KEYS` extended to `['O', 'C', 'E', 'A', 'N', 'S']`. 12 careers updated with `S` in their `big5` array. `big5Cosine`'s centering at 0.5 handles the math: N=20 → S=80 → contributes 0.30; N=70 → S=30 → contributes 0.
+
+### 2026-05-02 — Big Five weight capped at 15% (was 25-30%)
+
+Root cause: C appeared on 92/115 careers (80%), making the Big Five axis almost entirely a measure of "how Conscientious is the user?" regardless of their actual profile. A user with O=90 (highly creative) was still dominated by C on every match. Fix: (1) pruned C to 69/115 (60%) — precision/compliance-critical careers only; (2) reduced Big Five weight from 0.25-0.30 to a flat 0.15 cap across all weight scenarios. Freed weight goes to RIASEC (0.05 increase). Signals axis added at fixed 0.15 when signals are present. Decision log entry per discussion 2026-05-02.
+
+### 2026-05-02 — Signals axis activated at 15% fixed weight
+
+Signals (8 families × sub-dimensions: order, service, precision, creativity, etc.) were computed in v3 but not yet fed into `rawScore`. Added as 5th axis with fixed 0.15 weight — does not scale with test breadth (signals come from career metadata, not user tests). The 0.15 was taken from the freed Big Five weight. A user profile without signals falls back to the old 4-axis formula.
+
+### 2026-05-02 — Career Big5 data corrected (all 115 careers)
+
+Batch audit of all `big5` arrays in data.js. Changes: removed C from 20+ creative/entrepreneurial careers (product-designer, startup-founder, software-engineer, game-developer, etc.); added S to 12 stability-critical careers; fixed E/A assignments on antrenor-sportiv, profesor-gimnaziu-liceu; fixed typo `'I'` on inginer-electronic (was a RIASEC code copy-paste error); removed C from curier-livrator. Final distribution: C:69 (60%), O:53 (46%), E:34 (29%), A:33 (28%), S:12 (10%).
+
+### 2026-05-02 — vocational-deep added to profile test carousel
+
+Profile screen was showing 4 tests with a `/4` counter. The 60-item O*NET validated vocational test existed but wasn't represented in the TEST_META map or testsRow. Fixed: added `vocational-deep` entry to both, updated counter to `/5`. `BIG5_LABEL` also corrected: `N` was wrongly labelled `'Stabilitate'` (that's S's job); fixed to `'Nevrotism'`.
 
 ### 2026-04-30 — Big Five wired into matching (Phase A)
 

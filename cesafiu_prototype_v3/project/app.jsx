@@ -137,7 +137,11 @@ function inferCareerSignals(career) {
 // Big Five axis added in Phase A (2026-04-30). Career anchors stored as
 // shorthand letter array (e.g., big5: ['O','C']); user big5 stored as
 // percentages {O:75, C:60, ...} from personality / IPIP-NEO-60 tests.
-const BIG5_KEYS = ['O', 'C', 'E', 'A', 'N'];
+// 'S' (Stabilitate Emoțională) = 100 − N (Neuroticism). Pseudo-dimension added
+// 2026-05-02: lets stability-critical careers (pilot, pompier, ofițer etc.) get
+// a positive Big5 signal without requiring users to score low on N explicitly.
+// Computed in buildUserProfile from the existing N score; no test changes needed.
+const BIG5_KEYS = ['O', 'C', 'E', 'A', 'N', 'S'];
 
 // Vocational (Holland) test weight relative to a single quick-quiz answer.
 // New format (2026-04-30): 18-item Likert Quick-Sort. 3 items per RIASEC code,
@@ -195,8 +199,11 @@ function buildUserProfile(answers, deepScores) {
   const big5Source = deepScores && (deepScores.ipipNeo60 || deepScores.personality);
   if (big5Source) {
     BIG5_KEYS.forEach((k) => {
+      if (k === 'S') return; // computed below from N
       if (typeof big5Source[k] === 'number') big5[k] = big5Source[k];
     });
+    // Derive S (Stabilitate Emoțională) = 100 − N. Only set if N is known.
+    if (typeof big5.N === 'number') big5.S = 100 - big5.N;
   }
 
   // 4. Track which sources contributed — drives confidence + adaptive weights.
@@ -237,9 +244,12 @@ function getWeights(userProfile) {
   const hasVocDeep = sources.includes('vocational-deep');
   const hasVocLight = sources.includes('vocational') || hasVocDeep;
   // Deep Holland gets even higher RIASEC trust than light (more items, validated).
-  if (hasBig5 && hasVocDeep)  return { riasec: 0.40, paths: 0.10, traits: 0.05, signals: 0.15, big5: 0.30 };
-  if (hasBig5 && hasVocLight) return { riasec: 0.35, paths: 0.15, traits: 0.05, signals: 0.15, big5: 0.30 };
-  if (hasBig5)                return { riasec: 0.35, paths: 0.20, traits: 0.05, signals: 0.15, big5: 0.25 };
+  // Big5 weight capped at 15% (2026-05-02): was 25-30%, causing C to dominate
+  // because 80% of careers had C as an anchor. Freed weight goes to RIASEC
+  // (more validated signal per item) rather than paths/traits.
+  if (hasBig5 && hasVocDeep)  return { riasec: 0.55, paths: 0.10, traits: 0.05, signals: 0.15, big5: 0.15 };
+  if (hasBig5 && hasVocLight) return { riasec: 0.50, paths: 0.15, traits: 0.05, signals: 0.15, big5: 0.15 };
+  if (hasBig5)                return { riasec: 0.45, paths: 0.20, traits: 0.05, signals: 0.15, big5: 0.15 };
   if (hasVocDeep)             return { riasec: 0.55, paths: 0.15, traits: 0.15, signals: 0.15, big5: 0.00 };
   if (hasVocLight)            return { riasec: 0.50, paths: 0.20, traits: 0.15, signals: 0.15, big5: 0.00 };
   return { riasec: 0.45, paths: 0.25, traits: 0.15, signals: 0.15, big5: 0.00 };
