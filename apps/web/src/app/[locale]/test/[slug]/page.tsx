@@ -13,7 +13,7 @@ type TestPageProps = {
 
 export async function generateStaticParams() {
   return locales.flatMap((locale) =>
-    ['scenarii', 'personalitate', 'ipip-neo-60', 'vocational'].map((slug) => ({
+    ['scenarii', 'personalitate', 'ipip-neo-60', 'vocational', 'vocational-deep'].map((slug) => ({
       locale,
       slug
     }))

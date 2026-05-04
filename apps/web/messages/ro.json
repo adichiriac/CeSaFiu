@@ -7,21 +7,24 @@
     "brand": "Ce Să Fiu?",
     "brandCe": "Ce",
     "brandRest": "să fiu?",
-    "helpLabel": "Ajutor",
+    "helpLabel": "Cum funcționează testele",
     "helpGlyph": "?",
-    "noRobots": "Fără roboți",
-    "eyebrow": "4 teste · la alegerea ta",
+    "noRobots": "Opțiuni de carieră...gratuit!",
+    "eyebrow": "5 teste · la alegerea ta",
     "titleLine1": "Ce",
     "titleLine2": "să fiu",
     "titleLine3": "când mă",
     "titleLine4": "fac mare?",
-    "lead": "Quiz-uri care nu te judecă. Plus o bibliotecă cu toate variantele — facultate, autodidact, antreprenor.",
+    "leadPrefix": "Descoperă ce ți se potrivește, fără stres. Quiz-uri rapide + idei reale:",
+    "leadHighlight1": "facultăți,",
+    "leadHighlight2": "meserii,",
+    "leadHighlight3": "parcursuri",
     "tests": [
       {
         "id": "scenarii",
         "label": "Scenarii reale",
         "sub": "Pilot winner · 12 situații · 5 min",
-        "description": "Înlocuiește Quiz Rapid. Te citește prin reacții concrete, nu prin auto-descrieri abstracte.",
+        "description": "Te citește prin reacții concrete, nu prin auto-descrieri abstracte.",
         "href": "/test/scenarii",
         "action": "Start scenarii"
       },
@@ -43,19 +46,96 @@
       },
       {
         "id": "vocational",
-        "label": "Vocațional",
-        "sub": "Holland · 5 min",
-        "description": "Află ce tip de activități te atrag: construit, cercetat, creat, ajutat, condus sau organizat.",
+        "label": "Vocațional (scurt)",
+        "sub": "Holland · 20 itemi · 4 min",
+        "description": "Varianta scurtă din Phase 1. Îți arată ce tipuri de activități te atrag cel mai mult.",
         "href": "/test/vocational",
         "action": "Start vocațional"
+      },
+      {
+        "id": "vocationalDeep",
+        "label": "Vocațional complet",
+        "sub": "O*NET · 60 itemi · 8-10 min",
+        "description": "Versiunea completă pentru interes vocațional. Semnal mult mai precis decât testul scurt.",
+        "href": "/test/vocational-deep",
+        "action": "Start vocațional complet"
       }
     ],
+    "recommendedTest": "Începe aici",
+    "startGuideTitle": "De unde încep?",
+    "startGuideLead": "Dacă nu știi ce test să alegi, începe cu varianta care îți dă cel mai bun semnal pentru timpul pe care îl ai.",
+    "startGuides": [
+      {
+        "label": "Vrei un prim vibe rapid",
+        "value": "Scenarii reale"
+      },
+      {
+        "label": "Ai doar 5 minute",
+        "value": "Vocațional (scurt)"
+      },
+      {
+        "label": "Vrei stilul tău pe scurt",
+        "value": "Personalitate"
+      },
+      {
+        "label": "Vrei interes vocațional serios",
+        "value": "Vocațional complet"
+      },
+      {
+        "label": "Vrei ceva serios",
+        "value": "IPIP-NEO-60"
+      }
+    ],
+    "resultsPreviewTitle": "Ce primești la final",
+    "resultsPreviewLead": "Vei primi top 3 cariere potrivite + instituții din România care te pot duce acolo.",
+    "resultsPreviewItems": [
+      {
+        "title": "Top 3 potriviri",
+        "body": "Direcții de carieră care se potrivesc cu răspunsurile tale, nu cu ce ar suna bine pe hârtie."
+      },
+      {
+        "title": "Match + explicație",
+        "body": "Un scor orientativ și un rezumat clar despre de ce ți-a ieșit direcția respectivă."
+      },
+      {
+        "title": "Opțiuni reale",
+        "body": "Facultăți, meserii, parcursuri și roluri pe care le poți explora în România."
+      },
+      {
+        "title": "Pași concreți",
+        "body": "Drumul tău către ceea ce ți se potrivește."
+      }
+    ],
+    "storyEyebrow": "EXEMPLU REAL",
+    "storyTitle": "Nu doar scoruri",
+    "storyQuote": "Andra a dat testul, a văzut că i se potrivește designul vizual, apoi a urmat pașii necesari și acum e la UNArte.",
+    "storyMeta": "Testul nu decide în locul tău. Îți scurtează drumul spre opțiuni care merită explorate serios.",
+    "helpTitle": "Cum funcționează",
+    "helpLead": "Tu răspunzi simplu. Noi traducem răspunsurile în opțiuni concrete de carieră.",
+    "helpBody": "Nu trebuie să știi ce înseamnă Big Five sau Holland. Alegi testul, răspunzi sincer, apoi vezi ce trasee, facultăți și roluri merită explorate.",
+    "helpItems": [
+      {
+        "title": "Scenarii reale",
+        "body": "Te citește din reacții concrete: ce observi, ce alegi și unde îți merge natural atenția."
+      },
+      {
+        "title": "Personalitate + IPIP",
+        "body": "Arată cum lucrezi cu energia, structura, curiozitatea și relația cu ceilalți."
+      },
+      {
+        "title": "Vocațional",
+        "body": "Îți spune ce tipuri de activități te atrag: construit, cercetat, creat, ajutat, condus sau organizat."
+      }
+    ],
+    "algorithmTitle": "Despre algoritm",
+    "algorithmBody": "Algoritmul caută pattern-uri între răspunsurile tale și semnalele din roluri reale. Cu mai multe teste, semnalul devine mai precis.",
     "deepLinksTitle": "Deep links pregătite pentru ads",
     "deepLinks": [
       "/ro/test/scenarii",
       "/ro/test/personalitate",
       "/ro/test/ipip-neo-60",
-      "/ro/test/vocational"
+      "/ro/test/vocational",
+      "/ro/test/vocational-deep"
     ],
     "arrowLabel": "Deschide",
     "arrowGlyph": "→",
@@ -63,7 +143,150 @@
     "placeholderLead": "Ruta există pentru deep links și campanii. Implementăm întrebările după ce validăm landing page-ul.",
     "placeholderBack": "Înapoi la landing",
     "libraryTitle": "Nu doar facultate",
-    "libraryLead": "Rezultatele trebuie să poată recomanda facultate, profesional, autodidact, creator, antreprenor sau traseu mixt. Asta rămâne direcția produsului."
+    "libraryLead": "Rezultatele trebuie să poată recomanda facultate, profesional, autodidact, creator, antreprenor sau traseu mixt. Asta rămâne direcția produsului.",
+    "navResults": "Carierele mele →",
+    "navBrowse": "Explorează toate"
+  },
+  "questionnaire": {
+    "resultsCTA": "VEZI CARIERELE POTRIVITE →"
+  },
+  "rezultate": {
+    "loading": "Se calculează...",
+    "loadingDesc": "Analizăm răspunsurile tale",
+    "brandCe": "Ce",
+    "brandRest": "să fiu?",
+    "noDataEyebrow": "Nicio dată găsită",
+    "noDataHeading": "Completează mai întâi un test",
+    "noDataLead": "Rezultatele apar după ce completezi cel puțin Scenarii reale.",
+    "noDataCTA": "START SCENARII →",
+    "errorEyebrow": "Eroare",
+    "errorHeading": "Ceva nu a funcționat.",
+    "errorBack": "Înapoi acasă",
+    "vibeLabel": "VIBE-UL TĂU",
+    "retakeLabel": "REIA ↻",
+    "fitLabel": "POTRIVIT PENTRU TINE:",
+    "whyPrefix": "DE CE: ",
+    "confPrefix": "ÎNCREDERE: ",
+    "basedOn": "Bazat pe: {sources}",
+    "noData": "fără date",
+    "moreTests": "Mai multe teste = matches mai precise. ",
+    "metaSalariu": "SALARIU",
+    "metaCerere": "CERERE",
+    "metaVibe": "VIBE",
+    "matchBadge": "★ MATCH {score}%",
+    "viewAllCTA": "VEZI TOT DESPRE ASTA →",
+    "profileTitle": "PROFILUL TĂU — CE-AM ÎNȚELES PÂNĂ AICI",
+    "profileSub": "Asta vede algoritmul. Nu te judecă — doar te ascultă.",
+    "styleLabel": "STILUL TĂU",
+    "pathLabel": "DRUMUL PREFERAT",
+    "big5Label": "PERSONALITATEA",
+    "completedLabel": "PROFIL COMPLETAT",
+    "testsOf": "/ 3 teste",
+    "completedNote1": "Cu un test în plus → matches mai precise (~50% acuratețe). Cu toate trei → ~75%.",
+    "completedNote2": "Aproape gata. Ultimul test scoate fit motivațional la suprafață.",
+    "completedNote3": "Profil complet. Matches calibrate cu toate semnalele disponibile.",
+    "honestyTitle": "UN LUCRU IMPORTANT",
+    "honestyBody": "Răspunsuri sincere = matches utile pentru <b>tine</b>. Dacă alegi „ce-ar suna bine pentru mama\", algoritmul îți va recomanda cariera mamei tale, nu pe a ta.",
+    "nextEyebrow": "PASUL URMĂTOR",
+    "nextVocational": "Testul vocațional · 20 itemi · 4 min",
+    "nextVocDeep": "Holland validat (O*NET) · 60 itemi · 8-10 min",
+    "nextIpip": "Big Five validat · 60 itemi · 12 min",
+    "nextPersonality": "Personalitate (scurt) · 15 itemi · 4 min",
+    "othersTitle": "Și încă <mark>3 vibe-uri</mark> care îți merg",
+    "saveTitle": "Salvează rezultatul",
+    "saveTitleDone": "Vibe-ul tău e salvat",
+    "saveBody": "Toate datele rămân pe device-ul tău.",
+    "saveBodyDone": "Îl găsești în Vibe-uri oricând.",
+    "saveCTA": "SALVEAZĂ-MI VIBE-UL →",
+    "saveCTADone": "★ SALVAT",
+    "paidEyebrow": "RAPORT DETALIAT",
+    "paidTitle": "Vrei mai mult decât un quiz?",
+    "paidBody": "Raport PDF cu profilul tău complet, cariere potrivite cu salariu real și pași concreti. Completezi IPIP-NEO-60 + vocațional, noi generăm raportul.",
+    "paidPrice": "19 EUR",
+    "paidCTA": "VREAU RAPORTUL →",
+    "paidDisclaimer": "Înregistrăm interesul tău. Te contactăm cu detalii.",
+    "browseCTA": "EXPLOREAZĂ TOATE CARIERELE →"
+  },
+  "cariera": {
+    "back": "← Înapoi",
+    "saveBtnSave": "Salvează cariera",
+    "saveBtnUnsave": "Scoate din salvate",
+    "salaryLabel": "SALARIU LUNAR",
+    "demandLabel": "CERERE PIAȚĂ",
+    "tabDay": "O ZI",
+    "tabSkills": "SKILLS",
+    "tabPaths": "TRASEU",
+    "tabSchools": "ȘCOLI",
+    "dayTitle": "O ZI DIN VIAȚA TA",
+    "schoolsTitle": "PROGRAME CARE DUC AICI · {count}",
+    "noSchoolsTitle": "Programe specifice în curând",
+    "noSchoolsBody": "Nu am verificat încă programe pentru această carieră. Revino curând.",
+    "saveCTA": "☆ SALVEAZĂ ÎN VIBE-URI",
+    "saveCTADone": "★ SALVAT — apasă să scoți",
+    "backResults": "← ÎNAPOI LA REZULTATE",
+    "browseCTA": "EXPLOREAZĂ TOATE CARIERELE"
+  },
+  "profil": {
+    "brandCe": "Ce",
+    "brandRest": "să fiu?",
+    "title": "Vibe-urile tale",
+    "leadReady": "Profilul tău se construiește din quiz-uri și teste. Cariere care ți se potrivesc, mai jos.",
+    "leadEmpty": "Cariere salvate. Reia quiz-ul oricând vrei.",
+    "retakeShort": "REIA",
+    "loading": "SE INCARCA",
+    "loadingTitle": "Pregătesc vibe-ul tău...",
+    "error": "EROARE",
+    "formingEyebrow": "PROFIL IN FORMARE",
+    "formingTitle": "Inca nu avem semnal suficient",
+    "formingBody": "Răspunde la un quiz sau un test ca să-ți construim profilul. Apoi îți arătăm cariere care chiar ți se potrivesc.",
+    "startScenarios": "SCENARII REALE →",
+    "startIpip": "IPIP-NEO-60 →",
+    "profileEyebrow": "PROFILUL TAU",
+    "pathPrefix": "Drum preferat:",
+    "testsDone": "TESTE FACUTE",
+    "saved": "SALVATE",
+    "matches": "MATCHES",
+    "forYouTitle": "Pentru tine",
+    "exploreAll": "EXPLOREAZA TOATE →",
+    "seeMore": "VEZI MAI MULT →",
+    "exploreCardTitle": "Explorează tot",
+    "exploreCardBody": "Vezi toate carierele și compară opțiunile în ritmul tău.",
+    "explore": "EXPLOREAZA →",
+    "savedTitle": "Salvate",
+    "savedEmptyTitle": "Inca nimic salvat",
+    "savedEmptyBody": "Reia quiz-ul și salvează vibe-urile care te prind.",
+    "retake": "REIA QUIZ-UL ↻",
+    "emptyTitle": "Profil indisponibil",
+    "emptyBody": "Nu am putut citi datele locale. Reia testul și încercăm din nou."
+  },
+  "browse": {
+    "brandCe": "Ce",
+    "brandRest": "să fiu?",
+    "title": "Explorează",
+    "lead": "Toate variantele — nu doar cele care ies la quiz.",
+    "helpLabel": "Ajutor",
+    "helpGlyph": "?",
+    "tabCareers": "Cariere",
+    "tabPaths": "Trasee",
+    "tabUnis": "Universități",
+    "cityLabel": "ORAȘ",
+    "domainLabel": "DOMENIU",
+    "searchPlaceholder": "Caută o carieră...",
+    "emptyTitle": "Nimic găsit",
+    "emptyBody": "Schimbă filtrul sau caută altceva.",
+    "pathsCount": "{count} DRUMURI · NU UNUL",
+    "pathsLead": "Facultatea nu e singura opțiune. Toate variantele cu pro/contra real.",
+    "pathPro": "✓ PRO",
+    "pathContra": "✗ CONTRA",
+    "pathBestFor": "PENTRU CINE",
+    "cityAll": "Toate orașele",
+    "domainAll": "Toate domeniile",
+    "navTests": "Teste",
+    "navExplore": "Explorează",
+    "navResults": "Rezultat",
+    "navSaved": "Vibe-uri",
+    "primaryNav": "Navigare principală",
+    "tierTop": "TOP"
   },
   "error": {
     "eyebrow": "Eroare",

@@ -12,14 +12,16 @@ type PrototypeBig5Item = {
 
 type PrototypeVocationalItem = {
   id: string;
-  a: {
-    text: string;
-    code: string;
-  };
-  b: {
-    text: string;
-    code: string;
-  };
+  code: string;
+  text: string;
+  signals?: string[];
+};
+
+type PrototypeVocationalDeepItem = {
+  id: string;
+  code: string;
+  text: string;
+  signals?: string[];
 };
 
 type PrototypeData = {
@@ -38,6 +40,17 @@ type PrototypeData = {
   };
 };
 
+type PrototypeVocationalDeepData = {
+  vocational: {
+    codes: Record<string, {name: string; short: string; desc: string}>;
+  };
+  vocationalDeep: {
+    name: string;
+    subtitle: string;
+    items: PrototypeVocationalDeepItem[];
+  };
+};
+
 type ScenarioArchetype = {
   title: string;
   share: string;
@@ -47,9 +60,16 @@ type ScenarioArchetype = {
 
 type ScenarioQuestion = {
   q: string;
+  tag?: string;
   opts: Array<{
     t: string;
     s: Record<string, number>;
+    m?: {
+      riasec?: string[];
+      path?: string;
+      traits?: string[];
+      signals?: string[];
+    };
   }>;
 };
 
@@ -62,6 +82,62 @@ const sharedCopy = {
   resultEyebrow: 'Rezultat local',
   resultTitle: 'Ce iese din răspunsurile tale',
   saveNote: 'Rezultatul este salvat doar local, în browserul tău.'
+};
+
+const scenarioMatcherProfiles: Record<
+  string,
+  {
+    riasec: string[];
+    path: string;
+    traits: string[];
+    signals: string[];
+  }
+> = {
+  constructor: {
+    riasec: ['R', 'I'],
+    path: 'profesional',
+    traits: ['build', 'tech'],
+    signals: ['technical.mechanical', 'technical.systems', 'practical.repair']
+  },
+  analist: {
+    riasec: ['I', 'C'],
+    path: 'facultate',
+    traits: ['analyze', 'tech'],
+    signals: ['investigative.data', 'investigative.research', 'investigative.diagnostic']
+  },
+  ajutor: {
+    riasec: ['S', 'A'],
+    path: 'facultate',
+    traits: ['social', 'analyze'],
+    signals: ['social.care', 'social.teaching', 'social.counseling']
+  },
+  creator: {
+    riasec: ['A', 'E'],
+    path: 'creator',
+    traits: ['create', 'visual'],
+    signals: ['creative.visual', 'creative.video', 'creative.writing']
+  },
+  leader: {
+    riasec: ['E', 'S'],
+    path: 'antreprenor',
+    traits: ['lead', 'social'],
+    signals: ['business.operations', 'business.entrepreneurship', 'business.marketing']
+  },
+  explorator: {
+    riasec: ['I', 'A'],
+    path: 'mixt',
+    traits: ['analyze', 'create'],
+    signals: ['investigative.research', 'creative.writing', 'technical.software']
+  }
+};
+
+const scenarioOptionTags: Record<string, string> = {
+  constructor: '#BUILDER',
+  analist: '#THINKER',
+  ajutor: '#ALLY',
+  creator: '#CREATOR',
+  leader: '#LEADER',
+  explorator: '#EXPLORER'
 };
 
 export function getQuestionnaire(slug: string): QuestionnaireDefinition | null {
@@ -91,23 +167,76 @@ export function getQuestionnaire(slug: string): QuestionnaireDefinition | null {
     });
   }
 
+  if (slug === 'vocational') {
+    return buildVocationalShortQuestionnaire(readPhase1VocationalData());
+  }
+
+  if (slug === 'vocational-deep') {
+    return buildVocationalDeepQuestionnaire(readVocationalDeepData());
+  }
+
+  return null;
+}
+
+function buildVocationalShortQuestionnaire(source: PrototypeData['vocational']): QuestionnaireDefinition {
   return {
-    slug,
-    kind: 'choice',
-    title: 'Vocațional',
-    subtitle: 'Holland · 5 min',
-    eyebrow: 'Vocațional · Holland',
+    slug: 'vocational',
+    kind: 'likert',
+    title: 'Vocațional (scurt)',
+    subtitle: 'Cod Holland · 20 itemi · 4 min',
+    eyebrow: 'Vocațional · Cod Holland',
     ...sharedCopy,
-    questions: prototypeData.vocational.items.map((item) => ({
+    questions: source.items.map((item) => ({
       id: item.id,
-      prompt: 'Care îți sună mai distractiv?',
+      prompt: item.text,
+      dim: item.code,
+      signals: item.signals,
       options: [
-        {id: 'a', label: item.a.text, code: item.a.code},
-        {id: 'b', label: item.b.text, code: item.b.code}
+        {id: '1', label: 'Foarte puțin'},
+        {id: '2', label: 'Puțin'},
+        {id: '3', label: 'Indiferent'},
+        {id: '4', label: 'Mult'},
+        {id: '5', label: 'Foarte mult'}
       ]
     })),
     dimensions: Object.fromEntries(
-      Object.entries(prototypeData.vocational.codes).map(([key, value]) => [
+      Object.entries(source.codes).map(([key, value]) => [
+        key,
+        {
+          key,
+          title: value.name,
+          short: value.short,
+          tagline: value.short,
+          description: value.desc
+        }
+      ])
+    )
+  };
+}
+
+function buildVocationalDeepQuestionnaire(source: PrototypeVocationalDeepData): QuestionnaireDefinition {
+  return {
+    slug: 'vocational-deep',
+    kind: 'likert',
+    title: 'Vocațional complet',
+    subtitle: 'O*NET · 60 itemi · 8-10 min',
+    eyebrow: 'O*NET · Vocațional complet',
+    ...sharedCopy,
+    questions: source.vocationalDeep.items.map((item) => ({
+      id: item.id,
+      prompt: item.text,
+      dim: item.code,
+      signals: item.signals,
+      options: [
+        {id: '1', label: 'Foarte puțin'},
+        {id: '2', label: 'Puțin'},
+        {id: '3', label: 'Indiferent'},
+        {id: '4', label: 'Mult'},
+        {id: '5', label: 'Foarte mult'}
+      ]
+    })),
+    dimensions: Object.fromEntries(
+      Object.entries(source.vocational.codes).map(([key, value]) => [
         key,
         {
           key,
@@ -172,11 +301,17 @@ function getScenarioQuestionnaire(): QuestionnaireDefinition {
     questions: source.questions.map((question, questionIndex) => ({
       id: `s${questionIndex + 1}`,
       prompt: question.q,
-      options: question.opts.map((option, optionIndex) => ({
-        id: String.fromCharCode(97 + optionIndex),
-        label: option.t,
-        score: option.s
-      }))
+      tag: question.tag,
+      options: question.opts.map((option, optionIndex) => {
+        const matcherSignals = option.m ?? buildScenarioMatcherSignals(option.s);
+        return {
+          id: String.fromCharCode(97 + optionIndex),
+          label: option.t,
+          tag: buildScenarioOptionTag(option.s),
+          score: option.s,
+          ...matcherSignals
+        };
+      })
     })),
     dimensions: Object.fromEntries(
       Object.entries(source.archetypes).map(([key, value]) => [
@@ -201,6 +336,32 @@ function readPrototypeData(): PrototypeData {
 
   if (!context.window.QUIZ_DATA) {
     throw new Error('Failed to load prototype questionnaire data.');
+  }
+
+  return context.window.QUIZ_DATA;
+}
+
+function readPhase1VocationalData(): PrototypeData['vocational'] {
+  const file = path.join(rootDir, 'cesafiu_prototype_v3/project/data.js');
+  const code = readFileSync(file, 'utf8');
+  const context = {window: {} as {QUIZ_DATA?: PrototypeData}};
+  vm.runInNewContext(code, context, {filename: file});
+
+  if (!context.window.QUIZ_DATA?.vocational) {
+    throw new Error('Failed to load Phase 1 public vocational questionnaire data.');
+  }
+
+  return context.window.QUIZ_DATA.vocational;
+}
+
+function readVocationalDeepData(): PrototypeVocationalDeepData {
+  const file = path.join(rootDir, 'cesafiu_prototype_v3/project/data.js');
+  const code = readFileSync(file, 'utf8');
+  const context = {window: {} as {QUIZ_DATA?: PrototypeVocationalDeepData}};
+  vm.runInNewContext(code, context, {filename: file});
+
+  if (!context.window.QUIZ_DATA?.vocationalDeep || !context.window.QUIZ_DATA?.vocational?.codes) {
+    throw new Error('Failed to load full vocational questionnaire data.');
   }
 
   return context.window.QUIZ_DATA;
@@ -237,5 +398,31 @@ function extractConst<T>(source: string, name: string): T {
 }
 
 function isQuestionnaireSlug(slug: string): slug is QuestionnaireSlug {
-  return slug === 'scenarii' || slug === 'personalitate' || slug === 'ipip-neo-60' || slug === 'vocational';
+  return slug === 'scenarii' || slug === 'personalitate' || slug === 'ipip-neo-60' || slug === 'vocational' || slug === 'vocational-deep';
+}
+
+function buildScenarioMatcherSignals(scores: Record<string, number>) {
+  const ranked = Object.entries(scores)
+    .sort((a, b) => b[1] - a[1])
+    .map(([key]) => scenarioMatcherProfiles[key])
+    .filter(Boolean);
+
+  const primary = ranked[0];
+  const secondary = ranked[1];
+
+  return {
+    riasec: unique([...(primary?.riasec ?? []), ...(secondary?.riasec ?? [])]),
+    path: primary?.path,
+    traits: unique([...(primary?.traits ?? []), ...(secondary?.traits ?? [])]),
+    signals: unique([...(primary?.signals ?? []), ...(secondary?.signals ?? [])])
+  };
+}
+
+function buildScenarioOptionTag(scores: Record<string, number>) {
+  const primary = Object.entries(scores).sort((a, b) => b[1] - a[1])[0]?.[0];
+  return primary ? scenarioOptionTags[primary] : undefined;
+}
+
+function unique(values: string[]) {
+  return Array.from(new Set(values));
 }

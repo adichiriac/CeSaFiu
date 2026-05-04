@@ -7,21 +7,24 @@
     "brand": "Ce Să Fiu?",
     "brandCe": "Ce",
     "brandRest": "să fiu?",
-    "helpLabel": "Help",
+    "helpLabel": "How the tests work",
     "helpGlyph": "?",
-    "noRobots": "No robots",
-    "eyebrow": "4 tests · your choice",
+    "noRobots": "Career options...free!",
+    "eyebrow": "5 tests · your choice",
     "titleLine1": "What",
     "titleLine2": "should I be",
     "titleLine3": "when I",
     "titleLine4": "grow up?",
-    "lead": "Quizzes that do not judge you. Plus a library with every path — university, self-taught, founder.",
+    "leadPrefix": "Discover what fits you, without the stress. Quick quizzes + real ideas:",
+    "leadHighlight1": "degrees,",
+    "leadHighlight2": "jobs,",
+    "leadHighlight3": "paths",
     "tests": [
       {
         "id": "scenarii",
         "label": "Real scenarios",
         "sub": "Pilot winner · 12 situations · 5 min",
-        "description": "Replaces Quick Quiz. It reads concrete reactions, not abstract self-descriptions.",
+        "description": "It reads concrete reactions, not abstract self-descriptions.",
         "href": "/test/scenarii",
         "action": "Start scenarios"
       },
@@ -43,19 +46,96 @@
       },
       {
         "id": "vocational",
-        "label": "Vocational",
-        "sub": "Holland · 5 min",
-        "description": "Find what kinds of activities attract you: building, researching, creating, helping, leading, or organizing.",
+        "label": "Vocational (short)",
+        "sub": "Holland · 20 items · 4 min",
+        "description": "The short Phase 1 version. It shows which kinds of activities attract you most.",
         "href": "/test/vocational",
         "action": "Start vocational"
+      },
+      {
+        "id": "vocationalDeep",
+        "label": "Vocational full",
+        "sub": "O*NET · 60 items · 8-10 min",
+        "description": "The full vocational test. A much stronger signal than the short version.",
+        "href": "/test/vocational-deep",
+        "action": "Start full vocational"
       }
     ],
+    "recommendedTest": "Start here",
+    "startGuideTitle": "Where do I start?",
+    "startGuideLead": "If you are not sure which test to pick, start with the one that gives the best signal for the time you have.",
+    "startGuides": [
+      {
+        "label": "Want a fast first vibe",
+        "value": "Real scenarios"
+      },
+      {
+        "label": "Only have 5 minutes",
+        "value": "Vocational (short)"
+      },
+      {
+        "label": "Want a short personality read",
+        "value": "Short personality"
+      },
+      {
+        "label": "Want serious vocational signal",
+        "value": "Vocational full"
+      },
+      {
+        "label": "Want something serious",
+        "value": "IPIP-NEO-60"
+      }
+    ],
+    "resultsPreviewTitle": "What you get at the end",
+    "resultsPreviewLead": "You get a top 3 list of matching careers + Romanian institutions that can take you there.",
+    "resultsPreviewItems": [
+      {
+        "title": "Top 3 matches",
+        "body": "Career directions that fit your answers, not what would merely sound impressive."
+      },
+      {
+        "title": "Match + explanation",
+        "body": "An orientation score and a clear summary of why that direction came up for you."
+      },
+      {
+        "title": "Real options",
+        "body": "Degrees, jobs, paths, and roles you can explore in Romania."
+      },
+      {
+        "title": "Concrete steps",
+        "body": "Your path toward what actually fits you."
+      }
+    ],
+    "storyEyebrow": "REAL EXAMPLE",
+    "storyTitle": "Not just scores",
+    "storyQuote": "Andra took the test, saw visual design was a real fit, followed the needed steps, and now studies at UNArte.",
+    "storyMeta": "The test does not decide for you. It shortens the path to options worth exploring seriously.",
+    "helpTitle": "How it works",
+    "helpLead": "You answer simply. We translate the signal into concrete career options.",
+    "helpBody": "You do not need to know what Big Five or Holland mean. Pick a test, answer honestly, then see which paths, universities, and roles are worth exploring.",
+    "helpItems": [
+      {
+        "title": "Real scenarios",
+        "body": "Reads concrete reactions: what you notice, what you choose, and where your attention goes naturally."
+      },
+      {
+        "title": "Personality + IPIP",
+        "body": "Shows how you work with energy, structure, curiosity, and other people."
+      },
+      {
+        "title": "Vocational",
+        "body": "Shows which kinds of activities attract you: building, researching, creating, helping, leading, or organizing."
+      }
+    ],
+    "algorithmTitle": "About the algorithm",
+    "algorithmBody": "The algorithm looks for patterns between your answers and the signals found in real roles. More tests make the signal more precise.",
     "deepLinksTitle": "Deep links ready for ads",
     "deepLinks": [
       "/en/test/scenarii",
       "/en/test/personalitate",
       "/en/test/ipip-neo-60",
-      "/en/test/vocational"
+      "/en/test/vocational",
+      "/en/test/vocational-deep"
     ],
     "arrowLabel": "Open",
     "arrowGlyph": "→",
@@ -63,7 +143,150 @@
     "placeholderLead": "This route exists for deep links and campaigns. We will implement the questions after validating the landing page.",
     "placeholderBack": "Back to landing",
     "libraryTitle": "Not just university",
-    "libraryLead": "Results should be able to recommend university, trade school, self-taught, creator, founder, or a mixed path. That remains the product direction."
+    "libraryLead": "Results should be able to recommend university, trade school, self-taught, creator, founder, or a mixed path. That remains the product direction.",
+    "navResults": "My careers →",
+    "navBrowse": "Explore all"
+  },
+  "questionnaire": {
+    "resultsCTA": "SEE MATCHING CAREERS →"
+  },
+  "rezultate": {
+    "loading": "Calculating...",
+    "loadingDesc": "Analysing your answers",
+    "brandCe": "Ce",
+    "brandRest": "să fiu?",
+    "noDataEyebrow": "No data found",
+    "noDataHeading": "Complete a test first",
+    "noDataLead": "Results appear after you complete at least Scenarii reale.",
+    "noDataCTA": "START SCENARII →",
+    "errorEyebrow": "Error",
+    "errorHeading": "Something went wrong.",
+    "errorBack": "Back home",
+    "vibeLabel": "YOUR VIBE",
+    "retakeLabel": "RETAKE ↻",
+    "fitLabel": "BEST FIT FOR YOU:",
+    "whyPrefix": "WHY: ",
+    "confPrefix": "CONFIDENCE: ",
+    "basedOn": "Based on: {sources}",
+    "noData": "no data",
+    "moreTests": "More tests = more precise matches. ",
+    "metaSalariu": "SALARY",
+    "metaCerere": "DEMAND",
+    "metaVibe": "VIBE",
+    "matchBadge": "★ MATCH {score}%",
+    "viewAllCTA": "SEE EVERYTHING ABOUT THIS →",
+    "profileTitle": "YOUR PROFILE — WHAT WE'VE UNDERSTOOD SO FAR",
+    "profileSub": "This is what the algorithm sees. It doesn't judge — it just listens.",
+    "styleLabel": "YOUR STYLE",
+    "pathLabel": "PREFERRED PATH",
+    "big5Label": "PERSONALITY",
+    "completedLabel": "PROFILE COMPLETED",
+    "testsOf": "/ 3 tests",
+    "completedNote1": "One more test → more precise matches (~50% accuracy). With all three → ~75%.",
+    "completedNote2": "Almost there. The last test surfaces motivational fit.",
+    "completedNote3": "Complete profile. Matches calibrated with all available signals.",
+    "honestyTitle": "ONE IMPORTANT THING",
+    "honestyBody": "Honest answers = useful matches for <b>you</b>. If you pick \"what would sound good for your mom\", the algorithm will recommend your mom's career, not yours.",
+    "nextEyebrow": "NEXT STEP",
+    "nextVocational": "Vocational test · 20 items · 4 min",
+    "nextVocDeep": "Holland validated (O*NET) · 60 items · 8-10 min",
+    "nextIpip": "Big Five validated · 60 items · 12 min",
+    "nextPersonality": "Short personality · 15 items · 4 min",
+    "othersTitle": "And <mark>3 more vibes</mark> that work for you",
+    "saveTitle": "Save result",
+    "saveTitleDone": "Your vibe is saved",
+    "saveBody": "All data stays on your device.",
+    "saveBodyDone": "Find it in Vibes anytime.",
+    "saveCTA": "SAVE MY VIBE →",
+    "saveCTADone": "★ SAVED",
+    "paidEyebrow": "DETAILED REPORT",
+    "paidTitle": "Want more than a quiz?",
+    "paidBody": "PDF report with your full profile, matching careers with real salaries and concrete steps. Complete IPIP-NEO-60 + vocational, we generate the report.",
+    "paidPrice": "19 EUR",
+    "paidCTA": "I WANT THE REPORT →",
+    "paidDisclaimer": "We register your interest. We'll contact you with details.",
+    "browseCTA": "EXPLORE ALL CAREERS →"
+  },
+  "cariera": {
+    "back": "← Back",
+    "saveBtnSave": "Save career",
+    "saveBtnUnsave": "Remove from saved",
+    "salaryLabel": "MONTHLY SALARY",
+    "demandLabel": "MARKET DEMAND",
+    "tabDay": "A DAY",
+    "tabSkills": "SKILLS",
+    "tabPaths": "PATH",
+    "tabSchools": "SCHOOLS",
+    "dayTitle": "A DAY IN YOUR LIFE",
+    "schoolsTitle": "PROGRAMMES LEADING HERE · {count}",
+    "noSchoolsTitle": "Specific programmes coming soon",
+    "noSchoolsBody": "We haven't verified programmes for this career yet. Come back soon.",
+    "saveCTA": "☆ SAVE TO VIBES",
+    "saveCTADone": "★ SAVED — tap to remove",
+    "backResults": "← BACK TO RESULTS",
+    "browseCTA": "EXPLORE ALL CAREERS"
+  },
+  "profil": {
+    "brandCe": "Ce",
+    "brandRest": "să fiu?",
+    "title": "Your vibes",
+    "leadReady": "Your profile is built from quizzes and tests. Careers that fit you are below.",
+    "leadEmpty": "Saved careers. Retake the quiz whenever you want.",
+    "retakeShort": "RETAKE",
+    "loading": "LOADING",
+    "loadingTitle": "Preparing your vibe...",
+    "error": "ERROR",
+    "formingEyebrow": "PROFILE IN PROGRESS",
+    "formingTitle": "Not enough signal yet",
+    "formingBody": "Answer a quiz or a test to build your profile. Then we show careers that actually fit you.",
+    "startScenarios": "REAL SCENARIOS →",
+    "startIpip": "IPIP-NEO-60 →",
+    "profileEyebrow": "YOUR PROFILE",
+    "pathPrefix": "Preferred path:",
+    "testsDone": "TESTS DONE",
+    "saved": "SAVED",
+    "matches": "MATCHES",
+    "forYouTitle": "For you",
+    "exploreAll": "EXPLORE ALL →",
+    "seeMore": "SEE MORE →",
+    "exploreCardTitle": "Explore everything",
+    "exploreCardBody": "See all careers and compare options at your own pace.",
+    "explore": "EXPLORE →",
+    "savedTitle": "Saved",
+    "savedEmptyTitle": "Nothing saved yet",
+    "savedEmptyBody": "Retake the quiz and save the vibes that catch you.",
+    "retake": "RETAKE QUIZ ↻",
+    "emptyTitle": "Profile unavailable",
+    "emptyBody": "We could not read local data. Retake the test and we will try again."
+  },
+  "browse": {
+    "brandCe": "Ce",
+    "brandRest": "să fiu?",
+    "title": "Explore",
+    "lead": "All options — not just the ones that come up in the quiz.",
+    "helpLabel": "Help",
+    "helpGlyph": "?",
+    "tabCareers": "Careers",
+    "tabPaths": "Paths",
+    "tabUnis": "Universities",
+    "cityLabel": "CITY",
+    "domainLabel": "DOMAIN",
+    "searchPlaceholder": "Search a career...",
+    "emptyTitle": "Nothing found",
+    "emptyBody": "Change the filter or search for something else.",
+    "pathsCount": "{count} PATHS · NOT JUST ONE",
+    "pathsLead": "University isn't the only option. All paths with real pros/cons.",
+    "pathPro": "✓ PROS",
+    "pathContra": "✗ CONS",
+    "pathBestFor": "BEST FOR",
+    "cityAll": "All cities",
+    "domainAll": "All domains",
+    "navTests": "Tests",
+    "navExplore": "Explore",
+    "navResults": "Results",
+    "navSaved": "Vibes",
+    "primaryNav": "Primary navigation",
+    "tierTop": "TOP"
   },
   "error": {
     "eyebrow": "Error",

@@ -7,7 +7,11 @@ import type {
   ResultDimension
 } from '@/lib/questionnaires/types';
 import Link from 'next/link';
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslations} from 'next-intl';
+import type {QuizAnswerOption} from '@/lib/matcher';
+import {useRouter} from 'next/navigation';
+import type {MouseEvent} from 'react';
 
 type QuestionnaireClientProps = {
   brandCe: string;
@@ -21,45 +25,103 @@ type RankedResult = ResultDimension & {
 };
 
 export default function QuestionnaireClient({brandCe, brandRest, definition, locale}: QuestionnaireClientProps) {
+  const tQ = useTranslations('questionnaire');
+  const router = useRouter();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, QuestionnaireAnswer>>({});
   const [isComplete, setIsComplete] = useState(false);
+  const [isAdvancing, setIsAdvancing] = useState(false);
+  const [pendingOptionId, setPendingOptionId] = useState<string | null>(null);
+  const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const question = definition.questions[questionIndex];
   const result = useMemo(() => computeResult(definition, answers), [answers, definition]);
   const answeredCount = Object.keys(answers).length;
   const progress = Math.round((answeredCount / definition.questions.length) * 100);
 
   useEffect(() => {
+    return () => {
+      if (advanceTimerRef.current) {
+        clearTimeout(advanceTimerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     if (!isComplete) {
       return;
+    }
+
+    // For the 'scenarii' quiz we store the full option objects (with riasec/traits/signals)
+    // so that /api/match can reconstruct the user profile server-side.
+    // For all other quizzes we store the raw answers (option IDs or Likert numbers).
+    let storedAnswers: Record<string, unknown> = answers;
+    if (definition.slug === 'scenarii') {
+      const fullOptions: Record<string, QuizAnswerOption> = {};
+      for (const q of definition.questions) {
+        const selectedId = answers[q.id] as string | undefined;
+        if (!selectedId) continue;
+        const opt = q.options.find((o) => o.id === selectedId);
+        if (opt) {
+          fullOptions[q.id] = {
+            id: opt.id,
+            label: opt.label,
+            riasec: opt.riasec,
+            path: opt.path,
+            traits: opt.traits,
+            signals: opt.signals,
+          };
+        }
+      }
+      storedAnswers = fullOptions;
     }
 
     const payload = {
       slug: definition.slug,
       completedAt: new Date().toISOString(),
-      answers,
-      result: result.map(({key, score}) => ({key, score}))
+      answers: storedAnswers,
+      result: result.map(({key, score}) => ({key, score})),
+      ...(definition.slug === 'vocational' ? computeVocationalLightPayload(definition, answers) : {}),
+      ...(definition.slug === 'vocational-deep' ? computeVocationalDeepPayload(definition, answers) : {})
     };
     try {
       localStorage.setItem(`cesafiu:test:${definition.slug}:latest`, JSON.stringify(payload));
+      if (definition.slug === 'scenarii') {
+        router.push(`/${locale}/rezultate`);
+      }
     } catch {
       // Local-only persistence is a convenience, not a blocker for seeing results.
     }
-  }, [answers, definition.slug, isComplete, result]);
+  }, [answers, definition.questions, definition.slug, isComplete, locale, result, router]);
 
-  function choose(option: QuestionnaireAnswer) {
-    const nextAnswers = {...answers, [question.id]: option};
-    setAnswers(nextAnswers);
-
-    if (questionIndex === definition.questions.length - 1) {
-      setIsComplete(true);
+  function choose(option: QuestionnaireAnswer, optionId: string) {
+    if (isAdvancing) {
       return;
     }
 
-    setQuestionIndex((current) => current + 1);
+    const nextAnswers = {...answers, [question.id]: option};
+    setAnswers(nextAnswers);
+    setPendingOptionId(optionId);
+    setIsAdvancing(true);
+
+    const isLast = questionIndex === definition.questions.length - 1;
+    advanceTimerRef.current = setTimeout(() => {
+      setIsAdvancing(false);
+      setPendingOptionId(null);
+
+      if (isLast) {
+        setIsComplete(true);
+        return;
+      }
+
+      setQuestionIndex((current) => current + 1);
+    }, 260);
   }
 
   function goBack() {
+    if (isAdvancing) {
+      return;
+    }
+
     if (isComplete) {
       setIsComplete(false);
       setQuestionIndex(definition.questions.length - 1);
@@ -72,9 +134,14 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
   }
 
   function restart() {
+    if (advanceTimerRef.current) {
+      clearTimeout(advanceTimerRef.current);
+    }
     setAnswers({});
     setQuestionIndex(0);
     setIsComplete(false);
+    setPendingOptionId(null);
+    setIsAdvancing(false);
   }
 
   if (isComplete) {
@@ -98,11 +165,21 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
             ))}
           </div>
           <p className="localSaveNote">{definition.saveNote}</p>
+
+          {/* Primary CTA: go to career results */}
+          <Link
+            className="button buttonPrimary"
+            href={`/${locale}/rezultate`}
+            style={{display: 'block', textAlign: 'center', marginBottom: 12}}
+          >
+            {tQ('resultsCTA')}
+          </Link>
+
           <div className="testActions">
             <button className="button buttonSecondary" onClick={restart} type="button">
               {definition.restartLabel}
             </button>
-            <Link className="button buttonPrimary" href={`/${locale}`}>
+            <Link className="button buttonSecondary" href={`/${locale}`}>
               {definition.homeLabel}
             </Link>
           </div>
@@ -116,34 +193,62 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
       <section className="questionnairePanel" aria-labelledby="question-title">
         <QuestionnaireHeader brandCe={brandCe} brandRest={brandRest} definition={definition} locale={locale} progress={progress} />
 
-        <div className="questionMeta">
-          <p className="testEyebrow">{definition.eyebrow}</p>
-          <span>
-            {questionIndex + 1}/{definition.questions.length}
-          </span>
-        </div>
+        <div className={isAdvancing ? 'questionStage isAdvancing' : 'questionStage'}>
+          <div className="questionMeta">
+            <div className="questionMetaLabels">
+              <p className="testEyebrow">{definition.eyebrow}</p>
+              {question.tag ? <span className="questionTraitTag">{question.tag}</span> : null}
+            </div>
+            <span>
+              {questionIndex + 1}/{definition.questions.length}
+            </span>
+          </div>
 
-        <h1 id="question-title">{question.prompt}</h1>
+          <h1 id="question-title">{question.prompt}</h1>
 
-        <div className={definition.kind === 'likert' ? 'likertOptions' : 'questionOptions'}>
-          {question.options.map((option) => (
-            <button
-              className={isSelected(answers[question.id], option.id) ? 'questionOption isSelected' : 'questionOption'}
-              key={option.id}
-              onClick={() => choose(definition.kind === 'likert' ? Number(option.id) : option.id)}
-              type="button"
-            >
-              <span>{option.id.toUpperCase()}</span>
-              <strong>{option.label}</strong>
-            </button>
-          ))}
+          <div className={definition.kind === 'likert' ? 'likertOptions' : 'questionOptions'}>
+            {question.options.map((option) => {
+              const selected = isSelected(answers[question.id], option.id);
+              const checked = isAdvancing && pendingOptionId === option.id;
+              const optionClass = [
+                'questionOption',
+                selected ? 'isSelected' : '',
+                isAdvancing ? 'isLocked' : '',
+                checked ? 'isChecked' : ''
+              ]
+                .filter(Boolean)
+                .join(' ');
+
+              return (
+                <button
+                  className={optionClass}
+                  disabled={isAdvancing}
+                  key={option.id}
+                  onClick={() => choose(definition.kind === 'likert' ? Number(option.id) : option.id, option.id)}
+                  type="button"
+                >
+                  <span>{option.id.toUpperCase()}</span>
+                  <div className="questionOptionBody">
+                    <strong>{option.label}</strong>
+                    {option.tag ? <small className="questionOptionTag">{option.tag}</small> : null}
+                  </div>
+                  {checked ? <i aria-hidden="true" className="questionOptionCheck">✓</i> : null}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         <div className="testActions">
-          <button className="button buttonSecondary" disabled={questionIndex === 0} onClick={goBack} type="button">
+          <button className="button buttonSecondary" disabled={questionIndex === 0 || isAdvancing} onClick={goBack} type="button">
             {definition.backLabel}
           </button>
-          <Link className="button buttonPrimary" href={`/${locale}`}>
+          <Link
+            aria-disabled={isAdvancing}
+            className="button buttonPrimary"
+            href={`/${locale}`}
+            onClick={(event) => preventWhileAdvancing(event, isAdvancing)}
+          >
             {definition.homeLabel}
           </Link>
         </div>
@@ -259,6 +364,77 @@ function computeLikertResult(
     .sort((a, b) => b.score - a.score);
 }
 
+function computeVocationalLightPayload(
+  definition: QuestionnaireDefinition,
+  answers: Record<string, QuestionnaireAnswer>
+): {
+  vocationalRaw: Record<string, number>;
+  vocationalSignalsRaw: Record<string, number>;
+} {
+  const raw: Record<string, number> = {R: 0, I: 0, A: 0, S: 0, E: 0, C: 0};
+  const signalsRaw: Record<string, number> = {};
+
+  for (const question of definition.questions) {
+    if (!question.dim) {
+      continue;
+    }
+
+    const value = Number(answers[question.id] ?? 3);
+    raw[question.dim] = (raw[question.dim] ?? 0) + value;
+
+    if (Array.isArray(question.signals) && value > 3) {
+      for (const signal of question.signals) {
+        signalsRaw[signal] = (signalsRaw[signal] ?? 0) + (value - 3);
+      }
+    }
+  }
+
+  return {
+    vocationalRaw: raw,
+    vocationalSignalsRaw: signalsRaw
+  };
+}
+
+function computeVocationalDeepPayload(
+  definition: QuestionnaireDefinition,
+  answers: Record<string, QuestionnaireAnswer>
+): {
+  vocationalDeepRaw: Record<string, number>;
+  vocationalDeepSignalsRaw: Record<string, number>;
+} {
+  const sums: Record<string, number> = {R: 0, I: 0, A: 0, S: 0, E: 0, C: 0};
+  const counts: Record<string, number> = {R: 0, I: 0, A: 0, S: 0, E: 0, C: 0};
+  const signalsRaw: Record<string, number> = {};
+
+  for (const question of definition.questions) {
+    if (!question.dim) {
+      continue;
+    }
+
+    const value = Number(answers[question.id] ?? 3);
+    sums[question.dim] = (sums[question.dim] ?? 0) + value;
+    counts[question.dim] = (counts[question.dim] ?? 0) + 1;
+
+    if (Array.isArray(question.signals) && value > 3) {
+      for (const signal of question.signals) {
+        signalsRaw[signal] = (signalsRaw[signal] ?? 0) + (value - 3);
+      }
+    }
+  }
+
+  const raw = Object.fromEntries(
+    Object.keys(sums).map((key) => [
+      key,
+      counts[key] > 0 ? Number((sums[key] / counts[key]).toFixed(3)) : 3
+    ])
+  );
+
+  return {
+    vocationalDeepRaw: raw,
+    vocationalDeepSignalsRaw: signalsRaw
+  };
+}
+
 function rankScores(
   definition: QuestionnaireDefinition,
   scores: Record<string, number>,
@@ -273,5 +449,11 @@ function rankScores(
 }
 
 function findSelectedOption(question: QuestionItem, answer: QuestionnaireAnswer | undefined) {
-  return question.options.find((option) => option.id === answer);
+  return question.options.find((option) => option.id === String(answer));
+}
+
+function preventWhileAdvancing(event: MouseEvent<HTMLAnchorElement>, isAdvancing: boolean) {
+  if (isAdvancing) {
+    event.preventDefault();
+  }
 }
