@@ -2,12 +2,10 @@
 
 import {getSupabaseBrowserClient, isSupabaseConfigured} from '@/lib/supabase/client';
 import {useQuizStore} from '@/stores/quiz-store';
+import type {AgeBand, ConsentStatus} from '@/lib/consent';
 import type {Session, User} from '@supabase/supabase-js';
 import {useLocale, useTranslations} from 'next-intl';
 import {createContext, type FormEvent, type ReactNode, useContext, useEffect, useMemo, useState} from 'react';
-
-export type AgeBand = '14-15' | '16-17' | '18+' | 'parent' | 'unknown';
-export type ConsentStatus = 'self' | 'pending_parent' | 'parent_confirmed' | 'revoked';
 
 type Profile = {
   user_id: string;
@@ -23,9 +21,12 @@ const PARENT_ERROR_KEYS: Record<string, string> = {
   invalid_parent_email: 'parentInvalidEmail',
   invalid_request: 'parentError',
   invalid_session: 'parentInvalidSession',
+  invalid_state: 'parentInvalidState',
   missing_session: 'parentMissingSession',
   not_configured: 'notConfigured',
-  profile_update_failed: 'profileError'
+  profile_read_failed: 'profileError',
+  profile_update_failed: 'profileError',
+  rate_limited: 'parentRateLimited'
 };
 
 type AuthContextValue = {
@@ -149,11 +150,17 @@ export function AuthProvider({children}: {children: ReactNode}) {
     const remoteIds = (savedRows ?? []).map((row) => row.career_id as string);
     const mergedIds = Array.from(new Set([...localSavedIds, ...remoteIds]));
 
-    if (localSavedIds.length > 0 && nextProfile.consent_status !== 'pending_parent') {
-      await supabase.from('saved_careers').upsert(
-        localSavedIds.map((careerId) => ({user_id: user.id, career_id: careerId})),
-        {onConflict: 'user_id,career_id'}
-      );
+    if (
+      localSavedIds.length > 0 &&
+      nextProfile.age_band !== 'unknown' &&
+      (nextProfile.consent_status === 'self' || nextProfile.consent_status === 'parent_confirmed')
+    ) {
+      const missingLocalIds = localSavedIds.filter((careerId) => !remoteIds.includes(careerId));
+      if (missingLocalIds.length > 0) {
+        await supabase.from('saved_careers').insert(
+          missingLocalIds.map((careerId) => ({user_id: user.id, career_id: careerId}))
+        );
+      }
     }
 
     setRemoteSavedIds(mergedIds);
@@ -176,6 +183,13 @@ export function AuthProvider({children}: {children: ReactNode}) {
       return;
     }
 
+    if (!profile || profile.age_band === 'unknown') {
+      saveLocalCareer(careerId);
+      setPendingCareerId(careerId);
+      setModal('age');
+      return;
+    }
+
     if (profile?.consent_status === 'pending_parent') {
       saveLocalCareer(careerId);
       setModal(profile.parent_email_hash ? 'parentSent' : 'parent');
@@ -184,10 +198,10 @@ export function AuthProvider({children}: {children: ReactNode}) {
 
     saveLocalCareer(careerId);
     setRemoteSavedIds((ids) => Array.from(new Set([...ids, careerId])));
-    await supabase.from('saved_careers').upsert(
-      {user_id: session.user.id, career_id: careerId},
-      {onConflict: 'user_id,career_id'}
-    );
+    const {error} = await supabase.from('saved_careers').insert({user_id: session.user.id, career_id: careerId});
+    if (error?.code === '23505') {
+      return;
+    }
   }
 
   async function unsaveCareer(careerId: string) {
@@ -225,10 +239,11 @@ export function AuthProvider({children}: {children: ReactNode}) {
 
     setBusy(true);
     const normalizedEmail = email.trim().toLowerCase();
+    const currentPath = `${window.location.pathname}${window.location.search}`;
     const {error} = await supabase.auth.signInWithOtp({
       email: normalizedEmail,
       options: {
-        emailRedirectTo: `${window.location.origin}/${locale}/auth/callback`
+        emailRedirectTo: `${window.location.origin}/${locale}/auth/callback?next=${encodeURIComponent(currentPath)}`
       }
     });
     setBusy(false);
@@ -249,27 +264,26 @@ export function AuthProvider({children}: {children: ReactNode}) {
 
     setBusy(true);
     setFormError('');
-    const consentStatus: ConsentStatus = ageBand === '14-15' ? 'pending_parent' : 'self';
-    const nextProfile = {
-      user_id: session.user.id,
-      display_name: session.user.user_metadata?.name ?? null,
-      age_band: ageBand,
-      consent_status: consentStatus
-    };
-    const {data, error} = await supabase
-      .from('profiles')
-      .upsert(nextProfile, {onConflict: 'user_id'})
-      .select('user_id, display_name, age_band, consent_status, parent_email_hash')
-      .single<Profile>();
+    const {data} = await supabase.auth.getSession();
+    const token = data.session?.access_token;
+    const response = await fetch('/api/consent/age-band', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ageBand})
+    });
+    const body = (await response.json()) as {error?: string; profile?: Profile};
     setBusy(false);
 
-    if (error) {
+    if (!response.ok || body.error || !body.profile) {
       setFormError(t('profileError'));
       return;
     }
 
-    setProfile(data);
-    setModal(ageBand === '14-15' ? 'parent' : 'closed');
+    setProfile(body.profile);
+    setModal(body.profile.consent_status === 'pending_parent' ? 'parent' : 'closed');
   }
 
   async function submitParentEmail(event: FormEvent<HTMLFormElement>) {
@@ -323,7 +337,7 @@ export function AuthProvider({children}: {children: ReactNode}) {
     <AuthContext.Provider value={value}>
       {children}
       {modal !== 'closed' && (
-        <div className="authGateBackdrop" role="presentation">
+        <div className="authGateBackdrop" data-rrweb-mask data-umami-ignore role="presentation">
           <section className="authGatePanel" role="dialog" aria-modal="true" aria-labelledby="auth-gate-title">
             <button className="authGateClose" onClick={() => setModal('closed')} type="button" aria-label={t('close')}>
               ×
@@ -368,7 +382,7 @@ export function AuthProvider({children}: {children: ReactNode}) {
                 <h2 id="auth-gate-title">{t('ageTitle')}</h2>
                 <p>{t('ageLead')}</p>
                 <div className="authAgeGrid">
-                  {(['14-15', '16-17', '18+', 'parent'] as AgeBand[]).map((ageBand) => (
+                  {(['10-12', '13-15', '16-17', '18+', 'parent'] as AgeBand[]).map((ageBand) => (
                     <button
                       className="button buttonSecondary"
                       disabled={busy}

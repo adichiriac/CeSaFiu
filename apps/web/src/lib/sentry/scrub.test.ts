@@ -62,7 +62,7 @@ describe('scrubSentryEvent', () => {
     const event = {
       type: undefined,
       tags: {
-        age_band: '14-15',
+        age_band: '13-15',
         consent_status: 'parent_confirmed'
       },
       user: {

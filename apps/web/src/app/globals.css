@@ -3781,6 +3781,24 @@ h1 {
   font-weight: 900 !important;
 }
 
+.consentRequiredPanel {
+  min-height: min(100vh, 760px);
+}
+
+.consentRequiredPanel h1 {
+  max-width: 12ch;
+  margin-top: 36px;
+  font-size: clamp(42px, 10vw, 72px);
+}
+
+.consentRequiredPanel p:not(.testEyebrow) {
+  max-width: 46ch;
+  color: var(--ink-soft);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
 @media (min-width: 780px) {
   .authGateBackdrop {
     place-items: center;

@@ -27,6 +27,7 @@
 
 import {getAllCareers} from '@/lib/careers/load';
 import {computeMatches} from '@/lib/matcher';
+import {getSupabaseServerClient} from '@/lib/supabase/server';
 import type {Big5Scores, MatchInput, QuizAnswerOption, VocationalScores} from '@/lib/matcher';
 import {NextResponse} from 'next/server';
 
@@ -47,6 +48,23 @@ export async function POST(request: Request) {
     body = (await request.json()) as RequestBody;
   } catch {
     return NextResponse.json({error: 'Invalid JSON'}, {status: 400});
+  }
+
+  if (body.ipipNeo60Scores) {
+    const supabase = await getSupabaseServerClient();
+    const {data: userData} = supabase ? await supabase.auth.getUser() : {data: {user: null}};
+
+    if (supabase && userData.user) {
+      const {data: profile} = await supabase
+        .from('profiles')
+        .select('consent_status')
+        .eq('user_id', userData.user.id)
+        .maybeSingle();
+
+      if (profile?.consent_status === 'pending_parent') {
+        return NextResponse.json({error: 'parent_consent_required'}, {status: 403});
+      }
+    }
   }
 
   const careers = getAllCareers();

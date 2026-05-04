@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {buildMatchRequest, readStoredResults, useQuizStore} from '@/stores/quiz-store';
+import {useAuthGate} from '@/components/auth/auth-provider';
 import type {Career, CareerMatch, MatchResult, UserProfile} from '@/lib/matcher';
 
 type ProfileClientProps = {
@@ -46,6 +47,7 @@ function topEntries(tally: Record<string, number> | undefined, limit: number) {
 export default function ProfileClient({careers, locale}: ProfileClientProps) {
   const t = useTranslations('profil');
   const navT = useTranslations('browse');
+  const {profile} = useAuthGate();
   const {savedCareerIds} = useQuizStore();
   const [status, setStatus] = useState<'loading' | 'empty' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
@@ -88,6 +90,7 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
   const topMatches = hasProfile && result ? result.slice(0, 3) : [];
   const big5 = userProfile?.big5;
   const sources = result?.sources ?? [];
+  const needsParentConsent = profile?.consent_status === 'pending_parent';
 
   return (
     <main className="profilePage">
@@ -132,9 +135,15 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
                 <Link className="profileActionButton isYellow" href={`/${locale}/test/scenarii`}>
                   {t('startScenarios')}
                 </Link>
-                <Link className="profileActionButton isDark" href={`/${locale}/test/ipip-neo-60`}>
-                  {t('startIpip')}
-                </Link>
+                {needsParentConsent ? (
+                  <button className="profileActionButton isDark" disabled type="button">
+                    {t('parentPending')}
+                  </button>
+                ) : (
+                  <Link className="profileActionButton isDark" href={`/${locale}/test/ipip-neo-60`}>
+                    {t('startIpip')}
+                  </Link>
+                )}
               </div>
             </>
           )}

@@ -225,7 +225,8 @@
     "ageTitle": "How old are you?",
     "ageLead": "We only use this answer to apply the correct rules for minors' data.",
     "age": {
-      "14-15": "14-15",
+      "10-12": "10-12",
+      "13-15": "13-15",
       "16-17": "16-17",
       "18+": "18+",
       "parent": "I'm a parent"
@@ -244,13 +245,19 @@
     "profileError": "We could not update your profile. Try again.",
     "parentError": "We could not save the consent request.",
     "parentInvalidEmail": "The parent or guardian email does not look valid.",
+    "parentInvalidState": "Consent can only be requested after choosing an under-16 age band.",
     "parentMissingSession": "Your session expired. Sign in again.",
     "parentInvalidSession": "Your session is no longer valid. Sign in again.",
+    "parentRateLimited": "You sent too many requests. Try again in a few minutes.",
     "callbackEyebrow": "SIGNING IN",
     "callbackTitle": "Preparing your account...",
     "callbackErrorEyebrow": "ERROR",
     "callbackErrorTitle": "The sign-in link did not work",
-    "callbackErrorLead": "Request a new link and try again."
+    "callbackErrorLead": "Request a new link and try again.",
+    "consentRequiredEyebrow": "PARENT CONSENT REQUIRED",
+    "consentRequiredTitle": "The detailed report is locked for now",
+    "consentRequiredLead": "If you are under 16, you can keep using the free tests. IPIP-NEO-60 and the full profile unlock after a parent or guardian confirms.",
+    "consentRequiredCTA": "CONTINUE WITH FREE TESTS"
   },
   "cariera": {
     "back": "← Back",
@@ -286,6 +293,7 @@
     "formingBody": "Answer a quiz or a test to build your profile. Then we show careers that actually fit you.",
     "startScenarios": "REAL SCENARIOS →",
     "startIpip": "IPIP-NEO-60 →",
+    "parentPending": "PARENT CONSENT PENDING",
     "profileEyebrow": "YOUR PROFILE",
     "pathPrefix": "Preferred path:",
     "testsDone": "TESTS DONE",

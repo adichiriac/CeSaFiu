@@ -225,7 +225,8 @@
     "ageTitle": "Câți ani ai?",
     "ageLead": "Folosim răspunsul doar ca să aplicăm corect regulile pentru datele minorilor.",
     "age": {
-      "14-15": "14-15",
+      "10-12": "10-12",
+      "13-15": "13-15",
       "16-17": "16-17",
       "18+": "18+",
       "parent": "Sunt părinte"
@@ -244,13 +245,19 @@
     "profileError": "Nu am putut actualiza profilul. Încearcă din nou.",
     "parentError": "Nu am putut salva cererea de acord.",
     "parentInvalidEmail": "Emailul părintelui sau tutorelui nu pare valid.",
+    "parentInvalidState": "Acordul poate fi cerut doar după ce alegi o vârstă sub 16 ani.",
     "parentMissingSession": "Sesiunea a expirat. Autentifică-te din nou.",
     "parentInvalidSession": "Sesiunea nu mai este validă. Autentifică-te din nou.",
+    "parentRateLimited": "Ai trimis prea multe cereri. Încearcă din nou peste câteva minute.",
     "callbackEyebrow": "AUTENTIFICARE",
     "callbackTitle": "Pregătim contul tău...",
     "callbackErrorEyebrow": "EROARE",
     "callbackErrorTitle": "Linkul de autentificare nu a funcționat",
-    "callbackErrorLead": "Cere un link nou și încearcă din nou."
+    "callbackErrorLead": "Cere un link nou și încearcă din nou.",
+    "consentRequiredEyebrow": "ACORD PĂRINTE NECESAR",
+    "consentRequiredTitle": "Raportul detaliat rămâne blocat momentan",
+    "consentRequiredLead": "Dacă ai sub 16 ani, poți continua testele gratuite. IPIP-NEO-60 și profilul complet se deblochează după acordul unui părinte sau tutore.",
+    "consentRequiredCTA": "CONTINUĂ CU TESTELE GRATUITE"
   },
   "cariera": {
     "back": "← Înapoi",
@@ -286,6 +293,7 @@
     "formingBody": "Răspunde la un quiz sau un test ca să-ți construim profilul. Apoi îți arătăm cariere care chiar ți se potrivesc.",
     "startScenarios": "SCENARII REALE →",
     "startIpip": "IPIP-NEO-60 →",
+    "parentPending": "ACORD PĂRINTE ÎN AȘTEPTARE",
     "profileEyebrow": "PROFILUL TAU",
     "pathPrefix": "Drum preferat:",
     "testsDone": "TESTE FACUTE",
