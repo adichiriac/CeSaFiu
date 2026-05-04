@@ -6,6 +6,7 @@ import Script from 'next/script';
 import type {ReactNode} from 'react';
 import '../globals.css';
 import {isLocale, locales, type Locale} from '@/i18n/config';
+import {AuthProvider} from '@/components/auth/auth-provider';
 
 const UMAMI_URL = process.env.NEXT_PUBLIC_UMAMI_URL ?? 'https://umami-production-00d8.up.railway.app';
 const UMAMI_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? 'b582fdd9-94f2-47c2-86ce-54bcc810e434';
@@ -63,7 +64,9 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
         />
       </head>
       <body>
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <AuthProvider>{children}</AuthProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

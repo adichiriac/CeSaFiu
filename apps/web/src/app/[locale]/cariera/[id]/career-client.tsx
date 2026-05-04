@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import {useState} from 'react';
 import {useTranslations} from 'next-intl';
-import {useQuizStore} from '@/stores/quiz-store';
+import {useAuthGate} from '@/components/auth/auth-provider';
 import type {Career} from '@/lib/matcher';
 import type {Program, Institution} from '@/lib/careers/types';
 
@@ -40,7 +40,7 @@ type Tab = 'day' | 'skills' | 'paths' | 'schools';
 export default function CareerClient({career, locale, programs}: CareerClientProps) {
   const t = useTranslations('cariera');
   const [tab, setTab] = useState<Tab>('day');
-  const {isSaved, toggleSave} = useQuizStore();
+  const {isSaved, toggleSaveCareer} = useAuthGate();
   const saved = isSaved(career.id);
   const heroColor = CAREER_COLORS[career.color] ?? 'var(--purple)';
   const heroTextColor = career.color === 'purple' ? '#fff' : '#000';
@@ -62,7 +62,7 @@ export default function CareerClient({career, locale, programs}: CareerClientPro
             </Link>
             <button
               className="button careerSaveBtn"
-              onClick={() => toggleSave(career.id)}
+              onClick={() => toggleSaveCareer(career.id)}
               style={{background: saved ? '#000' : '#fff', color: saved ? 'var(--green)' : '#000'}}
               aria-label={saved ? t('saveBtnUnsave') : t('saveBtnSave')}
             >
@@ -226,7 +226,7 @@ export default function CareerClient({career, locale, programs}: CareerClientPro
           <button
             className="button buttonPrimary careerPrimaryAction"
             style={{background: saved ? 'var(--green)' : '#000', color: saved ? '#000' : '#fff'}}
-            onClick={() => toggleSave(career.id)}
+            onClick={() => toggleSaveCareer(career.id)}
           >
             {saved ? t('saveCTADone') : t('saveCTA')}
           </button>

@@ -17,6 +17,7 @@ import {createJSONStorage, persist} from 'zustand/middleware';
 
 type QuizStore = {
   savedCareerIds: string[];
+  setSavedCareers: (ids: string[]) => void;
   saveCareer: (id: string) => void;
   unsaveCareer: (id: string) => void;
   isSaved: (id: string) => boolean;
@@ -28,6 +29,11 @@ export const useQuizStore = create<QuizStore>()(
   persist(
     (set, get) => ({
       savedCareerIds: [],
+
+      setSavedCareers: (ids) =>
+        set({
+          savedCareerIds: Array.from(new Set(ids)),
+        }),
 
       saveCareer: (id) =>
         set((state) => ({

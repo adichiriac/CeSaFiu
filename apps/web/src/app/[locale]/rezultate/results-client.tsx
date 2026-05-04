@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import {useEffect, useState} from 'react';
 import {useTranslations} from 'next-intl';
-import {buildMatchRequest, readStoredResults, useQuizStore} from '@/stores/quiz-store';
+import {useAuthGate} from '@/components/auth/auth-provider';
+import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
 import type {CareerMatch, MatchResult, NextTestSuggestion, UserProfile} from '@/lib/matcher';
 
 type ResultsClientProps = {
@@ -60,7 +61,7 @@ function topRiasecCodes(riasec: Record<string, number>): string[] {
 
 export default function ResultsClient({locale}: ResultsClientProps) {
   const t = useTranslations('rezultate');
-  const {isSaved, toggleSave} = useQuizStore();
+  const {isSaved, toggleSaveCareer, profile} = useAuthGate();
   const [status, setStatus] = useState<'loading' | 'no-data' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
 
@@ -373,7 +374,7 @@ export default function ResultsClient({locale}: ResultsClientProps) {
           </p>
           <button
             className="button buttonPrimary"
-            onClick={() => toggleSave(top.career.id)}
+            onClick={() => toggleSaveCareer(top.career.id)}
             style={{width: '100%', background: isSaved(top.career.id) ? 'var(--purple)' : '#000'}}
           >
             {isSaved(top.career.id) ? t('saveCTADone') : t('saveCTA')}
@@ -386,13 +387,24 @@ export default function ResultsClient({locale}: ResultsClientProps) {
           <h3 className="paidHookTitle">{t('paidTitle')}</h3>
           <p className="paidHookBody">{t('paidBody')}</p>
           <div className="paidHookPrice">{t('paidPrice')}</div>
-          <Link
-            href={`/${locale}/test/ipip-neo-60`}
-            className="button buttonPrimary"
-            style={{display: 'block', textAlign: 'center', background: 'var(--purple)', borderColor: '#000'}}
-          >
-            {t('paidCTA')}
-          </Link>
+          {profile?.consent_status === 'pending_parent' ? (
+            <button
+              className="button buttonSecondary"
+              disabled
+              style={{display: 'block', width: '100%', textAlign: 'center'}}
+              type="button"
+            >
+              {t('paidBlockedCTA')}
+            </button>
+          ) : (
+            <Link
+              href={`/${locale}/test/ipip-neo-60`}
+              className="button buttonPrimary"
+              style={{display: 'block', textAlign: 'center', background: 'var(--purple)', borderColor: '#000'}}
+            >
+              {t('paidCTA')}
+            </Link>
+          )}
           <p className="paidHookDisclaimer">{t('paidDisclaimer')}</p>
         </div>
 

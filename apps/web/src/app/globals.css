@@ -3667,3 +3667,122 @@ h1 {
   background: #fff;
   color: #000;
 }
+
+/* ── Auth / consent gate ──────────────────────────────────────────────────── */
+
+.authGateBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: end center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+.authGatePanel {
+  position: relative;
+  width: min(100%, 620px);
+  border: 3px solid #000;
+  border-radius: 8px;
+  box-shadow: 10px 10px 0 #000;
+  background:
+    radial-gradient(circle, rgba(0, 0, 0, 0.04) 1px, transparent 1.4px),
+    linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: 12px 12px, 42px 42px, 42px 42px, auto;
+  padding: 24px;
+}
+
+.authGateClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 42px;
+  height: 42px;
+  border: 3px solid #000;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 #000;
+  background: #fff;
+  color: #000;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.authGateEyebrow {
+  margin: 0 54px 10px 0;
+  color: var(--purple);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.authGatePanel h2 {
+  margin: 0;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(28px, 7vw, 46px);
+  line-height: .98;
+}
+
+.authGatePanel p {
+  margin: 12px 0 0;
+  color: var(--ink-soft);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.authGateForm {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.authGateForm label {
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.authGateForm input {
+  width: 100%;
+  min-height: 54px;
+  border: 3px solid #000;
+  background: #fff;
+  box-shadow: 5px 5px 0 #000;
+  color: #000;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 12px 14px;
+  text-transform: none;
+}
+
+.authAgeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.authGateError {
+  border: 3px solid #000;
+  background: #ff6156;
+  box-shadow: 4px 4px 0 #000;
+  color: #fff !important;
+  padding: 10px 12px;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+}
+
+@media (min-width: 780px) {
+  .authGateBackdrop {
+    place-items: center;
+  }
+}
