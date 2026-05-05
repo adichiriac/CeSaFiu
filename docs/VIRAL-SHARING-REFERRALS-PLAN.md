@@ -1,6 +1,6 @@
 # Viral Sharing and Referral Tracking Plan
 
-Status: draft plan.
+Status: implementation started (2026-05-05).
 Owner: Adi.
 Scope: sharing loops, referral attribution, friend onboarding/test-completion tracking, leaderboard/admin reporting.
 Non-goal for this slice: implementation, rewards economy, payment integration.
@@ -79,8 +79,8 @@ Rules:
 - No test result visible to the referrer.
 - No "Maria took IPIP" event visible to another student.
 - No named friend tracking unless the referred friend explicitly opts in after account creation.
-- For under-16 `pending_parent`, do not persist referral conversions tied to that child until parent consent is confirmed.
-- Anonymous click attribution can be stored as aggregate event data, but it must not include raw IP, raw user-agent, or clear personal identifiers.
+- For under-16 `pending_parent`, referral conversions may count anonymously, but must not be tied to that child account until parent consent is confirmed.
+- Anonymous click and completion attribution can be stored as aggregate event data, but it must not include raw IP, raw user-agent, or clear personal identifiers.
 
 Legal baseline to validate with counsel:
 
@@ -108,6 +108,7 @@ Attribution window:
 - First-touch wins for a session.
 - If user signs in later, attach the stored referral code once.
 - Never allow self-referral.
+- Retain referral events for 24 months.
 
 Recommended URL format:
 
@@ -138,7 +139,8 @@ create table referral_events (
   source text,
   landing_path text,
   anonymous_visitor_hash text,
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  expires_at timestamptz not null default (now() + interval '24 months')
 );
 
 create table referral_opt_ins (
@@ -178,7 +180,7 @@ For under-16 pending users:
 
 - Save click locally.
 - Do not write `onboarded` / `test_completed` with `referred_user_id` until `parent_confirmed`.
-- Optionally write anonymous aggregate `click` without identity.
+- Anonymous aggregate `click`, `onboarded`, and `test_completed` rows are allowed using an HMACed visitor id.
 
 ## 7. Events and Metrics
 
@@ -211,13 +213,13 @@ Admin KPIs:
 
 ## 9. Implementation Phases
 
-### Phase A — Share UX, no database
+### Phase A — Share UX + first-touch capture
 
-- Add share card after result.
-- Generate referral link only for signed-in users; anonymous users see `Autentifică-te ca să ai linkul tău`.
-- Use Web Share API when available, WhatsApp fallback, copy link fallback.
-- Store inbound `ref` in localStorage.
-- Track only existing Umami aggregate events.
+- [x] Add share card after result.
+- [x] Generate referral link only for signed-in, consent-eligible users; anonymous users see `Autentifică-te ca să ai linkul tău`.
+- [x] Use WhatsApp primary CTA, copy link fallback, and Web Share API where available.
+- [x] Store inbound `ref` in localStorage as first-touch for 30 days.
+- [x] Record anonymous click event with HMACed visitor id.
 
 Acceptance:
 
@@ -227,11 +229,11 @@ Acceptance:
 
 ### Phase B — Referral code and aggregate conversion tracking
 
-- Add `referral_codes` and `referral_events`.
-- Add API endpoints/RPCs.
-- Attribute sign-up/onboarding to stored referral code.
-- Attribute test completion only when consent state allows cloud writes.
-- Add Profile referral panel with aggregate counts.
+- [x] Add `referral_codes`, `referral_events`, and `referral_opt_ins`.
+- [x] Add API endpoints for click, onboarded, test-completed, and my aggregate stats.
+- [x] Attribute sign-up/onboarding to stored referral code.
+- [x] Attribute under-16 pending completions anonymously; attach user id only for consent-eligible users.
+- [x] Add Profile referral panel with aggregate counts.
 
 Acceptance:
 
@@ -239,16 +241,16 @@ Acceptance:
 - Under-16 pending users do not produce named/persistent conversion rows.
 - Self-referral blocked.
 
-### Phase C — Leaderboard and admin dashboard
+### Phase C — Admin-only leaderboard and dashboard
 
-- Add top referrers panel.
-- Add public opt-in pseudonym/display name.
+- Add top referrers panel for admin only.
+- Add public opt-in pseudonym/display name only if we later decide to show public rankings.
 - Add admin metrics dashboard.
 - Add abuse filters.
 
 Acceptance:
 
-- Leaderboard uses public opt-in names only.
+- Leaderboard is admin-only until abuse patterns are understood.
 - Admin can see top codes and conversion funnel.
 - Public users cannot infer which friend took which test.
 
@@ -265,8 +267,8 @@ Keep rewards non-financial until legal review, especially for minors.
 
 ## 10. Open Questions
 
-- Should under-16 referred users count only after parent confirmation, or can we count anonymous aggregate test completions?
-- Do we want a public top-referrers leaderboard, or admin-only until we see abuse patterns?
-- Is a class/team challenge safer and more useful than friend-level tracking?
-- Should referral attribution be first-touch or last-touch?
-- What is the retention window for referral events: 90 days, 180 days, or 24 months?
+- Under-16 referred users: count anonymous aggregate events before parent confirmation; do not attach their user id.
+- Leaderboard: admin-only.
+- Class/team challenge: no.
+- Attribution: first-touch.
+- Retention: 24 months.

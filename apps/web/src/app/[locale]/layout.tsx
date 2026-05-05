@@ -3,10 +3,11 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getMessages, getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import Script from 'next/script';
-import type {ReactNode} from 'react';
+import {Suspense, type ReactNode} from 'react';
 import '../globals.css';
 import {isLocale, locales, type Locale} from '@/i18n/config';
 import {AuthProvider} from '@/components/auth/auth-provider';
+import ReferralTracker from '@/components/referrals/referral-tracker';
 
 const UMAMI_URL = process.env.NEXT_PUBLIC_UMAMI_URL ?? 'https://umami-production-00d8.up.railway.app';
 const UMAMI_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? 'b582fdd9-94f2-47c2-86ce-54bcc810e434';
@@ -65,7 +66,12 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
       </head>
       <body>
         <NextIntlClientProvider messages={messages}>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <Suspense fallback={null}>
+              <ReferralTracker />
+            </Suspense>
+            {children}
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

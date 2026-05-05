@@ -5,6 +5,7 @@ import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {buildMatchRequest, readStoredResults, useQuizStore} from '@/stores/quiz-store';
 import {useAuthGate} from '@/components/auth/auth-provider';
+import ReferralStatsCard from '@/components/referrals/referral-stats-card';
 import type {Career, CareerMatch, MatchResult, UserProfile} from '@/lib/matcher';
 
 type ProfileClientProps = {
@@ -231,6 +232,8 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
             </div>
           </section>
         )}
+
+        <ReferralStatsCard />
 
         <section className="profileSection">
           <div className="profileSectionHeader">

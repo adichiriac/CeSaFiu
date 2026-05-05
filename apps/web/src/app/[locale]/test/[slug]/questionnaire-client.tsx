@@ -12,6 +12,8 @@ import {useTranslations} from 'next-intl';
 import type {QuizAnswerOption} from '@/lib/matcher';
 import {useRouter} from 'next/navigation';
 import type {MouseEvent} from 'react';
+import {getSupabaseBrowserClient} from '@/lib/supabase/client';
+import {recordReferralTestCompleted} from '@/lib/referrals/client';
 
 type QuestionnaireClientProps = {
   brandCe: string;
@@ -85,6 +87,7 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
     };
     try {
       localStorage.setItem(`cesafiu:test:${definition.slug}:latest`, JSON.stringify(payload));
+      void recordTestCompleted(definition.slug);
       if (definition.slug === 'scenarii') {
         router.push(`/${locale}/rezultate`);
       }
@@ -286,6 +289,12 @@ function QuestionnaireHeader({
 
 function isSelected(current: QuestionnaireAnswer | undefined, optionId: string) {
   return String(current) === optionId;
+}
+
+async function recordTestCompleted(slug: string) {
+  const supabase = getSupabaseBrowserClient();
+  const {data} = supabase ? await supabase.auth.getSession() : {data: {session: null}};
+  await recordReferralTestCompleted(slug, data.session?.access_token);
 }
 
 function computeResult(definition: QuestionnaireDefinition, answers: Record<string, QuestionnaireAnswer>): RankedResult[] {

@@ -331,6 +331,28 @@
     "primaryNav": "Primary navigation",
     "tierTop": "TOP"
   },
+  "referrals": {
+    "title": "Want to see what your friends get?",
+    "lead": "Send them the challenge and compare future-fit vibes.",
+    "signedOutLead": "Sign in to get your challenge link and see how many friends join.",
+    "blockedLead": "Your profile is waiting for parent consent. You can still take tests, but account-level invite tracking stays off.",
+    "whatsappCTA": "Send on WhatsApp",
+    "signInCTA": "Sign in for your link",
+    "blockedCTA": "Parent consent required",
+    "copyCTA": "Copy link",
+    "copiedCTA": "Link copied",
+    "nativeCTA": "Share",
+    "nativeTitle": "Ce Să Fiu?",
+    "shareText": "I took the Ce Să Fiu test and got {archetype}. Try it too: {url}",
+    "referralId": "Referral ID: {code}",
+    "loading": "Preparing your link...",
+    "profileTitle": "Your challenges",
+    "profileSignedOut": "Sign in to get your link and see how many friends joined.",
+    "profileBlocked": "Account-level invite tracking becomes available after parent consent.",
+    "statsClicks": "Visits",
+    "statsOnboarded": "Friends joined",
+    "statsCompleted": "Tests completed"
+  },
   "error": {
     "eyebrow": "Error",
     "title": "Something went wrong.",

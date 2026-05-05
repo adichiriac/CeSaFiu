@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {useEffect, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {useAuthGate} from '@/components/auth/auth-provider';
+import ReferralShareCard from '@/components/referrals/referral-share-card';
 import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
 import type {CareerMatch, MatchResult, NextTestSuggestion, UserProfile} from '@/lib/matcher';
 
@@ -390,6 +391,8 @@ export default function ResultsClient({locale}: ResultsClientProps) {
             {isSaved(top.career.id) ? t('saveCTADone') : t('saveCTA')}
           </button>
         </div>
+
+        <ReferralShareCard archetype={top.career.name} locale={locale} />
 
         {/* Profil Complet hook */}
         <div className="paidHookCard">

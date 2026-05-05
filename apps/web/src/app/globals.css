@@ -2472,6 +2472,106 @@ h1 {
   text-align: center;
 }
 
+.referralShareCard {
+  position: relative;
+  overflow: hidden;
+  margin-top: 28px;
+  padding: 30px 24px 26px;
+  border: 3px solid #000;
+  background: var(--purple);
+  color: #fff;
+  box-shadow: 8px 8px 0 #000;
+  text-align: center;
+}
+
+.referralShareCard--blocked {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.referralCorner {
+  position: absolute;
+  top: -13px;
+  left: -13px;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  transform: rotate(-12deg);
+  border: 3px solid #000;
+  border-radius: 14px;
+  background: var(--green);
+  color: #000;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.referralShareCard h2 {
+  max-width: 460px;
+  margin: 0 auto 20px;
+  font: 900 clamp(28px, 6vw, 44px)/1.08 "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.referralShareCard p {
+  max-width: 460px;
+  margin: 0 auto 22px;
+  font-size: 18px;
+  line-height: 1.45;
+  opacity: 0.9;
+}
+
+.referralWhatsApp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-width: min(100%, 360px);
+  padding: 17px 24px;
+  border: 3px solid #000;
+  border-radius: 14px;
+  background: #26d366;
+  color: #fff;
+  box-shadow: 6px 6px 0 #000;
+  font: 900 20px/1.15 "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  text-decoration: none;
+}
+
+.referralWhatsApp:disabled {
+  background: #fff;
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}
+
+.referralWhatsApp span {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.referralSecondaryActions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.referralSecondaryActions button {
+  border: 2px solid #000;
+  background: #fff;
+  color: #000;
+  padding: 10px 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.referralId {
+  margin-top: 24px !important;
+  font-size: 12px !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
 /* ── Career detail page ───────────────────────────────────────────────────── */
 
 .careerPage {
@@ -3532,6 +3632,56 @@ h1 {
   color: var(--ink);
   font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(26px, 5vw, 38px);
+}
+
+.referralStatsCard {
+  padding: 20px;
+  border: 3px solid #000;
+  background: #fff;
+  box-shadow: 6px 6px 0 #000;
+}
+
+.referralStatsCard h2 {
+  margin: 0 0 12px;
+}
+
+.referralStatsCard p {
+  margin: 0 0 16px;
+  color: var(--ink-soft);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.referralStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 3px solid #000;
+}
+
+.referralStatsGrid div {
+  min-width: 0;
+  padding: 14px 10px;
+  border-right: 3px solid #000;
+  text-align: center;
+}
+
+.referralStatsGrid div:last-child {
+  border-right: 0;
+}
+
+.referralStatsGrid span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--ink-soft);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.referralStatsGrid strong {
+  font: 900 28px/1 "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
 }
 
 .profileMatchRail {
