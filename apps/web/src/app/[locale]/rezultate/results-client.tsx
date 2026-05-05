@@ -7,6 +7,13 @@ import {useAuthGate} from '@/components/auth/auth-provider';
 import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
 import type {CareerMatch, MatchResult, NextTestSuggestion, UserProfile} from '@/lib/matcher';
 
+/**
+ * NextTestSuggestion.kind values that route to the Profil Complet bundle.
+ * If the user is pending_parent and the suggestion is one of these, we
+ * suppress the next-test card and let the bundle hook below handle messaging.
+ */
+const PAID_NEXT_TEST_KINDS = new Set(['ipip-neo', 'vocational-deep']);
+
 type ResultsClientProps = {
   locale: string;
 };
@@ -317,23 +324,26 @@ export default function ResultsClient({locale}: ResultsClientProps) {
           {t.rich('honestyBody', {b: (chunks) => <b>{chunks}</b>})}
         </div>
 
-        {/* Next test CTA */}
-        {nextTest && nextTest.kind !== 'quick' && (
-          <div className="resultNextTest">
-            <div className="resultNextTestEyebrow">{t('nextEyebrow')}</div>
-            <div className="resultNextTestTitle">
-              {nextTestLabel[nextTest.kind] ?? nextTest.kind}
+        {/* Next test CTA — suppressed for pending_parent if the suggestion is a bundle test */}
+        {nextTest
+          && nextTest.kind !== 'quick'
+          && !(profile?.consent_status === 'pending_parent' && PAID_NEXT_TEST_KINDS.has(nextTest.kind))
+          && (
+            <div className="resultNextTest">
+              <div className="resultNextTestEyebrow">{t('nextEyebrow')}</div>
+              <div className="resultNextTestTitle">
+                {nextTestLabel[nextTest.kind] ?? nextTest.kind}
+              </div>
+              <p className="resultNextTestReason">{nextTest.reason}</p>
+              <Link
+                className="button buttonPrimary"
+                href={`/${locale}${NEXT_TEST_HREFS[nextTest.kind] ?? '/test/scenarii'}`}
+                style={{display: 'block', textAlign: 'center', background: 'var(--yellow)', color: '#000', borderColor: '#000'}}
+              >
+                {nextTestLabel[nextTest.kind] ?? nextTest.kind}
+              </Link>
             </div>
-            <p className="resultNextTestReason">{nextTest.reason}</p>
-            <Link
-              className="button buttonPrimary"
-              href={`/${locale}${NEXT_TEST_HREFS[nextTest.kind] ?? '/test/scenarii'}`}
-              style={{display: 'block', textAlign: 'center', background: 'var(--yellow)', color: '#000', borderColor: '#000'}}
-            >
-              {nextTestLabel[nextTest.kind] ?? nextTest.kind}
-            </Link>
-          </div>
-        )}
+          )}
 
         {/* Other matches */}
         <h2 className="resultOthersTitle">
@@ -381,7 +391,7 @@ export default function ResultsClient({locale}: ResultsClientProps) {
           </button>
         </div>
 
-        {/* Paid hook */}
+        {/* Profil Complet hook */}
         <div className="paidHookCard">
           <div className="paidHookEyebrow">{t('paidEyebrow')}</div>
           <h3 className="paidHookTitle">{t('paidTitle')}</h3>

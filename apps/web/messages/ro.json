@@ -10,7 +10,7 @@
     "helpLabel": "Cum funcționează testele",
     "helpGlyph": "?",
     "noRobots": "Opțiuni de carieră...gratuit!",
-    "eyebrow": "5 teste · la alegerea ta",
+    "eyebrow": "3 teste gratuite + Profil Complet gratuit în pilot",
     "titleLine1": "Ce",
     "titleLine2": "să fiu",
     "titleLine3": "când mă",
@@ -29,22 +29,6 @@
         "action": "Start scenarii"
       },
       {
-        "id": "personalitate",
-        "label": "Personalitate (scurt)",
-        "sub": "Big Five · 15 itemi · 4 min",
-        "description": "Un prim profil despre energie, structură, curiozitate și felul în care lucrezi cu oamenii.",
-        "href": "/test/personalitate",
-        "action": "Start personalitate"
-      },
-      {
-        "id": "ipip",
-        "label": "IPIP-NEO-60",
-        "sub": "Validat științific · 60 itemi · 12 min",
-        "description": "Versiunea serioasă pentru raportul detaliat. Mai lung, dar mult mai relevant.",
-        "href": "/test/ipip-neo-60",
-        "action": "Start IPIP"
-      },
-      {
         "id": "vocational",
         "label": "Vocațional (scurt)",
         "sub": "Holland · 20 itemi · 4 min",
@@ -53,14 +37,24 @@
         "action": "Start vocațional"
       },
       {
-        "id": "vocationalDeep",
-        "label": "Vocațional complet",
-        "sub": "O*NET · 60 itemi · 8-10 min",
-        "description": "Versiunea completă pentru interes vocațional. Semnal mult mai precis decât testul scurt.",
-        "href": "/test/vocational-deep",
-        "action": "Start vocațional complet"
+        "id": "personalitate",
+        "label": "Personalitate (scurt)",
+        "sub": "Big Five · 15 itemi · 4 min",
+        "description": "Un prim profil despre energie, structură, curiozitate și felul în care lucrezi cu oamenii.",
+        "href": "/test/personalitate",
+        "action": "Start personalitate"
       }
     ],
+    "profilCompletCard": {
+      "eyebrow": "PROFIL COMPLET · GRATUIT ÎN PILOT",
+      "label": "Mai precis. Mai detaliat.",
+      "sub": "60 itemi Big Five + 60 itemi vocațional + raport PDF",
+      "description": "Pentru când contează: foloseşti rezultatul ca să decizi între opţiuni reale.",
+      "action": "ÎNCEPE PROFILUL COMPLET →",
+      "blockedAction": "NEVOIE DE ACORD PĂRINTE",
+      "footer": "Gratuit în pilot. Sub 16 ani: disponibil după acordul unui părinte sau tutore.",
+      "href": "/test/ipip-neo-60"
+    },
     "recommendedTest": "Începe aici",
     "startGuideTitle": "De unde încep?",
     "startGuideLead": "Dacă nu știi ce test să alegi, începe cu varianta care îți dă cel mai bun semnal pentru timpul pe care îl ai.",
@@ -78,12 +72,8 @@
         "value": "Personalitate"
       },
       {
-        "label": "Vrei interes vocațional serios",
-        "value": "Vocațional complet"
-      },
-      {
-        "label": "Vrei ceva serios",
-        "value": "IPIP-NEO-60"
+        "label": "Vrei un raport detaliat și exact",
+        "value": "Profil Complet · gratuit în pilot"
       }
     ],
     "resultsPreviewTitle": "Ce primești la final",
@@ -199,13 +189,13 @@
     "saveBodyDone": "Îl găsești în Vibe-uri oricând.",
     "saveCTA": "SALVEAZĂ-MI VIBE-UL →",
     "saveCTADone": "★ SALVAT",
-    "paidEyebrow": "RAPORT DETALIAT",
-    "paidTitle": "Vrei mai mult decât un quiz?",
-    "paidBody": "Raport PDF cu profilul tău complet, cariere potrivite cu salariu real și pași concreti. Completezi IPIP-NEO-60 + vocațional, noi generăm raportul.",
-    "paidPrice": "19 EUR",
-    "paidCTA": "VREAU RAPORTUL →",
+    "paidEyebrow": "PROFIL COMPLET",
+    "paidTitle": "Mai precis. Mai detaliat. Gratuit în pilot.",
+    "paidBody": "60 itemi Big Five validați științific + 60 itemi vocațional + raport PDF complet. Foloseşti rezultatul ca să decizi între opţiuni reale: facultate, școală profesională, primul job.",
+    "paidPrice": "Gratuit în pilot",
+    "paidCTA": "ÎNCEPE PROFILUL COMPLET →",
     "paidBlockedCTA": "NEVOIE DE ACORD PĂRINTE",
-    "paidDisclaimer": "Înregistrăm interesul tău. Te contactăm cu detalii.",
+    "paidDisclaimer": "Va deveni pachet plătit mai târziu. Acum îl testăm gratuit în pilot. Sub 16 ani: disponibil după acordul unui părinte sau tutore.",
     "browseCTA": "EXPLOREAZĂ TOATE CARIERELE →"
   },
   "auth": {
@@ -233,13 +223,13 @@
     },
     "parentEyebrow": "ACORD PĂRINTE",
     "parentTitle": "Avem nevoie de emailul unui părinte sau tutore",
-    "parentLead": "Poți folosi testele în continuare, dar profilul complet și raportul plătit rămân blocate până confirmă un adult.",
+    "parentLead": "Poți folosi testele gratuite în continuare. Profilul Complet (IPIP-NEO-60 + Vocațional Complet + raport) rămâne disponibil doar după ce confirmă un adult.",
     "parentEmailLabel": "Email părinte/tutore",
     "parentEmailPlaceholder": "parinte@email.ro",
     "requestParentConsent": "CERE ACORDUL →",
     "parentSentEyebrow": "CERERE ÎNREGISTRATĂ",
     "parentSentTitle": "Acordul părintelui este în așteptare",
-    "parentSentLead": "Poți continua testele. Profilul complet și raportul plătit rămân blocate până confirmă un adult.",
+    "parentSentLead": "Poți continua testele gratuite. Profilul Complet devine disponibil după ce confirmă un adult.",
     "saving": "SE SALVEAZĂ...",
     "magicLinkError": "Nu am putut trimite linkul magic. Încearcă din nou.",
     "profileError": "Nu am putut actualiza profilul. Încearcă din nou.",
@@ -255,8 +245,8 @@
     "callbackErrorTitle": "Linkul de autentificare nu a funcționat",
     "callbackErrorLead": "Cere un link nou și încearcă din nou.",
     "consentRequiredEyebrow": "ACORD PĂRINTE NECESAR",
-    "consentRequiredTitle": "Raportul detaliat rămâne blocat momentan",
-    "consentRequiredLead": "Dacă ai sub 16 ani, poți continua testele gratuite. IPIP-NEO-60 și profilul complet se deblochează după acordul unui părinte sau tutore.",
+    "consentRequiredTitle": "Profilul Complet are nevoie de acord părinte",
+    "consentRequiredLead": "Dacă ai sub 16 ani, poți continua testele gratuite (scenarii, personalitate scurt, vocațional scurt). Profilul Complet — IPIP-NEO-60 + Vocațional Complet + raport detaliat — este gratuit în pilot și devine disponibil după acordul unui părinte sau tutore.",
     "consentRequiredCTA": "CONTINUĂ CU TESTELE GRATUITE"
   },
   "cariera": {
@@ -292,7 +282,7 @@
     "formingTitle": "Inca nu avem semnal suficient",
     "formingBody": "Răspunde la un quiz sau un test ca să-ți construim profilul. Apoi îți arătăm cariere care chiar ți se potrivesc.",
     "startScenarios": "SCENARII REALE →",
-    "startIpip": "IPIP-NEO-60 →",
+    "startProfilComplet": "PROFIL COMPLET →",
     "parentPending": "ACORD PĂRINTE ÎN AȘTEPTARE",
     "profileEyebrow": "PROFILUL TAU",
     "pathPrefix": "Drum preferat:",

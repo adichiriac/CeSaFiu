@@ -26,6 +26,7 @@
  */
 
 import {getAllCareers} from '@/lib/careers/load';
+import {PAID_MATCH_FIELDS} from '@/lib/consent';
 import {computeMatches} from '@/lib/matcher';
 import {getSupabaseServerClient} from '@/lib/supabase/server';
 import type {Big5Scores, MatchInput, QuizAnswerOption, VocationalScores} from '@/lib/matcher';
@@ -41,6 +42,10 @@ type RequestBody = {
   vocationalDeepSignalsRaw?: Record<string, number>;
 };
 
+function bodyHasPaidScores(body: RequestBody): boolean {
+  return PAID_MATCH_FIELDS.some((field) => Boolean((body as Record<string, unknown>)[field]));
+}
+
 export async function POST(request: Request) {
   let body: RequestBody;
 
@@ -50,7 +55,7 @@ export async function POST(request: Request) {
     return NextResponse.json({error: 'Invalid JSON'}, {status: 400});
   }
 
-  if (body.ipipNeo60Scores) {
+  if (bodyHasPaidScores(body)) {
     const supabase = await getSupabaseServerClient();
     const {data: userData} = supabase ? await supabase.auth.getUser() : {data: {user: null}};
 

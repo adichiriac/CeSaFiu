@@ -1,5 +1,7 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {isLocale, type Locale} from '@/i18n/config';
+import {LanguageSelector} from '@/components/LanguageSelector';
+import ProfilCompletCard from '@/components/profil-complet-card';
 import Link from 'next/link';
 import {notFound} from 'next/navigation';
 
@@ -10,7 +12,7 @@ type HomePageProps = {
 };
 
 type TestCard = {
-  id: 'scenarii' | 'personalitate' | 'ipip' | 'vocational' | 'vocationalDeep';
+  id: 'scenarii' | 'personalitate' | 'vocational';
   label: string;
   sub: string;
   description: string;
@@ -54,9 +56,12 @@ export default async function HomePage({params}: HomePageProps) {
             <span>{t('brandCe')}</span>
             <strong>{t('brandRest')}</strong>
           </Link>
-          <a className="helpButton" href="#home-help" aria-label={t('helpLabel')}>
-            {t('helpGlyph')}
-          </a>
+          <div className="prototypeHeaderRight">
+            <LanguageSelector />
+            <a className="helpButton" href="#home-help" aria-label={t('helpLabel')}>
+              {t('helpGlyph')}
+            </a>
+          </div>
         </header>
 
         <div className="noRobotSticker">
@@ -104,6 +109,9 @@ export default async function HomePage({params}: HomePageProps) {
             </Link>
           ))}
         </div>
+
+        <ProfilCompletCard locale={locale} />
+
 
         <div className="prototypeHomeLower">
           <section className="prototypeInfoGrid" aria-label={t('startGuideTitle')}>

@@ -1,6 +1,6 @@
 # Auth and Minor Consent Flow
 
-This documents the first Supabase auth slice for CeSaFiu.
+This documents the Supabase auth + parent-consent slice for CeSaFiu.
 
 Scope in this version:
 
@@ -11,7 +11,8 @@ Scope in this version:
 - Age-band and consent-state writes are server-side only.
 - Parent email is HMAC-hashed and a hashed consent request token is recorded.
 - `saved_careers` inserts are consent-aware in RLS.
-- IPIP-NEO-60 is server-gated for `pending_parent` users.
+- **Profil Complet** (IPIP-NEO-60 + Vocațional Complet + PDF report) is free during the pilot, but structured as a future paid bundle. It is server-gated for `pending_parent` users at both the page level (`/test/[slug]` for any slug in `PAID_TEST_SLUGS`) and the API level (`/api/match` when the body carries any `PAID_MATCH_FIELDS`).
+- See [PAID-BUNDLE-POSITIONING.md](./PAID-BUNDLE-POSITIONING.md) for the bundle product decision and copy.
 - Actual parent email delivery and confirmation are not wired yet.
 
 ## Flowchart
@@ -60,12 +61,17 @@ flowchart TD
   AE --> AF["Saved career appears in Vibe-uri"]
 
   AD --> AG["Tests continue locally"]
-  AG --> AH["Paid report and remote save sync remain blocked until consent changes"]
+  AG --> AH["Profil Complet and remote save sync remain blocked until consent changes"]
 
-  AI["Direct visit to /test/ipip-neo-60"] --> AJ["Server reads Supabase cookie session"]
+  AI["Direct visit to /test/ipip-neo-60 or /test/vocational-deep"] --> AJ["Server reads Supabase cookie session"]
   AJ --> AK{"Profile pending_parent?"}
   AK -- "Yes" --> AL["Render consent-required page"]
   AK -- "No / anonymous" --> AM["Render questionnaire"]
+
+  AN["POST /api/match with deep bundle scores (ipipNeo60Scores or vocationalDeepRaw)"] --> AO["Server reads cookie session"]
+  AO --> AP{"Profile pending_parent?"}
+  AP -- "Yes" --> AQ["403 parent_consent_required"]
+  AP -- "No / anonymous" --> AR["Score and return matches"]
 ```
 
 ## Data Model

@@ -1,4 +1,5 @@
-import {isLocale, locales, type Locale} from '@/i18n/config';
+import {isLocale, type Locale} from '@/i18n/config';
+import {isPaidTestSlug} from '@/lib/consent';
 import {getQuestionnaire} from '@/lib/questionnaires/load';
 import {getSupabaseServerClient} from '@/lib/supabase/server';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
@@ -6,21 +7,14 @@ import Link from 'next/link';
 import {notFound} from 'next/navigation';
 import QuestionnaireClient from './questionnaire-client';
 
+export const dynamic = 'force-dynamic';
+
 type TestPageProps = {
   params: Promise<{
     locale: string;
     slug: string;
   }>;
 };
-
-export async function generateStaticParams() {
-  return locales.flatMap((locale) =>
-    ['scenarii', 'personalitate', 'ipip-neo-60', 'vocational', 'vocational-deep'].map((slug) => ({
-      locale,
-      slug
-    }))
-  );
-}
 
 export default async function TestPlaceholderPage({params}: TestPageProps) {
   const {locale, slug} = await params;
@@ -36,7 +30,7 @@ export default async function TestPlaceholderPage({params}: TestPageProps) {
     notFound();
   }
 
-  if (slug === 'ipip-neo-60') {
+  if (isPaidTestSlug(slug)) {
     const supabase = await getSupabaseServerClient();
     const {data: userData} = supabase ? await supabase.auth.getUser() : {data: {user: null}};
 

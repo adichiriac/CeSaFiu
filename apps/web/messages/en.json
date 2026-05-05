@@ -10,7 +10,7 @@
     "helpLabel": "How the tests work",
     "helpGlyph": "?",
     "noRobots": "Career options...free!",
-    "eyebrow": "5 tests · your choice",
+    "eyebrow": "3 free tests + Complete Profile free in pilot",
     "titleLine1": "What",
     "titleLine2": "should I be",
     "titleLine3": "when I",
@@ -29,22 +29,6 @@
         "action": "Start scenarios"
       },
       {
-        "id": "personalitate",
-        "label": "Short personality",
-        "sub": "Big Five · 15 items · 4 min",
-        "description": "A first profile for energy, structure, curiosity, and how you work with people.",
-        "href": "/test/personalitate",
-        "action": "Start personality"
-      },
-      {
-        "id": "ipip",
-        "label": "IPIP-NEO-60",
-        "sub": "Validated · 60 items · 12 min",
-        "description": "The serious version for the detailed report. Longer, but much more relevant.",
-        "href": "/test/ipip-neo-60",
-        "action": "Start IPIP"
-      },
-      {
         "id": "vocational",
         "label": "Vocational (short)",
         "sub": "Holland · 20 items · 4 min",
@@ -53,14 +37,24 @@
         "action": "Start vocational"
       },
       {
-        "id": "vocationalDeep",
-        "label": "Vocational full",
-        "sub": "O*NET · 60 items · 8-10 min",
-        "description": "The full vocational test. A much stronger signal than the short version.",
-        "href": "/test/vocational-deep",
-        "action": "Start full vocational"
+        "id": "personalitate",
+        "label": "Short personality",
+        "sub": "Big Five · 15 items · 4 min",
+        "description": "A first profile for energy, structure, curiosity, and how you work with people.",
+        "href": "/test/personalitate",
+        "action": "Start personality"
       }
     ],
+    "profilCompletCard": {
+      "eyebrow": "COMPLETE PROFILE · FREE IN PILOT",
+      "label": "More precise. More detailed.",
+      "sub": "60-item Big Five + 60-item vocational + PDF report",
+      "description": "For when it matters: use the result to choose between real options.",
+      "action": "START COMPLETE PROFILE →",
+      "blockedAction": "PARENT CONSENT REQUIRED",
+      "footer": "Free during the pilot. Under 16: available after parent or guardian consent.",
+      "href": "/test/ipip-neo-60"
+    },
     "recommendedTest": "Start here",
     "startGuideTitle": "Where do I start?",
     "startGuideLead": "If you are not sure which test to pick, start with the one that gives the best signal for the time you have.",
@@ -78,12 +72,8 @@
         "value": "Short personality"
       },
       {
-        "label": "Want serious vocational signal",
-        "value": "Vocational full"
-      },
-      {
-        "label": "Want something serious",
-        "value": "IPIP-NEO-60"
+        "label": "Want a precise, detailed report",
+        "value": "Complete Profile · free in pilot"
       }
     ],
     "resultsPreviewTitle": "What you get at the end",
@@ -199,13 +189,13 @@
     "saveBodyDone": "Find it in Vibes anytime.",
     "saveCTA": "SAVE MY VIBE →",
     "saveCTADone": "★ SAVED",
-    "paidEyebrow": "DETAILED REPORT",
-    "paidTitle": "Want more than a quiz?",
-    "paidBody": "PDF report with your full profile, matching careers with real salaries and concrete steps. Complete IPIP-NEO-60 + vocational, we generate the report.",
-    "paidPrice": "19 EUR",
-    "paidCTA": "I WANT THE REPORT →",
-    "paidBlockedCTA": "PARENT CONSENT NEEDED",
-    "paidDisclaimer": "We register your interest. We'll contact you with details.",
+    "paidEyebrow": "COMPLETE PROFILE",
+    "paidTitle": "More precise. More detailed. Free during the pilot.",
+    "paidBody": "60-item scientifically validated Big Five + 60-item vocational test + full PDF report. Use the result to choose between real options: university, vocational school, first job.",
+    "paidPrice": "Free during pilot",
+    "paidCTA": "START COMPLETE PROFILE →",
+    "paidBlockedCTA": "PARENT CONSENT REQUIRED",
+    "paidDisclaimer": "This will become a paid package later. For now, we are testing it free during the pilot. Under 16: available after parent or guardian consent.",
     "browseCTA": "EXPLORE ALL CAREERS →"
   },
   "auth": {
@@ -233,13 +223,13 @@
     },
     "parentEyebrow": "PARENT CONSENT",
     "parentTitle": "We need a parent or guardian email",
-    "parentLead": "You can keep using the tests, but full profile sync and the paid report stay blocked until an adult confirms.",
+    "parentLead": "You can keep using the free tests. Complete Profile (IPIP-NEO-60 + Full Vocational + report) becomes available after an adult confirms.",
     "parentEmailLabel": "Parent/guardian email",
     "parentEmailPlaceholder": "parent@email.com",
     "requestParentConsent": "REQUEST CONSENT →",
     "parentSentEyebrow": "REQUEST RECORDED",
     "parentSentTitle": "Parent consent is pending",
-    "parentSentLead": "You can continue the tests. Full profile sync and the paid report stay blocked until an adult confirms.",
+    "parentSentLead": "You can continue the free tests. Complete Profile becomes available after an adult confirms.",
     "saving": "SAVING...",
     "magicLinkError": "We could not send the magic link. Try again.",
     "profileError": "We could not update your profile. Try again.",
@@ -255,8 +245,8 @@
     "callbackErrorTitle": "The sign-in link did not work",
     "callbackErrorLead": "Request a new link and try again.",
     "consentRequiredEyebrow": "PARENT CONSENT REQUIRED",
-    "consentRequiredTitle": "The detailed report is locked for now",
-    "consentRequiredLead": "If you are under 16, you can keep using the free tests. IPIP-NEO-60 and the full profile unlock after a parent or guardian confirms.",
+    "consentRequiredTitle": "Complete Profile needs parent consent",
+    "consentRequiredLead": "If you are under 16, you can keep using the free tests (scenarios, short personality, short vocational). Complete Profile — IPIP-NEO-60 + Full Vocational + detailed report — is free during the pilot and becomes available after a parent or guardian confirms.",
     "consentRequiredCTA": "CONTINUE WITH FREE TESTS"
   },
   "cariera": {
@@ -292,7 +282,7 @@
     "formingTitle": "Not enough signal yet",
     "formingBody": "Answer a quiz or a test to build your profile. Then we show careers that actually fit you.",
     "startScenarios": "REAL SCENARIOS →",
-    "startIpip": "IPIP-NEO-60 →",
+    "startProfilComplet": "COMPLETE PROFILE →",
     "parentPending": "PARENT CONSENT PENDING",
     "profileEyebrow": "YOUR PROFILE",
     "pathPrefix": "Preferred path:",
