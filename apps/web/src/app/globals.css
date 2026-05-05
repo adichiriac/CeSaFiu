@@ -4303,9 +4303,109 @@ h1 {
 .profileEmptyCard,
 .profileMatchCard,
 .profileSavedCard,
-.profileSavedPathCard {
+.profileSavedPathCard,
+.profileIdentityCard,
+.profileFluidCard,
+.profileTopCareerCard,
+.profileChosenPathCard,
+.profileStartCard,
+.profileParentShareCard {
   border: 3px solid #000;
   box-shadow: 7px 7px 0 #000;
+}
+
+.profileIdentityCard {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px;
+  background: var(--purple);
+  color: #fff;
+}
+
+.profileAvatar {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  border: 2px solid #000;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: #000;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.profileIdentityCopy h2 {
+  margin: 0;
+  color: #fff;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.profileIdentityCopy p {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, .86);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.profileIdentityStats {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.profileIdentityStats div {
+  min-width: 0;
+  border: 2px solid #000;
+  background: rgba(255, 255, 255, .14);
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.profileIdentityStats span {
+  display: block;
+  color: var(--yellow);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+.profileIdentityStats strong {
+  display: block;
+  margin-top: 2px;
+  color: #fff;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+}
+
+.profileFluidCard {
+  margin-top: 18px;
+  padding: 20px;
+  background: var(--purple);
+  color: #fff;
+}
+
+.profileFluidCard h2 {
+  margin: 0;
+  color: #fff;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(26px, 6vw, 42px);
+  line-height: 1;
+}
+
+.profileFluidCard p:not(.profileEyebrow) {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, .86);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .profileHeroCard {
@@ -4451,6 +4551,188 @@ h1 {
   color: var(--ink);
   font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
   font-size: clamp(26px, 5vw, 38px);
+}
+
+.profileStartGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.profileStartCard {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  background: #fff;
+  color: #000;
+  text-align: left;
+}
+
+.profileStartCard.isYellow {
+  background: var(--yellow);
+}
+
+.profileStartCard.isGreen {
+  background: var(--green);
+}
+
+.profileStartCard:disabled {
+  opacity: .65;
+}
+
+.profileStartCard > span:first-child {
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.profileStartCard strong,
+.profileStartCard small {
+  display: block;
+}
+
+.profileStartCard strong {
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.profileStartCard small {
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.profileTopCareerCard {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 20px;
+  gap: 14px;
+  align-items: center;
+  padding: 18px;
+  background: var(--yellow);
+  color: #000;
+}
+
+.profileTopCareerIcon {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border: 2px solid #000;
+  background: #fff;
+  font-size: 30px;
+}
+
+.profileTopCareerCopy mark {
+  display: inline-block;
+  border: 2px solid #000;
+  background: #000;
+  color: var(--green);
+  padding: 3px 7px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+.profileTopCareerCopy strong {
+  display: block;
+  margin-top: 8px;
+  color: #000;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.profileTopCareerCopy small {
+  display: block;
+  margin-top: 5px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.profileTopCareerCard i {
+  color: var(--ink);
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.profileSignalRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.profileSignalRow span {
+  border: 2px solid #000;
+  background: #fff;
+  color: #000;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.profileSignalRow span.isPrimary {
+  background: var(--green);
+}
+
+.profileCompactBig5 {
+  margin-top: 10px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.profileChosenPathCard {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 18px;
+}
+
+.profileChosenPathCard > span:first-child {
+  display: grid;
+  width: 60px;
+  height: 60px;
+  place-items: center;
+  border: 2px solid #000;
+  background: #fff;
+  color: #000;
+  box-shadow: 3px 3px 0 #000;
+  font-size: 30px;
+  transform: rotate(-3deg);
+}
+
+.profileChosenPathCard strong,
+.profileChosenPathCard small,
+.profileChosenPathCard em {
+  display: block;
+}
+
+.profileChosenPathCard strong {
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.profileChosenPathCard small {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.3;
+  opacity: .9;
+}
+
+.profileChosenPathCard em {
+  margin-top: 8px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+  opacity: .78;
 }
 
 .referralStatsCard {
@@ -4697,6 +4979,116 @@ h1 {
   font-weight: 900;
 }
 
+.profileTestsRail {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-right: -20px;
+  padding: 4px 8px 10px 0;
+}
+
+.profileTestPill {
+  flex: 0 0 132px;
+  border: 2px solid #000;
+  background: #fff;
+  color: #000;
+  box-shadow: 5px 5px 0 #000;
+  padding: 12px;
+}
+
+.profileTestPill.isDone {
+  background: var(--purple);
+  color: #fff;
+}
+
+.profileTestPill span,
+.profileTestPill strong,
+.profileTestPill small {
+  display: block;
+}
+
+.profileTestPill span {
+  font-size: 18px;
+}
+
+.profileTestPill strong {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.profileTestPill small {
+  margin-top: 2px;
+  font-size: 10px;
+  font-weight: 900;
+  opacity: .8;
+}
+
+.profileParentShareCard {
+  position: relative;
+  overflow: hidden;
+  padding: 18px;
+  background: var(--green);
+  color: #000;
+}
+
+.profileParentShareCard::after {
+  content: "♥";
+  position: absolute;
+  top: -18px;
+  right: -12px;
+  display: grid;
+  width: 90px;
+  height: 90px;
+  place-items: center;
+  border: 2px solid #000;
+  border-radius: 999px;
+  background: #000;
+  color: var(--green);
+  font-size: 38px;
+  transform: rotate(12deg);
+}
+
+.profileParentShareBadge {
+  display: inline-block;
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 3px 3px 0 #000;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  transform: rotate(-2deg);
+}
+
+.profileParentShareCard h2 {
+  position: relative;
+  z-index: 1;
+  max-width: 280px;
+  margin: 14px 0 0;
+  color: #000;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.profileParentShareCard p {
+  position: relative;
+  z-index: 1;
+  max-width: 320px;
+  margin: 10px 0 0;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.profileParentShareCard .profileActionButton {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin-top: 14px;
+}
+
 .profileRetakeBlock {
   margin-top: 28px;
 }
@@ -4709,7 +5101,8 @@ h1 {
 .browseFilterRow::-webkit-scrollbar,
 .browseFilterScroller::-webkit-scrollbar,
 .careerTabs::-webkit-scrollbar,
-.profileMatchRail::-webkit-scrollbar {
+.profileMatchRail::-webkit-scrollbar,
+.profileTestsRail::-webkit-scrollbar {
   display: none;
 }
 

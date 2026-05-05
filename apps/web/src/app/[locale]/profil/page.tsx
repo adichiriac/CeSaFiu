@@ -1,4 +1,4 @@
-import {getAllCareers} from '@/lib/careers/load';
+import {getAllCareers, getAllPaths} from '@/lib/careers/load';
 import {isLocale, locales, type Locale} from '@/i18n/config';
 import {setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
@@ -17,5 +17,5 @@ export default async function ProfilePage({params}: ProfilePageProps) {
   if (!isLocale(locale)) notFound();
   setRequestLocale(locale as Locale);
 
-  return <ProfileClient careers={getAllCareers()} locale={locale} />;
+  return <ProfileClient careers={getAllCareers()} locale={locale} paths={getAllPaths()} />;
 }

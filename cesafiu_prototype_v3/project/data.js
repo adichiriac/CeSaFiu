@@ -2036,7 +2036,7 @@ window.QUIZ_DATA = {
   // ── PATHS — facultate vs autodidact vs antreprenor vs profesional ──
   paths: [
     {
-      id: 'facultate', name: 'Facultate clasică', emoji: '◆', color: 'purple',
+      id: 'facultate', name: 'Facultate clasică', emoji: '🎓', color: 'purple',
       tagline: 'Diploma, comunitatea, structura',
       duration: '3-6 ani',
       cost: '0 (loc bugetat) — 1.000-2.000 €/an cu taxă (stat sau privat)',

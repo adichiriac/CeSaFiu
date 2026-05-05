@@ -7,11 +7,15 @@ import {useTranslations} from 'next-intl';
 import {buildMatchRequest, readStoredResults, useQuizStore} from '@/stores/quiz-store';
 import {useAuthGate} from '@/components/auth/auth-provider';
 import ReferralStatsCard from '@/components/referrals/referral-stats-card';
+import type {PathEntry} from '@/lib/careers/types';
 import type {Career, CareerMatch, MatchResult, UserProfile} from '@/lib/matcher';
+
+type ProfileTFunc = ReturnType<typeof useTranslations<'profil'>>;
 
 type ProfileClientProps = {
   careers: Career[];
   locale: string;
+  paths: (PathEntry & {emoji?: string; color?: string; tagline?: string; duration?: string; cost?: string})[];
 };
 
 const RIASEC_NAMES: Record<string, string> = {
@@ -46,16 +50,18 @@ function topEntries(tally: Record<string, number> | undefined, limit: number) {
     .slice(0, limit);
 }
 
-export default function ProfileClient({careers, locale}: ProfileClientProps) {
+export default function ProfileClient({careers, locale, paths}: ProfileClientProps) {
   const t = useTranslations('profil');
   const {profile, savedPath} = useAuthGate();
   const {savedCareerIds} = useQuizStore();
   const [status, setStatus] = useState<'loading' | 'empty' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
+  const [completedTests, setCompletedTests] = useState(0);
 
   useEffect(() => {
     const stored = readStoredResults();
     const hasAny = Object.values(stored).some(Boolean);
+    setCompletedTests(Object.values(stored).filter(Boolean).length);
 
     if (!hasAny) {
       setStatus('empty');
@@ -89,10 +95,12 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
   const topRiasec = topEntries(userProfile?.riasec, 3);
   const topPath = topEntries(userProfile?.paths, 1)[0];
   const topMatches = hasProfile && result ? result.slice(0, 3) : [];
+  const topMatch = topMatches[0];
   const big5 = userProfile?.big5;
-  const sources = result?.sources ?? [];
   const needsParentConsent = profile?.consent_status === 'pending_parent';
   const savedPathName = savedPath?.path_name ?? savedPath?.path_id;
+  const savedPathDetails = savedPath ? paths.find((path) => path.id === savedPath.path_id) : null;
+  const isFresh = !hasProfile && saved.length === 0 && !savedPath;
 
   return (
     <main className="profilePage">
@@ -109,154 +117,145 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
 
         <div className="profileIntro">
           <h1>{t('title')}</h1>
-          <p>{hasProfile ? t('leadReady') : t('leadEmpty')}</p>
+          <p>{topMatch ? t('phaseLeadMatch', {career: topMatch.career.name, score: topMatch.score}) : t('phaseLeadEmpty')}</p>
         </div>
 
-        <section className="profileHeroCard">
-          {status === 'loading' && (
-            <>
-              <p className="profileEyebrow">{t('loading')}</p>
-              <h2>{t('loadingTitle')}</h2>
-            </>
-          )}
-
-          {status === 'error' && (
-            <>
-              <p className="profileEyebrow">{t('error')}</p>
-              <h2>{t('emptyTitle')}</h2>
-              <p>{t('emptyBody')}</p>
-            </>
-          )}
-
-          {!hasProfile && status !== 'loading' && status !== 'error' && (
-            <>
-              <p className="profileEyebrow">{t('formingEyebrow')}</p>
-              <h2>{t('formingTitle')}</h2>
-              <p>{t('formingBody')}</p>
-              <div className="profileHeroActions">
-                <Link className="profileActionButton isYellow" href={`/${locale}/test/scenarii`}>
-                  {t('startScenarios')}
-                </Link>
-                {needsParentConsent ? (
-                  <button className="profileActionButton isDark" disabled type="button">
-                    {t('parentPending')}
-                  </button>
-                ) : (
-                  <Link className="profileActionButton isDark" href={`/${locale}/test/ipip-neo-60`}>
-                    {t('startProfilComplet')}
-                  </Link>
-                )}
-              </div>
-            </>
-          )}
-
-          {hasProfile && (
-            <>
-              <p className="profileEyebrow">{t('profileEyebrow')}</p>
-              <div className="profileTagCloud">
-                {topRiasec.map(([code], index) => (
-                  <span className={index === 0 ? 'isPrimary' : ''} key={code}>
-                    {code} · {RIASEC_NAMES[code] ?? code}
-                  </span>
-                ))}
-              </div>
-
-              {savedPathName ? (
-                <p className="profilePathLine">
-                  {t('savedPathPrefix')} <mark>{savedPathName}</mark>
-                </p>
-              ) : topPath && (
-                <p className="profilePathLine">
-                  {t('pathPrefix')} <mark>{PATH_NAMES[topPath[0]] ?? topPath[0]}</mark>
-                </p>
-              )}
-
-              {big5 && Object.keys(big5).length > 0 && (
-                <div className="profileBig5Line">
-                  {['O', 'C', 'E', 'A', 'N']
-                    .filter((key) => typeof big5[key] === 'number')
-                    .map((key) => `${key} ${big5[key]}%`)
-                    .join(' · ')}
-                </div>
-              )}
-
-              <div className="profileStatGrid">
-                <div>
-                  <span>{t('testsDone')}</span>
-                  <strong>{sources.length}</strong>
-                </div>
-                <div>
-                  <span>{t('saved')}</span>
-                  <strong>{saved.length + (savedPath ? 1 : 0)}</strong>
-                </div>
-                <div>
-                  <span>{t('matches')}</span>
-                  <strong>{topMatches.length}</strong>
-                </div>
-              </div>
-            </>
-          )}
+        <section className="profileIdentityCard">
+          <div className="profileAvatar" aria-hidden="true">{t('avatarLetter')}</div>
+          <div className="profileIdentityCopy">
+            <h2>{t('identityTitle')}</h2>
+            <p>{savedPathName ? t('identityWithPath', {path: savedPathName}) : t('identityLead')}</p>
+          </div>
+          <div className="profileIdentityStats">
+            <div><span>{t('testsDone')}</span><strong>{t('testsProgress', {count: completedTests, total: 5})}</strong></div>
+            <div><span>{t('saved')}</span><strong>{saved.length + (savedPath ? 1 : 0)}</strong></div>
+            <div><span>{t('matches')}</span><strong>{topMatches.length}</strong></div>
+            <div><span>{t('pathStat')}</span><strong>{savedPath ? '✓' : '—'}</strong></div>
+          </div>
         </section>
 
-        {topMatches.length > 0 && (
+        {status === 'loading' ? (
+          <section className="profileFluidCard">
+            <p className="profileEyebrow">{t('loading')}</p>
+            <h2>{t('loadingTitle')}</h2>
+          </section>
+        ) : null}
+
+        {status === 'error' ? (
+          <section className="profileFluidCard">
+            <p className="profileEyebrow">{t('error')}</p>
+            <h2>{t('emptyTitle')}</h2>
+            <p>{t('emptyBody')}</p>
+          </section>
+        ) : null}
+
+        {isFresh && status !== 'loading' && status !== 'error' ? (
           <section className="profileSection">
             <div className="profileSectionHeader">
-              <h2>{t('forYouTitle')}</h2>
-              <Link href={`/${locale}/browse`}>{t('exploreAll')}</Link>
+              <h2>{t('startTitle')}</h2>
             </div>
-            <div className="profileMatchRail">
-              {topMatches.map((match, index) => (
-                <Link
-                  className={index === 0 ? 'profileMatchCard isPrimary' : 'profileMatchCard'}
-                  href={`/${locale}/cariera/${match.career.id}`}
-                  key={match.career.id}
-                >
-                  <div className="profileMatchTop">
-                    <span
-                      className="profileCareerEmoji"
-                      style={{
-                        background: CAREER_COLORS[match.career.color] ?? 'var(--purple)',
-                        color: match.career.color === 'purple' ? '#fff' : '#000',
-                      }}
-                    >
-                      {match.career.emoji}
-                    </span>
-                    <strong>{match.score}%</strong>
-                  </div>
-                  <h3>{match.career.name}</h3>
-                  <p>{match.career.tagline}</p>
-                  <span className="profileCardCTA">{t('seeMore')}</span>
-                </Link>
-              ))}
-              <Link className="profileMatchCard profileExploreCard" href={`/${locale}/browse`}>
-                <div className="profilePlus">+</div>
-                <h3>{t('exploreCardTitle')}</h3>
-                <p>{t('exploreCardBody')}</p>
-                <span className="profileCardCTA">{t('explore')}</span>
+            <div className="profileStartGrid">
+              <Link className="profileStartCard isYellow" href={`/${locale}/test/scenarii`}>
+                <span>✦</span>
+                <strong>{t('startScenarios')}</strong>
+                <small>{t('startScenariosMeta')}</small>
               </Link>
+              <Link className="profileStartCard" href={`/${locale}/browse`}>
+                <span>⌕</span>
+                <strong>{t('startExplore')}</strong>
+                <small>{t('startExploreMeta')}</small>
+              </Link>
+              {needsParentConsent ? (
+                <button className="profileStartCard isGreen" disabled type="button">
+                  <span>◆</span>
+                  <strong>{t('parentPending')}</strong>
+                  <small>{t('parentPendingMeta')}</small>
+                </button>
+              ) : (
+                <Link className="profileStartCard isGreen" href={`/${locale}/test/ipip-neo-60`}>
+                  <span>◆</span>
+                  <strong>{t('startProfilComplet')}</strong>
+                  <small>{t('startProfilCompletMeta')}</small>
+                </Link>
+              )}
             </div>
           </section>
-        )}
+        ) : null}
 
-        <ReferralStatsCard />
+        {topMatch ? (
+          <section className="profileSection">
+            <div className="profileSectionHeader">
+              <h2>{t('topCareerTitle')}</h2>
+              <Link href={`/${locale}/browse`}>{t('exploreAll')}</Link>
+            </div>
+            <Link className="profileTopCareerCard" href={`/${locale}/cariera/${topMatch.career.id}`}>
+              <span
+                className="profileTopCareerIcon"
+                style={{
+                  background: CAREER_COLORS[topMatch.career.color] ?? 'var(--purple)',
+                  color: topMatch.career.color === 'purple' ? '#fff' : '#000',
+                }}
+              >
+                {topMatch.career.emoji}
+              </span>
+              <span className="profileTopCareerCopy">
+                <mark>{t('suggestedBadge', {score: topMatch.score})}</mark>
+                <strong>{topMatch.career.name}</strong>
+                <small>{topMatch.career.tagline}</small>
+              </span>
+              <i aria-hidden="true">→</i>
+            </Link>
+            <div className="profileSignalRow">
+              {topRiasec.map(([code], index) => (
+                <span className={index === 0 ? 'isPrimary' : ''} key={code}>
+                  {code} · {RIASEC_NAMES[code] ?? code}
+                </span>
+              ))}
+            </div>
+            {big5 && Object.keys(big5).length > 0 ? (
+              <div className="profileCompactBig5">
+                {['O', 'C', 'E', 'A', 'N']
+                  .filter((key) => typeof big5[key] === 'number')
+                  .map((key) => `${key} ${big5[key]}%`)
+                  .join(' · ')}
+              </div>
+            ) : null}
+          </section>
+        ) : null}
+
+        {(savedPathName || topPath) ? (
+          <section className="profileSection">
+            <div className="profileSectionHeader">
+              <h2>{t('yourPathTitle')}</h2>
+              <Link href={`/${locale}/browse`}>{savedPathName ? t('savedPathChange') : t('choosePath')}</Link>
+            </div>
+            <Link
+              className="profileChosenPathCard"
+              href={`/${locale}/browse`}
+              style={{
+                background: savedPathDetails?.color === 'green' ? 'var(--green)' : savedPathDetails?.color === 'purple' ? 'var(--purple)' : 'var(--yellow)',
+                color: savedPathDetails?.color === 'purple' ? '#fff' : '#000',
+              }}
+            >
+              <span>{savedPathDetails?.emoji ?? '↗'}</span>
+              <span>
+                <strong>{savedPathName ?? (topPath ? (PATH_NAMES[topPath[0]] ?? topPath[0]) : '')}</strong>
+                <small>{savedPathDetails?.tagline ?? t('pathSuggestionLead')}</small>
+                {savedPathDetails?.duration || savedPathDetails?.cost ? (
+                  <em>{[savedPathDetails.duration, savedPathDetails.cost].filter(Boolean).join(' · ')}</em>
+                ) : null}
+              </span>
+            </Link>
+          </section>
+        ) : null}
 
         <section className="profileSection">
           <div className="profileSectionHeader">
-            <h2>{t('savedTitle')}</h2>
+            <h2>{t('savedAlternativesTitle', {count: saved.length})}</h2>
+            <Link href={`/${locale}/browse`}>{t('addMore')}</Link>
           </div>
 
-          {savedPathName && (
-            <div className="profileSavedPathCard">
-              <span aria-hidden="true">★</span>
-              <span>
-                <strong>{t('savedPathTitle')}: {savedPathName}</strong>
-                <small>{t('savedPathBody')}</small>
-              </span>
-              <Link href={`/${locale}/browse`}>{t('savedPathChange')}</Link>
-            </div>
-          )}
-
-          {saved.length === 0 && !savedPath ? (
+          {saved.length === 0 ? (
             <div className="profileEmptyCard">
               <div aria-hidden="true">✦</div>
               <h3>{t('savedEmptyTitle')}</h3>
@@ -293,6 +292,37 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
           )}
         </section>
 
+        <section className="profileSection">
+          <div className="profileSectionHeader">
+            <h2>{t('testsBarTitle', {count: completedTests})}</h2>
+          </div>
+          <div className="profileTestsRail">
+            {[
+              {key: 'scenarii', label: t('testScenarios'), href: `/${locale}/test/scenarii`, done: completedTests > 0, icon: '✦'},
+              {key: 'personalitate', label: t('testPersonality'), href: `/${locale}/test/personalitate`, done: Boolean(userProfile?.big5), icon: '◆'},
+              {key: 'vocational', label: t('testVocational'), href: `/${locale}/test/vocational`, done: Boolean(userProfile?.riasec), icon: '◉'},
+              {key: 'ipip', label: t('testComplete'), href: `/${locale}/test/ipip-neo-60`, done: false, icon: '✓'},
+            ].map((test) => (
+              <Link className={test.done ? 'profileTestPill isDone' : 'profileTestPill'} href={test.href} key={test.key}>
+                <span>{test.icon}</span>
+                <strong>{test.label}</strong>
+                <small>{test.done ? t('testDone') : t('testTodo')}</small>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {(topMatch || saved.length > 0 || savedPathName) ? (
+          <ParentShareCard
+            careerName={topMatch?.career.name ?? saved[0]?.name ?? t('profileGenericShareCareer')}
+            locale={locale}
+            savedCount={saved.length}
+            t={t}
+          />
+        ) : null}
+
+        <ReferralStatsCard />
+
         <div className="profileRetakeBlock">
           <Link className="profileActionButton isYellow" href={`/${locale}/test/scenarii`}>
             {t('retake')}
@@ -302,5 +332,42 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
 
       <BottomNav active="saved" locale={locale} />
     </main>
+  );
+}
+
+function ParentShareCard({
+  careerName,
+  locale,
+  savedCount,
+  t,
+}: {
+  careerName: string;
+  locale: string;
+  savedCount: number;
+  t: ProfileTFunc;
+}) {
+  function shareProfile() {
+    const url = `${window.location.origin}/${locale}/profil`;
+    const text = t('parentShareText', {career: careerName, count: savedCount, url});
+
+    if (navigator.share) {
+      void navigator.share({text, url}).catch(() => undefined);
+      return;
+    }
+
+    void navigator.clipboard?.writeText(text);
+  }
+
+  return (
+    <section className="profileSection">
+      <div className="profileParentShareCard">
+        <div className="profileParentShareBadge">{t('parentShareBadge')}</div>
+        <h2>{t('parentShareTitle')}</h2>
+        <p>{t('parentShareLead', {career: careerName, count: savedCount})}</p>
+        <button className="profileActionButton isDark" onClick={shareProfile} type="button">
+          {t('parentShareCTA')}
+        </button>
+      </div>
+    </section>
   );
 }
