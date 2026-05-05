@@ -1,6 +1,7 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {isLocale, type Locale} from '@/i18n/config';
 import {LanguageSelector} from '@/components/LanguageSelector';
+import BottomNav from '@/components/bottom-nav';
 import ProfilCompletCard from '@/components/profil-complet-card';
 import Link from 'next/link';
 import {notFound} from 'next/navigation';
@@ -177,17 +178,8 @@ export default async function HomePage({params}: HomePageProps) {
             </div>
           </section>
         </div>
-
-        <div className="prototypeNavRow">
-          <Link className="prototypeNavLink" href={`/${locale}/rezultate`}>
-            {t('navResults')}
-          </Link>
-          <Link className="prototypeNavLink" href={`/${locale}/browse`}>
-            {t('navBrowse')}
-          </Link>
-        </div>
-
       </section>
+      <BottomNav active="tests" locale={locale} />
     </main>
   );
 }

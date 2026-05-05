@@ -1,5 +1,6 @@
 'use client';
 
+import BottomNav from '@/components/bottom-nav';
 import Link from 'next/link';
 import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
@@ -47,7 +48,6 @@ function topEntries(tally: Record<string, number> | undefined, limit: number) {
 
 export default function ProfileClient({careers, locale}: ProfileClientProps) {
   const t = useTranslations('profil');
-  const navT = useTranslations('browse');
   const {profile} = useAuthGate();
   const {savedCareerIds} = useQuizStore();
   const [status, setStatus] = useState<'loading' | 'empty' | 'ready' | 'error'>('loading');
@@ -284,31 +284,7 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
         </div>
       </section>
 
-      <nav className="browseBottomNav" aria-label={navT('primaryNav')}>
-        <Link className="browseBottomItem" href={`/${locale}`}>
-          <span className="browseBottomIcon" aria-hidden="true">
-            <svg className="browseBottomSvg" viewBox="0 0 24 24" focusable="false">
-              <path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9-.8-.8-2.1-.8-2.9-.1Z" />
-              <path d="m12 15-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2Z" />
-              <path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0" />
-              <path d="M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5" />
-            </svg>
-          </span>
-          <span>{navT('navTests')}</span>
-        </Link>
-        <Link className="browseBottomItem" href={`/${locale}/browse`}>
-          <span className="browseBottomIcon">⌕</span>
-          <span>{navT('navExplore')}</span>
-        </Link>
-        <Link className="browseBottomItem" href={`/${locale}/rezultate`}>
-          <span className="browseBottomIcon">★</span>
-          <span>{navT('navResults')}</span>
-        </Link>
-        <Link className="browseBottomItem isActive" href={`/${locale}/profil`}>
-          <span className="browseBottomIcon">♥</span>
-          <span>{navT('navSaved')}</span>
-        </Link>
-      </nav>
+      <BottomNav active="saved" locale={locale} />
     </main>
   );
 }

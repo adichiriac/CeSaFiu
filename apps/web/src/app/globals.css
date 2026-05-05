@@ -972,6 +972,7 @@ h1 {
 .prototypeHome {
   min-height: 100vh;
   padding: clamp(16px, 3vw, 32px);
+  padding-bottom: calc(116px + env(safe-area-inset-bottom));
 }
 
 .prototypeCanvas {
@@ -1886,8 +1887,7 @@ h1 {
       "eyebrow rail"
       "title rail"
       "lead rail"
-      "lower lower"
-      "nav nav";
+      "lower lower";
     grid-template-columns: minmax(0, 1fr) minmax(390px, 470px);
     column-gap: clamp(34px, 5vw, 72px);
     row-gap: 0;
@@ -1970,34 +1970,6 @@ h1 {
   .prototypeArrow {
     font-size: 40px;
   }
-
-  .prototypeNavRow {
-    grid-area: nav;
-  }
-
-}
-
-/* ── Nav row (home page) ─────────────────────────────────────────────────── */
-
-.prototypeNavRow {
-  display: flex;
-  gap: 12px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-.prototypeNavLink {
-  padding: 10px 20px;
-  border: 2px solid var(--line);
-  font-weight: 800;
-  font-size: 13px;
-  letter-spacing: .04em;
-  background: var(--paper-2);
-  transition: background .1s;
-}
-
-.prototypeNavLink:hover {
-  background: var(--yellow);
 }
 
 /* ── Results page ─────────────────────────────────────────────────────────── */
