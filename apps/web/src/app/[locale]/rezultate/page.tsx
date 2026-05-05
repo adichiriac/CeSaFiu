@@ -1,3 +1,4 @@
+import {getAllInstitutions, getAllPrograms} from '@/lib/careers/load';
 import {isLocale, type Locale} from '@/i18n/config';
 import {setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
@@ -12,5 +13,11 @@ export default async function ResultsPage({params}: ResultsPageProps) {
   if (!isLocale(locale)) notFound();
   setRequestLocale(locale as Locale);
 
-  return <ResultsClient locale={locale} />;
+  return (
+    <ResultsClient
+      institutions={getAllInstitutions()}
+      locale={locale}
+      programs={getAllPrograms()}
+    />
+  );
 }

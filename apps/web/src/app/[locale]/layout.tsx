@@ -30,9 +30,47 @@ export async function generateMetadata({params}: LocaleLayoutProps): Promise<Met
   }
 
   const t = await getTranslations({locale, namespace: 'meta'});
+  const title = t('title');
+  const description = t('description');
+  const baseUrl = 'https://cesafiu.ro';
+
   return {
-    title: t('title'),
-    description: t('description')
+    title,
+    description,
+    icons: {
+      icon: [
+        {url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png'},
+        {url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png'}
+      ],
+      apple: [{url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png'}],
+      other: [
+        {rel: 'manifest', url: '/site.webmanifest'},
+        {rel: 'icon', url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png'},
+        {rel: 'icon', url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png'}
+      ]
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${baseUrl}/${locale}`,
+      siteName: 'Ce Să Fiu?',
+      images: [
+        {
+          url: `${baseUrl}/og-card.png`,
+          width: 1200,
+          height: 630,
+          alt: title
+        }
+      ],
+      locale,
+      type: 'website'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${baseUrl}/og-card.png`]
+    }
   };
 }
 
@@ -48,6 +86,11 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
   return (
     <html lang={locale}>
       <head>
+        {/* Material Symbols for quiz icons */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+          rel="stylesheet"
+        />
         <Script
           data-website-id={UMAMI_ID}
           defer

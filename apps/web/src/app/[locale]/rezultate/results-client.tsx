@@ -1,11 +1,13 @@
 'use client';
 
+import BottomNav from '@/components/bottom-nav';
 import Link from 'next/link';
 import {useEffect, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {useAuthGate} from '@/components/auth/auth-provider';
 import ReferralShareCard from '@/components/referrals/referral-share-card';
 import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
+import type {Institution, Program} from '@/lib/careers/types';
 import type {CareerMatch, MatchResult, NextTestSuggestion, UserProfile} from '@/lib/matcher';
 
 /**
@@ -16,7 +18,9 @@ import type {CareerMatch, MatchResult, NextTestSuggestion, UserProfile} from '@/
 const PAID_NEXT_TEST_KINDS = new Set(['ipip-neo', 'vocational-deep']);
 
 type ResultsClientProps = {
+  institutions: Institution[];
   locale: string;
+  programs: Program[];
 };
 
 const RIASEC_PLAIN: Record<string, {verb: string; tag: string; desc: string}> = {
@@ -58,6 +62,60 @@ const CAREER_COLORS: Record<string, string> = {
   green: 'var(--green)',
 };
 
+const PATH_LABEL: Record<string, string> = {
+  facultate: 'FACULTATE',
+  autodidact: 'AUTODIDACT',
+  antreprenor: 'ANTREPRENOR',
+  profesional: 'PROFESIONAL',
+  creator: 'CREATOR',
+  freelance: 'FREELANCE',
+  mixt: 'MIXT',
+  bootcamp: 'BOOTCAMP',
+  postliceala: 'POSTLICEAL',
+};
+
+const PATH_COLOR: Record<string, string> = {
+  facultate: 'var(--purple)',
+  autodidact: 'var(--green)',
+  antreprenor: 'var(--purple)',
+  profesional: 'var(--yellow)',
+  creator: 'var(--green)',
+  freelance: 'var(--yellow)',
+  mixt: '#fff',
+  bootcamp: 'var(--green)',
+  postliceala: 'var(--yellow)',
+};
+
+const PATH_TEXT: Record<string, string> = {
+  facultate: '#fff',
+  autodidact: '#000',
+  antreprenor: '#fff',
+  profesional: '#000',
+  creator: '#000',
+  freelance: '#000',
+  mixt: '#000',
+  bootcamp: '#000',
+  postliceala: '#000',
+};
+
+const TIER_COLORS: Record<string, string> = {
+  TOP: 'var(--green)',
+  GOOD: 'var(--yellow)',
+  BOOTCAMP: 'var(--purple)',
+  PROGRAM: '#000',
+  TRADE: 'var(--yellow)',
+  POST: '#fff',
+};
+
+const TIER_TEXT: Record<string, string> = {
+  TOP: '#000',
+  GOOD: '#000',
+  BOOTCAMP: '#fff',
+  PROGRAM: 'var(--green)',
+  TRADE: '#000',
+  POST: '#000',
+};
+
 function topRiasecCodes(riasec: Record<string, number>): string[] {
   return Object.entries(riasec ?? {})
     .filter(([k]) => k in RIASEC_PLAIN)
@@ -67,7 +125,7 @@ function topRiasecCodes(riasec: Record<string, number>): string[] {
     .map(([k]) => k);
 }
 
-export default function ResultsClient({locale}: ResultsClientProps) {
+export default function ResultsClient({institutions, locale, programs}: ResultsClientProps) {
   const t = useTranslations('rezultate');
   const {isSaved, toggleSaveCareer, profile} = useAuthGate();
   const [status, setStatus] = useState<'loading' | 'no-data' | 'ready' | 'error'>('loading');
@@ -171,6 +229,14 @@ export default function ResultsClient({locale}: ResultsClientProps) {
   const sourcesText = sources.length
     ? sources.map((s) => SOURCE_LABELS[s] ?? s).join(' + ')
     : t('noData');
+  const institutionsById = new Map(institutions.map((institution) => [institution.id, institution]));
+  const topPrograms = programs
+    .filter((program) => program.careerIds?.includes(top.career.id))
+    .map((program) => ({
+      ...program,
+      institution: institutionsById.get(program.universityId),
+    }))
+    .slice(0, 6);
 
   const nextTestLabel: Record<string, string> = {
     vocational:       t('nextVocational'),
@@ -247,6 +313,81 @@ export default function ResultsClient({locale}: ResultsClientProps) {
         <Link className="button buttonPrimary" href={`/${locale}/cariera/${top.career.id}`} style={{display: 'block', textAlign: 'center', marginTop: 24}}>
           {t('viewAllCTA')}
         </Link>
+
+        {topPrograms.length > 0 && (
+          <section className="resultProgramsSection" aria-labelledby="result-programs-title">
+            <div className="resultSectionHeading">
+              <div>
+                <div className="resultSectionEyebrow">{t('institutionsEyebrow')}</div>
+                <h2 className="resultProgramsTitle" id="result-programs-title">
+                  {t('institutionsTitle', {count: topPrograms.length})}
+                </h2>
+              </div>
+              <Link className="resultSectionLink" href={`/${locale}/cariera/${top.career.id}`}>
+                {t('institutionsMore')}
+              </Link>
+            </div>
+            <div className="resultProgramsList">
+              {topPrograms.map((program) => {
+                const institution = program.institution;
+                const url = program.url
+                  ?? institution?.url
+                  ?? `https://www.google.com/search?q=${encodeURIComponent(
+                    `${institution?.name ?? ''} ${program.name}`.trim(),
+                  )}`;
+
+                return (
+                  <a
+                    key={program.id}
+                    className="resultProgramCard"
+                    href={url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <div className="resultProgramHeader">
+                      <div className="resultProgramInfo">
+                        <div className="resultProgramName">{program.name}</div>
+                        <div className="resultProgramUni">
+                          {institution?.name ?? program.universityId}
+                          {institution?.city ? ` · ${institution.city}` : ''}
+                        </div>
+                      </div>
+                      {institution?.tier ? (
+                        <span
+                          className="resultInstitutionTier"
+                          style={{
+                            background: TIER_COLORS[institution.tier] ?? '#fff',
+                            color: TIER_TEXT[institution.tier] ?? '#000',
+                          }}
+                        >
+                          {institution.tier}
+                        </span>
+                      ) : null}
+                    </div>
+                    <div className="resultProgramTags">
+                      <span
+                        className="resultProgramTag"
+                        style={{
+                          background: PATH_COLOR[program.pathType] ?? '#fff',
+                          color: PATH_TEXT[program.pathType] ?? '#000',
+                        }}
+                      >
+                        {PATH_LABEL[program.pathType] ?? program.pathType.toUpperCase()}
+                      </span>
+                      <span className="resultProgramTag resultProgramTagSoft">{program.duration}</span>
+                      {institution?.kind ? (
+                        <span className="resultProgramTag resultProgramTagSoft">
+                          {institution.kind.replaceAll('-', ' ')}
+                        </span>
+                      ) : null}
+                    </div>
+                    {program.notes ? <div className="resultProgramNotes">{program.notes}</div> : null}
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        )}
 
         {/* Profile summary */}
         <div className="resultProfileCard">
@@ -428,6 +569,7 @@ export default function ResultsClient({locale}: ResultsClientProps) {
           </Link>
         </div>
       </div>
+      <BottomNav active="results" locale={locale} />
     </main>
   );
 }

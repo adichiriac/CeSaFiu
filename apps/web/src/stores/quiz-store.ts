@@ -17,7 +17,9 @@ import {createJSONStorage, persist} from 'zustand/middleware';
 
 type QuizStore = {
   savedCareerIds: string[];
+  savedPath: {path_id: string; path_name: string | null} | null;
   setSavedCareers: (ids: string[]) => void;
+  setSavedPath: (path: {path_id: string; path_name: string | null} | null) => void;
   saveCareer: (id: string) => void;
   unsaveCareer: (id: string) => void;
   isSaved: (id: string) => boolean;
@@ -29,11 +31,14 @@ export const useQuizStore = create<QuizStore>()(
   persist(
     (set, get) => ({
       savedCareerIds: [],
+      savedPath: null,
 
       setSavedCareers: (ids) =>
         set({
           savedCareerIds: Array.from(new Set(ids)),
         }),
+
+      setSavedPath: (path) => set({savedPath: path}),
 
       saveCareer: (id) =>
         set((state) => ({
@@ -57,7 +62,7 @@ export const useQuizStore = create<QuizStore>()(
         }
       },
 
-      clearSaved: () => set({savedCareerIds: []}),
+      clearSaved: () => set({savedCareerIds: [], savedPath: null}),
     }),
     {
       name: 'cesafiu:saved-careers',

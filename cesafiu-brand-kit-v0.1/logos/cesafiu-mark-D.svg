@@ -1,0 +1,10 @@
+<svg id="logo-D" width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-label="CeSaFiu abstract question mark" data-om-id="51b0d3cd:99">
+          <!-- Bold geometric ? composed from circle + curve + dot -->
+          <g transform="translate(110 110) rotate(-3) translate(-110 -110)" data-om-id="51b0d3cd:100">
+            <rect x="20" y="20" width="180" height="180" fill="#111" stroke="#000" stroke-width="2" data-om-id="51b0d3cd:101"/>
+            <!-- ? body -->
+            <path d="M 70 78 Q 70 50 110 50 Q 150 50 150 80 Q 150 105 120 115 Q 110 120 110 138 L 110 145" stroke="#FFE066" stroke-width="22" stroke-linecap="round" fill="none" data-om-id="51b0d3cd:102"/>
+            <!-- ? dot -->
+            <rect x="98" y="160" width="24" height="24" fill="#FFE066" data-om-id="51b0d3cd:103"/>
+          </g>
+        </svg>

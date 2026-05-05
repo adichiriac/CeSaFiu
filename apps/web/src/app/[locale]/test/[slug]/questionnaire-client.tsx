@@ -34,6 +34,7 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
   const [isComplete, setIsComplete] = useState(false);
   const [isAdvancing, setIsAdvancing] = useState(false);
   const [pendingOptionId, setPendingOptionId] = useState<string | null>(null);
+  const [likertVariant, setLikertVariant] = useState<'scale' | 'cards'>('scale');
   const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const question = definition.questions[questionIndex];
   const result = useMemo(() => computeResult(definition, answers), [answers, definition]);
@@ -46,6 +47,15 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
         clearTimeout(advanceTimerRef.current);
       }
     };
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const queryVariant = params.get('likert');
+    const storedVariant = window.localStorage.getItem('cesafiu:likert-ui');
+    if (queryVariant === 'cards' || storedVariant === 'cards') {
+      setLikertVariant('cards');
+    }
   }, []);
 
   useEffect(() => {
@@ -117,7 +127,7 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
       }
 
       setQuestionIndex((current) => current + 1);
-    }, 260);
+    }, 450);
   }
 
   function goBack() {
@@ -191,55 +201,115 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
     );
   }
 
+  const isScenarii = definition.slug === 'scenarii';
+
   return (
     <main className="questionnairePage">
-      <section className="questionnairePanel" aria-labelledby="question-title">
-        <QuestionnaireHeader brandCe={brandCe} brandRest={brandRest} definition={definition} locale={locale} progress={progress} />
+      <section className={isScenarii ? 'questionnairePanel questionnairePanel--game' : 'questionnairePanel'} aria-labelledby="question-title">
+        {isScenarii ? (
+          <ScenarioGameHeader
+            brandCe={brandCe}
+            brandRest={brandRest}
+            definition={definition}
+            locale={locale}
+            progress={progress}
+            questionIndex={questionIndex}
+          />
+        ) : (
+          <QuestionnaireHeader brandCe={brandCe} brandRest={brandRest} definition={definition} locale={locale} progress={progress} />
+        )}
 
         <div className={isAdvancing ? 'questionStage isAdvancing' : 'questionStage'}>
-          <div className="questionMeta">
-            <div className="questionMetaLabels">
-              <p className="testEyebrow">{definition.eyebrow}</p>
-              {question.tag ? <span className="questionTraitTag">{question.tag}</span> : null}
+          {!isScenarii && (
+            <div className="questionMeta">
+              <div className="questionMetaLabels">
+                <p className="testEyebrow">{definition.eyebrow}</p>
+                {question.tag ? <span className="questionTraitTag">{question.tag}</span> : null}
+              </div>
+              <span>
+                {questionIndex + 1}/{definition.questions.length}
+              </span>
             </div>
-            <span>
-              {questionIndex + 1}/{definition.questions.length}
-            </span>
-          </div>
+          )}
 
           <h1 id="question-title">{question.prompt}</h1>
 
-          <div className={definition.kind === 'likert' ? 'likertOptions' : 'questionOptions'}>
-            {question.options.map((option) => {
-              const selected = isSelected(answers[question.id], option.id);
-              const checked = isAdvancing && pendingOptionId === option.id;
-              const optionClass = [
-                'questionOption',
-                selected ? 'isSelected' : '',
-                isAdvancing ? 'isLocked' : '',
-                checked ? 'isChecked' : ''
-              ]
-                .filter(Boolean)
-                .join(' ');
+          {isScenarii ? (
+            <div className="scenariiOptions">
+              {question.options.map((option) => {
+                const selected = isSelected(answers[question.id], option.id);
+                const checked = isAdvancing && pendingOptionId === option.id;
+                const cardClass = [
+                  'scenariiCard',
+                  selected ? 'isSelected' : '',
+                  isAdvancing ? 'isLocked' : '',
+                  checked ? 'isChecked' : ''
+                ]
+                  .filter(Boolean)
+                  .join(' ');
 
-              return (
-                <button
-                  className={optionClass}
-                  disabled={isAdvancing}
-                  key={option.id}
-                  onClick={() => choose(definition.kind === 'likert' ? Number(option.id) : option.id, option.id)}
-                  type="button"
-                >
-                  <span>{option.id.toUpperCase()}</span>
-                  <div className="questionOptionBody">
-                    <strong>{option.label}</strong>
-                    {option.tag ? <small className="questionOptionTag">{option.tag}</small> : null}
-                  </div>
-                  {checked ? <i aria-hidden="true" className="questionOptionCheck">✓</i> : null}
-                </button>
-              );
-            })}
-          </div>
+                return (
+                  <button
+                    className={cardClass}
+                    disabled={isAdvancing}
+                    key={option.id}
+                    onClick={() => choose(option.id, option.id)}
+                    type="button"
+                  >
+                    <span aria-hidden="true" className="scenariiCardIcon material-symbols-outlined">
+                      {OPTION_ICON_MAP[option.tag ?? ''] ?? 'lightbulb'}
+                    </span>
+                    <span className="scenariiCardLabel">{option.label}</span>
+                    {checked ? (
+                      <i aria-hidden="true" className="scenariiCardCheck">✓</i>
+                    ) : option.tag ? (
+                      <span className="scenariiCardTag">{option.tag.replace('#', '')}</span>
+                    ) : null}
+                  </button>
+                );
+              })}
+            </div>
+          ) : definition.kind === 'likert' && likertVariant !== 'cards' ? (
+            <LikertScaleOptions
+              currentAnswer={answers[question.id]}
+              isAdvancing={isAdvancing}
+              onChoose={(optionId) => choose(Number(optionId), optionId)}
+              pendingOptionId={pendingOptionId}
+              question={question}
+            />
+          ) : (
+            <div className={definition.kind === 'likert' ? 'likertOptions' : 'questionOptions'}>
+              {question.options.map((option) => {
+                const selected = isSelected(answers[question.id], option.id);
+                const checked = isAdvancing && pendingOptionId === option.id;
+                const optionClass = [
+                  'questionOption',
+                  selected ? 'isSelected' : '',
+                  isAdvancing ? 'isLocked' : '',
+                  checked ? 'isChecked' : ''
+                ]
+                  .filter(Boolean)
+                  .join(' ');
+
+                return (
+                  <button
+                    className={optionClass}
+                    disabled={isAdvancing}
+                    key={option.id}
+                    onClick={() => choose(definition.kind === 'likert' ? Number(option.id) : option.id, option.id)}
+                    type="button"
+                  >
+                    <span>{option.id.toUpperCase()}</span>
+                    <div className="questionOptionBody">
+                      <strong>{option.label}</strong>
+                      {option.tag ? <small className="questionOptionTag">{option.tag}</small> : null}
+                    </div>
+                    {checked ? <i aria-hidden="true" className="questionOptionCheck">✓</i> : null}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         <div className="testActions">
@@ -257,6 +327,65 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
         </div>
       </section>
     </main>
+  );
+}
+
+const OPTION_ICON_MAP: Record<string, string> = {
+  '#BUILDER': 'handyman',
+  '#THINKER': 'psychology',
+  '#ALLY': 'volunteer_activism',
+  '#CREATOR': 'palette',
+  '#LEADER': 'groups',
+  '#EXPLORER': 'travel_explore'
+};
+
+function ScenarioGameHeader({
+  brandCe,
+  brandRest,
+  definition,
+  locale,
+  progress,
+  questionIndex
+}: {
+  brandCe: string;
+  brandRest: string;
+  definition: QuestionnaireDefinition;
+  locale: string;
+  progress: number;
+  questionIndex: number;
+}) {
+  const tQ = useTranslations('questionnaire');
+  const total = definition.questions.length;
+  const current = questionIndex + 1;
+
+  return (
+    <header className="questionnaireHeader gameHeader">
+      <div className="gameHeaderTop">
+        <Link className="miniBrand" href={`/${locale}`}>
+          <span>{brandCe}</span>
+          <strong>{brandRest}</strong>
+        </Link>
+        <div className="gameCounterBadge">
+          {current} / {total}
+        </div>
+      </div>
+
+      <div className="gameMissionRow">
+        <div className="gameMissionLeft">
+          <span className="gameMissionLabel">
+            <span className="gamePulseDot" aria-hidden="true" />
+            {tQ('missionInProgress')}
+          </span>
+          <span className="gamePercentage">{tQ('progressCompleted', {progress})}</span>
+        </div>
+      </div>
+
+      <div className="gameProgressTrack" aria-label={definition.subtitle} role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
+        <div className="gameProgressFill" style={{width: `${progress}%`}}>
+          <span className="gameProgressShimmer" aria-hidden="true" />
+        </div>
+      </div>
+    </header>
   );
 }
 
@@ -284,6 +413,65 @@ function QuestionnaireHeader({
       </div>
       <p>{definition.subtitle}</p>
     </header>
+  );
+}
+
+function LikertScaleOptions({
+  currentAnswer,
+  isAdvancing,
+  onChoose,
+  pendingOptionId,
+  question
+}: {
+  currentAnswer: QuestionnaireAnswer | undefined;
+  isAdvancing: boolean;
+  onChoose: (optionId: string) => void;
+  pendingOptionId: string | null;
+  question: QuestionItem;
+}) {
+  const firstLabel = question.options[0]?.label;
+  const lastLabel = question.options[question.options.length - 1]?.label;
+
+  return (
+    <div className="likertScaleOptions" role="radiogroup" aria-labelledby="question-title">
+      <div className="likertScaleControl">
+        <div className="likertScaleRail" aria-hidden="true" />
+        <div className="likertScaleButtons">
+          {question.options.map((option) => {
+            const selected = isSelected(currentAnswer, option.id);
+            const checked = isAdvancing && pendingOptionId === option.id;
+            const optionClass = [
+              'likertScaleButton',
+              option.id === '3' ? 'isNeutral' : '',
+              selected ? 'isSelected' : '',
+              isAdvancing ? 'isLocked' : '',
+              checked ? 'isChecked' : ''
+            ]
+              .filter(Boolean)
+              .join(' ');
+
+            return (
+              <button
+                aria-label={option.label}
+                aria-pressed={selected}
+                className={optionClass}
+                disabled={isAdvancing}
+                key={option.id}
+                onClick={() => onChoose(option.id)}
+                type="button"
+              >
+                <span>{option.id}</span>
+                {checked ? <i aria-hidden="true" className="likertScaleCheck">✓</i> : null}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="likertScaleLabels">
+        <span>{firstLabel}</span>
+        <span>{lastLabel}</span>
+      </div>
+    </div>
   );
 }
 

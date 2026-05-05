@@ -1,0 +1,6 @@
+<svg id="logo-B" width="420" height="120" viewBox="0 0 420 120" xmlns="http://www.w3.org/2000/svg" aria-label="CeSaFiu wordmark logo" data-om-id="51b0d3cd:66">
+          <!-- "Ce Să Fiu?" with ? doubling as final mark -->
+          <text x="20" y="80" font-family="Epilogue, system-ui, sans-serif" font-weight="900" font-size="62" fill="#111" letter-spacing="-2" data-om-id="51b0d3cd:67">Ce Să Fiu</text>
+          <!-- ? as separate large character with offset shadow -->
+          <text x="324" y="90" font-family="Epilogue, system-ui, sans-serif" font-weight="900" font-size="86" fill="#FFE066" stroke="#000" stroke-width="3" letter-spacing="-2" data-om-id="51b0d3cd:68">?</text>
+        </svg>

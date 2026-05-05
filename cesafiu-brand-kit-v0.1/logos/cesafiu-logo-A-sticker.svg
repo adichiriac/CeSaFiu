@@ -1,0 +1,12 @@
+<svg id="logo-A" width="380" height="160" viewBox="0 0 380 160" xmlns="http://www.w3.org/2000/svg" aria-label="CeSaFiu sticker stamp logo" data-om-id="51b0d3cd:48">
+          <!-- Yellow sticker block, rotated -->
+          <g transform="rotate(-4 190 80)" data-om-id="51b0d3cd:49">
+            <rect x="32" y="28" width="316" height="104" fill="#FFE066" stroke="#000" stroke-width="3.5" data-om-id="51b0d3cd:50"/>
+            <!-- offset shadow effect via second stroke -->
+            <rect x="36" y="32" width="316" height="104" fill="none" stroke="#000" stroke-width="3.5" opacity="0.0" data-om-id="51b0d3cd:51"/>
+            <text x="190" y="92" text-anchor="middle" font-family="Epilogue, system-ui, sans-serif" font-weight="900" font-size="48" fill="#000" letter-spacing="-1.5" data-om-id="51b0d3cd:52">CeSăFiu</text>
+            <!-- Question mark detail in top-right corner -->
+            <circle cx="320" cy="50" r="14" fill="#000" data-om-id="51b0d3cd:53"/>
+            <text x="320" y="56" text-anchor="middle" font-family="Epilogue, system-ui, sans-serif" font-weight="900" font-size="20" fill="#FFE066" data-om-id="51b0d3cd:54">?</text>
+          </g>
+        </svg>

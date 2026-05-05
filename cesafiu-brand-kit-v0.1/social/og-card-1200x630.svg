@@ -1,0 +1,41 @@
+<svg id="og-card" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" data-om-id="51b0d3cd:291">
+      <rect width="1200" height="630" fill="#FAF6EC" data-om-id="51b0d3cd:292"/>
+      <!-- texture: dotted grid -->
+      <g fill="#000" opacity="0.06" data-om-id="51b0d3cd:293">
+        <circle cx="60" cy="60" r="3" data-om-id="51b0d3cd:294"/>
+        <circle cx="160" cy="60" r="3" data-om-id="51b0d3cd:295"/>
+        <circle cx="260" cy="60" r="3" data-om-id="51b0d3cd:296"/>
+        <circle cx="60" cy="160" r="3" data-om-id="51b0d3cd:297"/>
+        <circle cx="60" cy="260" r="3" data-om-id="51b0d3cd:298"/>
+        <circle cx="60" cy="360" r="3" data-om-id="51b0d3cd:299"/>
+        <circle cx="60" cy="460" r="3" data-om-id="51b0d3cd:300"/>
+        <circle cx="60" cy="560" r="3" data-om-id="51b0d3cd:301"/>
+        <circle cx="160" cy="560" r="3" data-om-id="51b0d3cd:302"/>
+        <circle cx="260" cy="560" r="3" data-om-id="51b0d3cd:303"/>
+        <circle cx="1140" cy="60" r="3" data-om-id="51b0d3cd:304"/>
+        <circle cx="1140" cy="160" r="3" data-om-id="51b0d3cd:305"/>
+        <circle cx="1140" cy="260" r="3" data-om-id="51b0d3cd:306"/>
+        <circle cx="1140" cy="360" r="3" data-om-id="51b0d3cd:307"/>
+        <circle cx="1140" cy="460" r="3" data-om-id="51b0d3cd:308"/>
+        <circle cx="1140" cy="560" r="3" data-om-id="51b0d3cd:309"/>
+      </g>
+      <!-- Top-left sticker -->
+      <g transform="rotate(-5 200 100)" data-om-id="51b0d3cd:310">
+        <rect x="60" y="60" width="280" height="80" fill="#FFE066" stroke="#000" stroke-width="4" data-om-id="51b0d3cd:311"/>
+        <text x="200" y="115" text-anchor="middle" font-family="Epilogue, system-ui, sans-serif" font-weight="900" font-size="38" fill="#000" letter-spacing="-1" data-om-id="51b0d3cd:312">CeSăFiu</text>
+      </g>
+      <!-- Big claim -->
+      <text x="60" y="320" font-family="Epilogue, system-ui, sans-serif" font-weight="900" font-size="92" fill="#111" letter-spacing="-3" data-om-id="51b0d3cd:313">Ce vrei să fii?</text>
+      <text x="60" y="410" font-family="Epilogue, system-ui, sans-serif" font-weight="900" font-size="92" fill="#7C3AED" letter-spacing="-3" data-om-id="51b0d3cd:314">Hai să aflăm.</text>
+      <!-- Sub-claim -->
+      <text x="60" y="480" font-family="Epilogue, system-ui, sans-serif" font-weight="600" font-size="26" fill="#555" data-om-id="51b0d3cd:315" data-cc-id="cc-6">Test psihometric · 80+ cariere · 95 universități · 6 drumuri de viață</text>
+      <!-- Big ? mark, bottom right -->
+      <g transform="translate(900 380)" data-om-id="51b0d3cd:316">
+        <rect x="0" y="0" width="220" height="220" fill="#111" stroke="#000" stroke-width="3" data-om-id="51b0d3cd:317"/>
+        <path d="M 70 78 Q 70 50 110 50 Q 150 50 150 80 Q 150 105 120 115 Q 110 120 110 138 L 110 145" stroke="#FFE066" stroke-width="22" stroke-linecap="round" fill="none" data-om-id="51b0d3cd:318"/>
+        <rect x="98" y="160" width="24" height="24" fill="#FFE066" data-om-id="51b0d3cd:319"/>
+      </g>
+      <!-- Footer URL -->
+      <rect x="60" y="558" width="2" height="32" fill="#111" data-om-id="51b0d3cd:320"/>
+      <text x="80" y="580" font-family="Epilogue, system-ui, sans-serif" font-weight="800" font-size="18" fill="#111" letter-spacing="2" data-om-id="51b0d3cd:321">CESAFIU.RO</text>
+    </svg>

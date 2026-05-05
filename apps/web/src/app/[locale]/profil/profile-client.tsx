@@ -48,7 +48,7 @@ function topEntries(tally: Record<string, number> | undefined, limit: number) {
 
 export default function ProfileClient({careers, locale}: ProfileClientProps) {
   const t = useTranslations('profil');
-  const {profile} = useAuthGate();
+  const {profile, savedPath} = useAuthGate();
   const {savedCareerIds} = useQuizStore();
   const [status, setStatus] = useState<'loading' | 'empty' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
@@ -92,6 +92,7 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
   const big5 = userProfile?.big5;
   const sources = result?.sources ?? [];
   const needsParentConsent = profile?.consent_status === 'pending_parent';
+  const savedPathName = savedPath?.path_name ?? savedPath?.path_id;
 
   return (
     <main className="profilePage">
@@ -160,7 +161,11 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
                 ))}
               </div>
 
-              {topPath && (
+              {savedPathName ? (
+                <p className="profilePathLine">
+                  {t('savedPathPrefix')} <mark>{savedPathName}</mark>
+                </p>
+              ) : topPath && (
                 <p className="profilePathLine">
                   {t('pathPrefix')} <mark>{PATH_NAMES[topPath[0]] ?? topPath[0]}</mark>
                 </p>
@@ -182,7 +187,7 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
                 </div>
                 <div>
                   <span>{t('saved')}</span>
-                  <strong>{saved.length}</strong>
+                  <strong>{saved.length + (savedPath ? 1 : 0)}</strong>
                 </div>
                 <div>
                   <span>{t('matches')}</span>
@@ -240,7 +245,18 @@ export default function ProfileClient({careers, locale}: ProfileClientProps) {
             <h2>{t('savedTitle')}</h2>
           </div>
 
-          {saved.length === 0 ? (
+          {savedPathName && (
+            <div className="profileSavedPathCard">
+              <span aria-hidden="true">★</span>
+              <span>
+                <strong>{t('savedPathTitle')}: {savedPathName}</strong>
+                <small>{t('savedPathBody')}</small>
+              </span>
+              <Link href={`/${locale}/browse`}>{t('savedPathChange')}</Link>
+            </div>
+          )}
+
+          {saved.length === 0 && !savedPath ? (
             <div className="profileEmptyCard">
               <div aria-hidden="true">✦</div>
               <h3>{t('savedEmptyTitle')}</h3>

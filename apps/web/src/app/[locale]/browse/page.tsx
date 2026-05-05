@@ -1,4 +1,4 @@
-import {getAllCareers, getAllInstitutions, getAllPaths} from '@/lib/careers/load';
+import {getAllCareers, getAllInstitutions, getAllPaths, getAllPrograms} from '@/lib/careers/load';
 import {isLocale, type Locale} from '@/i18n/config';
 import {setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
@@ -15,7 +15,8 @@ export default async function BrowsePage({params}: BrowsePageProps) {
 
   const careers = getAllCareers();
   const institutions = getAllInstitutions();
+  const programs = getAllPrograms();
   const paths = getAllPaths();
 
-  return <BrowseClient careers={careers} institutions={institutions} locale={locale} paths={paths} />;
+  return <BrowseClient careers={careers} institutions={institutions} locale={locale} paths={paths} programs={programs} />;
 }

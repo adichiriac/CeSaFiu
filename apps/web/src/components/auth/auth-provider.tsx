@@ -15,6 +15,11 @@ type Profile = {
   parent_email_hash: string | null;
 };
 
+type SavedPath = {
+  path_id: string;
+  path_name: string | null;
+};
+
 const PARENT_ERROR_KEYS: Record<string, string> = {
   consent_record_failed: 'parentError',
   consent_request_failed: 'parentError',
@@ -34,8 +39,11 @@ type AuthContextValue = {
   loading: boolean;
   user: User | null;
   profile: Profile | null;
+  savedPath: SavedPath | null;
   isSaved: (careerId: string) => boolean;
+  isPathSaved: (pathId: string) => boolean;
   toggleSaveCareer: (careerId: string) => Promise<void>;
+  savePath: (path: SavedPath) => Promise<void>;
   openAuthGate: () => void;
 };
 
@@ -45,15 +53,19 @@ export function AuthProvider({children}: {children: ReactNode}) {
   const t = useTranslations('auth');
   const locale = useLocale();
   const localSavedIds = useQuizStore((state) => state.savedCareerIds);
+  const localSavedPath = useQuizStore((state) => state.savedPath);
   const saveLocalCareer = useQuizStore((state) => state.saveCareer);
   const unsaveLocalCareer = useQuizStore((state) => state.unsaveCareer);
   const setLocalSavedCareers = useQuizStore((state) => state.setSavedCareers);
+  const setLocalSavedPath = useQuizStore((state) => state.setSavedPath);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [remoteSavedIds, setRemoteSavedIds] = useState<string[]>([]);
+  const [remoteSavedPath, setRemoteSavedPath] = useState<SavedPath | null>(null);
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState<'closed' | 'auth' | 'age' | 'parent' | 'parentSent' | 'sent'>('closed');
   const [pendingCareerId, setPendingCareerId] = useState<string | null>(null);
+  const [pendingPath, setPendingPath] = useState<SavedPath | null>(null);
   const [email, setEmail] = useState('');
   const [parentEmail, setParentEmail] = useState('');
   const [formError, setFormError] = useState('');
@@ -81,6 +93,7 @@ export function AuthProvider({children}: {children: ReactNode}) {
       if (!nextSession) {
         setProfile(null);
         setRemoteSavedIds([]);
+        setRemoteSavedPath(null);
       }
     });
 
@@ -119,6 +132,27 @@ export function AuthProvider({children}: {children: ReactNode}) {
     void saveCareer(careerId);
   }, [pendingCareerId, profile, session]);
 
+  useEffect(() => {
+    if (!session?.user || !profile || !pendingPath) {
+      return;
+    }
+
+    if (profile.age_band === 'unknown') {
+      setModal('age');
+      return;
+    }
+
+    if (profile.consent_status === 'pending_parent') {
+      setPendingPath(null);
+      setModal(profile.parent_email_hash ? 'parentSent' : 'parent');
+      return;
+    }
+
+    const path = pendingPath;
+    setPendingPath(null);
+    void savePath(path);
+  }, [pendingPath, profile, session]);
+
   async function loadProfileAndSaves(user: User) {
     if (!supabase) return;
 
@@ -149,12 +183,11 @@ export function AuthProvider({children}: {children: ReactNode}) {
 
     const remoteIds = (savedRows ?? []).map((row) => row.career_id as string);
     const mergedIds = Array.from(new Set([...localSavedIds, ...remoteIds]));
-
-    if (
-      localSavedIds.length > 0 &&
+    const canPersistRemote =
       nextProfile.age_band !== 'unknown' &&
-      (nextProfile.consent_status === 'self' || nextProfile.consent_status === 'parent_confirmed')
-    ) {
+      (nextProfile.consent_status === 'self' || nextProfile.consent_status === 'parent_confirmed');
+
+    if (localSavedIds.length > 0 && canPersistRemote) {
       const missingLocalIds = localSavedIds.filter((careerId) => !remoteIds.includes(careerId));
       if (missingLocalIds.length > 0) {
         await supabase.from('saved_careers').insert(
@@ -163,8 +196,29 @@ export function AuthProvider({children}: {children: ReactNode}) {
       }
     }
 
+    const {data: savedPathRow} = await supabase
+      .from('saved_paths')
+      .select('path_id, path_name')
+      .eq('user_id', user.id)
+      .maybeSingle<SavedPath>();
+
+    let mergedPath = savedPathRow ?? localSavedPath;
+    if (localSavedPath && canPersistRemote) {
+      await supabase.from('saved_paths').upsert(
+        {
+          user_id: user.id,
+          path_id: localSavedPath.path_id,
+          path_name: localSavedPath.path_name
+        },
+        {onConflict: 'user_id'}
+      );
+      mergedPath = localSavedPath;
+    }
+
     setRemoteSavedIds(mergedIds);
     setLocalSavedCareers(mergedIds);
+    setRemoteSavedPath(mergedPath ?? null);
+    setLocalSavedPath(mergedPath ?? null);
 
     if (nextProfile.age_band === 'unknown') {
       setModal('age');
@@ -173,6 +227,11 @@ export function AuthProvider({children}: {children: ReactNode}) {
 
   function isSaved(careerId: string) {
     return localSavedIds.includes(careerId) || remoteSavedIds.includes(careerId);
+  }
+
+  function isPathSaved(pathId: string) {
+    const savedPath = localSavedPath ?? remoteSavedPath;
+    return savedPath?.path_id === pathId;
   }
 
   async function saveCareer(careerId: string) {
@@ -226,6 +285,37 @@ export function AuthProvider({children}: {children: ReactNode}) {
     }
 
     await saveCareer(careerId);
+  }
+
+  async function savePath(path: SavedPath) {
+    setLocalSavedPath(path);
+
+    if (!supabase || !session?.user) {
+      setPendingPath(path);
+      setModal('auth');
+      return;
+    }
+
+    if (!profile || profile.age_band === 'unknown') {
+      setPendingPath(path);
+      setModal('age');
+      return;
+    }
+
+    if (profile.consent_status === 'pending_parent') {
+      setModal(profile.parent_email_hash ? 'parentSent' : 'parent');
+      return;
+    }
+
+    setRemoteSavedPath(path);
+    await supabase.from('saved_paths').upsert(
+      {
+        user_id: session.user.id,
+        path_id: path.path_id,
+        path_name: path.path_name
+      },
+      {onConflict: 'user_id'}
+    );
   }
 
   async function submitEmail(event: FormEvent<HTMLFormElement>) {
@@ -328,8 +418,11 @@ export function AuthProvider({children}: {children: ReactNode}) {
     loading,
     user: session?.user ?? null,
     profile,
+    savedPath: localSavedPath ?? remoteSavedPath,
     isSaved,
+    isPathSaved,
     toggleSaveCareer,
+    savePath,
     openAuthGate: () => setModal(session?.user ? 'age' : 'auth')
   };
 

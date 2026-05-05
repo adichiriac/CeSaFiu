@@ -1,20 +1,23 @@
 'use client';
 
 import BottomNav from '@/components/bottom-nav';
+import {useAuthGate} from '@/components/auth/auth-provider';
 import Link from 'next/link';
-import {useState} from 'react';
+import {useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import type {Career} from '@/lib/matcher';
-import type {Institution, PathEntry} from '@/lib/careers/types';
+import type {Institution, PathEntry, Program} from '@/lib/careers/types';
 
 type BrowseClientProps = {
   careers: Career[];
   institutions: Institution[];
   paths: (PathEntry & {emoji?: string; color?: string; tagline?: string; duration?: string; cost?: string})[];
+  programs: Program[];
   locale: string;
 };
 
 type Section = 'careers' | 'paths' | 'unis';
+type PathFull = PathEntry & {emoji?: string; color?: string; tagline?: string; duration?: string; cost?: string; pros?: string[]; cons?: string[]; bestFor?: string[]; next?: string[]};
 
 const CAREER_COLORS: Record<string, string> = {
   purple: 'var(--purple)',
@@ -45,12 +48,52 @@ const FILTERS = [
 ];
 
 const UNI_TAGS = ['all', 'IT', 'medicină', 'business', 'artă', 'umaniste', 'inginerie', 'antreprenoriat', 'profesional', 'autodidact'];
+const UNI_TIER_COLORS: Record<string, {background: string; color: string}> = {
+  TOP: {background: 'var(--green)', color: '#000'},
+  GOOD: {background: 'var(--yellow)', color: '#000'},
+  BOOTCAMP: {background: 'var(--purple)', color: '#fff'},
+  PROGRAM: {background: '#000', color: 'var(--green)'},
+  TRADE: {background: 'var(--yellow)', color: '#000'},
+  POST: {background: '#fff', color: '#000'},
+};
+const CITY_PRIORITY = [
+  'București',
+  'Iași',
+  'Cluj-Napoca',
+  'Timișoara',
+  'Brașov',
+  'Craiova',
+  'Constanța',
+  'Sibiu',
+  'Oradea',
+  'Galați',
+  'Suceava',
+];
 
 const PATH_COLORS: Record<string, string> = {
   purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)',
 };
+const SAVED_UNI_KEY = 'cesafiu:saved-universities';
 
-export default function BrowseClient({careers, institutions, paths, locale}: BrowseClientProps) {
+function readSavedUniIds() {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(SAVED_UNI_KEY);
+    return raw ? (JSON.parse(raw) as string[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function uniLinkFor(uni: Institution) {
+  if (uni.url) return {url: uni.url, isFallback: false};
+  return {
+    url: `https://www.google.com/search?q=${encodeURIComponent(`${uni.name} ${uni.city}`)}`,
+    isFallback: true
+  };
+}
+
+export default function BrowseClient({careers, institutions, paths, programs, locale}: BrowseClientProps) {
   const t = useTranslations('browse');
   const [section, setSection] = useState<Section>('unis');
 
@@ -91,7 +134,7 @@ export default function BrowseClient({careers, institutions, paths, locale}: Bro
 
       {section === 'careers' && <CareersBrowse careers={careers} locale={locale} t={t} />}
       {section === 'paths'   && <PathsBrowse paths={paths} t={t} />}
-      {section === 'unis'    && <UnisBrowse institutions={institutions} t={t} />}
+      {section === 'unis'    && <UnisBrowse careers={careers} institutions={institutions} programs={programs} t={t} />}
 
       <BottomNav active="explore" locale={locale} />
     </main>
@@ -186,10 +229,19 @@ function CareersBrowse({careers, locale, t}: {careers: Career[]; locale: string;
 
 // ── Paths ──────────────────────────────────────────────────────────────────────
 
-type PathFull = PathEntry & {emoji?: string; color?: string; tagline?: string; duration?: string; cost?: string; pros?: string[]; cons?: string[]; bestFor?: string[]; next?: string[]};
-
 function PathsBrowse({paths, t}: {paths: PathFull[]; t: TFunc}) {
   const [selected, setSelected] = useState<string | null>(null);
+  const {savedPath, isPathSaved, savePath} = useAuthGate();
+
+  async function handleSave(path: PathFull) {
+    if (savedPath && savedPath.path_id !== path.id) {
+      const currentName = savedPath.path_name ?? savedPath.path_id;
+      const replace = window.confirm(t('pathReplaceConfirm', {current: currentName, next: path.name}));
+      if (!replace) return;
+    }
+
+    await savePath({path_id: path.id, path_name: path.name});
+  }
 
   return (
     <div className="browseSection">
@@ -203,46 +255,91 @@ function PathsBrowse({paths, t}: {paths: PathFull[]; t: TFunc}) {
           const bg = PATH_COLORS[p.color ?? 'yellow'] ?? 'var(--yellow)';
           const textC = p.color === 'purple' ? '#fff' : '#000';
           const isOpen = selected === p.id;
+          const isSaved = isPathSaved(p.id);
 
           return (
             <div key={p.id} style={{transform: `rotate(${i % 2 ? 0.4 : -0.4}deg)`}}>
-              <button
+              <article
                 className="browsePathCard"
                 style={{background: bg, color: textC}}
-                onClick={() => setSelected(isOpen ? null : p.id)}
-                aria-expanded={isOpen}
               >
-                <div className="browsePathCardContent">
-                  <div className="browsePathEmoji">{p.emoji ?? `→`}</div>
-                  <div className="browsePathMeta">
-                    <div className="browsePathDuration">{p.duration} · {p.cost}</div>
-                    <div className="browsePathName">{p.name}</div>
+                <button
+                  className="browsePathMain"
+                  onClick={() => setSelected(isOpen ? null : p.id)}
+                  aria-expanded={isOpen}
+                  type="button"
+                >
+                  <div className="browsePathCardContent">
+                    <div className="browsePathEmoji">{p.emoji ?? `→`}</div>
+                    <div className="browsePathMeta">
+                      <div className="browsePathDuration">{p.duration} · {p.cost}</div>
+                      <div className="browsePathName">{p.name}</div>
+                    </div>
                   </div>
-                  <div className="browsePathChevron">{isOpen ? `↑` : `↓`}</div>
-                </div>
+                </button>
+                <button
+                  className={isSaved ? 'browsePathSave isSaved' : 'browsePathSave'}
+                  onClick={() => handleSave(p)}
+                  type="button"
+                  aria-label={isSaved ? t('pathSaved') : t('pathSave')}
+                >
+                  {isSaved ? `★` : `☆`}
+                </button>
                 {p.tagline && <div className="browsePathTagline">{`„${p.tagline}"`}</div>}
-              </button>
+              </article>
 
               {isOpen && (
                 <div className="browsePathExpanded">
+                  <div className="browsePathFacts">
+                    <div>
+                      <span>{t('pathDuration')}</span>
+                      <strong>{p.duration}</strong>
+                    </div>
+                    <div>
+                      <span>{t('pathCost')}</span>
+                      <strong>{p.cost}</strong>
+                    </div>
+                  </div>
                   {p.pros && p.pros.length > 0 && (
-                    <div className="browsePathSection">
+                    <div className="browsePathSection isPro">
                       <div className="browsePathSectionTitle">{t('pathPro')}</div>
-                      {p.pros.map((pro) => <div key={pro} className="browsePathItem">{`· ${pro}`}</div>)}
+                      {p.pros.map((pro) => <div key={pro} className="browsePathItem"><span>{`+`}</span>{pro}</div>)}
                     </div>
                   )}
                   {p.cons && p.cons.length > 0 && (
                     <div className="browsePathSection">
                       <div className="browsePathSectionTitle">{t('pathContra')}</div>
-                      {p.cons.map((con) => <div key={con} className="browsePathItem">{`· ${con}`}</div>)}
+                      {p.cons.map((con) => <div key={con} className="browsePathItem"><span>{`−`}</span>{con}</div>)}
                     </div>
                   )}
                   {p.bestFor && p.bestFor.length > 0 && (
                     <div className="browsePathSection">
                       <div className="browsePathSectionTitle">{t('pathBestFor')}</div>
-                      {p.bestFor.map((bf) => <div key={bf} className="browsePathItem">{`· ${bf}`}</div>)}
+                      <div className="browsePathStickerRow">
+                        {p.bestFor.map((bf, index) => (
+                          <span key={bf} className={index % 2 ? 'isYellow' : ''}>{bf}</span>
+                        ))}
+                      </div>
                     </div>
                   )}
+                  {p.next && p.next.length > 0 && (
+                    <div className="browsePathSection">
+                      <div className="browsePathSectionTitle">{t('pathNext')}</div>
+                      {p.next.map((step, index) => (
+                        <div key={step} className="browsePathStep">
+                          <span>{index + 1}</span>
+                          {step}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <button
+                    className={isSaved ? 'browsePathChoose isSaved' : 'browsePathChoose'}
+                    onClick={() => handleSave(p)}
+                    type="button"
+                  >
+                    {isSaved ? t('pathSaved') : t('pathSave')}
+                  </button>
                 </div>
               )}
             </div>
@@ -255,17 +352,66 @@ function PathsBrowse({paths, t}: {paths: PathFull[]; t: TFunc}) {
 
 // ── Universities ───────────────────────────────────────────────────────────────
 
-function UnisBrowse({institutions, t}: {institutions: Institution[]; t: TFunc}) {
+function UnisBrowse({
+  careers,
+  institutions,
+  programs,
+  t,
+}: {
+  careers: Career[];
+  institutions: Institution[];
+  programs: Program[];
+  t: TFunc;
+}) {
   const [city, setCity] = useState('all');
   const [tag, setTag] = useState('all');
+  const [selectedUniId, setSelectedUniId] = useState<string | null>(null);
+  const [savedUniIds, setSavedUniIds] = useState<string[]>(() => readSavedUniIds());
+  const careersById = useMemo(() => Object.fromEntries(careers.map((career) => [career.id, career])), [careers]);
 
-  const cities = ['all', ...Array.from(new Set(institutions.map((u) => u.city).filter(Boolean)))].slice(0, 12);
+  const cities = [
+    'all',
+    ...Array.from(new Set(institutions.map((u) => u.city).filter(Boolean))).sort((a, b) => {
+      const ai = CITY_PRIORITY.indexOf(a);
+      const bi = CITY_PRIORITY.indexOf(b);
+      if (ai !== -1 || bi !== -1) {
+        return (ai === -1 ? Number.MAX_SAFE_INTEGER : ai) - (bi === -1 ? Number.MAX_SAFE_INTEGER : bi);
+      }
+      return a.localeCompare(b, 'ro');
+    }),
+  ].slice(0, 12);
 
   const filtered = institutions.filter((u) => {
     if (city !== 'all' && u.city !== city) return false;
     if (tag !== 'all' && !(u.tags ?? []).includes(tag)) return false;
     return true;
   });
+
+  function toggleSavedUni(uniId: string) {
+    setSavedUniIds((ids) => {
+      const next = ids.includes(uniId) ? ids.filter((id) => id !== uniId) : [...ids, uniId];
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(SAVED_UNI_KEY, JSON.stringify(next));
+      }
+      return next;
+    });
+  }
+
+  const selectedUni = selectedUniId ? institutions.find((uni) => uni.id === selectedUniId) : null;
+
+  if (selectedUni) {
+    return (
+      <UniDetail
+        careersById={careersById}
+        isSaved={savedUniIds.includes(selectedUni.id)}
+        onBack={() => setSelectedUniId(null)}
+        onSave={() => toggleSavedUni(selectedUni.id)}
+        programs={programs.filter((program) => program.universityId === selectedUni.id)}
+        t={t}
+        uni={selectedUni}
+      />
+    );
+  }
 
   return (
     <div className="browseSection">
@@ -300,13 +446,16 @@ function UnisBrowse({institutions, t}: {institutions: Institution[]; t: TFunc}) 
       </div>
 
       <div className="browseUniList">
-        {filtered.map((u) => (
-          <a
+        {filtered.map((u) => {
+          const tier = u.tier.toUpperCase();
+          const tierColor = UNI_TIER_COLORS[tier] ?? {background: '#fff', color: '#000'};
+
+          return (
+          <button
             key={u.id}
-            href={u.url ?? `https://www.google.com/search?q=${encodeURIComponent(u.name)}`}
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={() => setSelectedUniId(u.id)}
             className="browseUniCard"
+            type="button"
           >
             <div className="browseUniHeader">
               <div className="browseUniInfo">
@@ -314,7 +463,12 @@ function UnisBrowse({institutions, t}: {institutions: Institution[]; t: TFunc}) 
                 <div className="browseUniCity">{u.city} · <span style={{textTransform: 'capitalize'}}>{u.tier}</span></div>
               </div>
               <div className="browseUniHeaderSide">
-                {u.tier === 'top' ? <span className="browseUniTier">{t('tierTop')}</span> : null}
+                <span
+                  className="browseUniTier"
+                  style={{background: tierColor.background, color: tierColor.color}}
+                >
+                  {tier}
+                </span>
                 <span className="browseUniArrow">{`↗`}</span>
               </div>
             </div>
@@ -326,9 +480,155 @@ function UnisBrowse({institutions, t}: {institutions: Institution[]; t: TFunc}) 
                 ))}
               </div>
             )}
-          </a>
-        ))}
+          </button>
+          );
+        })}
       </div>
+    </div>
+  );
+}
+
+function UniDetail({
+  careersById,
+  isSaved,
+  onBack,
+  onSave,
+  programs,
+  t,
+  uni,
+}: {
+  careersById: Record<string, Career>;
+  isSaved: boolean;
+  onBack: () => void;
+  onSave: () => void;
+  programs: Program[];
+  t: TFunc;
+  uni: Institution;
+}) {
+  const tier = uni.tier.toUpperCase();
+  const tierColor = UNI_TIER_COLORS[tier] ?? {background: '#fff', color: '#000'};
+  const link = uniLinkFor(uni);
+
+  return (
+    <div className="browseSection browseUniDetail">
+      <div className="browseUniDetailNav">
+        <button className="browseUniBack" onClick={onBack} type="button" aria-label={t('uniBackLabel')}>
+          ←
+        </button>
+        <button
+          className={isSaved ? 'browseUniSave isSaved' : 'browseUniSave'}
+          onClick={onSave}
+          type="button"
+          aria-label={isSaved ? t('uniSavedLabel') : t('uniSaveLabel')}
+        >
+          {isSaved ? '★' : '☆'}
+        </button>
+      </div>
+
+      <section className="browseUniDetailHero">
+        <span className="browseUniDetailTier" style={{background: tierColor.background, color: tierColor.color}}>
+          {tier} · {uni.kind}
+        </span>
+        <h2>{uni.name}</h2>
+        <p>{uni.city}</p>
+      </section>
+
+      <a
+        className="browseUniPrimaryLink"
+        href={link.url}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <span>{link.isFallback ? t('uniGoogleSearch') : t('uniOfficialSite')}</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+
+      <button
+        className={isSaved ? 'browseUniFollow isSaved' : 'browseUniFollow'}
+        onClick={onSave}
+        type="button"
+      >
+        {isSaved ? t('uniSavedCta') : t('uniSaveCta')}
+      </button>
+
+      {link.isFallback ? <p className="browseUniFallback">{t('uniFallbackNote', {name: uni.name})}</p> : null}
+
+      {uni.notes ? <div className="browseUniNote">{uni.notes}</div> : null}
+
+      {programs.length > 0 ? (
+        <section className="browseUniDetailSection">
+          <h3>{t('uniProgramsTitle', {count: programs.length})}</h3>
+          <div className="browseUniProgramList">
+            {programs.map((program) => {
+              const programUrl = program.url || (
+                link.isFallback
+                  ? `https://www.google.com/search?q=${encodeURIComponent(`${uni.name} ${program.name}`)}`
+                  : link.url
+              );
+              const careerNames = (program.careerIds ?? [])
+                .map((careerId) => careersById[careerId]?.name)
+                .filter(Boolean)
+                .slice(0, 3);
+
+              return (
+                <a
+                  className="browseUniProgramCard"
+                  href={programUrl}
+                  key={program.id}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div className="browseUniProgramHeader">
+                    <strong>{program.name}</strong>
+                    <span aria-hidden="true">↗</span>
+                  </div>
+                  <div className="browseUniProgramMeta">
+                    {program.duration ? <span>{program.duration}</span> : null}
+                    {program.pathType ? (
+                      <span
+                        style={{
+                          background: PATH_COLOR[program.pathType] ?? '#fff',
+                          color: PATH_TEXT[program.pathType] ?? '#000',
+                        }}
+                      >
+                        {PATH_LABEL[program.pathType] ?? program.pathType.toUpperCase()}
+                      </span>
+                    ) : null}
+                    {(program.language ?? []).slice(0, 2).map((language) => (
+                      <span key={language}>{language.toUpperCase()}</span>
+                    ))}
+                    {careerNames.map((careerName) => (
+                      <span className="isCareer" key={careerName}>→ {careerName}</span>
+                    ))}
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+
+      {(uni.domains ?? []).length > 0 ? (
+        <section className="browseUniDetailSection">
+          <h3>{t('uniDomainsTitle')}</h3>
+          <div className="browseUniStickerRow">
+            {(uni.domains ?? []).map((domain, index) => (
+              <span className={index % 3 === 1 ? 'isWhite' : index % 3 === 2 ? 'isGreen' : ''} key={domain}>
+                {domain}
+              </span>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {(uni.tags ?? []).length > 0 ? (
+        <section className="browseUniDetailSection">
+          <h3>{t('uniTagsTitle')}</h3>
+          <div className="browseUniHashRow">
+            {(uni.tags ?? []).map((uniTag) => <span key={uniTag}>#{uniTag}</span>)}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }
