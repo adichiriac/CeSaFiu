@@ -3,7 +3,7 @@
 import BottomNav from '@/components/bottom-nav';
 import {useAuthGate} from '@/components/auth/auth-provider';
 import Link from 'next/link';
-import {useMemo, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import type {Career} from '@/lib/matcher';
 import type {Institution, PathEntry, Program} from '@/lib/careers/types';
@@ -75,6 +75,10 @@ const PATH_COLORS: Record<string, string> = {
 };
 const SAVED_UNI_KEY = 'cesafiu:saved-universities';
 
+function parseSection(value: string | null): Section {
+  return value === 'careers' || value === 'paths' || value === 'unis' ? value : 'unis';
+}
+
 function readSavedUniIds() {
   if (typeof window === 'undefined') return [];
   try {
@@ -97,11 +101,22 @@ export default function BrowseClient({careers, institutions, paths, programs, lo
   const t = useTranslations('browse');
   const [section, setSection] = useState<Section>('unis');
 
+  useEffect(() => {
+    setSection(parseSection(new URLSearchParams(window.location.search).get('section')));
+  }, []);
+
   const tabs: Array<{id: Section; label: string}> = [
     {id: 'careers', label: t('tabCareers')},
     {id: 'paths',   label: t('tabPaths')},
     {id: 'unis',    label: t('tabUnis')},
   ];
+
+  function selectSection(next: Section) {
+    setSection(next);
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', `/${locale}/browse?section=${next}`);
+    }
+  }
 
   return (
     <main className="browsePage">
@@ -125,7 +140,7 @@ export default function BrowseClient({careers, institutions, paths, programs, lo
             key={tab.id}
             className={section === tab.id ? 'browseTab isSelected' : 'browseTab'}
             aria-selected={section === tab.id}
-            onClick={() => setSection(tab.id)}
+            onClick={() => selectSection(tab.id)}
           >
             {tab.label}
           </button>

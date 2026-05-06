@@ -4361,11 +4361,12 @@ h1 {
   margin-top: 2px;
 }
 
-.profileIdentityStats div {
+.profileIdentityStats a {
   min-width: 0;
   border: 2px solid #000;
   background: rgba(255, 255, 255, .14);
   padding: 8px 6px;
+  color: inherit;
   text-align: center;
 }
 
@@ -4973,6 +4974,65 @@ h1 {
 }
 
 .profileSavedCard i {
+  color: var(--ink);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.profileUniEmptyCard {
+  display: block;
+  color: inherit;
+}
+
+.profileSavedUniCard {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 14px;
+  border: 3px solid #000;
+  background: #fff;
+  box-shadow: 7px 7px 0 #000;
+  color: inherit;
+  padding: 14px;
+}
+
+.profileUniTier {
+  display: grid;
+  min-height: 48px;
+  place-items: center;
+  border: 2px solid #000;
+  background: var(--green);
+  color: #000;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+.profileSavedUniCard strong,
+.profileSavedUniCard small {
+  display: block;
+  margin: 0;
+}
+
+.profileSavedUniCard strong {
+  color: var(--ink);
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.12;
+}
+
+.profileSavedUniCard small {
+  margin-top: 5px;
+  color: var(--ink-soft);
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profileSavedUniCard i {
   color: var(--ink);
   font-size: 20px;
   font-style: normal;

@@ -13,7 +13,8 @@ Scope in this version:
 - `saved_careers` inserts are consent-aware in RLS.
 - **Profil Complet** (IPIP-NEO-60 + Vocațional Complet + PDF report) is free during the pilot, but structured as a future paid bundle. It is server-gated for `pending_parent` users at both the page level (`/test/[slug]` for any slug in `PAID_TEST_SLUGS`) and the API level (`/api/match` when the body carries any `PAID_MATCH_FIELDS`).
 - See [PAID-BUNDLE-POSITIONING.md](./PAID-BUNDLE-POSITIONING.md) for the bundle product decision and copy.
-- Actual parent email delivery and confirmation are not wired yet.
+- Parent emails are sent through **Brevo** (`apps/web/src/lib/email/brevo.ts`) using a branded RO template (`apps/web/src/lib/email/templates/parent-consent.ts`). On Brevo failure the token row is rolled back and an audit row with `event = 'parent_consent_email_failed'` is written so the user can retry cleanly within rate limits.
+- Parent confirmation is handled by `GET /api/consent/parent-confirm?token=…`, which HMACs the supplied token, constant-time compares against the stored hash, gates the `used_at` update with a `WHERE used_at IS NULL` race guard, flips `consent_status` to `parent_confirmed`, audits with `event = 'parent_consent_confirmed'`, and `303`-redirects to `/[locale]/acord-parinte?status=…` so the token never lingers in browser history.
 
 ## Flowchart
 
@@ -104,9 +105,9 @@ flowchart TD
 
 ## Current Limitations
 
-- Parent email delivery is not implemented yet.
-- Parent confirmation route is not implemented yet.
 - Session replay masking still needs verification in a real Umami recording.
 - The secret key must be configured only as an environment variable.
 - `CONSENT_HASH_PEPPER` must be configured as a server-only environment variable.
 - The secret key that was shared during implementation should be rotated before production.
+- `BREVO_API_KEY`, `EMAIL_FROM_ADDRESS` and `EMAIL_FROM_NAME` must be configured server-only. Without them, `parent-request` returns `502 email_send_failed` and rolls back the token.
+- Auth Email Templates (Confirm signup / Magic Link / Invite / Change Email / Reset / Reauthentication) are single-language in Supabase. RO templates live in `docs/email-templates/` and must be pasted into the Supabase dashboard. Multi-locale would require routing through the **Send Email Hook**.

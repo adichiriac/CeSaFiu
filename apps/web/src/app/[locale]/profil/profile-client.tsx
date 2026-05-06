@@ -7,13 +7,14 @@ import {useTranslations} from 'next-intl';
 import {buildMatchRequest, readStoredResults, useQuizStore} from '@/stores/quiz-store';
 import {useAuthGate} from '@/components/auth/auth-provider';
 import ReferralStatsCard from '@/components/referrals/referral-stats-card';
-import type {PathEntry} from '@/lib/careers/types';
+import type {Institution, PathEntry} from '@/lib/careers/types';
 import type {Career, CareerMatch, MatchResult, UserProfile} from '@/lib/matcher';
 
 type ProfileTFunc = ReturnType<typeof useTranslations<'profil'>>;
 
 type ProfileClientProps = {
   careers: Career[];
+  institutions: Institution[];
   locale: string;
   paths: (PathEntry & {emoji?: string; color?: string; tagline?: string; duration?: string; cost?: string})[];
 };
@@ -42,6 +43,21 @@ const CAREER_COLORS: Record<string, string> = {
   yellow: 'var(--yellow)',
   green: 'var(--green)',
 };
+const SAVED_UNI_KEY = 'cesafiu:saved-universities';
+
+function browseHref(locale: string, section: 'careers' | 'paths' | 'unis') {
+  return `/${locale}/browse?section=${section}`;
+}
+
+function readSavedUniIds() {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(SAVED_UNI_KEY);
+    return raw ? (JSON.parse(raw) as string[]) : [];
+  } catch {
+    return [];
+  }
+}
 
 function topEntries(tally: Record<string, number> | undefined, limit: number) {
   return Object.entries(tally ?? {})
@@ -50,18 +66,20 @@ function topEntries(tally: Record<string, number> | undefined, limit: number) {
     .slice(0, limit);
 }
 
-export default function ProfileClient({careers, locale, paths}: ProfileClientProps) {
+export default function ProfileClient({careers, institutions, locale, paths}: ProfileClientProps) {
   const t = useTranslations('profil');
   const {profile, savedPath} = useAuthGate();
   const {savedCareerIds} = useQuizStore();
   const [status, setStatus] = useState<'loading' | 'empty' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
   const [completedTests, setCompletedTests] = useState(0);
+  const [savedUniIds, setSavedUniIds] = useState<string[]>([]);
 
   useEffect(() => {
     const stored = readStoredResults();
     const hasAny = Object.values(stored).some(Boolean);
     setCompletedTests(Object.values(stored).filter(Boolean).length);
+    setSavedUniIds(readSavedUniIds());
 
     if (!hasAny) {
       setStatus('empty');
@@ -90,6 +108,10 @@ export default function ProfileClient({careers, locale, paths}: ProfileClientPro
     () => careers.filter((career) => savedCareerIds.includes(career.id)),
     [careers, savedCareerIds],
   );
+  const savedUniversities = useMemo(
+    () => institutions.filter((institution) => savedUniIds.includes(institution.id)),
+    [institutions, savedUniIds],
+  );
   const hasProfile = Boolean(status === 'ready' && result?.userProfile);
   const userProfile = result?.userProfile;
   const topRiasec = topEntries(userProfile?.riasec, 3);
@@ -100,7 +122,8 @@ export default function ProfileClient({careers, locale, paths}: ProfileClientPro
   const needsParentConsent = profile?.consent_status === 'pending_parent';
   const savedPathName = savedPath?.path_name ?? savedPath?.path_id;
   const savedPathDetails = savedPath ? paths.find((path) => path.id === savedPath.path_id) : null;
-  const isFresh = !hasProfile && saved.length === 0 && !savedPath;
+  const isFresh = !hasProfile && saved.length === 0 && savedUniversities.length === 0 && !savedPath;
+  const savedTotal = saved.length + savedUniversities.length + (savedPath ? 1 : 0);
 
   return (
     <main className="profilePage">
@@ -127,10 +150,10 @@ export default function ProfileClient({careers, locale, paths}: ProfileClientPro
             <p>{savedPathName ? t('identityWithPath', {path: savedPathName}) : t('identityLead')}</p>
           </div>
           <div className="profileIdentityStats">
-            <div><span>{t('testsDone')}</span><strong>{t('testsProgress', {count: completedTests, total: 5})}</strong></div>
-            <div><span>{t('saved')}</span><strong>{saved.length + (savedPath ? 1 : 0)}</strong></div>
-            <div><span>{t('matches')}</span><strong>{topMatches.length}</strong></div>
-            <div><span>{t('pathStat')}</span><strong>{savedPath ? '✓' : '—'}</strong></div>
+            <a href="#profile-tests"><span>{t('testsDone')}</span><strong>{t('testsProgress', {count: completedTests, total: 5})}</strong></a>
+            <a href="#profile-saved-careers"><span>{t('saved')}</span><strong>{savedTotal}</strong></a>
+            <a href="#profile-top-career"><span>{t('matches')}</span><strong>{topMatches.length}</strong></a>
+            <a href="#profile-path"><span>{t('pathStat')}</span><strong>{savedPath ? '✓' : '—'}</strong></a>
           </div>
         </section>
 
@@ -160,7 +183,7 @@ export default function ProfileClient({careers, locale, paths}: ProfileClientPro
                 <strong>{t('startScenarios')}</strong>
                 <small>{t('startScenariosMeta')}</small>
               </Link>
-              <Link className="profileStartCard" href={`/${locale}/browse`}>
+              <Link className="profileStartCard" href={browseHref(locale, 'careers')}>
                 <span>⌕</span>
                 <strong>{t('startExplore')}</strong>
                 <small>{t('startExploreMeta')}</small>
@@ -183,10 +206,10 @@ export default function ProfileClient({careers, locale, paths}: ProfileClientPro
         ) : null}
 
         {topMatch ? (
-          <section className="profileSection">
+          <section className="profileSection" id="profile-top-career">
             <div className="profileSectionHeader">
               <h2>{t('topCareerTitle')}</h2>
-              <Link href={`/${locale}/browse`}>{t('exploreAll')}</Link>
+              <Link href={browseHref(locale, 'careers')}>{t('exploreAll')}</Link>
             </div>
             <Link className="profileTopCareerCard" href={`/${locale}/cariera/${topMatch.career.id}`}>
               <span
@@ -224,14 +247,14 @@ export default function ProfileClient({careers, locale, paths}: ProfileClientPro
         ) : null}
 
         {(savedPathName || topPath) ? (
-          <section className="profileSection">
+          <section className="profileSection" id="profile-path">
             <div className="profileSectionHeader">
               <h2>{t('yourPathTitle')}</h2>
-              <Link href={`/${locale}/browse`}>{savedPathName ? t('savedPathChange') : t('choosePath')}</Link>
+              <Link href={browseHref(locale, 'paths')}>{savedPathName ? t('savedPathChange') : t('choosePath')}</Link>
             </div>
             <Link
               className="profileChosenPathCard"
-              href={`/${locale}/browse`}
+              href={browseHref(locale, 'paths')}
               style={{
                 background: savedPathDetails?.color === 'green' ? 'var(--green)' : savedPathDetails?.color === 'purple' ? 'var(--purple)' : 'var(--yellow)',
                 color: savedPathDetails?.color === 'purple' ? '#fff' : '#000',
@@ -249,10 +272,10 @@ export default function ProfileClient({careers, locale, paths}: ProfileClientPro
           </section>
         ) : null}
 
-        <section className="profileSection">
+        <section className="profileSection" id="profile-saved-careers">
           <div className="profileSectionHeader">
             <h2>{t('savedAlternativesTitle', {count: saved.length})}</h2>
-            <Link href={`/${locale}/browse`}>{t('addMore')}</Link>
+            <Link href={browseHref(locale, 'careers')}>{t('addMore')}</Link>
           </div>
 
           {saved.length === 0 ? (
@@ -292,7 +315,35 @@ export default function ProfileClient({careers, locale, paths}: ProfileClientPro
           )}
         </section>
 
-        <section className="profileSection">
+        <section className="profileSection" id="profile-saved-unis">
+          <div className="profileSectionHeader">
+            <h2>{t('savedUniversitiesTitle', {count: savedUniversities.length})}</h2>
+            <Link href={browseHref(locale, 'unis')}>{t('addUniversity')}</Link>
+          </div>
+
+          {savedUniversities.length === 0 ? (
+            <Link className="profileEmptyCard profileUniEmptyCard" href={browseHref(locale, 'unis')}>
+              <div aria-hidden="true">⌕</div>
+              <h3>{t('savedUniversitiesEmptyTitle')}</h3>
+              <p>{t('savedUniversitiesEmptyBody')}</p>
+            </Link>
+          ) : (
+            <div className="profileSavedList">
+              {savedUniversities.map((uni) => (
+                <Link className="profileSavedUniCard" href={browseHref(locale, 'unis')} key={uni.id}>
+                  <span className="profileUniTier">{uni.tier.toUpperCase()}</span>
+                  <span>
+                    <strong>{uni.name}</strong>
+                    <small>{uni.city} · {uni.kind}</small>
+                  </span>
+                  <i aria-hidden="true">→</i>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section className="profileSection" id="profile-tests">
           <div className="profileSectionHeader">
             <h2>{t('testsBarTitle', {count: completedTests})}</h2>
           </div>

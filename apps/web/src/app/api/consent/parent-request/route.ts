@@ -1,4 +1,6 @@
 import {hmacIdentifier, hmacSecret, isUnder16AgeBand, type AgeBand} from '@/lib/consent';
+import {sendEmail} from '@/lib/email/brevo';
+import {buildParentConsentEmail} from '@/lib/email/templates/parent-consent';
 import {getSupabaseAdminClient} from '@/lib/supabase/server';
 import {randomBytes} from 'node:crypto';
 import {NextResponse} from 'next/server';
@@ -18,6 +20,13 @@ function getRequestIp(request: Request) {
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
     'unknown'
   );
+}
+
+function getAppUrl(request: Request) {
+  const fromEnv = process.env.APP_URL;
+  if (fromEnv) return fromEnv.replace(/\/$/, '');
+  // Fallback: derive from request origin so dev still works.
+  return new URL(request.url).origin;
 }
 
 export async function POST(request: Request) {
@@ -123,11 +132,50 @@ export async function POST(request: Request) {
     return NextResponse.json({error: 'consent_request_failed'}, {status: 500});
   }
 
+  // Send the actual email through Brevo. Token is the unhashed value the
+  // parent will click; the hash is what's stored in the DB. canConfirmToken
+  // does the constant-time comparison on the way back.
+  const appUrl = getAppUrl(request);
+  const confirmUrl = `${appUrl}/api/consent/parent-confirm?token=${encodeURIComponent(consentToken)}`;
+  const {subject, html, text} = buildParentConsentEmail({confirmUrl, expiresAtISO: expiresAt});
+
+  const sendResult = await sendEmail({
+    to: {email: parentEmail},
+    subject,
+    htmlContent: html,
+    textContent: text,
+    tags: ['parent-consent']
+  });
+
+  if (!sendResult.ok) {
+    // Roll back the token so the user can retry cleanly. Audit the failure.
+    await supabase.from('parent_consent_tokens').delete().eq('token', consentTokenHash);
+    await supabase.from('consent_records').insert({
+      user_id: userData.user.id,
+      event: 'parent_consent_email_failed',
+      metadata: {
+        delivery: 'failed_brevo',
+        status: sendResult.status,
+        // Truncate provider error to avoid bloating the audit row.
+        provider_error: sendResult.error.slice(0, 500)
+      },
+      ip_address_hash: ipAddressHash,
+      user_agent_hash: userAgentHash
+    });
+    console.error('parent-request: email_send_failed', {
+      userId: userData.user.id,
+      status: sendResult.status,
+      error: sendResult.error
+    });
+    return NextResponse.json({error: 'email_send_failed'}, {status: 502});
+  }
+
   const {error: recordError} = await supabase.from('consent_records').insert({
     user_id: userData.user.id,
     event: 'parent_consent_requested',
     metadata: {
-      delivery: 'pending_email_backend',
+      delivery: 'sent_brevo',
+      message_id: sendResult.messageId,
       has_parent_email: true
     },
     ip_address_hash: ipAddressHash,
@@ -135,8 +183,8 @@ export async function POST(request: Request) {
   });
 
   if (recordError) {
+    // The email already went out — don't fail the user-visible flow on a log error.
     console.error('parent-request: consent_record_failed', {userId: userData.user.id, error: recordError.message});
-    return NextResponse.json({error: 'consent_record_failed'}, {status: 500});
   }
 
   return NextResponse.json({profile});
