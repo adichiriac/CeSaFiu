@@ -5719,3 +5719,297 @@ h1 {
     place-items: center;
   }
 }
+
+/* =======================================================================
+   Feedback widget — side-mounted tab + slide-in panel
+   ======================================================================= */
+
+.feedbackTab {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 2px solid var(--line);
+  border-right: none;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  background: var(--yellow);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: -4px 4px 0 var(--line);
+  writing-mode: vertical-rl;
+  transform-origin: right center;
+}
+
+.feedbackTab:hover,
+.feedbackTab:focus-visible {
+  background: var(--purple-light);
+  color: var(--white);
+  outline: none;
+}
+
+.feedbackTabLabel {
+  letter-spacing: 0.04em;
+}
+
+.feedbackPanel {
+  position: fixed;
+  right: -360px;
+  top: 0;
+  bottom: 0;
+  width: min(360px, 92vw);
+  z-index: 70;
+  background: var(--paper);
+  border-left: 2px solid var(--line);
+  box-shadow: -8px 0 0 var(--line);
+  transition: right 220ms ease-out;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.feedbackPanelOpen {
+  right: 0;
+}
+
+.feedbackPanelInner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 18px 18px;
+  gap: 14px;
+  overflow-y: auto;
+}
+
+.feedbackHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.feedbackTitle {
+  margin: 0;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.feedbackClose {
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  width: 32px;
+  height: 32px;
+  font-weight: 900;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--ink);
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+.feedbackClose:hover,
+.feedbackClose:focus-visible {
+  background: var(--ink);
+  color: var(--white);
+  outline: none;
+}
+
+.feedbackBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feedbackPrompt {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.feedbackHint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.feedbackRatings {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.feedbackRating {
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  padding: 10px 0;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--line);
+  transition: transform 80ms ease;
+}
+
+.feedbackRating:hover,
+.feedbackRating:focus-visible {
+  transform: translate(-1px, -1px);
+  outline: none;
+}
+
+.feedbackRatingActive {
+  background: var(--yellow);
+  box-shadow: 4px 4px 0 var(--line);
+}
+
+.feedbackCategories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.feedbackCategory {
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+.feedbackCategoryActive {
+  background: var(--purple);
+  color: var(--white);
+  border-color: var(--line);
+}
+
+.feedbackFieldLabel {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+
+.feedbackTextarea {
+  width: 100%;
+  min-height: 96px;
+  padding: 10px 12px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  font: inherit;
+  font-size: 14px;
+  resize: vertical;
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+.feedbackTextarea:focus-visible {
+  outline: none;
+  background: var(--paper-2);
+}
+
+.feedbackCharCount {
+  align-self: flex-end;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.feedbackHoneypot {
+  position: absolute;
+  left: -10000px;
+  top: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.feedbackError {
+  margin: 0;
+  padding: 8px 10px;
+  border: 2px solid var(--line);
+  background: #ffd6d6;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.feedbackActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.feedbackButton,
+.feedbackButtonGhost {
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--line);
+}
+
+.feedbackButton {
+  background: var(--purple);
+  color: var(--white);
+}
+
+.feedbackButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.feedbackButtonGhost {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.feedbackThanks {
+  margin: 12px 0;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.feedbackTurnstile {
+  /* Turnstile iframe — invisible mode renders nothing visible but we keep
+     a positioned slot so the script doesn't append into <body> randomly. */
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Hide the side tab on very narrow viewports where it would collide with
+   the bottom nav; the panel still functions if opened by other means. */
+@media (max-width: 520px) {
+  .feedbackTab {
+    writing-mode: horizontal-tb;
+    top: auto;
+    bottom: 80px; /* clear of bottom-nav */
+    transform: none;
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}

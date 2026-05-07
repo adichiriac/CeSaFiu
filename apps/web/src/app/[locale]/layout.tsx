@@ -7,6 +7,7 @@ import {Suspense, type ReactNode} from 'react';
 import '../globals.css';
 import {isLocale, locales, type Locale} from '@/i18n/config';
 import {AuthProvider} from '@/components/auth/auth-provider';
+import FeedbackWidget from '@/components/feedback/feedback-widget';
 import ReferralTracker from '@/components/referrals/referral-tracker';
 
 const UMAMI_URL = process.env.NEXT_PUBLIC_UMAMI_URL ?? 'https://umami-production-00d8.up.railway.app';
@@ -114,6 +115,7 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
               <ReferralTracker />
             </Suspense>
             {children}
+            <FeedbackWidget />
           </AuthProvider>
         </NextIntlClientProvider>
       </body>
