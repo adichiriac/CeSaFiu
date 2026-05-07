@@ -43,6 +43,7 @@ const CAREER_COLORS: Record<string, string> = {
   yellow: 'var(--yellow)',
   green: 'var(--green)',
 };
+const BIG5_KEYS = ['O', 'C', 'E', 'A', 'N'] as const;
 const SAVED_UNI_KEY = 'cesafiu:saved-universities';
 
 function browseHref(locale: string, section: 'careers' | 'paths' | 'unis') {
@@ -74,6 +75,7 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
   const [result, setResult] = useState<MatchResult | null>(null);
   const [completedTests, setCompletedTests] = useState(0);
   const [savedUniIds, setSavedUniIds] = useState<string[]>([]);
+  const [constructsOpen, setConstructsOpen] = useState(false);
 
   useEffect(() => {
     const stored = readStoredResults();
@@ -235,16 +237,54 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
                 </span>
               ))}
             </div>
-            {big5 && Object.keys(big5).length > 0 ? (
-              <div className="profileCompactBig5">
-                {['O', 'C', 'E', 'A', 'N']
-                  .filter((key) => typeof big5[key] === 'number')
-                  .map((key) => `${key} ${big5[key]}%`)
-                  .join(' · ')}
-              </div>
-            ) : null}
+            <div className="profileConstructsLine">
+              {big5 && Object.keys(big5).length > 0 ? (
+                <div className="profileCompactBig5">
+                  {BIG5_KEYS
+                    .filter((key) => typeof big5[key] === 'number')
+                    .map((key) => `${key} ${big5[key]}%`)
+                    .join(' · ')}
+                </div>
+              ) : (
+                <div className="profileCompactBig5 isMuted">{t('oceanMissingLine')}</div>
+              )}
+              <button className="profileConstructsHelp" onClick={() => setConstructsOpen(true)} type="button">
+                {t('constructsHelpButton')}
+              </button>
+            </div>
           </section>
         ) : null}
+
+        <section className="profileSection" id="profile-saved-unis">
+          <div className="profileSectionHeader profileUniversitiesHeader">
+            <h2 className="profileUniversitiesTitle">
+              <span>{t('savedUniversitiesHeading')}</span>
+              <strong>{t('savedUniversitiesCount', {count: savedUniversities.length})}</strong>
+            </h2>
+            <Link className="profileHeaderNoWrap" href={browseHref(locale, 'unis')}>{t('addUniversity')}</Link>
+          </div>
+
+          {savedUniversities.length === 0 ? (
+            <Link className="profileEmptyCard profileUniEmptyCard" href={browseHref(locale, 'unis')}>
+              <div aria-hidden="true">⌕</div>
+              <h3>{t('savedUniversitiesEmptyTitle')}</h3>
+              <p>{t('savedUniversitiesEmptyBody')}</p>
+            </Link>
+          ) : (
+            <div className="profileSavedList">
+              {savedUniversities.map((uni) => (
+                <Link className="profileSavedUniCard" href={browseHref(locale, 'unis')} key={uni.id}>
+                  <span className="profileUniTier">{uni.tier.toUpperCase()}</span>
+                  <span>
+                    <strong>{uni.name}</strong>
+                    <small>{uni.city} · {uni.kind}</small>
+                  </span>
+                  <i aria-hidden="true">→</i>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
 
         {(savedPathName || topPath) ? (
           <section className="profileSection" id="profile-path">
@@ -315,34 +355,6 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
           )}
         </section>
 
-        <section className="profileSection" id="profile-saved-unis">
-          <div className="profileSectionHeader">
-            <h2>{t('savedUniversitiesTitle', {count: savedUniversities.length})}</h2>
-            <Link href={browseHref(locale, 'unis')}>{t('addUniversity')}</Link>
-          </div>
-
-          {savedUniversities.length === 0 ? (
-            <Link className="profileEmptyCard profileUniEmptyCard" href={browseHref(locale, 'unis')}>
-              <div aria-hidden="true">⌕</div>
-              <h3>{t('savedUniversitiesEmptyTitle')}</h3>
-              <p>{t('savedUniversitiesEmptyBody')}</p>
-            </Link>
-          ) : (
-            <div className="profileSavedList">
-              {savedUniversities.map((uni) => (
-                <Link className="profileSavedUniCard" href={browseHref(locale, 'unis')} key={uni.id}>
-                  <span className="profileUniTier">{uni.tier.toUpperCase()}</span>
-                  <span>
-                    <strong>{uni.name}</strong>
-                    <small>{uni.city} · {uni.kind}</small>
-                  </span>
-                  <i aria-hidden="true">→</i>
-                </Link>
-              ))}
-            </div>
-          )}
-        </section>
-
         <section className="profileSection" id="profile-tests">
           <div className="profileSectionHeader">
             <h2>{t('testsBarTitle', {count: completedTests})}</h2>
@@ -379,6 +391,8 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
             {t('retake')}
           </Link>
         </div>
+
+        {constructsOpen ? <ConstructsHelpDialog big5={big5} onClose={() => setConstructsOpen(false)} t={t} /> : null}
       </section>
 
       <BottomNav active="saved" locale={locale} />
@@ -420,5 +434,68 @@ function ParentShareCard({
         </button>
       </div>
     </section>
+  );
+}
+
+function ConstructsHelpDialog({big5, onClose, t}: {big5?: Record<string, number>; onClose: () => void; t: ProfileTFunc}) {
+  const rows = [
+    {title: t('constructsRiasecTitle'), body: t('constructsRiasecBody')},
+    {title: t('constructsBigFiveTitle'), body: t('constructsBigFiveBody')},
+    {title: t('constructsMatchTitle'), body: t('constructsMatchBody')},
+  ];
+  const oceanRows = [
+    {key: 'O', title: t('oceanO'), left: t('oceanOLeft'), right: t('oceanORight'), value: big5?.O},
+    {key: 'C', title: t('oceanC'), left: t('oceanCLeft'), right: t('oceanCRight'), value: big5?.C},
+    {key: 'E', title: t('oceanE'), left: t('oceanELeft'), right: t('oceanERight'), value: big5?.E},
+    {key: 'A', title: t('oceanA'), left: t('oceanALeft'), right: t('oceanARight'), value: big5?.A},
+    {key: 'N', title: t('oceanN'), left: t('oceanNLeft'), right: t('oceanNRight'), value: big5?.N},
+  ].filter((row): row is {key: string; title: string; left: string; right: string; value: number} => typeof row.value === 'number');
+
+  return (
+    <div className="profileDialogBackdrop" role="presentation">
+      <section aria-modal="true" className="profileDialog" role="dialog">
+        <button aria-label={t('constructsClose')} className="profileDialogClose" onClick={onClose} type="button">
+          ×
+        </button>
+        <p className="profileEyebrow">{t('constructsEyebrow')}</p>
+        <h2>{t('constructsTitle')}</h2>
+        {oceanRows.length > 0 ? (
+          <div className="profileOceanChart">
+            <h3>{t('oceanChartTitle')}</h3>
+            {oceanRows.map((row) => {
+              const value = Math.max(0, Math.min(100, Math.round(row.value)));
+              return (
+                <div className="profileOceanRow" key={row.key}>
+                  <strong>{row.title}</strong>
+                  <div className="profileOceanScale">
+                    <span>{row.left}</span>
+                    <div className="profileOceanTrack" aria-label={t('oceanValueLabel', {trait: row.title, value})}>
+                      <i style={{left: `${value}%`}}>{t('oceanValue', {value})}</i>
+                    </div>
+                    <span>{row.right}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="profileOceanMissing">
+            <strong>{t('oceanMissingTitle')}</strong>
+            <p>{t('oceanMissingBody')}</p>
+          </div>
+        )}
+        <div className="profileConstructRows">
+          {rows.map((row) => (
+            <div className="profileConstructRow" key={row.title}>
+              <strong>{row.title}</strong>
+              <p>{row.body}</p>
+            </div>
+          ))}
+        </div>
+        <button className="profileActionButton isYellow" onClick={onClose} type="button">
+          {t('constructsClose')}
+        </button>
+      </section>
+    </div>
   );
 }

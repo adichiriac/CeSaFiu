@@ -1,6 +1,7 @@
 import type {MetadataRoute} from 'next';
 import {locales} from '@/i18n/config';
 import {getAllCareers} from '@/lib/careers/load';
+import type {QuestionnaireSlug} from '@/lib/questionnaires/types';
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? process.env.APP_URL ?? 'https://cesafiu.ro').replace(/\/$/, '');
 type SitemapEntry = MetadataRoute.Sitemap[number];
@@ -12,6 +13,7 @@ function localizedPath(path: string) {
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const appRoutes = ['', '/browse', '/rezultate', '/profil'];
+  const testRoutes: QuestionnaireSlug[] = ['scenarii', 'vocational', 'personalitate', 'vocational-deep', 'ipip-neo-60'];
   const staticEntries: SitemapEntry[] = appRoutes.flatMap((path) =>
     locales.map((locale) => ({
       url: `${SITE_URL}/${locale}${path}`,
@@ -23,6 +25,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     })),
   );
+
+  const testEntries: SitemapEntry[] = testRoutes.flatMap((slug) => {
+    const path = `/test/${slug}`;
+    const isEntryTest = slug === 'scenarii' || slug === 'vocational';
+
+    return locales.map((locale) => ({
+      url: `${SITE_URL}/${locale}${path}`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: isEntryTest ? 0.8 : 0.65,
+      alternates: {
+        languages: localizedPath(path),
+      },
+    }));
+  });
 
   const careerEntries: SitemapEntry[] = getAllCareers().flatMap((career) =>
     locales.map((locale) => {
@@ -39,5 +56,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  return [...staticEntries, ...careerEntries];
+  return [...staticEntries, ...testEntries, ...careerEntries];
 }
