@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import {useEffect, useRef, useState} from 'react';
 import {useTranslations} from 'next-intl';
 
 type BottomNavSection = 'tests' | 'explore' | 'results' | 'saved';
@@ -12,9 +13,33 @@ type BottomNavProps = {
 
 export default function BottomNav({active, locale}: BottomNavProps) {
   const t = useTranslations('browse');
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollYRef = useRef(0);
+
+  useEffect(() => {
+    lastScrollYRef.current = window.scrollY;
+
+    function onScroll() {
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - lastScrollYRef.current;
+
+      if (currentScrollY < 24) {
+        setIsHidden(false);
+      } else if (delta > 8) {
+        setIsHidden(true);
+      } else if (delta < -8) {
+        setIsHidden(false);
+      }
+
+      lastScrollYRef.current = currentScrollY;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <nav className="browseBottomNav" aria-label={t('primaryNav')}>
+    <nav className={isHidden ? 'browseBottomNav isHidden' : 'browseBottomNav'} aria-label={t('primaryNav')}>
       <Link
         aria-current={active === 'tests' ? 'page' : undefined}
         className={active === 'tests' ? 'browseBottomItem isActive' : 'browseBottomItem'}
