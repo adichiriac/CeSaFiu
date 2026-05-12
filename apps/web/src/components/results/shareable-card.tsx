@@ -8,8 +8,7 @@
  * untouched and handles the text/link share flow — this component is purely
  * about the visual artifact.
  *
- * The PNG export uses html-to-image (dynamic import; the dep must be added
- * via `npm install html-to-image` before this component will export PNGs).
+ * The PNG export uses html-to-image via dynamic import.
  *
  * See docs/VIRAL-PHASE-D-PLAN.md §2.1 and §5 D1.
  */
@@ -356,10 +355,6 @@ let cached: HtmlToImageModule | null | undefined;
 async function loadHtmlToImage(): Promise<HtmlToImageModule | null> {
   if (cached !== undefined) return cached;
   try {
-    // The `html-to-image` dep is declared in package.json but the install runs separately.
-    // Once `npm install` has been run the `@ts-expect-error` pragma below will become
-    // a TS warning — remove it then.
-    // @ts-expect-error html-to-image is added in D1 — run `npm install` to resolve.
     const mod = (await import('html-to-image')) as HtmlToImageModule;
     cached = mod;
     return mod;
