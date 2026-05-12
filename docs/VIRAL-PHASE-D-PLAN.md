@@ -35,7 +35,7 @@ Each variant displays:
 - Top RIASEC pair → curated archetype name + neutral, descriptive tagline (see §3).
 - 4-letter code (e.g. `RIAS`) plus top-match score.
 - Top 3 careers with match %.
-- Footer URL: `cesafiu.ro` only — *not* a personal `/u/CODE` path. The card affirms the user's identity to themselves; it is not a pointer to their profile for anyone else.
+- Footer URL: a short personalized redirect path. **D1 shipped with `cesafiu.ro` only.** **D1.1 changes this to `cesafiu.ro/r/CODE`** for signed-in users (302 → home with `?ref=CODE`) and `cesafiu.ro/quiz` for anonymous users (302 → first quiz). This is *not* a `/u/CODE` profile page — there is no public page that reveals the user's archetype to a visitor; the redirect drops them into the existing quiz funnel.
 
 Selection: a small carousel-style picker above the share buttons lets the user flip through the three variants before downloading. Default selection is randomized per session to avoid the first variant becoming a de-facto monoculture.
 
@@ -93,24 +93,62 @@ Listed explicitly so these do not have to be re-debated:
 
 ## 5. Implementation phases
 
-### D1 — Shareable PNG card
+### D1 — Shareable PNG card  [SHIPPED 2026-05-12, commit b6db0fb]
 
-Scope: 4-5 days of dev (was 2-3 with a single layout; +1-2 days for three variants and their iOS Safari edge cases).
+- New module `apps/web/src/lib/results/archetypes.ts` with the curated 30-entry mapping from §3, RO + EN co-located in the module.
+- New component `apps/web/src/components/results/result-card.tsx` rendering three variants at fixed dimensions (360×640, captured at pixelRatio 3 = 1080×1920 PNG).
+- New component `apps/web/src/components/results/shareable-card.tsx` — consolidated orchestrator (picker + download + share-image into one file rather than three; state is shared so the split was extra plumbing for no gain).
+- New module `apps/web/src/lib/analytics/umami.ts` — minimal SSR-safe event helper.
+- Wired into `results-client.tsx` *next to* the existing `<ReferralShareCard>`. **This coexistence is temporary** — see D1.1.
+- Umami events: `card_generated`, `card_variant_selected`, `card_downloaded_png`, `card_shared_native`.
+- `html-to-image` added to package.json; runs `npm install` to fetch.
 
-- New module `apps/web/src/lib/results/archetypes.ts` with the curated 30-entry mapping from §3, RO + EN strings via `next-intl`.
-- New component `apps/web/src/components/results/result-card.tsx` taking a `variant: 'minimal' | 'paint' | 'split'` prop, rendering the visual at fixed dimensions. Each variant is its own JSX subtree, sharing the same `props.archetype | code | score | top3` interface so the data layer stays single-source.
-- New component `apps/web/src/components/results/card-variant-picker.tsx` — small horizontal selector showing all three variants as thumbnails. Stores the chosen variant in component state; randomizes the initial selection per session.
-- New component `apps/web/src/components/results/download-card-button.tsx` using `html-to-image`. Captures whatever variant is currently selected.
-- Wire into `results-client.tsx` *next to* the existing `<ReferralShareCard>` — they coexist; the new card is the artifact, the existing component remains the referral link surface.
-- Update the existing referral share text to mention "îți descarci cardul tău".
-- Umami events: `card_generated`, `card_variant_selected` (with variant name as property), `card_downloaded_png`, `card_shared_native`.
+Deviations from the plan as originally written:
 
-Acceptance:
+- Shipped Story crop only (9:16). Feed crop (1:1) deferred until telemetry suggests it's needed.
+- Three "components" collapsed to one orchestrator file. Easier state ownership.
 
-- All three variants render on mobile Safari and Chrome at both crop sizes.
-- PNG download works on iOS Safari for all three variants (historically the painful target for `html-to-image`; each variant is a separate validation case).
-- Switching variant in the picker does not re-trigger results fetch or re-mount data.
-- No new personal-data persistence.
+### D1.1 — Share-first modal (next)  [PLANNED 2026-05-12]
+
+D1 placed the card inline below the results, alongside the existing text-based `<ReferralShareCard>`. That left five competing CTAs on /rezultate (save vibe, share card, share text, profil complet, browse) — too many for a 14-18yo at a vulnerable moment. D1.1 sequences the surface: share is the *primary post-quiz action*, then save-vibe is the inline next step on the page beneath.
+
+**Decisions locked 2026-05-12:**
+
+1. **Personalized URL is rendered onto the card image itself**, not delivered separately via Web Share text (which Instagram Stories strip). Footer becomes `cesafiu.ro/r/CODE` for signed-in users, `cesafiu.ro/quiz` for anonymous. No QR code in D1.1 (revisit if needed).
+2. **Anonymous users see the card with the generic `cesafiu.ro/quiz` link.** Modal offers a secondary "Autentifică-te ca să primești linkul tău" CTA but doesn't gate access. Pierdere de attribution pe linkurile anonime e mai mică decât pierderea ratei de share.
+3. **Auto-open the modal once per user**, gated by a localStorage flag. After dismiss, the page is reachable normally, with a small re-trigger button for revisits.
+4. **Remove the existing `<ReferralShareCard>` from the inline page.** The modal absorbs its function. One share surface, not two.
+
+**Scope:**
+
+- New short redirect routes:
+  - `apps/web/src/app/r/[code]/route.ts` → 302 to `/[defaultLocale]/?ref=CODE&utm_source=share&utm_medium=card&utm_campaign=student_share`. Reuses the existing referral first-touch capture in `referral-tracker.tsx`.
+  - `apps/web/src/app/quiz/route.ts` → 302 to `/[defaultLocale]/test/scenarii?utm_source=share&utm_medium=card&utm_campaign=anonymous_share`. Drives anonymous link clicks directly into the first quiz.
+- Modal component `apps/web/src/components/results/shareable-card-modal.tsx`: wraps the existing `<ShareableCard>` body. Backdrop, X close, ESC, click-outside dismiss, focus trap, mobile-full-screen below ~480px. Reuse the visual language of `authGateBackdrop` / `authGatePanel` for consistency with the existing auth gate.
+- New localStorage key `cesafiu:shareableCardModal:seenAt` (timestamp). Auto-open on /rezultate if absent. Set on dismiss.
+- `ShareableCard` updates:
+  - New prop `referralCode: string | null` (caller passes `stats.code` for signed-in, `null` for anonymous).
+  - Footer URL becomes `cesafiu.ro/r/${code}` or `cesafiu.ro/quiz` based on prop.
+  - Drop the "Share din nou" inline button on the page; replace with a small text-button in the top corner of the results header.
+- Remove `<ReferralShareCard>` from `results-client.tsx`. Keep the component file for now in case we revive text-only share later; mark with a doc comment.
+- Translations: new `shareableCard.modal.*` namespace — title, dismiss label, anonymous CTA, re-trigger button label.
+- Umami: `card_modal_opened` (with `trigger: 'auto' | 'manual'`), `card_modal_dismissed` (with `time_open_ms`, `did_share: boolean`).
+
+**Acceptance:**
+
+- First /rezultate visit with completed quiz auto-opens the modal exactly once.
+- Re-trigger button reopens the modal manually.
+- Modal traps focus, closes on ESC and outside-click on mobile + desktop.
+- Card footer URL is the personalized `/r/CODE` for signed-in users, `/quiz` for anonymous.
+- Hitting `cesafiu.ro/r/SOMECODE` lands the visitor on the home page with `?ref=SOMECODE` captured by the existing `<ReferralTracker>`.
+- Hitting `cesafiu.ro/quiz` lands the visitor on /ro/test/scenarii.
+- `<ReferralShareCard>` no longer appears on /rezultate.
+
+**Scope NOT in D1.1:**
+
+- Demoting `<save vibe>` to secondary — Adi did not request this; the inline save-vibe CTA stays as-is post-modal-dismiss.
+- QR code on card — revisit if `card_downloaded_png` events on Story-context users stay low.
+- Feed crop (1:1) — still deferred to telemetry.
 
 ### D2 — A/B test the card
 
@@ -144,7 +182,7 @@ Conditional on D3 retention (pairs re-opening their blend within 7 days).
 | New surface | §3 rule | How it complies |
 |---|---|---|
 | PNG card | "No raw friend list import" | Client-side render, no upload, no contacts API |
-| PNG card | "No test result visible to referrer" | Card stays with the user who took the test; nothing about it points anywhere |
+| PNG card (D1.1 personalized URL) | "No test result visible to referrer" | The `cesafiu.ro/r/CODE` redirect lands the visitor on the home page with `?ref=CODE` captured — there is no public page that reveals the cardholder's archetype or scores. The visitor sees only their own results after they take the quiz themselves. |
 | Blend | "No 'Maria took IPIP' event visible to another student" | Only RIASEC letters shown, never archetype, never which test, never scores |
 | Comparison | "No public real-name leaderboard" | Ephemeral 24h URL, both users must opt in, `noindex` |
 | Comparison | "No named friend tracking unless opted in" | Explicit toggle required before any compare link works |

@@ -9,7 +9,12 @@
     "build": "npm run build -w @cesafiu/web",
     "lint": "npm run lint -w @cesafiu/web",
     "typecheck": "npm run typecheck -w @cesafiu/web",
-    "test": "npm run test -w @cesafiu/web"
+    "test": "npm run test -w @cesafiu/web",
+    "data:validate": "node scripts/validate-data.js",
+    "data:build": "node scripts/build-data-artifacts.js",
+    "data:map": "node scripts/build-data-map.js",
+    "data:report": "node scripts/report-career-catalogue.js",
+    "data:candidates": "node scripts/report-career-candidates.js"
   },
   "engines": {
     "node": ">=22.0.0",

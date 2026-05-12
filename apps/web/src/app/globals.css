@@ -5437,8 +5437,9 @@ h1 {
 }
 
 @media (min-width: 900px) {
-  .browsePage {
-    padding-bottom: 56px;
+  .browsePage,
+  .resultPage {
+    padding-bottom: 132px;
   }
 
   .browseHeader,
@@ -5454,20 +5455,24 @@ h1 {
   }
 
   .browseBottomNav {
-    position: static;
-    width: min(100%, 920px);
-    margin: 32px auto 0;
+    position: fixed;
+    right: auto;
+    bottom: 18px;
+    left: 50%;
+    width: min(920px, calc(100vw - 48px));
+    margin: 0;
     border: 3px solid #000;
     border-radius: 10px;
+    box-shadow: 6px 6px 0 #000;
     opacity: 1;
     pointer-events: auto;
-    transform: none;
+    transform: translateX(-50%);
   }
 
   .browseBottomNav.isHidden {
     opacity: 1;
     pointer-events: auto;
-    transform: none;
+    transform: translateX(-50%);
   }
 
   .careerCanvas {
@@ -5476,7 +5481,7 @@ h1 {
   }
 
   .profilePage {
-    padding: 32px 32px 56px;
+    padding: 32px 32px 132px;
   }
 
   .profileCanvas {

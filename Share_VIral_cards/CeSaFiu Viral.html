@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CeSaFiu — Viral kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #FAF6EC;
+    --paper-2: #F1ECDC;
+    --ink: #111;
+    --ink-soft: #555;
+    --purple: #7C3AED;
+    --yellow: #FFE066;
+    --green: #B8E986;
+    --blue: #4DD0E1;
+    --pink: #FF7AB6;
+    --red: #FF6B6B;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .display { font-family: "Epilogue", sans-serif; font-weight: 900; letter-spacing: -0.02em; }
+
+  /* ── Top tab bar ── */
+  .tabs {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--ink); color: #fff;
+    display: flex; align-items: center; gap: 0;
+    border-bottom: 3px solid #000;
+  }
+  .tabs .brand {
+    padding: 14px 22px; display: flex; align-items: center; gap: 10px;
+    border-right: 2px solid #333;
+  }
+  .tabs .brand-mark {
+    width: 32px; height: 32px; background: var(--yellow); color: #000;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Epilogue", sans-serif; font-weight: 900; font-size: 18px;
+    border: 2px solid #000; transform: rotate(-4deg);
+  }
+  .tabs .brand-text { font-family: "Epilogue", sans-serif; font-weight: 900; font-size: 13px; letter-spacing: 1.5px; }
+  .tabs .tab {
+    padding: 14px 22px; cursor: pointer;
+    font-weight: 700; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+    border-right: 2px solid #333;
+    color: #aaa; transition: color 0.1s, background 0.1s;
+    background: transparent; border-top: none; border-bottom: none; font-family: inherit;
+  }
+  .tabs .tab.active { color: #000; background: var(--yellow); }
+  .tabs .tab:hover:not(.active) { color: #fff; }
+
+  main { padding: 32px 0 80px; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+  /* ── Section heads ── */
+  .section-head { margin-bottom: 28px; }
+  .section-head .num {
+    display: inline-block; padding: 4px 10px; background: var(--ink); color: var(--yellow);
+    font-size: 10px; font-weight: 800; letter-spacing: 2px;
+  }
+  .section-head h2 {
+    margin: 12px 0 8px; font-family: "Epilogue", sans-serif; font-weight: 900;
+    font-size: 36px; letter-spacing: -0.02em;
+  }
+  .section-head p { margin: 0; font-size: 15px; color: var(--ink-soft); max-width: 640px; line-height: 1.5; }
+
+  .panel {
+    background: #fff; border: 2.5px solid #000; box-shadow: 6px 6px 0 #000;
+    margin-bottom: 28px;
+  }
+
+  /* ── Generator screen layout ── */
+  .gen-grid {
+    display: grid; grid-template-columns: 1fr 380px; gap: 32px;
+    align-items: start;
+  }
+  @media (max-width: 980px) { .gen-grid { grid-template-columns: 1fr; } }
+  .gen-stage {
+    background: var(--paper-2); border: 2.5px solid #000; box-shadow: 6px 6px 0 #000;
+    padding: 32px; display: flex; align-items: center; justify-content: center;
+    min-height: 720px;
+  }
+  .gen-controls {
+    background: #fff; border: 2.5px solid #000; box-shadow: 6px 6px 0 #000;
+    padding: 24px;
+  }
+  .control-block { padding: 14px 0; border-bottom: 1.5px solid #ddd; }
+  .control-block:last-child { border-bottom: none; }
+  .control-block .lbl {
+    font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--ink-soft);
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .seg {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border: 2px solid #000;
+  }
+  .seg button {
+    padding: 10px 8px; border: none; cursor: pointer; font-family: inherit;
+    background: #fff; color: #000; font-weight: 800; font-size: 11px;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    border-right: 2px solid #000;
+  }
+  .seg button:last-child { border-right: none; }
+  .seg button.on { background: var(--ink); color: var(--yellow); }
+  .swatches { display: flex; gap: 6px; }
+  .swatches .sw {
+    width: 36px; height: 36px; border: 2px solid #000; cursor: pointer;
+    position: relative;
+  }
+  .swatches .sw.on::after {
+    content: "✓"; position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 900; text-shadow: 0 0 4px rgba(0,0,0,0.6);
+  }
+  .input {
+    width: 100%; padding: 10px 12px; border: 2px solid #000;
+    font-family: inherit; font-size: 14px; font-weight: 600; background: var(--paper);
+  }
+
+  /* ── Card frame (Story 1080×1920 → preview ~324×576) ── */
+  .card-frame {
+    width: 324px; height: 576px; position: relative;
+    transform-origin: center;
+  }
+  .card {
+    width: 100%; height: 100%; position: absolute; inset: 0;
+    overflow: hidden; border: 3px solid #000;
+    box-shadow: 12px 12px 0 #000;
+    display: flex; flex-direction: column;
+  }
+  .card.feed { aspect-ratio: 1 / 1; height: auto; }
+  .card-inner { flex: 1; padding: 24px 22px; display: flex; flex-direction: column; gap: 14px; position: relative; }
+  .card .stamp {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--yellow); color: #000;
+    padding: 4px 10px; font-family: "Epilogue", sans-serif; font-weight: 900;
+    font-size: 11px; letter-spacing: 1.4px;
+    border: 2px solid #000; transform: rotate(-3deg);
+  }
+  .card .url {
+    position: absolute; bottom: 16px; left: 0; right: 0; text-align: center;
+    font-family: "Epilogue", sans-serif; font-weight: 800;
+    font-size: 12px; letter-spacing: 2px;
+  }
+  .card-q {
+    font-family: "Epilogue", sans-serif; font-weight: 900;
+    font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase;
+    margin-top: 28px;
+  }
+  .card-name {
+    font-family: "Epilogue", sans-serif; font-weight: 900;
+    font-size: 32px; letter-spacing: -0.02em; line-height: 1;
+  }
+  .card-arch {
+    font-family: "Epilogue", sans-serif; font-weight: 900;
+    font-size: 38px; letter-spacing: -0.02em; line-height: 1;
+    margin-top: 8px;
+  }
+  .card-arch small { font-size: 14px; letter-spacing: 2px; opacity: 0.7; display: block; margin-top: 6px; }
+  .card-code {
+    margin-top: 14px;
+    background: #000; color: var(--yellow);
+    padding: 8px 12px; font-family: ui-monospace, "SF Mono", monospace;
+    font-weight: 700; font-size: 14px; letter-spacing: 4px;
+    align-self: flex-start;
+  }
+  .card-careers {
+    margin-top: 16px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .card-career-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-bottom: 1px dashed currentColor; padding-bottom: 5px;
+    font-weight: 700; font-size: 14px;
+  }
+  .card-career-row .pct { font-family: "Epilogue", sans-serif; font-weight: 900; font-size: 16px; }
+  .card-cta {
+    margin-top: auto; padding: 14px;
+    background: #000; color: var(--yellow);
+    font-family: "Epilogue", sans-serif; font-weight: 900; font-size: 13px; letter-spacing: 2px; text-align: center;
+    border: 2px solid #000;
+  }
+
+  /* Variant: minimal */
+  .card.var-minimal { background: var(--paper); }
+  .card.var-minimal .card-q { color: var(--ink-soft); }
+  /* Variant: paint  */
+  .card.var-paint { background: var(--purple); color: #fff; }
+  .card.var-paint .card-q { opacity: 0.8; }
+  /* Variant: split */
+  .card.var-split { background: var(--paper); }
+  .card.var-split .top { flex: 1; padding: 24px 22px; }
+  .card.var-split .bottom {
+    background: #000; color: var(--yellow);
+    padding: 22px; flex-shrink: 0;
+  }
+  .card.var-split .bottom .card-arch { color: #fff; font-size: 30px; }
+  .card.var-split .bottom .card-code { background: var(--yellow); color: #000; align-self: flex-start; }
+
+  /* Hidden mode: only archetype + 3 hints */
+  .card.hidden-mode .card-arch,
+  .card.hidden-mode .card-careers,
+  .card.hidden-mode .card-code { opacity: 0.0; }
+  .card.hidden-mode .hint-stack { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .card.hidden-mode .hint-stack .hint {
+    background: rgba(0,0,0,0.06); padding: 10px 12px; font-weight: 600; font-size: 13px;
+    border-left: 3px solid var(--ink); font-style: italic;
+  }
+  .card.hidden-mode .card-q { font-size: 12px; }
+
+  /* ── Story stickers preview row ── */
+  .share-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;
+    padding: 24px;
+  }
+  .share-card {
+    border: 2px solid #000; padding: 18px; background: #fff;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+    cursor: pointer; transition: box-shadow 0.1s;
+  }
+  .share-card:hover { box-shadow: 4px 4px 0 #000; }
+  .share-card .icon {
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    font-size: 22px; border: 2px solid #000;
+  }
+  .share-card .name { font-family: "Epilogue", sans-serif; font-weight: 900; font-size: 15px; }
+  .share-card .desc { font-size: 12px; color: var(--ink-soft); line-height: 1.4; }
+
+  /* ── Phone mockup for landing/comparison ── */
+  .phone {
+    width: 360px; height: 720px; position: relative;
+    background: var(--paper); border: 4px solid #000; border-radius: 36px;
+    box-shadow: 12px 12px 0 #000;
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .phone-status {
+    height: 28px; background: #000; color: #fff;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 18px; font-size: 11px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .phone-screen { flex: 1; overflow-y: auto; padding: 16px; }
+  .phone-tabbar {
+    height: 56px; background: var(--ink); border-top: 3px solid #000;
+    display: flex; flex-shrink: 0; align-items: center; justify-content: space-around;
+    color: #fff; font-size: 11px; font-weight: 700;
+  }
+  .phone-tabbar .tt { display: flex; flex-direction: column; align-items: center; gap: 2px; opacity: 0.6; }
+  .phone-tabbar .tt.active { opacity: 1; color: var(--yellow); }
+
+  /* ── Landing screen content ── */
+  .landing-stage {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px;
+    align-items: start; justify-items: center;
+  }
+  @media (max-width: 980px) { .landing-stage { grid-template-columns: 1fr; } }
+  .landing-cap {
+    background: var(--paper-2); border: 2.5px solid #000; padding: 24px 28px;
+    box-shadow: 6px 6px 0 #000;
+  }
+  .landing-cap h3 {
+    margin: 0 0 8px; font-family: "Epilogue", sans-serif; font-weight: 900;
+    font-size: 22px; letter-spacing: -0.01em;
+  }
+  .landing-cap p { margin: 0; color: var(--ink-soft); line-height: 1.55; font-size: 14px; }
+  .landing-cap ol { margin: 14px 0 0; padding-left: 20px; font-size: 13px; line-height: 1.7; }
+
+  /* ── Compatibility donut + bars ── */
+  .compat-donut { width: 140px; height: 140px; }
+  .compat-line {
+    display: grid; grid-template-columns: 90px 1fr 40px; gap: 10px; align-items: center;
+    margin-bottom: 8px; font-weight: 700; font-size: 12px;
+  }
+  .compat-line .bar { height: 14px; background: var(--paper-2); border: 1.5px solid #000; position: relative; }
+  .compat-line .bar > div { height: 100%; background: var(--purple); }
+  .compat-line .me { background: var(--yellow); }
+  .compat-line .other { background: var(--blue); }
+
+  /* ── Class dashboard ── */
+  .class-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stat {
+    background: var(--paper); border: 2px solid #000;
+    padding: 16px; text-align: center;
+  }
+  .stat .n { font-family: "Epilogue", sans-serif; font-weight: 900; font-size: 28px; }
+  .stat .l { font-size: 10px; letter-spacing: 1.5px; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; margin-top: 2px; }
+
+  .pill {
+    display: inline-block; padding: 4px 10px; border: 2px solid #000;
+    font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+    background: var(--yellow);
+  }
+  .pill-purple { background: var(--purple); color: #fff; }
+  .pill-green { background: var(--green); }
+  .pill-pink { background: var(--pink); }
+
+  .h-md { height: 14px; }
+  .h-lg { height: 24px; }
+
+  .btn {
+    padding: 10px 16px; font-family: inherit; font-weight: 800; font-size: 12px;
+    letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer;
+    border: 2px solid #000; background: #fff; color: #000;
+  }
+  .btn-primary { background: var(--ink); color: var(--yellow); box-shadow: 4px 4px 0 var(--purple); }
+  .btn-yellow { background: var(--yellow); box-shadow: 4px 4px 0 #000; }
+
+  /* ── Tab visibility helpers ── */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ── Concept summary ── */
+  .concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+  .concept-card {
+    border: 2.5px solid #000; background: #fff; box-shadow: 4px 4px 0 #000;
+    padding: 20px 22px;
+  }
+  .concept-card h3 {
+    margin: 0 0 6px; font-family: "Epilogue", sans-serif; font-weight: 900; font-size: 18px;
+  }
+  .concept-card p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink-soft); }
+
+  /* archetypes seed */
+  .arch-pill { display: inline-block; padding: 6px 12px; margin: 3px 4px 3px 0; border: 2px solid #000; font-weight: 800; font-size: 12px; cursor: pointer; }
+  .arch-pill.on { background: var(--ink); color: var(--yellow); }
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <div class="brand"><div class="brand-mark">?</div><div class="brand-text">CESAFIU · VIRAL KIT</div></div>
+  <button class="tab active" data-view="concept">CONCEPT</button>
+  <button class="tab" data-view="generator">CARD GENERATOR</button>
+  <button class="tab" data-view="landing">/u/CODE LANDING</button>
+  <button class="tab" data-view="versus">/vs/A-B</button>
+  <button class="tab" data-view="class">CLASA MEA</button>
+</div>
+
+<main>
+
+<!-- ═══════════ VIEW: CONCEPT ═══════════ -->
+<section class="view active" data-view="concept">
+  <div class="container">
+    <div class="section-head">
+      <span class="num">00 / IDEEA</span>
+      <h2>Cardul tău — share-card-ul care te face viral</h2>
+      <p>După quiz, fiecare elev primește un card vizual unic, cu cod și URL personal. Colegii care îl văd au 3 acțiuni: ghicește rezultatul, compară cu al tău, sau fă-ți propriul test.</p>
+    </div>
+
+    <div class="concept-grid">
+      <div class="concept-card">
+        <span class="pill pill-purple">PILON 1</span>
+        <h3 style="margin-top: 8px">Cardul personal</h3>
+        <p>Sticker brand-ed cu rezultatul tău: 3 cariere top, etichetă de arhetip, cod de 4 litere, URL scurt. 3 layout-uri pentru variație în feed-uri.</p>
+      </div>
+      <div class="concept-card">
+        <span class="pill pill-green">PILON 2</span>
+        <h3 style="margin-top: 8px">Mod „Ghicește colegul"</h3>
+        <p>Linkul dezvăluie doar arhetipul + 3 hint-uri. Colegii dau quiz scurt (60 sec) ca să ghicească rezultatul tău — și sunt nudge-uiți să-și facă propriul test.</p>
+      </div>
+      <div class="concept-card">
+        <span class="pill pill-pink">PILON 3</span>
+        <h3 style="margin-top: 8px">Comparison mode (/vs/)</h3>
+        <p>Doi prieteni își leagă cardurile. Algoritm de complementaritate, nu match. „Maria + David = startup bun. Ea: marketing. El: tech."</p>
+      </div>
+      <div class="concept-card">
+        <span class="pill">PILON 4</span>
+        <h3 style="margin-top: 8px">Clasa mea</h3>
+        <p>Dacă 5+ din aceeași clasă fac testul, deblochezi un dashboard. Top cariere, „echipa perfectă" din clasa lor, share către dirig.</p>
+      </div>
+    </div>
+
+    <div class="h-lg"></div>
+
+    <div class="panel" style="padding: 28px 32px;">
+      <div class="display" style="font-size: 22px; margin-bottom: 14px;">De ce ar deveni viral</div>
+      <ul style="margin: 0; padding-left: 18px; line-height: 1.7; font-size: 14px;">
+        <li><b>Status signal Gen Z</b> — liceenii postează tot ce e identitate-related (MBTI, Spotify Wrapped). Cardul devine afirmație de identitate, nu anunț de produs.</li>
+        <li><b>Joc social</b> — share-ul nu e final, e început. Colegii pot ghici sau compara, ceea ce creează engagement repetat.</li>
+        <li><b>FOMO</b> — când vezi 3 colegi cu cardul în story, vrei și tu unul.</li>
+        <li><b>Zero friction</b> — fără cont, fără email. Quiz → card → share, în &lt;90 secunde.</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="padding: 28px 32px; background: var(--ink); color: var(--paper); border-color: #000;">
+      <div class="display" style="font-size: 22px; margin-bottom: 14px; color: var(--yellow);">Funnel-ul viral</div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; align-items: center;">
+        <div style="text-align: center;">
+          <div class="display" style="font-size: 28px; color: var(--yellow);">1</div>
+          <div style="font-size: 12px; line-height: 1.4;">Maria dă quiz-ul (90s)</div>
+        </div>
+        <div style="text-align: center; opacity: 0.5; font-size: 24px;">→</div>
+        <div style="text-align: center;">
+          <div class="display" style="font-size: 28px; color: var(--yellow);">2</div>
+          <div style="font-size: 12px; line-height: 1.4;">Postează card pe Story</div>
+        </div>
+        <div style="text-align: center; opacity: 0.5; font-size: 24px;">→</div>
+        <div style="text-align: center;">
+          <div class="display" style="font-size: 28px; color: var(--yellow);">3</div>
+          <div style="font-size: 12px; line-height: 1.4;">12 colegi văd · 4 dau click</div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; align-items: center; margin-top: 18px;">
+        <div style="text-align: center;">
+          <div class="display" style="font-size: 28px; color: var(--yellow);">4</div>
+          <div style="font-size: 12px; line-height: 1.4;">Ghicesc rezultatul Mariei</div>
+        </div>
+        <div style="text-align: center; opacity: 0.5; font-size: 24px;">→</div>
+        <div style="text-align: center;">
+          <div class="display" style="font-size: 28px; color: var(--yellow);">5</div>
+          <div style="font-size: 12px; line-height: 1.4;">2 își fac propriul test</div>
+        </div>
+        <div style="text-align: center; opacity: 0.5; font-size: 24px;">→</div>
+        <div style="text-align: center;">
+          <div class="display" style="font-size: 28px; color: var(--yellow);">6</div>
+          <div style="font-size: 12px; line-height: 1.4;">K-factor &gt; 1.0 · loop continuă</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VIEW: GENERATOR ═══════════ -->
+<section class="view" data-view="generator">
+  <div class="container">
+    <div class="section-head">
+      <span class="num">01 / GENERATOR</span>
+      <h2>Cardul tău — preview & share</h2>
+      <p>Apare imediat după quiz. Tweak-uiești layout-ul, culoarea, modul (vizibil / ghicește), dai share într-o atingere.</p>
+    </div>
+
+    <div class="gen-grid">
+      <div class="gen-stage">
+        <div class="card-frame" id="cardFrame">
+          <div class="card var-minimal" id="theCard">
+            <div class="card-inner">
+              <div class="stamp">CESĂFIU<span style="opacity: 0.5"> · </span>2026</div>
+              <div class="card-q">Ce vrea să fie</div>
+              <div class="card-name" id="c-name">Maria, 17</div>
+              <div class="card-arch" id="c-arch">Detectivul empatic<small>INVESTIGATIV · SOCIAL</small></div>
+              <div class="card-code" id="c-code">INVR · 73%</div>
+              <div class="hint-stack" style="display:none;">
+                <div class="hint">„Întreabă „de ce" la tot."</div>
+                <div class="hint">„Citește mai mult decât vorbește."</div>
+                <div class="hint">„Își ascultă prietenii ca un psiholog."</div>
+              </div>
+              <div class="card-careers" id="c-careers">
+                <div class="card-career-row"><span>UX Researcher</span><span class="pct">94%</span></div>
+                <div class="card-career-row"><span>Psiholog clinician</span><span class="pct">88%</span></div>
+                <div class="card-career-row"><span>Jurnalist data</span><span class="pct">81%</span></div>
+              </div>
+              <div class="card-cta" id="c-cta">DĂ ȘI TU TESTUL ↗</div>
+              <div class="url" id="c-url">CESAFIU.RO/U/MARIA42</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gen-controls">
+        <div class="control-block">
+          <div class="lbl">Format</div>
+          <div class="seg" id="segFormat">
+            <button class="on" data-fmt="story">STORY 9:16</button>
+            <button data-fmt="feed">FEED 1:1</button>
+            <button data-fmt="reel">REEL</button>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <div class="lbl">Layout</div>
+          <div class="seg" id="segLayout">
+            <button class="on" data-var="minimal">MINIMAL</button>
+            <button data-var="paint">PAINT</button>
+            <button data-var="split">SPLIT</button>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <div class="lbl">Mod</div>
+          <div class="seg" id="segMode" style="grid-template-columns: repeat(2, 1fr);">
+            <button class="on" data-mode="reveal">DEZVĂLUIE</button>
+            <button data-mode="hidden">GHICEȘTE</button>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <div class="lbl">Accent</div>
+          <div class="swatches" id="swatches">
+            <div class="sw on" data-c="#7C3AED" style="background:#7C3AED"></div>
+            <div class="sw" data-c="#FFE066" style="background:#FFE066"></div>
+            <div class="sw" data-c="#B8E986" style="background:#B8E986"></div>
+            <div class="sw" data-c="#4DD0E1" style="background:#4DD0E1"></div>
+            <div class="sw" data-c="#FF7AB6" style="background:#FF7AB6"></div>
+            <div class="sw" data-c="#111111" style="background:#111111"></div>
+          </div>
+        </div>
+
+        <div class="control-block">
+          <div class="lbl">Nume afișat</div>
+          <input class="input" type="text" id="inpName" value="Maria, 17" />
+        </div>
+
+        <div class="control-block">
+          <div class="lbl">Cod / URL</div>
+          <input class="input" type="text" id="inpCode" value="MARIA42" />
+        </div>
+
+        <div class="control-block">
+          <div class="lbl">Arhetip</div>
+          <div id="archPills">
+            <span class="arch-pill on" data-arch="Detectivul empatic" data-tag="INVESTIGATIV · SOCIAL" data-code="INVR · 73%">Detectivul empatic</span>
+            <span class="arch-pill" data-arch="Constructorul vizionar" data-tag="REALIST · ANTREPRENORIAL" data-code="REAE · 81%">Constructorul vizionar</span>
+            <span class="arch-pill" data-arch="Translatorul creativ" data-tag="ARTISTIC · CONVENȚIONAL" data-code="ARTC · 68%">Translatorul creativ</span>
+            <span class="arch-pill" data-arch="Conectorul natural" data-tag="SOCIAL · ANTREPRENORIAL" data-code="SOEN · 76%">Conectorul natural</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="h-lg"></div>
+
+    <div class="panel">
+      <div class="section-head" style="padding: 24px 24px 0; margin-bottom: 8px;">
+        <h2 style="font-size: 22px; margin-top: 0;">Share-uri prefilled</h2>
+        <p style="font-size: 13px;">Un singur tap copiază mesajul gata format pentru fiecare canal.</p>
+      </div>
+      <div class="share-row">
+        <div class="share-card">
+          <div class="icon" style="background: #25D366;">▶</div>
+          <div class="name">WhatsApp</div>
+          <div class="desc">„Băi am dat un test super tare, vezi ce a ieșit la mine: cesafiu.ro/u/MARIA42"</div>
+          <span class="pill" style="margin-top: 4px;">CLASS GROUP</span>
+        </div>
+        <div class="share-card">
+          <div class="icon" style="background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF);">◉</div>
+          <div class="name">Instagram Story</div>
+          <div class="desc">Salvează cardul ca PNG → swipe up sticker prebuilt cu link-ul tău.</div>
+          <span class="pill pill-pink" style="margin-top: 4px;">9:16 PNG</span>
+        </div>
+        <div class="share-card">
+          <div class="icon" style="background: #000;">♪</div>
+          <div class="name">TikTok</div>
+          <div class="desc">Card-ul are animație built-in (sticker stamp-uie cu sunet). Capture screen → reel.</div>
+          <span class="pill pill-purple" style="margin-top: 4px;">ANIMATED MP4</span>
+        </div>
+        <div class="share-card">
+          <div class="icon" style="background: #1DA1F2;">◐</div>
+          <div class="name">Twitter / X</div>
+          <div class="desc">„INVR. 73%. cesafiu.ro/u/MARIA42 — ghicești ce-mi place?"</div>
+          <span class="pill" style="margin-top: 4px;">FEED 1:1</span>
+        </div>
+        <div class="share-card">
+          <div class="icon" style="background: #fff; border-style: dashed;">⧉</div>
+          <div class="name">Copy link</div>
+          <div class="desc">cesafiu.ro/u/MARIA42 → copiat în clipboard.</div>
+          <span class="pill" style="margin-top: 4px;">UNIVERSAL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VIEW: LANDING /u/CODE ═══════════ -->
+<section class="view" data-view="landing">
+  <div class="container">
+    <div class="section-head">
+      <span class="num">02 / LANDING</span>
+      <h2>cesafiu.ro/u/MARIA42 — Ghicește ce a ieșit la Maria</h2>
+      <p>Pagina pe care o văd colegii când dau click pe link-ul Mariei. Mod „guess" — întâi ghicesc, apoi văd rezultatul real, apoi sunt nudge-uiți să-și facă propriul test.</p>
+    </div>
+
+    <div class="landing-stage">
+      <div class="phone">
+        <div class="phone-status"><span>9:41</span><span>● ●●● 100%</span></div>
+        <div class="phone-screen" style="background: var(--paper);">
+          <!-- Sticky header sticker -->
+          <div style="background: var(--purple); border: 2.5px solid #000; padding: 14px 16px; box-shadow: 4px 4px 0 #000; transform: rotate(-2deg); margin-bottom: 16px;">
+            <div style="font-family: 'Epilogue', sans-serif; font-weight: 900; font-size: 22px; color: #fff; line-height: 1;">Cunoști pe MARIA?</div>
+            <div style="color: #fff; opacity: 0.85; font-size: 11px; margin-top: 6px; letter-spacing: 1px;">DACĂ DA — GHICEȘTE</div>
+          </div>
+
+          <!-- Hint card -->
+          <div style="background: #fff; border: 2.5px solid #000; box-shadow: 4px 4px 0 #000; padding: 16px;">
+            <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.5px; color: var(--ink-soft); text-transform: uppercase;">3 hint-uri despre Maria</div>
+            <div style="margin-top: 10px;">
+              <div style="background: var(--paper-2); padding: 8px 10px; font-size: 13px; font-style: italic; border-left: 3px solid var(--purple); margin-bottom: 6px;">„Întreabă <b>de ce</b> la tot."</div>
+              <div style="background: var(--paper-2); padding: 8px 10px; font-size: 13px; font-style: italic; border-left: 3px solid var(--purple); margin-bottom: 6px;">„Citește mai mult decât vorbește."</div>
+              <div style="background: var(--paper-2); padding: 8px 10px; font-size: 13px; font-style: italic; border-left: 3px solid var(--purple);">„Își ascultă prietenii ca un psiholog."</div>
+            </div>
+          </div>
+
+          <div style="font-family: 'Epilogue', sans-serif; font-weight: 900; font-size: 16px; margin-top: 18px; margin-bottom: 8px;">Tu ce zici? Ce vrea Maria să fie?</div>
+
+          <!-- Guess options -->
+          <div style="display: grid; gap: 8px;">
+            <button class="btn" style="text-align: left; padding: 12px 14px; background: #fff;">A · UX Researcher</button>
+            <button class="btn" style="text-align: left; padding: 12px 14px; background: #fff;">B · Profesoară de mate</button>
+            <button class="btn" style="text-align: left; padding: 12px 14px; background: var(--green); border-color: #000;">C · Psiholog clinician ← ai apăsat</button>
+            <button class="btn" style="text-align: left; padding: 12px 14px; background: #fff;">D · Antreprenor în tech</button>
+          </div>
+
+          <div style="height: 16px;"></div>
+          <button class="btn btn-primary" style="width: 100%; padding: 14px;">VEZI CE A IEȘIT LA MARIA →</button>
+
+          <div style="height: 20px;"></div>
+          <div style="font-size: 11px; color: var(--ink-soft); text-align: center; line-height: 1.5;">După ce ghicești, vei vedea rezultatul real <br/>+ nudge să dai și tu testul.</div>
+        </div>
+        <div class="phone-tabbar">
+          <div class="tt active">★<span>Quiz</span></div>
+          <div class="tt">⌘<span>Browse</span></div>
+          <div class="tt">◉<span>Profil</span></div>
+        </div>
+      </div>
+
+      <div style="width: 100%; max-width: 420px;">
+        <div class="landing-cap">
+          <h3>Cum funcționează</h3>
+          <ol>
+            <li><b>Ghicește mai întâi</b> — fără să vezi răspunsul. Bazează-te pe cum o cunoști.</li>
+            <li>Vezi <b>cardul real al Mariei</b> + dacă ai nimerit (verde / roșu).</li>
+            <li>Primești <b>quiz scurt 60-sec</b> ca să-ți afli propriul rezultat și să comparați.</li>
+            <li>Cardul tău se generează automat și te poți întoarce la Maria pentru match-comparison.</li>
+          </ol>
+        </div>
+
+        <div class="h-md"></div>
+
+        <div class="landing-cap" style="background: var(--ink); color: var(--paper); border-color: #000;">
+          <h3 style="color: var(--yellow);">După ghicit</h3>
+          <p style="color: #ddd;">Vezi <b style="color: var(--yellow);">"Detectivul empatic, INVR 73%"</b> — Maria. Și un nudge:</p>
+          <div style="background: var(--yellow); color: #000; padding: 14px 16px; margin-top: 12px; border: 2px solid var(--yellow); transform: rotate(-1deg);">
+            <div class="display" style="font-size: 18px; line-height: 1.15;">Ai luat 2 din 3.</div>
+            <div style="font-size: 13px; margin-top: 4px;">Curios ce iese la tine? <b>Quiz în 90 sec ↗</b></div>
+          </div>
+        </div>
+
+        <div class="h-md"></div>
+
+        <div class="landing-cap">
+          <h3>Metrice de urmărit</h3>
+          <div class="class-stats">
+            <div class="stat"><div class="n">↑42%</div><div class="l">guess accept</div></div>
+            <div class="stat"><div class="n">↑21%</div><div class="l">quiz start</div></div>
+            <div class="stat"><div class="n">1.7×</div><div class="l">k-factor</div></div>
+          </div>
+          <p style="margin-top: 12px;">Datele simulate dintr-o cohortă de testare — pragul de viralitate este K &gt; 1. Aici ar fi 1.7.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VIEW: VERSUS ═══════════ -->
+<section class="view" data-view="versus">
+  <div class="container">
+    <div class="section-head">
+      <span class="num">03 / COMPARISON</span>
+      <h2>cesafiu.ro/vs/MARIA42-DAVID17</h2>
+      <p>Doi prieteni își leagă cardurile. Algoritm de complementaritate (cum se potrivesc ca echipă), nu de match. Output: o teză concretă „voi doi împreună ați face X bine".</p>
+    </div>
+
+    <div class="landing-stage">
+      <div class="phone">
+        <div class="phone-status"><span>9:41</span><span>● ●●● 100%</span></div>
+        <div class="phone-screen" style="background: var(--paper);">
+          <!-- Header dual -->
+          <div style="display: grid; grid-template-columns: 1fr 24px 1fr; gap: 8px; align-items: center;">
+            <div style="background: var(--yellow); border: 2.5px solid #000; padding: 12px 10px; transform: rotate(-3deg); text-align: center;">
+              <div class="display" style="font-size: 13px;">MARIA</div>
+              <div style="font-size: 9px; letter-spacing: 1.2px; font-weight: 700;">INVR · 73%</div>
+            </div>
+            <div class="display" style="font-size: 32px; text-align: center;">×</div>
+            <div style="background: var(--blue); border: 2.5px solid #000; padding: 12px 10px; transform: rotate(2deg); text-align: center;">
+              <div class="display" style="font-size: 13px;">DAVID</div>
+              <div style="font-size: 9px; letter-spacing: 1.2px; font-weight: 700;">REAE · 81%</div>
+            </div>
+          </div>
+
+          <div style="height: 18px;"></div>
+
+          <!-- Compatibility donut -->
+          <div style="background: #fff; border: 2.5px solid #000; box-shadow: 4px 4px 0 #000; padding: 18px; text-align: center;">
+            <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.5px; color: var(--ink-soft);">COMPLEMENTARITATE</div>
+            <svg class="compat-donut" viewBox="0 0 100 100" style="margin: 8px 0;">
+              <circle cx="50" cy="50" r="42" fill="none" stroke="#eee" stroke-width="14"/>
+              <circle cx="50" cy="50" r="42" fill="none" stroke="#7C3AED" stroke-width="14" stroke-dasharray="225 264" stroke-linecap="butt" transform="rotate(-90 50 50)"/>
+              <text x="50" y="48" text-anchor="middle" font-family="Epilogue" font-weight="900" font-size="22" fill="#000">85%</text>
+              <text x="50" y="62" text-anchor="middle" font-size="7" fill="#555" letter-spacing="1">ECHIPĂ BUNĂ</text>
+            </svg>
+          </div>
+
+          <div style="height: 14px;"></div>
+
+          <!-- Pitch / thesis -->
+          <div style="background: var(--ink); color: var(--paper); border: 2.5px solid #000; padding: 16px; box-shadow: 4px 4px 0 #000;">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--yellow);">VOI DOI ÎMPREUNĂ</div>
+            <div class="display" style="color: #fff; font-size: 18px; line-height: 1.2; margin-top: 6px;">Ați face <span style="color: var(--yellow);">un startup bun.</span></div>
+            <div style="font-size: 12px; opacity: 0.85; margin-top: 8px; line-height: 1.5;">Maria înțelege oamenii — David construiește chestia. Ea îți face research, el o face funcțională. Echilibru tipic founder/co-founder.</div>
+          </div>
+
+          <div style="height: 14px;"></div>
+
+          <!-- Bars: where you overlap, where you don't -->
+          <div style="background: #fff; border: 2.5px solid #000; padding: 16px; box-shadow: 4px 4px 0 #000;">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--ink-soft); margin-bottom: 10px;">UNDE VĂ DEOSEBIȚI</div>
+            <div class="compat-line"><span>Realist</span><div class="bar"><div class="other" style="width: 88%;"></div></div><span>D</span></div>
+            <div class="compat-line"><span>Investigativ</span><div class="bar"><div class="me" style="width: 92%;"></div></div><span>M</span></div>
+            <div class="compat-line"><span>Social</span><div class="bar"><div class="me" style="width: 78%;"></div></div><span>M</span></div>
+            <div class="compat-line"><span>Antreprenor</span><div class="bar"><div class="other" style="width: 70%;"></div></div><span>D</span></div>
+          </div>
+
+          <div style="height: 14px;"></div>
+
+          <button class="btn btn-yellow" style="width: 100%; padding: 14px;">SHARE COMPARISON ↗</button>
+        </div>
+        <div class="phone-tabbar">
+          <div class="tt">★<span>Quiz</span></div>
+          <div class="tt active">⌘<span>VS</span></div>
+          <div class="tt">◉<span>Profil</span></div>
+        </div>
+      </div>
+
+      <div style="width: 100%; max-width: 420px;">
+        <div class="landing-cap">
+          <h3>Logic de complementaritate</h3>
+          <p>Nu calculăm „cât de similari sunteți", ci „cât de bine vă acoperiți reciproc". Două persoane identice fac echipă slabă; două complementare fac echipă bună.</p>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 11px; font-weight: 800; letter-spacing: 1.5px; color: var(--ink-soft); margin-bottom: 8px;">FORMULA SIMPLIFICATĂ</div>
+            <pre style="background: var(--paper-2); border: 2px solid #000; padding: 12px; font-size: 11px; font-family: ui-monospace, monospace; line-height: 1.6; overflow-x: auto;">complement = 100 − Σ |me[dim] − you[dim]|
+            ÷ 6 dimensiuni
+            (RIASEC) </pre>
+          </div>
+        </div>
+
+        <div class="h-md"></div>
+
+        <div class="landing-cap">
+          <h3>Output prefilled</h3>
+          <p>Algoritmul detectează patternul (ex: I+R, S+E, A+C) și împrumută o teză din templating.</p>
+          <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+            <div style="background: var(--paper-2); border: 2px solid #000; padding: 10px 12px; font-size: 12px;"><b>I+R:</b> startup bun (research × build)</div>
+            <div style="background: var(--paper-2); border: 2px solid #000; padding: 10px 12px; font-size: 12px;"><b>S+E:</b> ONG sau campanie (oameni × organizare)</div>
+            <div style="background: var(--paper-2); border: 2px solid #000; padding: 10px 12px; font-size: 12px;"><b>A+C:</b> brand + sistem (creație × structură)</div>
+            <div style="background: var(--paper-2); border: 2px solid #000; padding: 10px 12px; font-size: 12px;"><b>I+I:</b> profesori bun, dar nu antreprenori</div>
+          </div>
+        </div>
+
+        <div class="h-md"></div>
+
+        <div class="landing-cap" style="background: var(--purple); color: #fff; border-color: #000;">
+          <h3 style="color: var(--yellow);">Hook-ul viral</h3>
+          <p style="color: #fff;">Cardul de comparison e share-uibil. Doi prieteni îl postează pe story — colegii lor văd „85% complementaritate" și vor să își testeze și ei prieteniile.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ VIEW: CLASA ═══════════ -->
+<section class="view" data-view="class">
+  <div class="container">
+    <div class="section-head">
+      <span class="num">04 / CLASA MEA</span>
+      <h2>5+ elevi din aceeași clasă = dashboard public anonim</h2>
+      <p>Când o clasă atinge pragul, deblochezi un dashboard care arată distribuția cariere, „echipa perfectă din clasa lor", și un share către dirig.</p>
+    </div>
+
+    <div class="landing-stage">
+      <div class="phone" style="height: 760px;">
+        <div class="phone-status"><span>9:41</span><span>● ●●● 100%</span></div>
+        <div class="phone-screen" style="background: var(--paper);">
+          <div style="background: var(--green); border: 2.5px solid #000; padding: 14px 16px; box-shadow: 4px 4px 0 #000;">
+            <div class="display" style="font-size: 18px;">12 X-A · CN „Mihai Eminescu"</div>
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-top: 4px;">17 din 28 elevi · UPDATED 2 ZILE</div>
+          </div>
+
+          <div class="h-md"></div>
+
+          <div class="class-stats">
+            <div class="stat"><div class="n">17</div><div class="l">elevi</div></div>
+            <div class="stat"><div class="n">8</div><div class="l">arhetipuri</div></div>
+            <div class="stat"><div class="n">5</div><div class="l">drumuri</div></div>
+          </div>
+
+          <div class="h-md"></div>
+
+          <div style="background: #fff; border: 2.5px solid #000; box-shadow: 4px 4px 0 #000; padding: 16px;">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--ink-soft); margin-bottom: 10px;">TOP 3 CARIERE ÎN CLASA TA</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed #ccc;">
+                <span style="font-weight: 700;">Software Engineer</span>
+                <span style="background: var(--purple); color: #fff; padding: 3px 8px; font-weight: 800; font-size: 11px;">5×</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed #ccc;">
+                <span style="font-weight: 700;">UX Designer</span>
+                <span style="background: var(--purple); color: #fff; padding: 3px 8px; font-weight: 800; font-size: 11px;">4×</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+                <span style="font-weight: 700;">Doctor</span>
+                <span style="background: var(--purple); color: #fff; padding: 3px 8px; font-weight: 800; font-size: 11px;">3×</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-md"></div>
+
+          <div style="background: var(--ink); color: var(--paper); border: 2.5px solid #000; box-shadow: 4px 4px 0 #000; padding: 16px;">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--yellow);">ECHIPA PERFECTĂ DIN CLASA TA</div>
+            <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+              <div>👁 <b style="color: var(--yellow);">Maria</b> — research (INVR)</div>
+              <div>🔨 <b style="color: var(--yellow);">David</b> — build (REAE)</div>
+              <div>🎨 <b style="color: var(--yellow);">Andrei</b> — design (ARTC)</div>
+              <div>🎯 <b style="color: var(--yellow);">Ioana</b> — go-to-market (SOEN)</div>
+            </div>
+            <div style="font-size: 11px; opacity: 0.7; margin-top: 12px; line-height: 1.5;">Voi 4 ați face un produs de la zero la lansare.</div>
+          </div>
+
+          <div class="h-md"></div>
+
+          <button class="btn btn-yellow" style="width: 100%; padding: 14px;">SHARE CĂTRE DIRIG ↗</button>
+        </div>
+        <div class="phone-tabbar">
+          <div class="tt">★<span>Quiz</span></div>
+          <div class="tt">⌘<span>Browse</span></div>
+          <div class="tt active">◉<span>Clasa</span></div>
+        </div>
+      </div>
+
+      <div style="width: 100%; max-width: 420px;">
+        <div class="landing-cap">
+          <h3>De ce contează</h3>
+          <p>Pragul de 5 elevi din aceeași clasă e <b>aspirational</b> — primii 4 vor convinge restul ca să se deblocheze. Asta crește instant rata de conversie în interiorul clasei.</p>
+        </div>
+
+        <div class="h-md"></div>
+
+        <div class="landing-cap">
+          <h3>Cum se identifică o clasă</h3>
+          <p>Elevii completează 2 câmpuri opționale în profil: <b>școala</b> + <b>clasa (ex: 12 X-A)</b>. Auto-completion din lista CN-uri România.</p>
+        </div>
+
+        <div class="h-md"></div>
+
+        <div class="landing-cap" style="background: var(--yellow); border-color: #000;">
+          <h3>Hook pentru profesori</h3>
+          <p>Dirigele primește un raport agregat anonim al clasei → îl folosește ca punct de pornire pentru orele de „dirigenție" sau pentru consilierea elevilor.</p>
+          <div style="margin-top: 12px;">
+            <span class="pill pill-purple">B2B HOOK</span>
+            <span class="pill" style="margin-left: 4px;">FREE FOR SCHOOLS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ── Tab switcher ──
+document.querySelectorAll('.tabs .tab').forEach((b) => {
+  b.addEventListener('click', () => {
+    const v = b.dataset.view;
+    document.querySelectorAll('.tabs .tab').forEach((x) => x.classList.toggle('active', x === b));
+    document.querySelectorAll('.view').forEach((x) => x.classList.toggle('active', x.dataset.view === v));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ── Card generator state ──
+const card = document.getElementById('theCard');
+const frame = document.getElementById('cardFrame');
+const cName = document.getElementById('c-name');
+const cArch = document.getElementById('c-arch');
+const cCode = document.getElementById('c-code');
+const cUrl  = document.getElementById('c-url');
+const inpName = document.getElementById('inpName');
+const inpCode = document.getElementById('inpCode');
+const hintStack = card.querySelector('.hint-stack');
+const careersBlock = document.getElementById('c-careers');
+
+let state = { format: 'story', layout: 'minimal', mode: 'reveal', accent: '#7C3AED' };
+
+function applyState() {
+  card.classList.toggle('feed', state.format === 'feed');
+  card.classList.toggle('reel', state.format === 'reel');
+  if (state.format === 'feed') frame.style.height = 'auto';
+  else if (state.format === 'reel') { frame.style.width = '324px'; frame.style.height = '576px'; }
+  else { frame.style.width = '324px'; frame.style.height = '576px'; }
+
+  card.classList.remove('var-minimal', 'var-paint', 'var-split');
+  card.classList.add('var-' + state.layout);
+
+  card.classList.toggle('hidden-mode', state.mode === 'hidden');
+  hintStack.style.display = state.mode === 'hidden' ? 'flex' : 'none';
+  careersBlock.style.display = state.mode === 'hidden' ? 'none' : 'flex';
+
+  // Accent applies to: paint background (when paint), or stamp / cta border on minimal
+  if (state.layout === 'paint') {
+    card.style.background = state.accent;
+    card.style.color = (state.accent === '#FFE066' || state.accent === '#B8E986') ? '#000' : '#fff';
+  } else {
+    card.style.background = ''; card.style.color = '';
+    const stamp = card.querySelector('.stamp');
+    if (stamp) stamp.style.background = state.accent;
+    if (state.accent === '#FFE066' || state.accent === '#B8E986' || state.accent === '#4DD0E1') {
+      stamp && (stamp.style.color = '#000');
+    } else {
+      stamp && (stamp.style.color = '#fff');
+    }
+  }
+}
+
+// segments
+function wireSeg(id, key) {
+  const seg = document.getElementById(id);
+  seg.querySelectorAll('button').forEach((b) => {
+    b.addEventListener('click', () => {
+      seg.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b));
+      state[key] = b.dataset.fmt || b.dataset.var || b.dataset.mode;
+      applyState();
+    });
+  });
+}
+wireSeg('segFormat', 'format');
+wireSeg('segLayout', 'layout');
+wireSeg('segMode', 'mode');
+
+document.querySelectorAll('#swatches .sw').forEach((sw) => {
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('#swatches .sw').forEach((x) => x.classList.toggle('on', x === sw));
+    state.accent = sw.dataset.c;
+    applyState();
+  });
+});
+
+inpName.addEventListener('input', () => { cName.textContent = inpName.value || ' '; });
+inpCode.addEventListener('input', () => {
+  const v = (inpCode.value || '').toUpperCase();
+  cUrl.textContent = 'CESAFIU.RO/U/' + v;
+});
+
+document.querySelectorAll('.arch-pill').forEach((p) => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.arch-pill').forEach((x) => x.classList.toggle('on', x === p));
+    cArch.innerHTML = p.dataset.arch + '<small>' + p.dataset.tag + '</small>';
+    cCode.textContent = p.dataset.code;
+  });
+});
+
+applyState();
+</script>
+</body>
+</html>

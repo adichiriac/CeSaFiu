@@ -1,0 +1,225 @@
+{
+  "name": "Test vocațional",
+  "subtitle": "Cod Holland — îți arată ce tipuri de activități te atrag",
+  "estimateMin": 4,
+  "items": [
+    {
+      "id": "v01",
+      "code": "R",
+      "text": "Construiești sau repari ceva concret — mobilier, bicicletă, un dispozitiv.",
+      "signals": [
+        "practical.repair",
+        "practical.manual_craft"
+      ]
+    },
+    {
+      "id": "v02",
+      "code": "I",
+      "text": "Cercetezi un subiect ore în șir, până înțelegi cum funcționează cu adevărat.",
+      "signals": [
+        "investigative.research"
+      ]
+    },
+    {
+      "id": "v03",
+      "code": "A",
+      "text": "Faci muzică, scrii povești sau editezi clipuri.",
+      "signals": [
+        "creative.music",
+        "creative.writing",
+        "creative.video"
+      ]
+    },
+    {
+      "id": "v04",
+      "code": "S",
+      "text": "Asculți un prieten care trece prin ceva greu și îl ajuți să se descurce.",
+      "signals": [
+        "social.counseling",
+        "social.care"
+      ]
+    },
+    {
+      "id": "v05",
+      "code": "E",
+      "text": "Convingi un grup să meargă în direcția ta — la un proiect, o ieșire, o idee.",
+      "signals": [
+        "business.negotiation",
+        "business.operations"
+      ]
+    },
+    {
+      "id": "v06",
+      "code": "C",
+      "text": "Pui ordine în haos — clasifici fișiere, faci un sistem, structurezi un proiect.",
+      "signals": [
+        "order.admin",
+        "business.operations"
+      ]
+    },
+    {
+      "id": "v07",
+      "code": "R",
+      "text": "Lucrezi cu mâinile, în aer liber — grădină, atelier, șantier.",
+      "signals": [
+        "practical.manual_craft",
+        "technical.construction",
+        "practical.agriculture"
+      ]
+    },
+    {
+      "id": "v08",
+      "code": "I",
+      "text": "Rezolvi probleme grele — matematică, logică, debug pe cod.",
+      "signals": [
+        "investigative.diagnostic",
+        "technical.software"
+      ]
+    },
+    {
+      "id": "v09",
+      "code": "A",
+      "text": "Pictezi, faci grafică sau design — postere, layout-uri, branding, ilustrații.",
+      "signals": [
+        "creative.visual"
+      ]
+    },
+    {
+      "id": "v10",
+      "code": "S",
+      "text": "Explici sau predai ceva cuiva mai mic — la o tabără, ca mentor, în voluntariat.",
+      "signals": [
+        "social.teaching",
+        "social.coaching"
+      ]
+    },
+    {
+      "id": "v11",
+      "code": "E",
+      "text": "Lansezi ceva al tău — un mic business, un eveniment, un brand.",
+      "signals": [
+        "business.entrepreneurship",
+        "business.marketing"
+      ]
+    },
+    {
+      "id": "v12",
+      "code": "C",
+      "text": "Verifici documente sau date ca să prinzi greșelile mici care trec neobservate.",
+      "signals": [
+        "order.quality",
+        "order.documentation"
+      ]
+    },
+    {
+      "id": "v13",
+      "code": "R",
+      "text": "Reglezi sau operezi mașini, drone, printer 3D, utilaje tehnice.",
+      "signals": [
+        "technical.mechanical",
+        "technical.systems"
+      ]
+    },
+    {
+      "id": "v14",
+      "code": "I",
+      "text": "Observi un detaliu ciudat și nu te lași până nu afli de ce e așa.",
+      "signals": [
+        "investigative.research",
+        "investigative.diagnostic"
+      ]
+    },
+    {
+      "id": "v15",
+      "code": "A",
+      "text": "Apari pe scenă (teatru, stand-up, dans) sau filmezi conținut propriu.",
+      "signals": [
+        "creative.performance",
+        "creative.video"
+      ]
+    },
+    {
+      "id": "v16",
+      "code": "S",
+      "text": "Lucrezi cu oameni care au nevoie de sprijin — vârstnici, copii, persoane vulnerabile.",
+      "signals": [
+        "social.care",
+        "health.nursing"
+      ]
+    },
+    {
+      "id": "v17",
+      "code": "E",
+      "text": "Negociezi sau vinzi — un produs, un parteneriat, o idee la prof sau la un client.",
+      "signals": [
+        "business.sales",
+        "business.negotiation"
+      ]
+    },
+    {
+      "id": "v18",
+      "code": "C",
+      "text": "Urmezi un proces pas cu pas, fără scurtături, până la rezultat curat.",
+      "signals": [
+        "order.quality",
+        "order.compliance"
+      ]
+    },
+    {
+      "id": "v19",
+      "code": "R",
+      "text": "Lucrezi în condiții fizice solicitante și trebuie să iei decizii rapide sub presiune reală — situații de urgență, teren, intervenție.",
+      "signals": [
+        "order.law_enforcement",
+        "health.emergency"
+      ]
+    },
+    {
+      "id": "v20",
+      "code": "C",
+      "text": "Faci parte dintr-o structură clară de comandă și înțelegi că regulile și ierarhia există pentru siguranța întregii echipe.",
+      "signals": [
+        "order.law_enforcement",
+        "order.compliance"
+      ]
+    }
+  ],
+  "codes": {
+    "R": {
+      "name": "Realist",
+      "short": "DOERS",
+      "color": "green",
+      "desc": "Mâini active. Tools, mașini, sport, construit. Înveți făcând."
+    },
+    "I": {
+      "name": "Investigativ",
+      "short": "THINKERS",
+      "color": "purple",
+      "desc": "Curiozitate, cercetare, date, întrebări „de ce\". Minte de laborator."
+    },
+    "A": {
+      "name": "Artistic",
+      "short": "CREATORS",
+      "color": "yellow",
+      "desc": "Exprimare, estetică, originalitate. Vizual, muzică, scris, video."
+    },
+    "S": {
+      "name": "Social",
+      "short": "HELPERS",
+      "color": "green",
+      "desc": "Oameni, empatie, predare, îngrijire. Energie din relații."
+    },
+    "E": {
+      "name": "Întreprinzător",
+      "short": "LEADERS",
+      "color": "purple",
+      "desc": "Influență, persuasiune, vânzări, conducere, business."
+    },
+    "C": {
+      "name": "Convențional",
+      "short": "ORGANIZERS",
+      "color": "yellow",
+      "desc": "Sisteme, proceduri, date organizate, acuratețe, fiabilitate."
+    }
+  }
+}

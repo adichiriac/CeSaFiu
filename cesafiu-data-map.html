@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>CeSaFiu — Data Map</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Harta de date CeSaFiu: căi → cariere → instituții → pași următori. Generată din cesafiu_prototype_v3/project/data.js.">
+<meta name="description" content="Harta de date CeSaFiu: căi → cariere → instituții → pași următori. Citește artifactul generat din /data.">
 <style>
   :root {
     --ink: #0F0F10;
@@ -46,6 +46,7 @@
   }
 
   .app { display: grid; grid-template-rows: auto auto 1fr auto; height: 100vh; }
+  .app.review-mode { grid-template-rows: auto 1fr auto; }
 
   header {
     padding: 16px 24px;
@@ -63,6 +64,8 @@
   }
   header .search:focus { outline: none; box-shadow: var(--shadow); }
   header .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .mode-tabs { display: flex; gap: 8px; }
+  .mode-tabs .chip.active { background: var(--purple-600); color: white; }
 
   .filter-bar {
     padding: 12px 24px;
@@ -93,6 +96,9 @@
     gap: 16px; padding: 16px 24px; overflow: hidden;
     position: relative;
   }
+  .columns.hidden,
+  .filter-bar.hidden,
+  .candidate-review.hidden { display: none; }
   .col { display: flex; flex-direction: column; min-height: 0; }
   .col h2 {
     font-size: 11px; font-weight: 800; text-transform: uppercase;
@@ -167,6 +173,130 @@
     padding: 30px 12px; border: 1.5px dashed #999; border-radius: var(--radius);
   }
 
+  /* Candidate review workspace */
+  .candidate-review {
+    display: grid; grid-template-rows: auto 1fr;
+    gap: 12px; padding: 16px 24px; overflow: hidden;
+  }
+  .candidate-toolbar {
+    border: var(--border); border-radius: var(--radius);
+    background: var(--surface); box-shadow: var(--shadow);
+    padding: 12px; display: grid;
+    grid-template-columns: repeat(5, minmax(120px, 1fr));
+    gap: 10px; align-items: end;
+  }
+  .candidate-toolbar label {
+    display: flex; flex-direction: column; gap: 4px;
+    font-size: 10px; font-weight: 900; letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .candidate-toolbar select {
+    border: var(--border); border-radius: 8px; background: var(--paper-warm);
+    padding: 8px 10px; font: inherit; font-size: 13px; font-weight: 700;
+  }
+  .candidate-grid {
+    min-height: 0; display: grid;
+    grid-template-columns: minmax(300px, 0.9fr) minmax(420px, 1.25fr) minmax(340px, 0.95fr);
+    gap: 14px; overflow: hidden;
+  }
+  .review-panel {
+    min-height: 0; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .review-panel h2 {
+    border: var(--border); border-radius: var(--radius);
+    background: var(--ink); color: white;
+    padding: 10px 12px; margin-bottom: 8px;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .review-scroll {
+    min-height: 0; overflow: auto; padding: 4px;
+    display: flex; flex-direction: column; gap: 10px;
+    scrollbar-width: thin;
+  }
+  .candidate-card,
+  .similar-card,
+  .candidate-detail-card {
+    border: var(--border); border-radius: var(--radius);
+    background: var(--surface); box-shadow: 3px 3px 0 var(--ink);
+  }
+  .candidate-card {
+    padding: 12px; cursor: pointer;
+  }
+  .candidate-card:hover,
+  .candidate-card.selected {
+    transform: translate(-1px, -1px); box-shadow: var(--shadow);
+  }
+  .candidate-card.selected { background: var(--yellow-100); }
+  .candidate-card .topline,
+  .similar-card .topline {
+    display: flex; justify-content: space-between; gap: 8px; align-items: start;
+  }
+  .candidate-card .name,
+  .similar-card .name {
+    font-size: 15px; font-weight: 900; line-height: 1.15;
+  }
+  .score-badge {
+    border: var(--border); border-radius: 8px;
+    background: var(--lime-500); padding: 4px 8px;
+    font-weight: 900; white-space: nowrap;
+  }
+  .candidate-card .meta,
+  .similar-card .meta,
+  .candidate-detail-card .meta {
+    margin-top: 6px; color: #555; font-size: 12px; font-weight: 700;
+  }
+  .candidate-detail-card {
+    padding: 16px; overflow: auto;
+  }
+  .candidate-detail-card h3 {
+    font-size: 26px; line-height: 1.05; font-weight: 950; margin-bottom: 6px;
+  }
+  .candidate-detail-card h4 {
+    margin: 16px 0 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .candidate-detail-card p { margin: 0 0 8px; }
+  .score-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; margin-top: 12px;
+  }
+  .score-tile {
+    border: var(--border); border-radius: 8px;
+    padding: 8px; background: var(--paper-warm);
+  }
+  .score-tile b { display: block; font-size: 20px; line-height: 1; }
+  .score-tile span { display: block; margin-top: 4px; color: #555; font-size: 10px; font-weight: 900; text-transform: uppercase; }
+  .review-actions {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px;
+  }
+  .review-actions button,
+  .copy-actions button {
+    border: var(--border); border-radius: 8px; background: var(--surface);
+    padding: 8px; font-weight: 900; cursor: pointer;
+  }
+  .review-actions button.active { background: var(--purple-600); color: white; }
+  .copy-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .review-note {
+    width: 100%; min-height: 82px; resize: vertical;
+    border: var(--border); border-radius: 8px; padding: 8px;
+    background: var(--paper-warm); font: inherit;
+  }
+  .similar-card {
+    padding: 12px; background: var(--paper-warm);
+  }
+  .similar-card .why {
+    margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .mini-pill {
+    display: inline-block; border: 1.5px solid var(--ink); border-radius: 999px;
+    padding: 2px 8px; background: var(--surface);
+    font-size: 10px; font-weight: 900; text-transform: uppercase;
+  }
+  .mini-pill.green { background: var(--lime-500); }
+  .mini-pill.yellow { background: var(--mustard-500); }
+  .mini-pill.purple { background: var(--purple-600); color: white; }
+
   /* Detail panel (career deep-dive) */
   .detail {
     position: fixed; right: 16px; top: 16px; bottom: 16px; width: 380px;
@@ -220,6 +350,9 @@
 
   @media (max-width: 1100px) {
     .columns { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+    .candidate-toolbar { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+    .candidate-grid { grid-template-columns: 1fr; overflow: auto; }
+    .review-panel { min-height: 360px; }
     .detail { width: calc(100vw - 32px); }
   }
 </style>
@@ -233,6 +366,10 @@
       <div class="sub">Căi educaționale → cariere → instituții → pași următori. Click pe un nod pentru a-i evidenția conexiunile.</div>
     </div>
     <div class="controls">
+      <div class="mode-tabs" aria-label="View mode">
+        <button class="chip active" id="modeMap" type="button">Hartă</button>
+        <button class="chip" id="modeCandidates" type="button">Candidates</button>
+      </div>
       <input type="search" class="search" id="search" placeholder="Caută o carieră, instituție sau cuvânt cheie..." />
       <button class="chip" id="reset" style="background: var(--ink); color: white;">Reset</button>
     </div>
@@ -269,13 +406,55 @@
     <svg class="edges" id="edges"></svg>
   </div>
 
+  <section class="candidate-review hidden" id="candidateReview">
+    <div class="candidate-toolbar">
+      <label>Status
+        <select id="candidateStatusFilter"></select>
+      </label>
+      <label>Domeniu
+        <select id="candidateDomainFilter"></select>
+      </label>
+      <label>Traseu
+        <select id="candidatePathFilter"></select>
+      </label>
+      <label>RIASEC primar
+        <select id="candidateRiasecFilter"></select>
+      </label>
+      <label>Sortare
+        <select id="candidateSort">
+          <option value="priority">Prioritate editorială</option>
+          <option value="marketRo">Cerere RO</option>
+          <option value="marketEu">Cerere UE</option>
+          <option value="future">Future signal</option>
+          <option value="name">Nume A-Z</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="candidate-grid">
+      <section class="review-panel">
+        <h2>Candidați <span id="candidateCount">0</span></h2>
+        <div class="review-scroll" id="candidateList"></div>
+      </section>
+      <section class="review-panel">
+        <h2>Review candidat <span id="candidateScoreLabel">—</span></h2>
+        <div class="review-scroll" id="candidateDetail"></div>
+      </section>
+      <section class="review-panel">
+        <h2>Cariere similare existente <span id="similarCount">0</span></h2>
+        <div class="review-scroll" id="similarCareers"></div>
+      </section>
+    </div>
+  </section>
+
   <footer>
     <div class="stats">
       <span><b id="stat-careers">0</b> cariere</span>
+      <span><b id="stat-candidates">0</b> candidați</span>
       <span><b id="stat-schools">0</b> instituții</span>
       <span><b id="stat-programs">0</b> programe (edges)</span>
     </div>
-    <div class="src">data: cesafiu_prototype_v3/project/data.js · v2 expansion 2026-04-30</div>
+    <div class="src">data: /data JSON · artifact cesafiu_prototype_v3/project/data.js</div>
   </footer>
 </div>
 
@@ -286,6 +465,7 @@
 
 <!-- Load canonical data -->
 <script src="cesafiu_prototype_v3/project/data.js"></script>
+<script src="cesafiu_prototype_v3/project/career-candidates.js"></script>
 
 <script>
 (function() {
@@ -298,6 +478,7 @@
 
   const D = window.QUIZ_DATA;
   const careers = D.careers || [];
+  const candidateCareers = D.careerCandidates || [];
   const universities = D.universities || [];
   const programs = D.programs || [];
   const paths = D.paths || [];
@@ -334,13 +515,24 @@
   };
 
   // State
+  const initialMode = candidateCareers.length > 0 ? 'candidates' : 'map';
   const state = {
+    mode: initialMode,
     selectedPath: null,
     selectedCareer: null,
     selectedUni: null,
     tierFilter: 'all',
     searchQuery: '',
+    selectedCandidate: null,
+    candidateStatus: 'all',
+    candidateDomain: 'all',
+    candidatePath: 'all',
+    candidateRiasec: 'all',
+    candidateSort: 'priority',
   };
+
+  const reviewStorageKey = 'cesafiu-career-candidate-review-v1';
+  const candidateReviews = loadCandidateReviews();
 
   // --- DOM helpers ---
   function el(tag, props = {}, children = []) {
@@ -360,6 +552,19 @@
 
   // --- Render ---
   function render() {
+    document.querySelector('.app').classList.toggle('review-mode', state.mode === 'candidates');
+    document.getElementById('modeMap').classList.toggle('active', state.mode === 'map');
+    document.getElementById('modeCandidates').classList.toggle('active', state.mode === 'candidates');
+    document.getElementById('modeCandidates').textContent = `Candidates (${candidateCareers.length})`;
+    document.querySelector('.filter-bar').classList.toggle('hidden', state.mode !== 'map');
+    document.getElementById('columns').classList.toggle('hidden', state.mode !== 'map');
+    document.getElementById('candidateReview').classList.toggle('hidden', state.mode !== 'candidates');
+    if (state.mode === 'candidates') {
+      hideDetail();
+      renderCandidateReview();
+      updateStats();
+      return;
+    }
     renderPaths();
     renderCareers();
     renderSchools();
@@ -544,8 +749,343 @@
 
   function updateStats() {
     document.getElementById('stat-careers').textContent = careers.length;
+    document.getElementById('stat-candidates').textContent = candidateCareers.length;
     document.getElementById('stat-schools').textContent = universities.length;
     document.getElementById('stat-programs').textContent = programs.length;
+  }
+
+  // --- Candidate review ---
+  function loadCandidateReviews() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(reviewStorageKey) || '{}');
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+        return {};
+      }
+      return parsed;
+    } catch {
+      return {};
+    }
+  }
+
+  function saveCandidateReviews() {
+    localStorage.setItem(reviewStorageKey, JSON.stringify(candidateReviews));
+  }
+
+  function candidateStatus(candidate) {
+    const stored = candidateReviews[candidate.id];
+    return (stored && typeof stored === 'object' && typeof stored.status === 'string')
+      ? stored.status
+      : candidate.reviewStatus || 'candidate';
+  }
+
+  function candidateNote(candidate) {
+    const stored = candidateReviews[candidate.id];
+    return (stored && typeof stored === 'object' && typeof stored.note === 'string') ? stored.note : '';
+  }
+
+  function diversityScore(candidate) {
+    const domainSize = candidateCareers.filter(item => item.domain === candidate.domain).length;
+    if (domainSize <= 4) return 90;
+    if (domainSize <= 8) return 75;
+    if (domainSize <= 12) return 60;
+    return 45;
+  }
+
+  function candidatePriority(candidate) {
+    return Math.round(
+      0.35 * candidate.marketScoreRo +
+      0.25 * candidate.marketScoreEu +
+      0.2 * candidate.futureScore +
+      0.1 * candidate.accessibilityScore +
+      0.1 * diversityScore(candidate)
+    );
+  }
+
+  function fillSelect(id, options, allLabel) {
+    const select = document.getElementById(id);
+    select.innerHTML = '';
+    select.appendChild(el('option', { value: 'all' }, allLabel));
+    options.forEach(option => select.appendChild(el('option', { value: option }, option)));
+  }
+
+  function initCandidateFilters() {
+    const statuses = ['candidate', 'promote', 'merge', 'reject'];
+    const domains = [...new Set(candidateCareers.map(c => c.domain).filter(Boolean))].sort();
+    const candidatePaths = [...new Set(candidateCareers.map(c => c.suggestedPathType).filter(Boolean))].sort();
+    const riasec = [...new Set(candidateCareers.map(c => c.suggestedRiasec?.[0]).filter(Boolean))].sort();
+    fillSelect('candidateStatusFilter', statuses, 'Toate statusurile');
+    fillSelect('candidateDomainFilter', domains, 'Toate domeniile');
+    fillSelect('candidatePathFilter', candidatePaths, 'Toate traseele');
+    fillSelect('candidateRiasecFilter', riasec, 'Toate codurile');
+  }
+
+  function getFilteredCandidates() {
+    const q = state.searchQuery.toLowerCase();
+    let visible = candidateCareers.filter(candidate => {
+      if (state.candidateStatus !== 'all' && candidateStatus(candidate) !== state.candidateStatus) return false;
+      if (state.candidateDomain !== 'all' && candidate.domain !== state.candidateDomain) return false;
+      if (state.candidatePath !== 'all' && candidate.suggestedPathType !== state.candidatePath) return false;
+      if (state.candidateRiasec !== 'all' && candidate.suggestedRiasec?.[0] !== state.candidateRiasec) return false;
+      if (!q) return true;
+      return [
+        candidate.id,
+        candidate.name,
+        candidate.domain,
+        candidate.suggestedPathType,
+        candidate.rationale,
+        ...(candidate.sourceRefs || []),
+      ].some(value => String(value || '').toLowerCase().includes(q));
+    });
+
+    visible = visible.slice().sort((a, b) => {
+      if (state.candidateSort === 'name') return a.name.localeCompare(b.name);
+      if (state.candidateSort === 'marketRo') return b.marketScoreRo - a.marketScoreRo || a.name.localeCompare(b.name);
+      if (state.candidateSort === 'marketEu') return b.marketScoreEu - a.marketScoreEu || a.name.localeCompare(b.name);
+      if (state.candidateSort === 'future') return b.futureScore - a.futureScore || a.name.localeCompare(b.name);
+      return candidatePriority(b) - candidatePriority(a) || a.name.localeCompare(b.name);
+    });
+    return visible;
+  }
+
+  function renderCandidateReview() {
+    if (!candidateCareers.length) {
+      document.getElementById('candidateList').innerHTML = '';
+      document.getElementById('candidateDetail').innerHTML = '<div class="empty">Nu există candidați în build-ul curent. Rulează npm run data:map după ce există data/career-candidates.json.</div>';
+      document.getElementById('similarCareers').innerHTML = '';
+      document.getElementById('candidateCount').textContent = '0';
+      document.getElementById('similarCount').textContent = '0';
+      return;
+    }
+
+    const visible = getFilteredCandidates();
+    if (!visible.some(candidate => candidate.id === state.selectedCandidate)) {
+      state.selectedCandidate = visible[0]?.id || null;
+    }
+
+    const list = document.getElementById('candidateList');
+    list.innerHTML = '';
+    if (!visible.length) {
+      list.appendChild(el('div', { class: 'empty' }, `Niciun candidat pentru filtrele curente. Total încărcat: ${candidateCareers.length}. Apasă Reset ca să golești filtrele.`));
+    }
+    for (const candidate of visible) {
+      const status = candidateStatus(candidate);
+      list.appendChild(el('article', {
+        class: 'candidate-card' + (state.selectedCandidate === candidate.id ? ' selected' : ''),
+        on: { click: () => { state.selectedCandidate = candidate.id; renderCandidateReview(); } },
+      }, [
+        el('div', { class: 'topline' }, [
+          el('div', { class: 'name' }, candidate.name),
+          el('div', { class: 'score-badge' }, String(candidatePriority(candidate))),
+        ]),
+        el('div', { class: 'meta' }, `${candidate.domain} · ${candidate.suggestedPathType} · ${candidate.suggestedRiasec?.join('') || '—'}`),
+        el('div', { class: 'why' }, [
+          el('span', { class: 'mini-pill purple' }, status),
+          el('span', { class: 'mini-pill' }, candidate.id),
+        ]),
+      ]));
+    }
+    document.getElementById('candidateCount').textContent = visible.length;
+
+    const selected = candidateCareers.find(candidate => candidate.id === state.selectedCandidate);
+    renderCandidateDetail(selected);
+    renderSimilarCareers(selected);
+  }
+
+  function renderCandidateDetail(candidate) {
+    const detail = document.getElementById('candidateDetail');
+    detail.innerHTML = '';
+    document.getElementById('candidateScoreLabel').textContent = candidate ? candidatePriority(candidate) : '—';
+    if (!candidate) {
+      detail.appendChild(el('div', { class: 'empty' }, 'Selectează un candidat.'));
+      return;
+    }
+
+    const status = candidateStatus(candidate);
+    const card = el('article', { class: 'candidate-detail-card' }, [
+      el('h3', {}, candidate.name),
+      el('div', { class: 'meta' }, `${candidate.id} · ${candidate.domain}`),
+      el('div', { class: 'score-grid' }, [
+        scoreTile(candidate.marketScoreRo, 'RO demand'),
+        scoreTile(candidate.marketScoreEu, 'EU demand'),
+        scoreTile(candidate.futureScore, 'Future'),
+        scoreTile(candidate.accessibilityScore, 'Access'),
+      ]),
+      el('h4', {}, 'Sugestie matching'),
+      pillRow([
+        `Path: ${candidate.suggestedPathType}`,
+        `RIASEC: ${(candidate.suggestedRiasec || []).join(' · ')}`,
+        `Big Five: ${(candidate.suggestedBig5 || []).join(' · ')}`,
+      ]),
+      el('h4', {}, 'Rationale'),
+      el('p', {}, candidate.rationale || '—'),
+      el('h4', {}, 'Source refs'),
+      sourceList(candidate.sourceRefs || []),
+      el('h4', {}, 'Review local'),
+      el('div', { class: 'review-actions' }, ['candidate', 'promote', 'merge', 'reject'].map(nextStatus =>
+        el('button', {
+          class: status === nextStatus ? 'active' : '',
+          on: { click: () => setCandidateStatus(candidate.id, nextStatus) },
+        }, nextStatus)
+      )),
+      el('h4', {}, 'Note review'),
+      el('textarea', {
+        class: 'review-note',
+        value: candidateNote(candidate),
+        placeholder: 'Ex: promovează dacă găsim 2 programe reale în RO; altfel merge cu data-scientist.',
+        on: { input: event => setCandidateNote(candidate.id, event.target.value) },
+      }),
+      el('div', { class: 'copy-actions' }, [
+        el('button', { on: { click: () => copyText(JSON.stringify(candidate, null, 2)) } }, 'Copy JSON'),
+        el('button', { on: { click: () => copyText(promotionChecklist(candidate)) } }, 'Copy checklist'),
+      ]),
+    ]);
+    detail.appendChild(card);
+  }
+
+  function scoreTile(score, label) {
+    return el('div', { class: 'score-tile' }, [
+      el('b', {}, String(score ?? '—')),
+      el('span', {}, label),
+    ]);
+  }
+
+  function pillRow(labels) {
+    const row = el('div', { class: 'pill-row' });
+    labels.filter(Boolean).forEach(label => row.appendChild(el('span', { class: 'pill' }, label)));
+    return row;
+  }
+
+  function sourceList(refs) {
+    const ul = el('ul', {});
+    if (!refs.length) {
+      ul.appendChild(el('li', {}, 'No source refs'));
+      return ul;
+    }
+    refs.forEach(ref => ul.appendChild(el('li', {}, ref)));
+    return ul;
+  }
+
+  function setCandidateStatus(candidateId, status) {
+    candidateReviews[candidateId] = { ...(candidateReviews[candidateId] || {}), status };
+    saveCandidateReviews();
+    renderCandidateReview();
+  }
+
+  function setCandidateNote(candidateId, note) {
+    candidateReviews[candidateId] = { ...(candidateReviews[candidateId] || {}), note };
+    saveCandidateReviews();
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+      return;
+    }
+    fallbackCopy(text);
+  }
+
+  function fallbackCopy(text) {
+    const box = el('textarea', { value: text });
+    box.style.position = 'fixed';
+    box.style.left = '-9999px';
+    document.body.appendChild(box);
+    box.select();
+    document.execCommand('copy');
+    document.body.removeChild(box);
+  }
+
+  function promotionChecklist(candidate) {
+    return [
+      `Candidate: ${candidate.name} (${candidate.id})`,
+      '',
+      '- [ ] Duplicate check against existing careers',
+      '- [ ] Confirm Romanian market demand',
+      '- [ ] Confirm EU/future signal',
+      '- [ ] Define student-friendly description, salary, demand, vibe',
+      '- [ ] Add RIASEC + Big Five + traits',
+      '- [ ] Map realistic Romanian path/programs',
+      '- [ ] Promote into data/careers.json or mark merge/reject',
+      '',
+      `Source refs: ${(candidate.sourceRefs || []).join('; ')}`,
+      `Local note: ${candidateNote(candidate) || '—'}`,
+    ].join('\n');
+  }
+
+  function renderSimilarCareers(candidate) {
+    const body = document.getElementById('similarCareers');
+    body.innerHTML = '';
+    if (!candidate) {
+      document.getElementById('similarCount').textContent = '0';
+      body.appendChild(el('div', { class: 'empty' }, 'Selectează un candidat.'));
+      return;
+    }
+    const similar = careers
+      .map(career => ({ career, result: similarity(candidate, career) }))
+      .filter(item => item.result.score > 0)
+      .sort((a, b) => b.result.score - a.result.score || a.career.name.localeCompare(b.career.name))
+      .slice(0, 10);
+    document.getElementById('similarCount').textContent = similar.length;
+    if (!similar.length) {
+      body.appendChild(el('div', { class: 'empty' }, 'Nicio carieră similară găsită prin RIASEC / traseu / Big Five.'));
+      return;
+    }
+    for (const item of similar) {
+      const career = item.career;
+      const reasons = item.result.reasons;
+      body.appendChild(el('article', { class: 'similar-card' }, [
+        el('div', { class: 'topline' }, [
+          el('div', { class: 'name' }, career.name),
+          el('div', { class: 'score-badge' }, String(item.result.score)),
+        ]),
+        el('div', { class: 'meta' }, `${career.id} · ${career.pathType || '—'} · ${(career.riasec || []).join('') || '—'}`),
+        el('div', { class: 'why' }, reasons.map(reason => el('span', { class: 'mini-pill green' }, reason))),
+      ]));
+    }
+  }
+
+  function similarity(candidate, career) {
+    let score = 0;
+    const reasons = [];
+    const candidateRiasec = candidate.suggestedRiasec || [];
+    const careerRiasec = career.riasec || [];
+    const riasecOverlap = candidateRiasec.filter(code => careerRiasec.includes(code));
+    if (riasecOverlap.length) {
+      score += riasecOverlap.length * 18;
+      reasons.push(`RIASEC ${riasecOverlap.join('')}`);
+    }
+    if (candidateRiasec[0] && candidateRiasec[0] === careerRiasec[0]) {
+      score += 20;
+      reasons.push('primary RIASEC');
+    }
+    if (candidate.suggestedPathType && career.pathType === candidate.suggestedPathType) {
+      score += 14;
+      reasons.push('same path');
+    } else if (candidate.suggestedPathType === 'mixt' || career.pathType === 'mixt') {
+      score += 6;
+      reasons.push('mixed path');
+    }
+    const big5Overlap = (candidate.suggestedBig5 || []).filter(code => (career.big5 || []).includes(code));
+    if (big5Overlap.length) {
+      score += big5Overlap.length * 8;
+      reasons.push(`Big5 ${big5Overlap.join('')}`);
+    }
+    const tokenOverlap = nameTokenOverlap(candidate.name, career.name);
+    if (tokenOverlap.length) {
+      score += Math.min(tokenOverlap.length * 5, 15);
+      reasons.push(`name ${tokenOverlap.slice(0, 2).join('/')}`);
+    }
+    return { score, reasons };
+  }
+
+  function nameTokenOverlap(a, b) {
+    const stop = new Set(['si', 'sau', 'de', 'la', 'in', 'of', 'and', 'manager', 'specialist', 'engineer', 'inginer']);
+    const toTokens = value => String(value || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .split(/[^a-z0-9]+/)
+      .filter(token => token.length > 2 && !stop.has(token));
+    const bTokens = new Set(toTokens(b));
+    return [...new Set(toTokens(a).filter(token => bTokens.has(token)))];
   }
 
   // --- Select / interact ---
@@ -722,6 +1262,15 @@
   }
 
   // --- Filter chips, search, reset ---
+  document.getElementById('modeMap').addEventListener('click', () => {
+    state.mode = 'map';
+    render();
+  });
+  document.getElementById('modeCandidates').addEventListener('click', () => {
+    state.mode = 'candidates';
+    render();
+  });
+
   document.querySelectorAll('[data-tier-filter]').forEach(btn => {
     btn.addEventListener('click', () => {
       state.tierFilter = btn.dataset.tierFilter;
@@ -738,13 +1287,45 @@
     render();
   });
 
+  document.getElementById('candidateStatusFilter').addEventListener('change', (e) => {
+    state.candidateStatus = e.target.value;
+    renderCandidateReview();
+  });
+  document.getElementById('candidateDomainFilter').addEventListener('change', (e) => {
+    state.candidateDomain = e.target.value;
+    renderCandidateReview();
+  });
+  document.getElementById('candidatePathFilter').addEventListener('change', (e) => {
+    state.candidatePath = e.target.value;
+    renderCandidateReview();
+  });
+  document.getElementById('candidateRiasecFilter').addEventListener('change', (e) => {
+    state.candidateRiasec = e.target.value;
+    renderCandidateReview();
+  });
+  document.getElementById('candidateSort').addEventListener('change', (e) => {
+    state.candidateSort = e.target.value;
+    renderCandidateReview();
+  });
+
   document.getElementById('reset').addEventListener('click', () => {
     state.selectedPath = null;
     state.selectedCareer = null;
     state.selectedUni = null;
     state.tierFilter = 'all';
     state.searchQuery = '';
+    state.selectedCandidate = null;
+    state.candidateStatus = 'all';
+    state.candidateDomain = 'all';
+    state.candidatePath = 'all';
+    state.candidateRiasec = 'all';
+    state.candidateSort = 'priority';
     document.getElementById('search').value = '';
+    document.getElementById('candidateStatusFilter').value = 'all';
+    document.getElementById('candidateDomainFilter').value = 'all';
+    document.getElementById('candidatePathFilter').value = 'all';
+    document.getElementById('candidateRiasecFilter').value = 'all';
+    document.getElementById('candidateSort').value = 'priority';
     document.querySelectorAll('[data-tier-filter]').forEach(b => b.classList.toggle('active', b.dataset.tierFilter === 'all'));
     hideDetail();
     render();
@@ -759,6 +1340,7 @@
   window.addEventListener('resize', () => requestAnimationFrame(drawEdges));
 
   // Initial render
+  initCandidateFilters();
   render();
 })();
 </script>

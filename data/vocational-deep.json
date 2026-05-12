@@ -1,0 +1,547 @@
+{
+  "name": "Test vocațional aprofundat",
+  "subtitle": "O*NET Interest Profiler · 60 itemi · validat științific",
+  "estimateMin": 10,
+  "source": "O*NET Interest Profiler (US Department of Labor) — public domain",
+  "sourceUrl": "https://www.mynextmove.org/explore/ip",
+  "items": [
+    {
+      "id": "d-r-01",
+      "code": "R",
+      "text": "Construiești dulapuri sau mobilier de lemn",
+      "signals": [
+        "practical.manual_craft"
+      ]
+    },
+    {
+      "id": "d-r-02",
+      "code": "R",
+      "text": "Pui cărămizi, gresie sau faianță",
+      "signals": [
+        "technical.construction",
+        "practical.install"
+      ]
+    },
+    {
+      "id": "d-r-03",
+      "code": "R",
+      "text": "Repari electrocasnice (frigider, mașină de spălat)",
+      "signals": [
+        "practical.repair",
+        "technical.electrical"
+      ]
+    },
+    {
+      "id": "d-r-04",
+      "code": "R",
+      "text": "Crești pești într-o crescătorie sau albine pentru miere",
+      "signals": [
+        "practical.agriculture"
+      ],
+      "culturalFlag": true,
+      "flagNote": "Original O*NET „raise fish in a fish hatchery\" — adaptat la realitate RO (apicultura e mai relatable)."
+    },
+    {
+      "id": "d-r-05",
+      "code": "R",
+      "text": "Asamblezi piese electronice pe o placă",
+      "signals": [
+        "technical.hardware",
+        "technical.electrical"
+      ]
+    },
+    {
+      "id": "d-r-06",
+      "code": "R",
+      "text": "Conduci un camion (TIR) ca să livrezi marfă",
+      "signals": [
+        "practical.transport",
+        "order.logistics"
+      ]
+    },
+    {
+      "id": "d-r-07",
+      "code": "R",
+      "text": "Repari și montezi încuietori și sisteme de securitate",
+      "signals": [
+        "practical.repair",
+        "investigative.security"
+      ]
+    },
+    {
+      "id": "d-r-08",
+      "code": "R",
+      "text": "Reglezi și operezi utilaje industriale (CNC, presă, strung)",
+      "signals": [
+        "technical.mechanical",
+        "technical.systems"
+      ]
+    },
+    {
+      "id": "d-r-09",
+      "code": "R",
+      "text": "Stingi incendii ca pompier sau salvamontist",
+      "signals": [
+        "health.emergency",
+        "social.care"
+      ]
+    },
+    {
+      "id": "d-r-10",
+      "code": "R",
+      "text": "Lucrezi pe o platformă de foraj sau în industria petrolieră",
+      "signals": [
+        "technical.energy",
+        "technical.mechanical"
+      ],
+      "culturalFlag": true,
+      "flagNote": "Original „offshore oil-drilling rig\" — adaptat la contextul Petrom / industria petrolieră RO."
+    },
+    {
+      "id": "d-i-01",
+      "code": "I",
+      "text": "Dezvolți un medicament nou într-un laborator farma",
+      "signals": [
+        "investigative.lab",
+        "health.pharma"
+      ]
+    },
+    {
+      "id": "d-i-02",
+      "code": "I",
+      "text": "Studiezi cum să reduci poluarea apei sau aerului",
+      "signals": [
+        "investigative.science",
+        "technical.energy"
+      ]
+    },
+    {
+      "id": "d-i-03",
+      "code": "I",
+      "text": "Faci experimente chimice ca să înțelegi reacții noi",
+      "signals": [
+        "investigative.lab",
+        "investigative.science"
+      ]
+    },
+    {
+      "id": "d-i-04",
+      "code": "I",
+      "text": "Studiezi mișcarea planetelor și stelelor (astronomie)",
+      "signals": [
+        "investigative.science",
+        "investigative.research"
+      ]
+    },
+    {
+      "id": "d-i-05",
+      "code": "I",
+      "text": "Examinezi probe de sânge la microscop pentru diagnosticare",
+      "signals": [
+        "investigative.lab",
+        "health.clinical"
+      ]
+    },
+    {
+      "id": "d-i-06",
+      "code": "I",
+      "text": "Investighezi cauzele unui incendiu sau accident",
+      "signals": [
+        "investigative.diagnostic",
+        "investigative.security"
+      ]
+    },
+    {
+      "id": "d-i-07",
+      "code": "I",
+      "text": "Dezvolți o metodă mai bună de a prezice vremea",
+      "signals": [
+        "investigative.data",
+        "investigative.science"
+      ]
+    },
+    {
+      "id": "d-i-08",
+      "code": "I",
+      "text": "Lucrezi într-un laborator de biologie cu plante sau animale",
+      "signals": [
+        "investigative.lab",
+        "practical.agriculture"
+      ]
+    },
+    {
+      "id": "d-i-09",
+      "code": "I",
+      "text": "Inventezi un înlocuitor mai sănătos pentru zahăr",
+      "signals": [
+        "investigative.lab",
+        "health.pharma"
+      ]
+    },
+    {
+      "id": "d-i-10",
+      "code": "I",
+      "text": "Faci teste de laborator ca să identifici boli",
+      "signals": [
+        "investigative.lab",
+        "health.clinical"
+      ]
+    },
+    {
+      "id": "d-a-01",
+      "code": "A",
+      "text": "Dirijezi un cor sau o orchestră",
+      "signals": [
+        "creative.music"
+      ]
+    },
+    {
+      "id": "d-a-02",
+      "code": "A",
+      "text": "Faci regie pentru o piesă de teatru",
+      "signals": [
+        "creative.performance",
+        "creative.video"
+      ]
+    },
+    {
+      "id": "d-a-03",
+      "code": "A",
+      "text": "Realizezi grafică / ilustrații pentru reviste",
+      "signals": [
+        "creative.visual"
+      ]
+    },
+    {
+      "id": "d-a-04",
+      "code": "A",
+      "text": "Compui o melodie originală",
+      "signals": [
+        "creative.music"
+      ]
+    },
+    {
+      "id": "d-a-05",
+      "code": "A",
+      "text": "Scrii cărți, povești sau piese de teatru",
+      "signals": [
+        "creative.writing"
+      ]
+    },
+    {
+      "id": "d-a-06",
+      "code": "A",
+      "text": "Cânți la un instrument muzical",
+      "signals": [
+        "creative.music",
+        "creative.performance"
+      ]
+    },
+    {
+      "id": "d-a-07",
+      "code": "A",
+      "text": "Faci cascadorii sau efecte fizice pentru filme",
+      "signals": [
+        "creative.performance"
+      ],
+      "culturalFlag": true,
+      "flagNote": "Original „perform stunts\" — niche, dar înțeles de teen din filme/Netflix."
+    },
+    {
+      "id": "d-a-08",
+      "code": "A",
+      "text": "Designezi decoruri și costume pentru piese sau filme",
+      "signals": [
+        "creative.visual",
+        "creative.performance"
+      ]
+    },
+    {
+      "id": "d-a-09",
+      "code": "A",
+      "text": "Prezinți o emisiune de radio sau podcast",
+      "signals": [
+        "creative.performance",
+        "creative.writing"
+      ]
+    },
+    {
+      "id": "d-a-10",
+      "code": "A",
+      "text": "Editezi filme, reels sau clipuri YouTube",
+      "signals": [
+        "creative.video"
+      ]
+    },
+    {
+      "id": "d-s-01",
+      "code": "S",
+      "text": "Oferi consiliere de carieră oamenilor care nu știu ce să aleagă",
+      "signals": [
+        "social.counseling",
+        "social.teaching"
+      ]
+    },
+    {
+      "id": "d-s-02",
+      "code": "S",
+      "text": "Faci voluntariat la un ONG sau o cantină socială",
+      "signals": [
+        "social.care",
+        "social.community"
+      ]
+    },
+    {
+      "id": "d-s-03",
+      "code": "S",
+      "text": "Ajuți oameni cu probleme personale sau emoționale",
+      "signals": [
+        "social.counseling",
+        "health.therapy"
+      ]
+    },
+    {
+      "id": "d-s-04",
+      "code": "S",
+      "text": "Înveți pe cineva o rutină de fitness sau un sport",
+      "signals": [
+        "social.coaching",
+        "social.teaching"
+      ]
+    },
+    {
+      "id": "d-s-05",
+      "code": "S",
+      "text": "Ajuți oameni cu probleme de familie sau de cuplu",
+      "signals": [
+        "social.counseling",
+        "health.therapy"
+      ]
+    },
+    {
+      "id": "d-s-06",
+      "code": "S",
+      "text": "Supraveghezi activitățile copiilor la o tabără sau școală",
+      "signals": [
+        "social.teaching",
+        "social.care"
+      ]
+    },
+    {
+      "id": "d-s-07",
+      "code": "S",
+      "text": "Înveți copii din clasele primare să citească",
+      "signals": [
+        "social.teaching"
+      ]
+    },
+    {
+      "id": "d-s-08",
+      "code": "S",
+      "text": "Ajuți persoane în vârstă cu activitățile zilnice",
+      "signals": [
+        "social.care",
+        "health.nursing"
+      ]
+    },
+    {
+      "id": "d-s-09",
+      "code": "S",
+      "text": "Predai limbajul semnelor pentru persoane cu deficiențe de auz",
+      "signals": [
+        "social.teaching",
+        "health.therapy"
+      ]
+    },
+    {
+      "id": "d-s-10",
+      "code": "S",
+      "text": "Ajuți oameni care au probleme cu drogurile sau alcoolul",
+      "signals": [
+        "social.counseling",
+        "health.therapy"
+      ]
+    },
+    {
+      "id": "d-e-01",
+      "code": "E",
+      "text": "Vinzi francize de restaurant unor antreprenori",
+      "signals": [
+        "business.sales",
+        "business.entrepreneurship"
+      ]
+    },
+    {
+      "id": "d-e-02",
+      "code": "E",
+      "text": "Vinzi marfă într-un magazin universal sau departament",
+      "signals": [
+        "business.sales",
+        "social.customer"
+      ]
+    },
+    {
+      "id": "d-e-03",
+      "code": "E",
+      "text": "Conduci un magazin de haine sau de modă",
+      "signals": [
+        "business.operations",
+        "business.marketing"
+      ]
+    },
+    {
+      "id": "d-e-04",
+      "code": "E",
+      "text": "Vinzi case (agent imobiliar)",
+      "signals": [
+        "business.sales",
+        "business.negotiation"
+      ]
+    },
+    {
+      "id": "d-e-05",
+      "code": "E",
+      "text": "Conduci un magazin de jucării sau de produse pentru copii",
+      "signals": [
+        "business.operations",
+        "social.customer"
+      ]
+    },
+    {
+      "id": "d-e-06",
+      "code": "E",
+      "text": "Conduci un departament într-o companie mare (50+ angajați)",
+      "signals": [
+        "business.operations"
+      ]
+    },
+    {
+      "id": "d-e-07",
+      "code": "E",
+      "text": "Negociezi contracte de business cu clienți",
+      "signals": [
+        "business.negotiation",
+        "business.sales"
+      ]
+    },
+    {
+      "id": "d-e-08",
+      "code": "E",
+      "text": "Reprezinți un client într-un proces juridic la tribunal",
+      "signals": [
+        "business.negotiation",
+        "order.compliance"
+      ]
+    },
+    {
+      "id": "d-e-09",
+      "code": "E",
+      "text": "Lansezi pe piață o linie nouă de haine sau un brand",
+      "signals": [
+        "business.marketing",
+        "business.entrepreneurship"
+      ]
+    },
+    {
+      "id": "d-e-10",
+      "code": "E",
+      "text": "Cumperi și vinzi acțiuni la bursă",
+      "signals": [
+        "business.finance",
+        "business.sales"
+      ]
+    },
+    {
+      "id": "d-c-01",
+      "code": "C",
+      "text": "Dezvolți o foaie de calcul Excel cu formule și macros",
+      "signals": [
+        "order.admin",
+        "technical.software"
+      ]
+    },
+    {
+      "id": "d-c-02",
+      "code": "C",
+      "text": "Verifici (proofread) documente sau formulare administrative",
+      "signals": [
+        "order.documentation",
+        "order.quality"
+      ]
+    },
+    {
+      "id": "d-c-03",
+      "code": "C",
+      "text": "Procesezi cereri și formulare la o instituție publică",
+      "signals": [
+        "order.admin",
+        "order.documentation"
+      ],
+      "culturalFlag": true,
+      "flagNote": "Original „schedule postal mail\" — adaptat la realitate RO (administrație publică e mai familiar)."
+    },
+    {
+      "id": "d-c-04",
+      "code": "C",
+      "text": "Folosești un program să generezi facturi pentru clienți",
+      "signals": [
+        "order.admin",
+        "business.finance"
+      ]
+    },
+    {
+      "id": "d-c-05",
+      "code": "C",
+      "text": "Calculezi salariile angajaților dintr-o firmă",
+      "signals": [
+        "business.finance",
+        "order.admin"
+      ]
+    },
+    {
+      "id": "d-c-06",
+      "code": "C",
+      "text": "Ștampilezi, sortezi și distribui corespondență internă",
+      "signals": [
+        "order.admin",
+        "order.logistics"
+      ]
+    },
+    {
+      "id": "d-c-07",
+      "code": "C",
+      "text": "Organizezi documente și dosare personal",
+      "signals": [
+        "order.documentation",
+        "order.admin"
+      ]
+    },
+    {
+      "id": "d-c-08",
+      "code": "C",
+      "text": "Calculezi și înregistrezi date statistice și numerice",
+      "signals": [
+        "investigative.data",
+        "order.quality"
+      ]
+    },
+    {
+      "id": "d-c-09",
+      "code": "C",
+      "text": "Folosești tabele și formule pentru analize financiare",
+      "signals": [
+        "business.finance",
+        "investigative.data"
+      ]
+    },
+    {
+      "id": "d-c-10",
+      "code": "C",
+      "text": "Faci inventarul stocurilor cu un scanner sau device portabil",
+      "signals": [
+        "order.logistics",
+        "order.quality"
+      ]
+    }
+  ]
+}

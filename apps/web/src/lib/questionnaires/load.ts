@@ -74,6 +74,7 @@ type ScenarioQuestion = {
 };
 
 const rootDir = path.resolve(process.cwd(), '../..');
+const dataDir = path.join(rootDir, 'data');
 
 const sharedCopy = {
   backLabel: 'Înapoi',
@@ -329,42 +330,28 @@ function getScenarioQuestionnaire(): QuestionnaireDefinition {
 }
 
 function readPrototypeData(): PrototypeData {
-  const file = path.join(rootDir, 'cesafiu_prototype_v2/data.js');
-  const code = readFileSync(file, 'utf8');
-  const context = {window: {} as {QUIZ_DATA?: PrototypeData}};
-  vm.runInNewContext(code, context, {filename: file});
-
-  if (!context.window.QUIZ_DATA) {
-    throw new Error('Failed to load prototype questionnaire data.');
-  }
-
-  return context.window.QUIZ_DATA;
+  return {
+    personality: readJson<PrototypeData['personality']>('personality.json'),
+    ipipNeo60: readJson<PrototypeData['personality']>('ipip-neo-60.json'),
+    vocational: readJson<PrototypeData['vocational']>('vocational.json')
+  };
 }
 
 function readPhase1VocationalData(): PrototypeData['vocational'] {
-  const file = path.join(rootDir, 'cesafiu_prototype_v3/project/data.js');
-  const code = readFileSync(file, 'utf8');
-  const context = {window: {} as {QUIZ_DATA?: PrototypeData}};
-  vm.runInNewContext(code, context, {filename: file});
-
-  if (!context.window.QUIZ_DATA?.vocational) {
-    throw new Error('Failed to load Phase 1 public vocational questionnaire data.');
-  }
-
-  return context.window.QUIZ_DATA.vocational;
+  return readJson<PrototypeData['vocational']>('vocational.json');
 }
 
 function readVocationalDeepData(): PrototypeVocationalDeepData {
-  const file = path.join(rootDir, 'cesafiu_prototype_v3/project/data.js');
-  const code = readFileSync(file, 'utf8');
-  const context = {window: {} as {QUIZ_DATA?: PrototypeVocationalDeepData}};
-  vm.runInNewContext(code, context, {filename: file});
+  return {
+    vocational: {
+      codes: readJson<PrototypeData['vocational']>('vocational.json').codes
+    },
+    vocationalDeep: readJson<PrototypeVocationalDeepData['vocationalDeep']>('vocational-deep.json')
+  };
+}
 
-  if (!context.window.QUIZ_DATA?.vocationalDeep || !context.window.QUIZ_DATA?.vocational?.codes) {
-    throw new Error('Failed to load full vocational questionnaire data.');
-  }
-
-  return context.window.QUIZ_DATA;
+function readJson<T>(fileName: string): T {
+  return JSON.parse(readFileSync(path.join(dataDir, fileName), 'utf8')) as T;
 }
 
 function readScenarioData(): {archetypes: Record<string, ScenarioArchetype>; questions: ScenarioQuestion[]} {

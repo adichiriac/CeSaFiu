@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// check-data-freshness.js — flags Career/Program/Institution records whose
+// check-data-freshness.js - flags Career/Program/Institution records whose
 // `lastReviewed` is older than the threshold. Per DATA-ARCHITECTURE.md, RO
 // admission cycles wrap each September; programs should be re-verified
 // within 12 months of that. RIASEC profiles drift slower; biennial is fine.
@@ -11,23 +11,13 @@
 // This is intentionally NOT blocking (no exit-1 by default) — its job is
 // to surface stale data for the next maintenance pass, not gate commits.
 
-const fs = require('fs');
-const path = require('path');
+const {loadCanonicalData} = require('./data-source');
 
-const DATA_PATH = path.join(__dirname, '..', 'cesafiu_prototype_v1', 'project', 'data.js');
 const THRESHOLDS_MONTHS = {
   programs: 12,        // admission scores change yearly
   careers: 24,         // labor-market drift is slower
   universities: 24,    // institution metadata is mostly stable
 };
-
-function parseDataJs() {
-  const code = fs.readFileSync(DATA_PATH, 'utf8');
-  const window = {};
-  // eslint-disable-next-line no-eval
-  eval(code);
-  return window.QUIZ_DATA;
-}
 
 function monthsAgo(dateStr) {
   if (!dateStr) return Infinity;
@@ -42,7 +32,7 @@ function check() {
   const strict = args.has('--strict');
   const quiet = args.has('--quiet');
 
-  const data = parseDataJs();
+  const data = loadCanonicalData();
   const findings = { programs: [], careers: [], universities: [] };
 
   ['programs', 'careers', 'universities'].forEach((kind) => {

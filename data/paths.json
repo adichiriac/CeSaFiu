@@ -1,0 +1,186 @@
+[
+  {
+    "id": "facultate",
+    "name": "Facultate clasică",
+    "emoji": "🎓",
+    "color": "purple",
+    "tagline": "Diploma, comunitatea, structura",
+    "duration": "3-6 ani",
+    "cost": "0 (loc bugetat) — 1.000-2.000 €/an cu taxă (stat sau privat)",
+    "pros": [
+      "Diplomă recunoscută internațional",
+      "Comunitate de colegi și profesori",
+      "Structură care te ține pe drum",
+      "Acces la cercetare, laboratoare"
+    ],
+    "cons": [
+      "Lent — 3+ ani până la primul job real",
+      "Programa universitară uneori nesincronizată cu industria",
+      "Cost de oportunitate"
+    ],
+    "bestFor": [
+      "Medicină, drept, inginerie",
+      "Cercetare, academic",
+      "Cariere care cer licență"
+    ],
+    "next": [
+      "Caută Top 3 facultăți pe domeniu",
+      "Vizitează zilele porților deschise",
+      "Găsește mentori dintre studenții ultimului an"
+    ]
+  },
+  {
+    "id": "autodidact",
+    "name": "Autodidact / Bootcamp",
+    "emoji": "◉",
+    "color": "green",
+    "tagline": "Înveți singur, livrezi proiecte, intri în industrie",
+    "duration": "6 luni - 2 ani",
+    "cost": "0 — 5.000€ (bootcamp)",
+    "pros": [
+      "Rapid — primul job în <1 an posibil",
+      "Flexibil — la ritmul tău",
+      "Direct relevant pentru piață",
+      "Costuri mici sau zero"
+    ],
+    "cons": [
+      "Necesită auto-disciplină reală",
+      "Fără rețea de colegi automat",
+      "Recunoaștere variabilă în RO"
+    ],
+    "bestFor": [
+      "Programare, design, marketing digital",
+      "Schimbare de carieră",
+      "Cariere skill-based"
+    ],
+    "next": [
+      "Alege un domeniu și un curs flagship (CS50, Odin Project)",
+      "Construiește 3 proiecte publice",
+      "Aplică la posturi junior la 6-9 luni"
+    ]
+  },
+  {
+    "id": "antreprenor",
+    "name": "Antreprenor / Founder",
+    "emoji": "⚡",
+    "color": "purple",
+    "tagline": "Construiești o companie de la zero",
+    "duration": "Indefinit",
+    "cost": "0 — milioane",
+    "pros": [
+      "Libertate totală",
+      "Upside nelimitat",
+      "Înveți rapid",
+      "Faci ce vrei tu"
+    ],
+    "cons": [
+      "Stres ridicat",
+      "Venit incert ani la rând",
+      "Risc real de eșec",
+      "Nu există timp liber real"
+    ],
+    "bestFor": [
+      "Oameni cu toleranță la risc",
+      "Idei validate",
+      "Cei care vor control total"
+    ],
+    "next": [
+      "Validează 10 conversații cu utilizatori",
+      "Construiește MVP în 30 zile",
+      "Aplică la un accelerator (Innovation Labs, Techstars)"
+    ]
+  },
+  {
+    "id": "freelance",
+    "name": "Freelance / Solo",
+    "emoji": "✦",
+    "color": "yellow",
+    "tagline": "Servicii pe proiect, fără șef",
+    "duration": "Imediat",
+    "cost": "Doar laptop + skill",
+    "pros": [
+      "Control pe ce proiecte iei",
+      "Variat — clienți și domenii diferite",
+      "Fără limita salarială",
+      "Lucrezi de oriunde"
+    ],
+    "cons": [
+      "Tu ești și CEO + contabil + marketing",
+      "Venit volatil",
+      "Singurătate profesională",
+      "Fără beneficii"
+    ],
+    "bestFor": [
+      "Designeri, dezvoltatori, scriitori",
+      "Cei cu portofoliu solid",
+      "Cei disciplinați"
+    ],
+    "next": [
+      "Construiește portofoliu cu 3 proiecte",
+      "Creează un profil pe Upwork / Toptal / LinkedIn",
+      "Stabilește un tarif și un proces de integrare a clientului"
+    ]
+  },
+  {
+    "id": "creator",
+    "name": "Creator economy",
+    "emoji": "★",
+    "color": "green",
+    "tagline": "Audiența e cariera ta",
+    "duration": "2-5 ani până devine sustenabil",
+    "cost": "~0",
+    "pros": [
+      "Brand personal asset pe viață",
+      "Multiple surse de venit",
+      "Faci ce-ți place",
+      "Audiență internațională posibilă"
+    ],
+    "cons": [
+      "Nu există rețetă garantată",
+      "Îți expui viața în public",
+      "Dependent de algoritm",
+      "Mulți încep, puțini reușesc"
+    ],
+    "bestFor": [
+      "Creativi cu voce distinctă",
+      "Experți într-o nișă",
+      "Persoane disciplinate cu producție regulată"
+    ],
+    "next": [
+      "Alege o nișă + format",
+      "Postează 100 piese fără să te uiți la metrici",
+      "Monetizează după primii 5.000 fani reali"
+    ]
+  },
+  {
+    "id": "profesional",
+    "name": "Școală profesională / Dual VET",
+    "emoji": "⚒",
+    "color": "yellow",
+    "tagline": "Meserie reală, salariu rapid, fără facultate",
+    "duration": "1-3 ani (postliceal) / 3-4 ani (dual)",
+    "cost": "0 (de stat) — burse + masă incluse în dual",
+    "pros": [
+      "Cerere uriașă de meseriași în RO și UE",
+      "Practică plătită din anul 1 în sistemul dual",
+      "Angajare imediată după absolvire (>90%)",
+      "Posibilitate de a lansa propriul atelier/firmă în 2-3 ani"
+    ],
+    "cons": [
+      "Stigmă socială încă prezentă în RO",
+      "Mai puțin prestigiu față de „mama vrea să dau la facultate\"",
+      "Mobilitate verticală mai lentă fără bac+facultate"
+    ],
+    "bestFor": [
+      "Cei cu mâini iscusite, mintea practică",
+      "Tipuri RIASEC R (realist) dominante",
+      "Cei care vor să producă bani devreme",
+      "Cei cu interes pentru tehnică, sănătate, construcții, mecanică"
+    ],
+    "next": [
+      "Identifică un liceu tehnologic cu dual în orașul tău",
+      "Vorbește cu un absolvent — câștigă cât? muncește unde?",
+      "Pentru sanitar: postliceala, după Bac sau în paralel cu liceul"
+    ]
+  }
+]

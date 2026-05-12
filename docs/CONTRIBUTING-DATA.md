@@ -1,10 +1,85 @@
-# Adding programs to data.js
+# Adding programs and careers to the canonical data source
 
-Quick guide for filling in the `programs` array. For the *why*, read [DATA-ARCHITECTURE.md](./DATA-ARCHITECTURE.md). This page is the *how*.
+Quick guide for filling in the canonical `/data` JSON files. For the *why*, read [DATA-ARCHITECTURE.md](./DATA-ARCHITECTURE.md). This page is the *how*.
+
+Source of truth:
+
+- `data/careers.json`
+- `data/institutions.json`
+- `data/programs.json`
+- `data/paths.json`
+
+Generated compatibility artifact:
+
+- `cesafiu_prototype_v3/project/data.js`
+- `cesafiu_prototype_v3/project/career-candidates.js` for the data-map review UI only
+
+Do not edit the generated artifact manually. Update `/data`, then run:
+
+```bash
+npm run data:validate
+npm run data:build
+npm run data:map
+npm run data:report
+npm run data:candidates
+```
+
+## Career market metadata
+
+New and refreshed career records can include optional market/source metadata. These fields are not required for the app to run, but they are the QA layer for the top-200 expansion:
+
+```js
+{
+  corCode: '2512',                  // Romanian COR code, when mapped
+  escoUri: 'http://data.europa.eu/esco/occupation/...',
+  iscoGroup: '2512',
+  marketScoreRo: 82,                // 0-100, Romania current demand
+  marketScoreEu: 76,                // 0-100, Europe current demand
+  futureScore: 88,                  // 0-100, forward-looking signal
+  accessibilityScore: 70,           // 0-100, realistic paths for Romanian students
+  sourceRefs: [
+    'ANOFM vacancies, accessed 2026-05-11',
+    'Cedefop Skills-OVATE, accessed 2026-05-11',
+    'ESCO occupation URI'
+  ],
+  lastReviewed: '2026-05-11',
+  status: 'active'                  // active | draft | deprecated
+}
+```
+
+`npm run data:validate` fails on malformed values and warns on missing coverage. `npm run data:report` prints the catalogue distribution and metadata coverage.
+
+## Candidate careers
+
+Use `data/career-candidates.json` for the top-200 expansion longlist. This file is a review queue, not production app data. Entries in this file do not appear in Browse, matching, or result pages until they are manually promoted into `data/careers.json`.
+
+Candidate shape:
+
+```js
+{
+  id: 'data-engineer',
+  name: 'Data Engineer',
+  domain: 'IT, data, AI, cybersecurity',
+  suggestedPathType: 'facultate',
+  suggestedRiasec: ['I', 'R', 'C'],
+  suggestedBig5: ['C', 'O'],
+  marketScoreRo: 88,
+  marketScoreEu: 90,
+  futureScore: 88,
+  accessibilityScore: 70,
+  sourceRefs: ['Cedefop Skills-OVATE', 'ESCO', 'Romanian job-board scan'],
+  rationale: 'Builds data infrastructure for analytics, AI, and business reporting.',
+  reviewStatus: 'candidate' // candidate | promote | merge | reject
+}
+```
+
+Run `npm run data:candidates` to see the review queue ranked by the editorial scoring formula. Run `npm run data:map`, then open `cesafiu-data-map-standalone.html` and switch to **Candidates** for the visual review workspace: filters, local review notes, copyable checklist, and similar existing careers.
+
+Promote a candidate only after adding the normal production career fields: `description`, `salary`, `demand`, `vibe`, `traits`, `riasec`, `big5`, and a realistic path/program mapping when possible.
 
 ## The schema (v1)
 
-Every program is one object inside `window.QUIZ_DATA.programs[]` in `cesafiu_prototype_v1/project/data.js`:
+Every program is one object inside `data/programs.json`:
 
 ```js
 {
@@ -100,23 +175,13 @@ After you add a program and reload `phase1.html`:
 **Grep before adding** to avoid duplicate IDs:
 
 ```bash
-grep "id: 'umf-iasi" cesafiu_prototype_v1/project/data.js
+rg '"id": "umf-iasi' data/programs.json data/institutions.json
 ```
 
 **Validate referential integrity** after a batch of additions:
 
 ```bash
-node -e "
-const fs=require('fs'); const code=fs.readFileSync('cesafiu_prototype_v1/project/data.js','utf8');
-const window={}; eval(code); const D=window.QUIZ_DATA;
-const uniIds=new Set(D.universities.map(u=>u.id));
-const careerIds=new Set(D.careers.map(c=>c.id));
-const badU=D.programs.filter(p=>!uniIds.has(p.universityId));
-const badC=[]; D.programs.forEach(p=>(p.careerIds||[]).forEach(c=>{if(!careerIds.has(c))badC.push({pid:p.id,cid:c});}));
-console.log('total programs:', D.programs.length, '| bad universityId:', badU.length, '| bad careerIds:', badC.length);
-if(badU.length) console.log('  bad U:', badU.map(p=>p.id+'->'+p.universityId));
-if(badC.length) console.log('  bad C:', badC);
-"
+npm run data:validate
 ```
 
 ## When you don't know a URL

@@ -1,0 +1,124 @@
+{
+  "name": "Test de personalitate",
+  "subtitle": "Big Five — adaptat ca să nu te plictisești",
+  "estimateMin": 4,
+  "items": [
+    {
+      "id": "p01",
+      "dim": "O",
+      "text": "Mă pierd în idei noi mai des decât majoritatea oamenilor."
+    },
+    {
+      "id": "p02",
+      "dim": "O",
+      "text": "Îmi plac discuțiile abstracte — filosofie, „ce-ar fi dacă\", teorii."
+    },
+    {
+      "id": "p03",
+      "dim": "O",
+      "r": true,
+      "text": "Prefer rutina familiară decât să încerc lucruri ciudate."
+    },
+    {
+      "id": "p04",
+      "dim": "C",
+      "text": "Când îmi propun ceva, duc la capăt chiar dacă devine plictisitor."
+    },
+    {
+      "id": "p05",
+      "dim": "C",
+      "r": true,
+      "text": "Las lucrurile pentru ultima clipă mai des decât aș vrea să recunosc."
+    },
+    {
+      "id": "p06",
+      "dim": "C",
+      "text": "Îmi place când ziua mea are structură."
+    },
+    {
+      "id": "p07",
+      "dim": "E",
+      "text": "Mă încarc cu energie când sunt înconjurat de oameni."
+    },
+    {
+      "id": "p08",
+      "dim": "E",
+      "r": true,
+      "text": "După un eveniment social mare am nevoie să stau singur câteva ore."
+    },
+    {
+      "id": "p09",
+      "dim": "E",
+      "text": "Vorbesc primul în grup, fără să mă gândesc prea mult."
+    },
+    {
+      "id": "p10",
+      "dim": "A",
+      "text": "Observ rapid când cineva e supărat, chiar dacă nu o spune."
+    },
+    {
+      "id": "p11",
+      "dim": "A",
+      "r": true,
+      "text": "Pun ce vreau eu pe primul loc, fără remușcări."
+    },
+    {
+      "id": "p12",
+      "dim": "A",
+      "text": "Îmi place să ajut, chiar și când nu mi se cere."
+    },
+    {
+      "id": "p13",
+      "dim": "N",
+      "text": "Mă stresez ușor când lucrurile nu merg conform planului."
+    },
+    {
+      "id": "p14",
+      "dim": "N",
+      "r": true,
+      "text": "Mă recuperez rapid emoțional după un eșec."
+    },
+    {
+      "id": "p15",
+      "dim": "N",
+      "text": "Gândurile negre revin uneori și nu prea le pot opri."
+    }
+  ],
+  "dimensions": {
+    "O": {
+      "name": "Deschidere",
+      "short": "OPEN",
+      "color": "purple",
+      "high": "Curiozitate, creativitate, ideile abstracte te încarcă.",
+      "low": "Practică, focus pe ce funcționează deja."
+    },
+    "C": {
+      "name": "Conștiinciozitate",
+      "short": "PLAN",
+      "color": "green",
+      "high": "Disciplină, structură, duci la capăt.",
+      "low": "Spontan, flexibil, mai puțin rigid pe planuri."
+    },
+    "E": {
+      "name": "Extraversiune",
+      "short": "PEOPLE",
+      "color": "yellow",
+      "high": "Te încarci cu oameni, vorbești ușor, iei inițiativa.",
+      "low": "Energie internă, preferi grupuri mici sau singur."
+    },
+    "A": {
+      "name": "Agreabilitate",
+      "short": "CARE",
+      "color": "green",
+      "high": "Empatic, cooperant, atent la ceilalți.",
+      "low": "Direct, competitiv, pui propriile interese pe primul loc."
+    },
+    "N": {
+      "name": "Stabilitate emoțională",
+      "short": "CALM",
+      "color": "purple",
+      "high": "Sensibil emoțional — simți totul intens.",
+      "low": "Calm sub presiune, te recuperezi rapid."
+    }
+  }
+}

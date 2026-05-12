@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>CeSaFiu — Data Map</title>
+<style>
+  :root {
+    --paper: #FAF6EC;
+    --paper-2: #F1ECDC;
+    --ink: #111;
+    --ink-soft: #555;
+    --purple: #7C3AED;
+    --yellow: #FFE066;
+    --green: #B8E986;
+    --red: #FF6B6B;
+    --blue: #4DD0E1;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Inter", system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow: hidden;
+  }
+  .header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+    padding: 14px 20px; background: var(--ink); color: #fff;
+    border-bottom: 2px solid #000;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    flex-wrap: wrap;
+  }
+  .header h1 { margin: 0; font-size: 18px; font-weight: 800; letter-spacing: 0.3px; }
+  .header .stats { font-size: 12px; opacity: 0.8; }
+  .controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .controls .seg {
+    display: flex; gap: 0; border: 2px solid #fff;
+  }
+  .controls .seg button {
+    padding: 6px 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    background: transparent; color: #fff; border: none; cursor: pointer;
+    text-transform: uppercase;
+  }
+  .controls .seg button[aria-pressed="true"] { background: var(--yellow); color: #000; }
+  .controls input[type="search"] {
+    padding: 6px 10px; font-size: 12px;
+    background: #222; color: #fff; border: 2px solid #444;
+    width: 180px;
+  }
+  .controls input[type="search"]:focus { border-color: var(--yellow); outline: none; }
+  .legend {
+    position: fixed; bottom: 16px; left: 16px; z-index: 10;
+    background: #fff; border: 2px solid #000;
+    padding: 12px 14px; box-shadow: 4px 4px 0 #000;
+    font-size: 11px; line-height: 1.6;
+    max-width: 240px;
+  }
+  .legend .row { display: flex; align-items: center; gap: 8px; }
+  .legend .swatch { width: 14px; height: 14px; border: 1.5px solid #000; flex-shrink: 0; }
+  .legend strong { display: block; margin-bottom: 6px; font-size: 12px; }
+  .hint {
+    position: fixed; bottom: 16px; right: 16px; z-index: 10;
+    background: var(--yellow); border: 2px solid #000;
+    padding: 8px 12px; font-size: 11px; box-shadow: 4px 4px 0 #000;
+    font-weight: 600;
+  }
+  #stage { position: absolute; top: 56px; bottom: 0; left: 0; right: 0; cursor: grab; }
+  #stage.dragging { cursor: grabbing; }
+  #stage svg { display: block; }
+
+  /* Node styles inside SVG (via classes) */
+  .node text { pointer-events: none; font-family: inherit; }
+  .node rect { stroke: #000; stroke-width: 1.5; cursor: pointer; transition: filter 0.12s; }
+  .node:hover rect { filter: drop-shadow(2px 2px 0 #000); }
+  .node.dimmed rect { opacity: 0.18; }
+  .node.dimmed text { opacity: 0.25; }
+  .node.highlight rect { stroke-width: 3; }
+
+  .edge { fill: none; stroke: #000; stroke-opacity: 0.18; stroke-width: 1; pointer-events: none; }
+  .edge.dimmed { stroke-opacity: 0.04; }
+  .edge.highlight { stroke-opacity: 0.85; stroke-width: 2; }
+
+  .col-label {
+    font-weight: 900; font-size: 11px; letter-spacing: 1.5px;
+    fill: var(--ink-soft); text-transform: uppercase;
+  }
+  .col-count { fill: var(--ink-soft); font-size: 10px; font-weight: 600; }
+
+  /* Side detail panel */
+  .panel {
+    position: fixed; top: 56px; right: 0; bottom: 0; width: 360px; z-index: 9;
+    background: #fff; border-left: 2px solid #000;
+    padding: 20px 22px; overflow-y: auto;
+    transform: translateX(100%); transition: transform 0.2s;
+    box-shadow: -6px 0 0 rgba(0,0,0,0.05);
+  }
+  .panel.open { transform: translateX(0); }
+  .panel .close {
+    position: absolute; top: 12px; right: 12px;
+    background: #000; color: #fff; border: 2px solid #000;
+    width: 32px; height: 32px; cursor: pointer; font-size: 16px; font-weight: 900;
+  }
+  .panel .kind {
+    display: inline-block; padding: 3px 8px; font-size: 10px; font-weight: 800;
+    letter-spacing: 1px; border: 2px solid #000; margin-bottom: 10px; text-transform: uppercase;
+  }
+  .panel h2 { margin: 4px 0 6px; font-size: 22px; line-height: 1.15; font-weight: 900; }
+  .panel .tagline { color: var(--ink-soft); margin-bottom: 16px; font-size: 13px; }
+  .panel h3 { margin: 16px 0 6px; font-size: 11px; letter-spacing: 1.5px; color: var(--ink-soft); text-transform: uppercase; font-weight: 800; }
+  .panel ul { margin: 0; padding: 0; list-style: none; }
+  .panel ul li { padding: 6px 0; border-bottom: 1px solid #eee; font-size: 13px; cursor: pointer; }
+  .panel ul li:hover { background: var(--paper-2); }
+  .panel ul li .small { display: block; font-size: 11px; color: var(--ink-soft); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>CeSaFiu — Data Map</h1>
+    <div class="stats" id="stats">Se încarcă…</div>
+  </div>
+  <div class="controls">
+    <input type="search" id="search" placeholder="Caută cariere, programe, unis…" />
+    <div class="seg" role="tablist" aria-label="Layout">
+      <button data-layout="columns" aria-pressed="true">Coloane</button>
+      <button data-layout="radial" aria-pressed="false">Radial</button>
+    </div>
+    <button id="reset" style="padding: 6px 10px; font-size: 11px; font-weight: 700; background: var(--yellow); color: #000; border: 2px solid #fff; cursor: pointer; letter-spacing: 0.5px;">RESET ZOOM</button>
+  </div>
+</div>
+
+<div id="stage"></div>
+
+<div class="legend">
+  <strong>Cele 4 straturi</strong>
+  <div class="row"><div class="swatch" style="background: var(--purple)"></div>Trasee (drumuri de viață) — 6</div>
+  <div class="row"><div class="swatch" style="background: var(--yellow)"></div>Cariere (joburi reale) — <span id="lc"></span></div>
+  <div class="row"><div class="swatch" style="background: var(--green)"></div>Programe universitare — <span id="lp"></span></div>
+  <div class="row"><div class="swatch" style="background: var(--blue)"></div>Universități — <span id="lu"></span></div>
+  <div style="margin-top: 8px; font-size: 10px; color: var(--ink-soft); line-height: 1.4;">
+    Linii: <b>traseu→cariera</b> (pathType), <b>program→cariera</b> (careerIds[]), <b>program→uni</b> (universityId).
+  </div>
+</div>
+
+<div class="hint">
+  ⚲ scroll = zoom · ✥ drag = pan · click = focus
+</div>
+
+<aside class="panel" id="panel">
+  <button class="close" aria-label="Închide" onclick="closePanel()">×</button>
+  <div id="panel-body"></div>
+</aside>
+
+<script src="data.js?v=phase2-saved-hub-fix1"></script>
+<script>
+(function () {
+  const D = window.QUIZ_DATA;
+  const PATHS = D.paths || [];
+  const CAREERS = D.careers || [];
+  const PROGRAMS = D.programs || [];
+  const UNIS = D.universities || [];
+
+  // ── Stats ──────────────────────────────────────────────
+  document.getElementById('stats').textContent =
+    `${PATHS.length} trasee · ${CAREERS.length} cariere · ${PROGRAMS.length} programe · ${UNIS.length} universități`;
+  document.getElementById('lc').textContent = CAREERS.length;
+  document.getElementById('lp').textContent = PROGRAMS.length;
+  document.getElementById('lu').textContent = UNIS.length;
+
+  // ── Color tokens ───────────────────────────────────────
+  const COLOR = {
+    path: 'var(--purple)',
+    career: 'var(--yellow)',
+    program: 'var(--green)',
+    uni: 'var(--blue)',
+  };
+
+  // CSS var → real color (for SVG fill, can't always use var())
+  function cssVar(v) {
+    return getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  }
+  const FILL = {
+    path: cssVar('--purple'),
+    career: cssVar('--yellow'),
+    program: cssVar('--green'),
+    uni: cssVar('--blue'),
+  };
+  const TEXT = { path: '#fff', career: '#000', program: '#000', uni: '#000' };
+
+  // ── Build nodes & edges ────────────────────────────────
+  // Sort careers by pathType so the column groups visually
+  const PATH_ORDER = ['facultate', 'autodidact', 'antreprenor', 'freelance', 'creator', 'profesional'];
+  const careersSorted = [...CAREERS].sort((a, b) => {
+    const ai = PATH_ORDER.indexOf(a.pathType);
+    const bi = PATH_ORDER.indexOf(b.pathType);
+    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+  });
+
+  // Programs sorted by uni so nearby programs cluster
+  const programsSorted = [...PROGRAMS].sort((a, b) => a.universityId.localeCompare(b.universityId));
+
+  // Universities sorted by tier then name
+  const tierOrder = { 'TOP': 0, 'GOOD': 1 };
+  const unisSorted = [...UNIS].sort((a, b) => {
+    const ta = tierOrder[a.tier] ?? 9;
+    const tb = tierOrder[b.tier] ?? 9;
+    if (ta !== tb) return ta - tb;
+    return a.name.localeCompare(b.name);
+  });
+
+  // Build nodes with kind+id
+  const nodes = [];
+  PATHS.forEach((p) => nodes.push({ kind: 'path', id: p.id, label: p.name, raw: p }));
+  careersSorted.forEach((c) => nodes.push({ kind: 'career', id: c.id, label: c.name, raw: c }));
+  programsSorted.forEach((p) => nodes.push({ kind: 'program', id: p.id, label: p.name, raw: p }));
+  unisSorted.forEach((u) => nodes.push({ kind: 'uni', id: u.id, label: u.name.replace(/^(Universitatea|Academia|UMF|UNARTE|UNATC|UAUIM|UNMB|UNEFS|USAMV) /, '').replace(/\s*\([A-Z]+\)$/, ''), raw: u }));
+
+  const byId = (kind) => Object.fromEntries(nodes.filter((n) => n.kind === kind).map((n) => [n.id, n]));
+  const N = { path: byId('path'), career: byId('career'), program: byId('program'), uni: byId('uni') };
+
+  // Edges
+  const edges = [];
+  // path → career (pathType match)
+  CAREERS.forEach((c) => {
+    if (c.pathType && N.path[c.pathType]) {
+      edges.push({ from: N.path[c.pathType], to: N.career[c.id], kind: 'path-career' });
+    }
+  });
+  // program → career (careerIds)
+  PROGRAMS.forEach((p) => {
+    (p.careerIds || []).forEach((cid) => {
+      if (N.career[cid]) edges.push({ from: N.program[p.id], to: N.career[cid], kind: 'prog-career' });
+    });
+  });
+  // program → uni (universityId)
+  PROGRAMS.forEach((p) => {
+    if (N.uni[p.universityId]) edges.push({ from: N.program[p.id], to: N.uni[p.universityId], kind: 'prog-uni' });
+  });
+
+  // Adjacency for highlight-on-hover
+  const adj = new Map();
+  edges.forEach((e) => {
+    const a = e.from.kind + ':' + e.from.id;
+    const b = e.to.kind + ':' + e.to.id;
+    if (!adj.has(a)) adj.set(a, new Set());
+    if (!adj.has(b)) adj.set(b, new Set());
+    adj.get(a).add(b);
+    adj.get(b).add(a);
+  });
+
+  // ── Layout: columns ────────────────────────────────────
+  const COL_X = { path: 80, career: 460, program: 1040, uni: 1700 };
+  const NODE_H = 22;
+  const NODE_GAP = 4;
+  const NODE_W = { path: 280, career: 260, program: 340, uni: 320 };
+
+  function layoutColumns() {
+    const cols = ['path', 'career', 'program', 'uni'];
+    cols.forEach((kind) => {
+      const list = nodes.filter((n) => n.kind === kind);
+      list.forEach((n, i) => {
+        n.x = COL_X[kind];
+        n.y = 60 + i * (NODE_H + NODE_GAP);
+      });
+    });
+  }
+
+  function layoutRadial() {
+    // 4 concentric arcs (path inner, uni outer)
+    const cx = 1000, cy = 1100;
+    const radii = { path: 220, career: 540, program: 880, uni: 1300 };
+    const cols = ['path', 'career', 'program', 'uni'];
+    cols.forEach((kind) => {
+      const list = nodes.filter((n) => n.kind === kind);
+      const total = list.length;
+      const r = radii[kind];
+      // Spread across 270° (top + sides), reserve bottom for legend
+      const startAngle = -Math.PI * 0.95;
+      const span = Math.PI * 1.9;
+      list.forEach((n, i) => {
+        const t = total === 1 ? 0.5 : i / (total - 1);
+        const a = startAngle + t * span;
+        n.x = cx + Math.cos(a) * r;
+        n.y = cy + Math.sin(a) * r;
+        n.angle = a;
+      });
+    });
+  }
+
+  // ── Render ─────────────────────────────────────────────
+  const stage = document.getElementById('stage');
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const W = 2200, H = 2400;
+
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  stage.appendChild(svg);
+
+  const rootG = document.createElementNS(SVG_NS, 'g'); // pan/zoom group
+  rootG.setAttribute('id', 'root');
+  svg.appendChild(rootG);
+
+  const edgeG = document.createElementNS(SVG_NS, 'g'); rootG.appendChild(edgeG);
+  const nodeG = document.createElementNS(SVG_NS, 'g'); rootG.appendChild(nodeG);
+  const labelG = document.createElementNS(SVG_NS, 'g'); rootG.appendChild(labelG);
+
+  function renderColumnHeaders(layout) {
+    labelG.innerHTML = '';
+    if (layout !== 'columns') return;
+    const headers = [
+      { kind: 'path', label: 'TRASEE', count: PATHS.length },
+      { kind: 'career', label: 'CARIERE', count: CAREERS.length },
+      { kind: 'program', label: 'PROGRAME', count: PROGRAMS.length },
+      { kind: 'uni', label: 'UNIVERSITĂȚI', count: UNIS.length },
+    ];
+    headers.forEach((h) => {
+      const t = document.createElementNS(SVG_NS, 'text');
+      t.setAttribute('x', COL_X[h.kind] + NODE_W[h.kind] / 2);
+      t.setAttribute('y', 30);
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('class', 'col-label');
+      t.textContent = h.label;
+      labelG.appendChild(t);
+
+      const c = document.createElementNS(SVG_NS, 'text');
+      c.setAttribute('x', COL_X[h.kind] + NODE_W[h.kind] / 2);
+      c.setAttribute('y', 46);
+      c.setAttribute('text-anchor', 'middle');
+      c.setAttribute('class', 'col-count');
+      c.textContent = h.count + (h.kind === 'uni' ? ' instituții' : ` ${h.kind === 'path' ? 'drumuri' : 'opțiuni'}`);
+      labelG.appendChild(c);
+    });
+  }
+
+  function render(layout) {
+    if (layout === 'columns') layoutColumns();
+    else layoutRadial();
+
+    // Edges first (under nodes)
+    edgeG.innerHTML = '';
+    edges.forEach((e) => {
+      const path = document.createElementNS(SVG_NS, 'path');
+      const fromX = e.from.x + (layout === 'columns' ? NODE_W[e.from.kind] : 0);
+      const fromY = e.from.y + (layout === 'columns' ? NODE_H / 2 : 0);
+      const toX = e.to.x + (layout === 'columns' ? 0 : 0);
+      const toY = e.to.y + (layout === 'columns' ? NODE_H / 2 : 0);
+
+      let d;
+      if (layout === 'columns') {
+        const mx = (fromX + toX) / 2;
+        d = `M${fromX},${fromY} C${mx},${fromY} ${mx},${toY} ${toX},${toY}`;
+      } else {
+        // straight line for radial
+        d = `M${fromX},${fromY} L${toX},${toY}`;
+      }
+      path.setAttribute('d', d);
+      path.setAttribute('class', 'edge');
+      path.dataset.from = e.from.kind + ':' + e.from.id;
+      path.dataset.to = e.to.kind + ':' + e.to.id;
+      edgeG.appendChild(path);
+    });
+
+    // Nodes
+    nodeG.innerHTML = '';
+    nodes.forEach((n) => {
+      const g = document.createElementNS(SVG_NS, 'g');
+      g.setAttribute('class', 'node');
+      g.dataset.key = n.kind + ':' + n.id;
+
+      const r = document.createElementNS(SVG_NS, 'rect');
+      const w = NODE_W[n.kind];
+      const h = NODE_H;
+      r.setAttribute('x', n.x);
+      r.setAttribute('y', n.y);
+      r.setAttribute('width', w);
+      r.setAttribute('height', h);
+      r.setAttribute('fill', FILL[n.kind]);
+      g.appendChild(r);
+
+      const t = document.createElementNS(SVG_NS, 'text');
+      t.setAttribute('x', n.x + 8);
+      t.setAttribute('y', n.y + 15);
+      t.setAttribute('font-size', '11');
+      t.setAttribute('font-weight', n.kind === 'path' ? '800' : '600');
+      t.setAttribute('fill', TEXT[n.kind]);
+      const maxChars = n.kind === 'program' ? 48 : n.kind === 'uni' ? 42 : 36;
+      let lab = n.label;
+      if (lab.length > maxChars) lab = lab.slice(0, maxChars - 1) + '…';
+      t.textContent = lab;
+      g.appendChild(t);
+
+      g.addEventListener('click', (ev) => { ev.stopPropagation(); openPanel(n); });
+      g.addEventListener('mouseenter', () => highlight(n));
+      g.addEventListener('mouseleave', () => clearHighlight());
+
+      nodeG.appendChild(g);
+    });
+
+    renderColumnHeaders(layout);
+  }
+
+  // ── Highlight on hover ─────────────────────────────────
+  function highlight(node) {
+    const key = node.kind + ':' + node.id;
+    const neighbors = adj.get(key) || new Set();
+    nodeG.querySelectorAll('.node').forEach((g) => {
+      const k = g.dataset.key;
+      if (k === key || neighbors.has(k)) g.classList.add('highlight');
+      else g.classList.add('dimmed');
+    });
+    edgeG.querySelectorAll('.edge').forEach((p) => {
+      if (p.dataset.from === key || p.dataset.to === key) p.classList.add('highlight');
+      else p.classList.add('dimmed');
+    });
+  }
+  function clearHighlight() {
+    nodeG.querySelectorAll('.node').forEach((g) => g.classList.remove('highlight', 'dimmed'));
+    edgeG.querySelectorAll('.edge').forEach((p) => p.classList.remove('highlight', 'dimmed'));
+  }
+
+  // ── Detail panel ───────────────────────────────────────
+  const panel = document.getElementById('panel');
+  const panelBody = document.getElementById('panel-body');
+  function openPanel(n) {
+    const r = n.raw;
+    let html = '';
+    if (n.kind === 'path') {
+      html = `
+        <div class="kind" style="background: var(--purple); color: #fff;">Traseu / Drum</div>
+        <h2>${r.emoji} ${r.name}</h2>
+        <div class="tagline">„${r.tagline}"</div>
+        <div style="display: flex; gap: 12px; font-size: 12px; color: var(--ink-soft); margin-bottom: 12px;">
+          <div>⏱ ${r.duration}</div><div>· ${r.cost}</div>
+        </div>
+        <h3>Cariere pe acest drum (${(CAREERS.filter((c) => c.pathType === r.id)).length})</h3>
+        <ul>${CAREERS.filter((c) => c.pathType === r.id).map((c) => `
+          <li data-jump="career:${c.id}">${c.emoji} <b>${c.name}</b><span class="small">${c.tagline}</span></li>`).join('')}</ul>
+      `;
+    } else if (n.kind === 'career') {
+      const linkedProgs = PROGRAMS.filter((p) => (p.careerIds || []).includes(r.id));
+      const path = PATHS.find((p) => p.id === r.pathType);
+      html = `
+        <div class="kind" style="background: var(--yellow);">Carieră</div>
+        <h2>${r.emoji} ${r.name}</h2>
+        <div class="tagline">${r.tagline}</div>
+        <h3>Drum tipic</h3>
+        <div style="font-size: 13px;">${path ? `${path.emoji} ${path.name}` : r.pathType}</div>
+        <h3>Programe care duc aici (${linkedProgs.length})</h3>
+        <ul>${linkedProgs.map((p) => {
+          const u = UNIS.find((x) => x.id === p.universityId);
+          return `<li data-jump="program:${p.id}"><b>${p.name}</b><span class="small">${u ? u.name : p.universityId}</span></li>`;
+        }).join('') || '<li style="color: var(--ink-soft); font-style: italic;">Nicio facultate listată — drum atipic (autodidact / pro / etc).</li>'}</ul>
+        ${r.skills ? `<h3>Skills cheie</h3><div style="display: flex; gap: 6px; flex-wrap: wrap;">${r.skills.map((s) => `<span style="background: var(--paper-2); padding: 4px 8px; font-size: 11px; border: 1.5px solid #000;">${s}</span>`).join('')}</div>` : ''}
+      `;
+    } else if (n.kind === 'program') {
+      const u = UNIS.find((x) => x.id === r.universityId);
+      const linkedCareers = (r.careerIds || []).map((cid) => CAREERS.find((c) => c.id === cid)).filter(Boolean);
+      html = `
+        <div class="kind" style="background: var(--green);">Program / Specializare</div>
+        <h2>${r.name}</h2>
+        <div class="tagline">${u ? u.name + ' · ' + u.city : r.universityId}</div>
+        ${r.notes ? `<div style="background: var(--paper-2); padding: 10px 12px; font-size: 12px; line-height: 1.5; border: 1.5px solid #000; margin-bottom: 12px;">${r.notes}</div>` : ''}
+        <h3>Cariere posibile (${linkedCareers.length})</h3>
+        <ul>${linkedCareers.map((c) => `
+          <li data-jump="career:${c.id}">${c.emoji} <b>${c.name}</b><span class="small">${c.tagline}</span></li>`).join('')}</ul>
+        ${r.admission ? `<h3>Admitere</h3><div style="font-size: 12px; line-height: 1.6;">⏰ ${r.admission.deadline || '—'}<br/>${r.admission.exam || ''}</div>` : ''}
+        ${r.url ? `<a href="${r.url}" target="_blank" rel="noopener" style="display: inline-block; margin-top: 12px; background: #000; color: #fff; padding: 6px 12px; font-size: 11px; font-weight: 700; text-decoration: none; border: 2px solid #000;">SITE OFICIAL ↗</a>` : ''}
+      `;
+    } else if (n.kind === 'uni') {
+      const linkedProgs = PROGRAMS.filter((p) => p.universityId === r.id);
+      html = `
+        <div class="kind" style="background: var(--blue);">Universitate</div>
+        <h2>${r.name}</h2>
+        <div class="tagline">${r.city} · ${r.tier} · ${r.kind}</div>
+        ${r.notes ? `<div style="background: var(--paper-2); padding: 10px 12px; font-size: 12px; line-height: 1.5; border: 1.5px solid #000; margin-bottom: 12px;">${r.notes}</div>` : ''}
+        <h3>Programe în date (${linkedProgs.length})</h3>
+        <ul>${linkedProgs.map((p) => `<li data-jump="program:${p.id}"><b>${p.name}</b>${p.admission ? `<span class="small">⏰ ${p.admission.deadline}</span>` : ''}</li>`).join('') || '<li style="color: var(--ink-soft); font-style: italic;">Niciun program detaliat încă.</li>'}</ul>
+        ${r.domains ? `<h3>Domenii</h3><div style="display: flex; gap: 6px; flex-wrap: wrap;">${r.domains.map((d) => `<span style="background: var(--paper-2); padding: 4px 8px; font-size: 11px; border: 1.5px solid #000;">${d}</span>`).join('')}</div>` : ''}
+      `;
+    }
+    panelBody.innerHTML = html;
+    panel.classList.add('open');
+    // Wire jumps
+    panelBody.querySelectorAll('[data-jump]').forEach((el) => {
+      el.addEventListener('click', () => {
+        const [kind, id] = el.dataset.jump.split(':');
+        const n2 = (N[kind] || {})[id];
+        if (n2) {
+          openPanel(n2);
+          panToNode(n2);
+        }
+      });
+    });
+  }
+  window.closePanel = () => panel.classList.remove('open');
+
+  // ── Pan + zoom ─────────────────────────────────────────
+  let scale = 0.55, tx = 80, ty = 0;
+  function applyTransform() {
+    rootG.setAttribute('transform', `translate(${tx},${ty}) scale(${scale})`);
+  }
+  applyTransform();
+
+  stage.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const rect = stage.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const factor = e.deltaY < 0 ? 1.12 : 1 / 1.12;
+    const newScale = Math.max(0.2, Math.min(3, scale * factor));
+    // Zoom toward cursor
+    tx = mx - (mx - tx) * (newScale / scale);
+    ty = my - (my - ty) * (newScale / scale);
+    scale = newScale;
+    applyTransform();
+  }, { passive: false });
+
+  let dragging = false, lastX = 0, lastY = 0;
+  stage.addEventListener('mousedown', (e) => {
+    // Don't start a drag if clicking a node
+    if (e.target.closest('.node')) return;
+    dragging = true; lastX = e.clientX; lastY = e.clientY;
+    stage.classList.add('dragging');
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    tx += e.clientX - lastX;
+    ty += e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+    applyTransform();
+  });
+  window.addEventListener('mouseup', () => { dragging = false; stage.classList.remove('dragging'); });
+
+  function panToNode(n) {
+    // Center node in viewport at current scale
+    const stageRect = stage.getBoundingClientRect();
+    const cx = stageRect.width / 2;
+    const cy = stageRect.height / 2;
+    const w = NODE_W[n.kind] || 260;
+    tx = cx - (n.x + w / 2) * scale;
+    ty = cy - (n.y + NODE_H / 2) * scale;
+    applyTransform();
+  }
+
+  document.getElementById('reset').addEventListener('click', () => {
+    scale = 0.55; tx = 80; ty = 0; applyTransform();
+  });
+
+  // ── Layout switcher ────────────────────────────────────
+  document.querySelectorAll('.seg button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.seg button').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      currentLayout = btn.dataset.layout;
+      render(currentLayout);
+    });
+  });
+
+  // ── Search filter ──────────────────────────────────────
+  document.getElementById('search').addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase().trim();
+    if (!q) {
+      nodeG.querySelectorAll('.node').forEach((g) => g.classList.remove('dimmed', 'highlight'));
+      edgeG.querySelectorAll('.edge').forEach((p) => p.classList.remove('dimmed', 'highlight'));
+      return;
+    }
+    const matchKeys = new Set();
+    nodes.forEach((n) => {
+      if (n.label.toLowerCase().includes(q) || n.id.toLowerCase().includes(q)) {
+        matchKeys.add(n.kind + ':' + n.id);
+      }
+    });
+    nodeG.querySelectorAll('.node').forEach((g) => {
+      if (matchKeys.has(g.dataset.key)) g.classList.add('highlight');
+      else g.classList.add('dimmed');
+    });
+    edgeG.querySelectorAll('.edge').forEach((p) => {
+      if (matchKeys.has(p.dataset.from) || matchKeys.has(p.dataset.to)) p.classList.add('highlight');
+      else p.classList.add('dimmed');
+    });
+  });
+
+  // ── Init ───────────────────────────────────────────────
+  let currentLayout = 'columns';
+  render(currentLayout);
+})();
+</script>
+
+</body>
+</html>

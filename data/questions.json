@@ -1,0 +1,482 @@
+[
+  {
+    "id": "q1",
+    "sticker": "01 / 06",
+    "stickerColor": "yellow",
+    "title": "Sâmbătă seara. Cum arată vibe-ul tău?",
+    "subtitle": "Nu există răspuns greșit. Doar tu, autentic.",
+    "options": [
+      {
+        "id": "a",
+        "label": "Construiesc ceva — un site, un proiect, ceva tangibil",
+        "tag": "BUILDER",
+        "traits": [
+          "build",
+          "tech"
+        ],
+        "riasec": [
+          "R",
+          "I"
+        ],
+        "path": "autodidact",
+        "signals": [
+          "technical.software",
+          "practical.manual_craft"
+        ]
+      },
+      {
+        "id": "b",
+        "label": "Ies cu prietenii și organizez tot grupul",
+        "tag": "CONNECTOR",
+        "traits": [
+          "social",
+          "lead"
+        ],
+        "riasec": [
+          "S",
+          "E"
+        ],
+        "path": "mixt",
+        "signals": [
+          "social.community",
+          "business.operations"
+        ]
+      },
+      {
+        "id": "c",
+        "label": "Citesc, scriu, sau mă pierd într-un documentar",
+        "tag": "THINKER",
+        "traits": [
+          "analyze",
+          "create"
+        ],
+        "riasec": [
+          "I",
+          "A"
+        ],
+        "path": "facultate",
+        "signals": [
+          "creative.writing",
+          "investigative.research"
+        ]
+      },
+      {
+        "id": "d",
+        "label": "Editez clipuri / desenez / fac muzică",
+        "tag": "CREATOR",
+        "traits": [
+          "create",
+          "visual"
+        ],
+        "riasec": [
+          "A"
+        ],
+        "path": "creator",
+        "signals": [
+          "creative.video",
+          "creative.visual",
+          "creative.music"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "q2",
+    "sticker": "02 / 06",
+    "stickerColor": "green",
+    "title": "Care problemă te enervează cel mai tare?",
+    "subtitle": "Pe care simți că ai putea să o rezolvi TU.",
+    "options": [
+      {
+        "id": "a",
+        "label": "Aplicații proaste care nu au sens. Pierdere de timp.",
+        "tag": "UX",
+        "traits": [
+          "build",
+          "analyze"
+        ],
+        "riasec": [
+          "I",
+          "A"
+        ],
+        "path": "mixt",
+        "signals": [
+          "business.product",
+          "technical.software",
+          "creative.visual"
+        ]
+      },
+      {
+        "id": "b",
+        "label": "Oameni care nu se înțeleg între ei.",
+        "tag": "EMPATHY",
+        "traits": [
+          "social",
+          "analyze"
+        ],
+        "riasec": [
+          "S"
+        ],
+        "path": "facultate",
+        "signals": [
+          "social.counseling",
+          "social.community"
+        ]
+      },
+      {
+        "id": "c",
+        "label": "Informații false care circulă peste tot.",
+        "tag": "TRUTH",
+        "traits": [
+          "analyze",
+          "lead"
+        ],
+        "riasec": [
+          "I",
+          "E"
+        ],
+        "path": "facultate",
+        "signals": [
+          "investigative.research",
+          "creative.writing"
+        ]
+      },
+      {
+        "id": "d",
+        "label": "Lucruri urâte care au nevoie de o atingere artistică.",
+        "tag": "AESTHETIC",
+        "traits": [
+          "create",
+          "visual"
+        ],
+        "riasec": [
+          "A"
+        ],
+        "path": "creator",
+        "signals": [
+          "creative.visual"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "q3",
+    "sticker": "03 / 06",
+    "stickerColor": "purple",
+    "title": "Profesorul îți dă proiect liber. Tu alegi:",
+    "subtitle": "Ce te face să vrei să stai treaz până la 3 dimineața?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Să programez un joc / o aplicație care chiar funcționează",
+        "tag": "CODE",
+        "traits": [
+          "build",
+          "tech"
+        ],
+        "riasec": [
+          "I",
+          "R"
+        ],
+        "path": "autodidact",
+        "signals": [
+          "technical.software",
+          "creative.game"
+        ]
+      },
+      {
+        "id": "b",
+        "label": "Să fac un documentar / podcast despre ceva real",
+        "tag": "STORY",
+        "traits": [
+          "create",
+          "analyze"
+        ],
+        "riasec": [
+          "A",
+          "I"
+        ],
+        "path": "creator",
+        "signals": [
+          "creative.video",
+          "creative.writing",
+          "investigative.research"
+        ]
+      },
+      {
+        "id": "c",
+        "label": "Să organizez un eveniment care adună oameni",
+        "tag": "EVENT",
+        "traits": [
+          "social",
+          "lead"
+        ],
+        "riasec": [
+          "E",
+          "S"
+        ],
+        "path": "antreprenor",
+        "signals": [
+          "social.community",
+          "business.operations"
+        ]
+      },
+      {
+        "id": "d",
+        "label": "Să cercetez o întrebare ciudată până găsesc răspunsul",
+        "tag": "RESEARCH",
+        "traits": [
+          "analyze",
+          "tech"
+        ],
+        "riasec": [
+          "I"
+        ],
+        "path": "facultate",
+        "signals": [
+          "investigative.research"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "q4",
+    "sticker": "04 / 06",
+    "stickerColor": "yellow",
+    "title": "În 10 ani te vezi:",
+    "subtitle": "Fii sincer. Nu cu ce zice mama.",
+    "options": [
+      {
+        "id": "a",
+        "label": "Cu propria afacere / produs lansat",
+        "tag": "FOUNDER",
+        "traits": [
+          "build",
+          "lead"
+        ],
+        "riasec": [
+          "E",
+          "R"
+        ],
+        "path": "antreprenor",
+        "signals": [
+          "business.entrepreneurship",
+          "business.product"
+        ]
+      },
+      {
+        "id": "b",
+        "label": "Schimbând cum funcționează un sistem mare",
+        "tag": "IMPACT",
+        "traits": [
+          "lead",
+          "analyze"
+        ],
+        "riasec": [
+          "E",
+          "I"
+        ],
+        "path": "facultate",
+        "signals": [
+          "business.operations",
+          "social.community"
+        ]
+      },
+      {
+        "id": "c",
+        "label": "Făcând artă / conținut care contează",
+        "tag": "ARTIST",
+        "traits": [
+          "create",
+          "visual"
+        ],
+        "riasec": [
+          "A"
+        ],
+        "path": "creator",
+        "signals": [
+          "creative.visual",
+          "creative.video",
+          "creative.writing"
+        ]
+      },
+      {
+        "id": "d",
+        "label": "Lucrând cu oameni — ajutând, mentorând, conectând",
+        "tag": "HELPER",
+        "traits": [
+          "social",
+          "analyze"
+        ],
+        "riasec": [
+          "S"
+        ],
+        "path": "facultate",
+        "signals": [
+          "social.care",
+          "social.teaching",
+          "social.community"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "q5",
+    "sticker": "05 / 06",
+    "stickerColor": "green",
+    "title": "Ce te încarcă cu energie?",
+    "subtitle": "Ce faci când ai 2 ore libere și nimeni nu te vede?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Să rezolv un puzzle / să debugez un cod",
+        "tag": "PROBLEM",
+        "traits": [
+          "analyze",
+          "tech"
+        ],
+        "riasec": [
+          "I",
+          "R"
+        ],
+        "path": "autodidact",
+        "signals": [
+          "technical.software",
+          "investigative.diagnostic"
+        ]
+      },
+      {
+        "id": "b",
+        "label": "Să discut cu cineva despre viața lor",
+        "tag": "TALK",
+        "traits": [
+          "social",
+          "analyze"
+        ],
+        "riasec": [
+          "S",
+          "A"
+        ],
+        "path": "facultate",
+        "signals": [
+          "social.counseling"
+        ]
+      },
+      {
+        "id": "c",
+        "label": "Să creez ceva vizual — moodboard, video, design",
+        "tag": "MAKE",
+        "traits": [
+          "create",
+          "visual"
+        ],
+        "riasec": [
+          "A"
+        ],
+        "path": "creator",
+        "signals": [
+          "creative.visual",
+          "creative.video"
+        ]
+      },
+      {
+        "id": "d",
+        "label": "Să citesc despre ceva complet nou pentru mine",
+        "tag": "LEARN",
+        "traits": [
+          "analyze",
+          "create"
+        ],
+        "riasec": [
+          "I",
+          "A"
+        ],
+        "path": "facultate",
+        "signals": [
+          "investigative.research",
+          "creative.writing"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "q6",
+    "sticker": "06 / 06",
+    "stickerColor": "purple",
+    "title": "Ultima întrebare. Banii sau impactul?",
+    "subtitle": "Răspunde rapid. Prima reacție.",
+    "options": [
+      {
+        "id": "a",
+        "label": "Banii. Vreau libertate și opțiuni.",
+        "tag": "AMBITION",
+        "traits": [
+          "build",
+          "lead"
+        ],
+        "riasec": [
+          "E"
+        ],
+        "path": "antreprenor",
+        "signals": [
+          "business.entrepreneurship",
+          "business.sales"
+        ]
+      },
+      {
+        "id": "b",
+        "label": "Impactul. Vreau să las ceva în urmă.",
+        "tag": "PURPOSE",
+        "traits": [
+          "lead",
+          "social"
+        ],
+        "riasec": [
+          "S",
+          "E"
+        ],
+        "path": "facultate",
+        "signals": [
+          "social.community",
+          "social.care"
+        ]
+      },
+      {
+        "id": "c",
+        "label": "Echilibru. Pot avea amândouă.",
+        "tag": "BALANCE",
+        "traits": [
+          "analyze",
+          "social"
+        ],
+        "riasec": [
+          "C",
+          "S"
+        ],
+        "path": "mixt",
+        "signals": [
+          "business.operations",
+          "social.customer"
+        ]
+      },
+      {
+        "id": "d",
+        "label": "Procesul. Banii și impactul vin pe parcurs.",
+        "tag": "CRAFT",
+        "traits": [
+          "create",
+          "build"
+        ],
+        "riasec": [
+          "A",
+          "R"
+        ],
+        "path": "profesional",
+        "signals": [
+          "creative.craft",
+          "practical.manual_craft"
+        ]
+      }
+    ]
+  }
+]

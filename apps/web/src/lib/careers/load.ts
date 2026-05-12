@@ -1,22 +1,22 @@
 /**
  * Ce Să Fiu? — Careers data loader
  *
- * Reads careers, institutions, and programs from the prototype data.js.
- * This is the Phase 1/Phase 2 bridge: in Phase 3 this will be replaced
- * by Supabase queries, but the same exported functions are the contract.
+ * Reads careers, institutions, and programs from the canonical /data JSON
+ * source. The prototype data.js is now a generated compatibility artifact.
+ * In Phase 3 this can be replaced by Supabase queries, but the same exported
+ * functions are the contract.
  *
  * Server-only — never imported from client components.
  */
 import {readFileSync} from 'node:fs';
 import path from 'node:path';
-import vm from 'node:vm';
 
 import type {Career} from '@/lib/matcher';
 import type {CareersData, Institution, PathEntry, Program} from './types';
 
 // Resolve path relative to the monorepo root (two levels up from apps/web)
 const rootDir = path.resolve(process.cwd(), '../..');
-const DATA_FILE = path.join(rootDir, 'cesafiu_prototype_v3/project/data.js');
+const DATA_DIR = path.join(rootDir, 'data');
 
 type RawData = {
   careers: Career[];
@@ -27,22 +27,18 @@ type RawData = {
 
 let _cached: RawData | null = null;
 
+function readJson<T>(fileName: string): T {
+  return JSON.parse(readFileSync(path.join(DATA_DIR, fileName), 'utf8')) as T;
+}
+
 function loadRaw(): RawData {
   if (_cached) return _cached;
 
-  const code = readFileSync(DATA_FILE, 'utf8');
-  const context = {window: {} as {QUIZ_DATA?: RawData & Record<string, unknown>}};
-  vm.runInNewContext(code, context, {filename: DATA_FILE});
-
-  if (!context.window.QUIZ_DATA) {
-    throw new Error('Failed to load QUIZ_DATA from data.js');
-  }
-
   _cached = {
-    careers: context.window.QUIZ_DATA.careers ?? [],
-    universities: context.window.QUIZ_DATA.universities ?? [],
-    programs: context.window.QUIZ_DATA.programs ?? [],
-    paths: context.window.QUIZ_DATA.paths ?? [],
+    careers: readJson<Career[]>('careers.json'),
+    universities: readJson<Institution[]>('institutions.json'),
+    programs: readJson<Program[]>('programs.json'),
+    paths: readJson<PathEntry[]>('paths.json'),
   };
 
   return _cached;

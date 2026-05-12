@@ -130,6 +130,16 @@ export type Career = {
   skills: string[];
   paths: string[];
   schools?: string[];
+  corCode?: string;
+  escoUri?: string;
+  iscoGroup?: string;
+  marketScoreRo?: number;
+  marketScoreEu?: number;
+  futureScore?: number;
+  accessibilityScore?: number;
+  sourceRefs?: string[];
+  lastReviewed?: string;
+  status?: 'active' | 'draft' | 'deprecated';
 };
 
 /** Answer option from a scenario quiz question. */

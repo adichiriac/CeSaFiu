@@ -1,8 +1,41 @@
 # Ce Să Fiu? — Data Architecture
 
-*Living document. Last updated: 2026-04-29.*
+*Living document. Last updated: 2026-05-11.*
 
-This document describes the entity model that powers the **real app**, not just the V2 prototype. The prototype's `data.js` is a denormalized, single-file-per-language stand-in for what will eventually be a relational database with a generation pipeline. This doc is the bridge between the two — read it before adding new fields, schemas, or seeds.
+This document describes the entity model that powers the **real app**, not just the V2 prototype. The canonical source is now the `/data` JSON directory. The prototype's `data.js` is a generated compatibility artifact for old prototype screens and the data-map template. This doc is the bridge between the file-based source and the future relational database — read it before adding new fields, schemas, or seeds.
+
+## Current source of truth
+
+Editable source files:
+
+```text
+data/questions.json
+data/personality.json
+data/ipip-neo-60.json
+data/vocational.json
+data/vocational-deep.json
+data/careers.json
+data/paths.json
+data/institutions.json
+data/programs.json
+```
+
+Generated artifacts:
+
+```text
+cesafiu_prototype_v3/project/data.js
+cesafiu-data-map-standalone.html
+```
+
+Commands:
+
+```bash
+npm run data:validate
+npm run data:build
+npm run data:map
+```
+
+The Next.js app reads catalogue data directly from `/data`. The generated `data.js` remains only for compatibility with old prototype surfaces and `cesafiu-data-map.html`.
 
 ## Why we need a real schema now
 
@@ -158,14 +191,15 @@ Indexes that matter from day 1:
 
 JSONB for `admission` and `tuition` because the structure varies enormously per institution (some publish exam scores, some don't; some have multiple price tiers).
 
-## Migration path from current `data.js`
+## Migration path from current generated `data.js`
 
-The prototype's current state (as of 2026-04-29):
-- 39 careers ✓
+The catalogue's current state (as of 2026-05-11):
+- 115 careers ✓
 - 6 paths ✓
-- 101 institutions ✓ (with URLs on 82, programs[] on 1)
+- 163 institutions ✓
+- 357 programs ✓
 - 24 quiz options ✓ (enriched with riasec + path)
-- **0 programs as a top-level entity** ← this is what we add next
+- `/data` is canonical; `data.js` is generated
 
 **v1 migration** (this commit + follow-ups):
 1. Add `window.QUIZ_DATA.programs = []` as new top-level array.
@@ -176,7 +210,7 @@ The prototype's current state (as of 2026-04-29):
 6. Existing `career.schools` string array stays readable but is no longer the source of truth — gradually replaced as `programs[]` grows.
 
 **v2 (Phase 2 prep, ~6 weeks out):**
-- Move data.js to a generated artifact: source of truth becomes a versioned YAML or JSON tree under `/data-source/`, processed at build time into `data.js` (and eventually into Supabase tables).
+- Keep `/data` as the file-based source of truth while the catalogue expands toward 200 careers.
 - Rename `universities` → `institutions` everywhere.
 - Drop `career.schools` and `university.domains` deprecated fields.
 - Add `Specialty` entity if paid-report engine needs cross-institution grouping.

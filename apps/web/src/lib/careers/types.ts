@@ -1,4 +1,4 @@
-/** Data types for careers, institutions, and programs (from prototype data.js). */
+/** Data types for careers, institutions, and programs from the canonical /data source. */
 
 export type { Career } from '@/lib/matcher';
 
