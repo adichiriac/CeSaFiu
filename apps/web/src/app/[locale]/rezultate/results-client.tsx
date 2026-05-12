@@ -6,6 +6,7 @@ import {useEffect, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {useAuthGate} from '@/components/auth/auth-provider';
 import ReferralShareCard from '@/components/referrals/referral-share-card';
+import ShareableCard from '@/components/results/shareable-card';
 import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
 import type {Institution, Program} from '@/lib/careers/types';
 import type {CareerMatch, MatchResult, NextTestSuggestion, UserProfile} from '@/lib/matcher';
@@ -532,6 +533,15 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
             {isSaved(top.career.id) ? t('saveCTADone') : t('saveCTA')}
           </button>
         </div>
+
+        <ShareableCard
+          locale={locale}
+          riasec={userProfile?.riasec ?? null}
+          topScore={top.score}
+          top3={others.length > 0
+            ? [{name: top.career.name, score: top.score}, ...others.slice(0, 2).map((m) => ({name: m.career.name, score: m.score}))]
+            : [{name: top.career.name, score: top.score}]}
+        />
 
         <ReferralShareCard archetype={top.career.name} locale={locale} />
 

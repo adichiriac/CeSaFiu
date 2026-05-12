@@ -203,6 +203,29 @@
     "paidDisclaimer": "This will become a paid package later. For now, we are testing it free during the pilot. Under 16: available after parent or guardian consent.",
     "browseCTA": "EXPLORE ALL CAREERS →"
   },
+  "shareableCard": {
+    "eyebrow": "YOUR CARD",
+    "title": "Your card, ready to share",
+    "lead": "Download it as an image or send it straight away. Three styles — pick yours.",
+    "pickerLabel": "Choose card style",
+    "variant": {
+      "minimal": "Minimal",
+      "paint": "Color",
+      "split": "Split"
+    },
+    "brand": "CeSăFiu?",
+    "identityEyebrow": "YOU ARE",
+    "topEyebrow": "TOP 3 CAREERS",
+    "downloadCTA": "↓ SAVE PNG",
+    "downloadingCTA": "PREPARING…",
+    "shareCTA": "↗ SHARE IMAGE",
+    "preparingCTA": "PREPARING…",
+    "shareTitle": "My CeSăFiu card",
+    "shareText": "I came out as {archetype} on CeSăFiu. Try it yourself — 90 sec, no account: cesafiu.ro",
+    "sharedHelp": "Sent. Check where you posted it.",
+    "unsupportedHelp": "Your browser doesn't support direct image sharing. Save the card and add it to your story manually.",
+    "errorHelp": "Something went wrong. Try again, or save the card as PNG."
+  },
   "auth": {
     "close": "Close",
     "notConfigured": "Supabase auth is not configured.",
