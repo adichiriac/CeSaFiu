@@ -15,6 +15,7 @@
 import {NextResponse} from 'next/server';
 import type {NextRequest} from 'next/server';
 import {defaultLocale} from '@/i18n/config';
+import {publicOriginFromRequest} from '@/lib/server/request-origin';
 
 const CODE_PATTERN = /^[A-Za-z0-9_-]{1,32}$/;
 
@@ -26,7 +27,9 @@ export async function GET(request: NextRequest, context: {params: Promise<{code:
   // is just to keep junk URLs from spamming the funnel.
   const safeCode = CODE_PATTERN.test(code) ? code : null;
 
-  const target = new URL(`/${defaultLocale}/`, request.url);
+  // Build the target against the *public* origin, not request.url, otherwise
+  // Railway's internal http://localhost:8080 leaks into the Location header.
+  const target = new URL(`/${defaultLocale}/`, publicOriginFromRequest(request));
   if (safeCode) {
     target.searchParams.set('ref', safeCode);
     target.searchParams.set('utm_source', 'share');

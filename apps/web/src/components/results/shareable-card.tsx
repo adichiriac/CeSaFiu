@@ -46,8 +46,7 @@ export default function ShareableCard({locale, riasec, topScore, top3, onUserAct
   const {user, profile, openAuthGate} = useAuthGate();
   // Randomize initial variant per session so no single layout dominates feeds.
   const [variant, setVariant] = useState<CardVariant>(() => VARIANTS[Math.floor(Math.random() * VARIANTS.length)]);
-  const [downloading, setDownloading] = useState(false);
-  const [shareStatus, setShareStatus] = useState<'idle' | 'preparing' | 'shared' | 'unsupported' | 'error'>('idle');
+  const [shareStatus, setShareStatus] = useState<'idle' | 'preparing' | 'shared' | 'downloaded' | 'unsupported' | 'error'>('idle');
   const [referralCode, setReferralCode] = useState<string | null>(null);
 
   const archetypeLocale = locale === 'en' ? 'en' : 'ro';
@@ -106,42 +105,15 @@ export default function ShareableCard({locale, riasec, topScore, top3, onUserAct
     trackEvent('card_variant_selected', {variant: next});
   }
 
-  async function handleDownload() {
-    if (!cardRef.current || downloading) return;
-    setDownloading(true);
-    try {
-      const mod = await loadHtmlToImage();
-      if (!mod) {
-        // Dep not installed — fail gracefully.
-        setShareStatus('unsupported');
-        window.setTimeout(() => setShareStatus('idle'), 2400);
-        return;
-      }
-      const dataUrl = await mod.toPng(cardRef.current, {
-        pixelRatio: 3,
-        backgroundColor: '#fef9f1',
-        width: CARD_WIDTH,
-        height: CARD_HEIGHT,
-      });
-      const a = document.createElement('a');
-      a.href = dataUrl;
-      a.download = `cesafiu-${archetype.pair}${topScore}.png`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      trackEvent('card_downloaded_png', {variant, pair: archetype.pair});
-      onUserAction?.();
-    } catch (err) {
-      console.warn('[shareable-card] download failed', err);
-      setShareStatus('error');
-      window.setTimeout(() => setShareStatus('idle'), 2400);
-    } finally {
-      setDownloading(false);
-    }
-  }
-
-  async function handleShareImage() {
-    if (!cardRef.current) return;
+  /**
+   * Combined share + save action. One button. Tries Web Share API with the
+   * card as a File first (the system share sheet exposes WhatsApp, Photos /
+   * "Save Image", Copy, etc.). If Web Share level-2 isn't available we fall
+   * back to a direct PNG download — the URL is rendered onto the image
+   * itself so attribution survives either path.
+   */
+  async function handleShare() {
+    if (!cardRef.current || shareStatus === 'preparing') return;
     setShareStatus('preparing');
     try {
       const mod = await loadHtmlToImage();
@@ -161,6 +133,7 @@ export default function ShareableCard({locale, riasec, topScore, top3, onUserAct
         window.setTimeout(() => setShareStatus('idle'), 2400);
         return;
       }
+
       const file = new File([blob], `cesafiu-${archetype.pair}${topScore}.png`, {type: 'image/png'});
       const navAny = navigator as Navigator & {canShare?: (data: ShareData) => boolean; share?: (data: ShareData) => Promise<void>};
       const shareData: ShareData & {files?: File[]} = {
@@ -169,24 +142,44 @@ export default function ShareableCard({locale, riasec, topScore, top3, onUserAct
         url: shareUrl,
         files: [file],
       };
+
+      // Path A: Web Share API level 2 (file share). Covers iOS Safari, Android
+      // Chrome — the share sheet handles save-to-photos / send / copy itself.
       if (typeof navAny.canShare === 'function' && navAny.canShare(shareData) && typeof navAny.share === 'function') {
-        await navAny.share(shareData);
-        setShareStatus('shared');
-        trackEvent('card_shared_native', {variant, pair: archetype.pair});
-        onUserAction?.();
-        window.setTimeout(() => setShareStatus('idle'), 2400);
-      } else {
-        setShareStatus('unsupported');
-        window.setTimeout(() => setShareStatus('idle'), 2400);
+        try {
+          await navAny.share(shareData);
+          setShareStatus('shared');
+          trackEvent('card_shared_native', {variant, pair: archetype.pair});
+          onUserAction?.();
+          window.setTimeout(() => setShareStatus('idle'), 2400);
+          return;
+        } catch (err) {
+          const errName = (err as {name?: string} | null)?.name;
+          if (errName === 'AbortError') {
+            // User dismissed the share sheet — respect that, don't auto-download.
+            setShareStatus('idle');
+            return;
+          }
+          // Any other Web Share failure: fall through to download fallback below.
+        }
       }
+
+      // Path B: direct PNG download. Desktop browsers without Web Share, or
+      // mobile browsers where the share sheet refused the payload.
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `cesafiu-${archetype.pair}${topScore}.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      setShareStatus('downloaded');
+      trackEvent('card_downloaded_png', {variant, pair: archetype.pair, via: 'share_fallback'});
+      onUserAction?.();
+      window.setTimeout(() => setShareStatus('idle'), 3200);
     } catch (err) {
-      // User cancellation throws AbortError — treat as no-op.
-      const code = (err as {name?: string} | null)?.name;
-      if (code === 'AbortError') {
-        setShareStatus('idle');
-        return;
-      }
-      console.warn('[shareable-card] share image failed', err);
+      console.warn('[shareable-card] share failed', err);
       setShareStatus('error');
       window.setTimeout(() => setShareStatus('idle'), 2400);
     }
@@ -283,47 +276,30 @@ export default function ShareableCard({locale, riasec, topScore, top3, onUserAct
         <CardScaler />
       </div>
 
-      {/* Actions */}
-      <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8}}>
-        <button
-          type="button"
-          onClick={handleDownload}
-          disabled={downloading}
-          style={{
-            background: 'var(--yellow)',
-            color: '#000',
-            border: '2px solid #000',
-            padding: '12px 10px',
-            fontWeight: 900,
-            fontSize: 12,
-            letterSpacing: 1,
-            cursor: downloading ? 'wait' : 'pointer',
-            boxShadow: '3px 3px 0 #000',
-            opacity: downloading ? 0.6 : 1,
-            textTransform: 'uppercase',
-          }}
-        >
-          {downloading ? t('downloadingCTA') : t('downloadCTA')}
-        </button>
-        <button
-          type="button"
-          onClick={handleShareImage}
-          style={{
-            background: 'var(--purple)',
-            color: '#fff',
-            border: '2px solid #000',
-            padding: '12px 10px',
-            fontWeight: 900,
-            fontSize: 12,
-            letterSpacing: 1,
-            cursor: 'pointer',
-            boxShadow: '3px 3px 0 #000',
-            textTransform: 'uppercase',
-          }}
-        >
-          {shareStatus === 'preparing' ? t('preparingCTA') : t('shareCTA')}
-        </button>
-      </div>
+      {/* Single combined Share / Save action — the system share sheet exposes
+          WhatsApp, Save-to-Photos, Copy URL, etc. Fallback path is direct PNG
+          download for browsers without Web Share API level-2 file support. */}
+      <button
+        type="button"
+        onClick={handleShare}
+        disabled={shareStatus === 'preparing'}
+        style={{
+          width: '100%',
+          background: 'var(--purple)',
+          color: '#fff',
+          border: '2px solid #000',
+          padding: '14px 12px',
+          fontWeight: 900,
+          fontSize: 13,
+          letterSpacing: 1,
+          cursor: shareStatus === 'preparing' ? 'wait' : 'pointer',
+          boxShadow: '3px 3px 0 #000',
+          textTransform: 'uppercase',
+          opacity: shareStatus === 'preparing' ? 0.7 : 1,
+        }}
+      >
+        {shareStatus === 'preparing' ? t('preparingCTA') : t('combinedCTA')}
+      </button>
 
       {/* Status messages */}
       {shareStatus === 'unsupported' && (
@@ -334,6 +310,9 @@ export default function ShareableCard({locale, riasec, topScore, top3, onUserAct
       )}
       {shareStatus === 'shared' && (
         <p style={{marginTop: 10, fontSize: 11, color: 'var(--ink-soft)', textAlign: 'center'}}>{t('sharedHelp')}</p>
+      )}
+      {shareStatus === 'downloaded' && (
+        <p style={{marginTop: 10, fontSize: 11, color: 'var(--ink-soft)', textAlign: 'center'}}>{t('downloadedHelp')}</p>
       )}
 
       {/* Anonymous secondary CTA — show only when the user is not signed in at

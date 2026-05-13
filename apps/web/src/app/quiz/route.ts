@@ -14,9 +14,12 @@
 import {NextResponse} from 'next/server';
 import type {NextRequest} from 'next/server';
 import {defaultLocale} from '@/i18n/config';
+import {publicOriginFromRequest} from '@/lib/server/request-origin';
 
 export async function GET(request: NextRequest) {
-  const target = new URL(`/${defaultLocale}/test/scenarii`, request.url);
+  // Build against the public origin (not request.url) so Railway's internal
+  // http://localhost:8080 doesn't end up in the Location header.
+  const target = new URL(`/${defaultLocale}/test/scenarii`, publicOriginFromRequest(request));
   target.searchParams.set('utm_source', 'share');
   target.searchParams.set('utm_medium', 'card');
   target.searchParams.set('utm_campaign', 'anonymous_share');
