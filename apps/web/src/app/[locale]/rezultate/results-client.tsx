@@ -342,6 +342,40 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
         ))}
       </div>
 
+      {/* Paper-plane share re-trigger — sits over the seam between the meta strip
+          and the body so the share affordance lands immediately after the
+          user sees their vibe, before any other CTA on the page. */}
+      <div style={{position: 'relative', height: 0, zIndex: 5}}>
+        <button
+          type="button"
+          onClick={reopenModal}
+          aria-label={t('reopenShareLabel')}
+          title={t('reopenShareLabel')}
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: -22,
+            transform: 'translateX(-50%)',
+            width: 44,
+            height: 44,
+            background: 'var(--yellow)',
+            border: '2px solid #000',
+            borderRadius: '50%',
+            boxShadow: '3px 3px 0 #000',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 0,
+          }}
+        >
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#000" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13" />
+            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+          </svg>
+        </button>
+      </div>
+
       {/* ── Body ── */}
       <div className="resultBody">
         <p className="resultDescription">{top.career.description}</p>
@@ -552,50 +586,20 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
           ))}
         </div>
 
-        {/* Save CTA + paper-plane share re-trigger (overlaps the bottom edge by design) */}
-        <div style={{position: 'relative', marginBottom: 28}}>
-          <div className="resultSaveCard" style={{marginBottom: 0}}>
-            <div className="resultSaveTitle">
-              {isSaved(top.career.id) ? t('saveTitleDone') : t('saveTitle')}
-            </div>
-            <p className="resultSaveBody">
-              {isSaved(top.career.id) ? t('saveBodyDone') : t('saveBody')}
-            </p>
-            <button
-              className="button buttonPrimary"
-              onClick={() => toggleSaveCareer(top.career.id)}
-              style={{width: '100%', background: isSaved(top.career.id) ? 'var(--purple)' : '#000'}}
-            >
-              {isSaved(top.career.id) ? t('saveCTADone') : t('saveCTA')}
-            </button>
+        {/* Save CTA */}
+        <div className="resultSaveCard">
+          <div className="resultSaveTitle">
+            {isSaved(top.career.id) ? t('saveTitleDone') : t('saveTitle')}
           </div>
+          <p className="resultSaveBody">
+            {isSaved(top.career.id) ? t('saveBodyDone') : t('saveBody')}
+          </p>
           <button
-            type="button"
-            onClick={reopenModal}
-            aria-label={t('reopenShareLabel')}
-            title={t('reopenShareLabel')}
-            style={{
-              position: 'absolute',
-              left: '50%',
-              bottom: -22,
-              transform: 'translateX(-50%)',
-              width: 44,
-              height: 44,
-              background: 'var(--yellow)',
-              border: '2px solid #000',
-              borderRadius: '50%',
-              boxShadow: '3px 3px 0 #000',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 0,
-            }}
+            className="button buttonPrimary"
+            onClick={() => toggleSaveCareer(top.career.id)}
+            style={{width: '100%', background: isSaved(top.career.id) ? 'var(--purple)' : '#000'}}
           >
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#000" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <line x1="22" y1="2" x2="11" y2="13" />
-              <polygon points="22 2 15 22 11 13 2 9 22 2" />
-            </svg>
+            {isSaved(top.career.id) ? t('saveCTADone') : t('saveCTA')}
           </button>
         </div>
 

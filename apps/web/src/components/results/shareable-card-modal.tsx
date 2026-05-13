@@ -1,18 +1,22 @@
 'use client';
 
 /**
- * Phase D — Share-first modal wrapper.
+ * Phase D — Share-first full-screen overlay.
  *
- * Auto-opens once per user on the results page (gated by a localStorage flag);
- * after dismiss, the page is reachable normally with a small re-trigger button.
- * Reuses the auth gate's visual classes (`authGateBackdrop`, `authGatePanel`,
- * `authGateClose`) so the modal language stays consistent across the app.
+ * Despite the file name, this is no longer a centered modal — it's a
+ * full-viewport overlay so internal scroll works on mobile (the auth-gate
+ * modal pattern left the background page underneath catching scroll events,
+ * which broke the share flow on iOS Safari). The card body sits inside this
+ * overlay with its own scroll container; a sticky header keeps the close
+ * button visible while the user scrolls through the card preview / share
+ * actions.
  *
- * Body content is the existing <ShareableCard /> orchestrator. This wrapper
- * adds: backdrop, X close, ESC, click-outside dismiss, focus management,
- * Umami `card_modal_opened` / `card_modal_dismissed` events.
+ * Auto-opens once per user on the results page (the parent gates this via a
+ * localStorage flag). After dismiss the page is reachable normally with a
+ * paper-plane re-trigger button positioned over the meta-strip seam.
  *
- * See docs/VIRAL-PHASE-D-PLAN.md §5 D1.1.
+ * See docs/VIRAL-PHASE-D-PLAN.md §5 D1.1 (and the D1.2 amendment to be
+ * landed once telemetry on the full-screen overlay is in).
  */
 
 import {useCallback, useEffect, useRef, type ReactNode} from 'react';
@@ -23,18 +27,16 @@ type ShareableCardModalProps = {
   open: boolean;
   onDismiss: () => void;
   trigger: 'auto' | 'manual';
-  /** Whether the user shared while the modal was open — drives dismiss telemetry. */
+  /** Whether the user shared while the overlay was open — drives dismiss telemetry. */
   didShare: boolean;
   children: ReactNode;
 };
 
 export default function ShareableCardModal({open, onDismiss, trigger, didShare, children}: ShareableCardModalProps) {
   const t = useTranslations('shareableCard.modal');
-  const panelRef = useRef<HTMLElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const openedAtRef = useRef<number | null>(null);
 
-  // Fire `card_modal_opened` on first open of each cycle, capture timestamp.
   useEffect(() => {
     if (!open) {
       openedAtRef.current = null;
@@ -42,19 +44,19 @@ export default function ShareableCardModal({open, onDismiss, trigger, didShare, 
     }
     openedAtRef.current = Date.now();
     trackEvent('card_modal_opened', {trigger});
-    // Move focus into the modal for keyboard users.
+    // Move focus into the overlay for keyboard users.
     closeButtonRef.current?.focus();
   }, [open, trigger]);
 
   // Compose dismissal into a single handler so telemetry stays consistent
-  // across ESC / outside-click / X button paths.
+  // across ESC / X button paths.
   const dismiss = useCallback(() => {
     const elapsed = openedAtRef.current ? Date.now() - openedAtRef.current : 0;
     trackEvent('card_modal_dismissed', {time_open_ms: elapsed, did_share: didShare});
     onDismiss();
   }, [didShare, onDismiss]);
 
-  // ESC key closes the modal.
+  // ESC key closes the overlay.
   useEffect(() => {
     if (!open) return;
     function onKey(e: KeyboardEvent) {
@@ -67,7 +69,9 @@ export default function ShareableCardModal({open, onDismiss, trigger, didShare, 
     return () => document.removeEventListener('keydown', onKey);
   }, [open, dismiss]);
 
-  // Lock body scroll while open so the page beneath doesn't drift.
+  // Lock body scroll while open so background page doesn't drift when the
+  // user scrolls inside the overlay. The overlay itself is the scroll
+  // container; the body is locked.
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
@@ -81,36 +85,67 @@ export default function ShareableCardModal({open, onDismiss, trigger, didShare, 
 
   return (
     <div
-      className="authGateBackdrop"
-      role="presentation"
+      role="dialog"
+      aria-modal="true"
+      aria-label={t('title')}
       data-rrweb-mask
       data-umami-ignore
-      onClick={(e) => {
-        // Only close on direct backdrop click, not on bubble from inside.
-        if (e.target === e.currentTarget) dismiss();
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'var(--paper)',
+        zIndex: 100,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        WebkitOverflowScrolling: 'touch',
       }}
     >
-      <section
-        ref={panelRef}
-        className="authGatePanel"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="shareable-card-modal-title"
+      {/* Sticky header — X close stays visible while content scrolls. */}
+      <div
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 1,
+          background: 'var(--paper)',
+          padding: '12px 16px',
+          borderBottom: '2px solid #000',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }}
       >
         <button
           ref={closeButtonRef}
-          className="authGateClose"
-          onClick={dismiss}
           type="button"
+          onClick={dismiss}
           aria-label={t('closeLabel')}
+          style={{
+            width: 42,
+            height: 42,
+            border: '2px solid #000',
+            background: '#fff',
+            boxShadow: '3px 3px 0 #000',
+            fontSize: 22,
+            fontWeight: 900,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 0,
+            lineHeight: 1,
+          }}
         >
           ×
         </button>
-        <p className="authGateEyebrow" id="shareable-card-modal-title">{t('eyebrow')}</p>
-        <h2 style={{marginBottom: 8}}>{t('title')}</h2>
-        <p>{t('lead')}</p>
-        <div style={{marginTop: 18}}>{children}</div>
-      </section>
+      </div>
+
+      {/* Content — max-width caps on desktop, fills mobile naturally. */}
+      <div style={{maxWidth: 480, margin: '0 auto', padding: '16px 16px 56px'}}>
+        {children}
+      </div>
     </div>
   );
 }
