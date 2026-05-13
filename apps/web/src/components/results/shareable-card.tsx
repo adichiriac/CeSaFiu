@@ -15,6 +15,9 @@
 
 import {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslations} from 'next-intl';
+import {useAuthGate} from '@/components/auth/auth-provider';
+import {getSupabaseBrowserClient} from '@/lib/supabase/client';
+import type {ReferralStats} from '@/lib/referrals/constants';
 import {deriveArchetype} from '@/lib/results/archetypes';
 import {trackEvent} from '@/lib/analytics/umami';
 import {ResultCard, type CardCareer, type CardVariant, CARD_WIDTH, CARD_HEIGHT} from './result-card';
@@ -26,18 +29,67 @@ type ShareableCardProps = {
   riasec: Record<string, number> | null | undefined;
   topScore: number;
   top3: CardCareer[];
+  /** Called when the user successfully downloads the PNG or shares the image.
+   *  Used by the wrapping modal to set its `did_share` dismiss telemetry. */
+  onUserAction?: () => void;
 };
 
-export default function ShareableCard({locale, riasec, topScore, top3}: ShareableCardProps) {
+type ReferralResponse = {
+  blocked?: boolean;
+  reason?: string;
+  stats?: ReferralStats;
+};
+
+export default function ShareableCard({locale, riasec, topScore, top3, onUserAction}: ShareableCardProps) {
   const t = useTranslations('shareableCard');
   const cardRef = useRef<HTMLDivElement | null>(null);
+  const {user, profile, openAuthGate} = useAuthGate();
   // Randomize initial variant per session so no single layout dominates feeds.
   const [variant, setVariant] = useState<CardVariant>(() => VARIANTS[Math.floor(Math.random() * VARIANTS.length)]);
   const [downloading, setDownloading] = useState(false);
   const [shareStatus, setShareStatus] = useState<'idle' | 'preparing' | 'shared' | 'unsupported' | 'error'>('idle');
+  const [referralCode, setReferralCode] = useState<string | null>(null);
 
   const archetypeLocale = locale === 'en' ? 'en' : 'ro';
   const archetype = useMemo(() => deriveArchetype(riasec, archetypeLocale), [riasec, archetypeLocale]);
+
+  // Mirror the Phase A consent gate from <ReferralShareCard />: only signed-in
+  // users with a non-pending consent status get a personal referral code. Others
+  // fall back to the anonymous quiz redirect.
+  const canUseReferrals = Boolean(
+    profile &&
+      profile.age_band !== 'unknown' &&
+      (profile.consent_status === 'self' || profile.consent_status === 'parent_confirmed')
+  );
+
+  useEffect(() => {
+    if (!user || !canUseReferrals) {
+      setReferralCode(null);
+      return;
+    }
+    let cancelled = false;
+    async function load() {
+      const supabase = getSupabaseBrowserClient();
+      const {data} = supabase ? await supabase.auth.getSession() : {data: {session: null}};
+      const token = data.session?.access_token;
+      if (!token) return;
+      const response = await fetch('/api/referrals/me', {headers: {Authorization: `Bearer ${token}`}});
+      const json = (await response.json()) as ReferralResponse;
+      if (!cancelled && response.ok && !json.blocked && json.stats?.code) {
+        setReferralCode(json.stats.code);
+      }
+    }
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, [canUseReferrals, user]);
+
+  // Footer URL is the short personalized redirect when we have a code, else the
+  // anonymous quiz redirect. Rendered both on the captured PNG (so it survives
+  // Story screenshots) and in the Web Share API text fallback.
+  const footerUrl = referralCode ? `cesafiu.ro/r/${referralCode}` : 'cesafiu.ro/quiz';
+  const shareUrl = `https://${footerUrl}`;
 
   // Fire `card_generated` once on mount. Intentionally empty-deps — re-firing
   // on prop changes would inflate the event count.
@@ -78,6 +130,7 @@ export default function ShareableCard({locale, riasec, topScore, top3}: Shareabl
       a.click();
       a.remove();
       trackEvent('card_downloaded_png', {variant, pair: archetype.pair});
+      onUserAction?.();
     } catch (err) {
       console.warn('[shareable-card] download failed', err);
       setShareStatus('error');
@@ -112,13 +165,15 @@ export default function ShareableCard({locale, riasec, topScore, top3}: Shareabl
       const navAny = navigator as Navigator & {canShare?: (data: ShareData) => boolean; share?: (data: ShareData) => Promise<void>};
       const shareData: ShareData & {files?: File[]} = {
         title: t('shareTitle'),
-        text: t('shareText', {archetype: archetype.name}),
+        text: t('shareText', {archetype: archetype.name, url: shareUrl}),
+        url: shareUrl,
         files: [file],
       };
       if (typeof navAny.canShare === 'function' && navAny.canShare(shareData) && typeof navAny.share === 'function') {
         await navAny.share(shareData);
         setShareStatus('shared');
         trackEvent('card_shared_native', {variant, pair: archetype.pair});
+        onUserAction?.();
         window.setTimeout(() => setShareStatus('idle'), 2400);
       } else {
         setShareStatus('unsupported');
@@ -222,7 +277,7 @@ export default function ShareableCard({locale, riasec, topScore, top3}: Shareabl
             brand={t('brand')}
             topEyebrow={t('topEyebrow')}
             identityEyebrow={t('identityEyebrow')}
-            footerUrl="cesafiu.ro"
+            footerUrl={footerUrl}
           />
         </div>
         <CardScaler />
@@ -279,6 +334,31 @@ export default function ShareableCard({locale, riasec, topScore, top3}: Shareabl
       )}
       {shareStatus === 'shared' && (
         <p style={{marginTop: 10, fontSize: 11, color: 'var(--ink-soft)', textAlign: 'center'}}>{t('sharedHelp')}</p>
+      )}
+
+      {/* Anonymous secondary CTA — show only when the user is not signed in at
+          all. If they're signed-in but pending_parent, we silently use the
+          anonymous link rather than nag for consent upgrades. */}
+      {!user && (
+        <button
+          type="button"
+          onClick={openAuthGate}
+          style={{
+            marginTop: 12,
+            width: '100%',
+            background: 'transparent',
+            color: 'var(--ink-soft)',
+            border: 'none',
+            padding: '4px',
+            fontSize: 11,
+            fontWeight: 700,
+            textDecoration: 'underline',
+            cursor: 'pointer',
+            textAlign: 'center',
+          }}
+        >
+          {t('anonymousSignInCTA')}
+        </button>
       )}
     </section>
   );

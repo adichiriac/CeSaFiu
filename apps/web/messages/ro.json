@@ -201,7 +201,8 @@
     "paidCTA": "ÎNCEPE PROFILUL COMPLET →",
     "paidBlockedCTA": "NEVOIE DE ACORD PĂRINTE",
     "paidDisclaimer": "Va deveni pachet plătit mai târziu. Acum îl testăm gratuit în pilot. Sub 16 ani: disponibil după acordul unui părinte sau tutore.",
-    "browseCTA": "EXPLOREAZĂ TOATE CARIERELE →"
+    "browseCTA": "EXPLOREAZĂ TOATE CARIERELE →",
+    "reopenShareLabel": "Trimite cardul tău"
   },
   "shareableCard": {
     "eyebrow": "CARDUL TĂU",
@@ -224,7 +225,14 @@
     "shareText": "Am ieșit {archetype} pe CeSăFiu. Fă-l și tu — 90 sec, fără cont: cesafiu.ro",
     "sharedHelp": "Trimis. Vezi-l unde l-ai postat.",
     "unsupportedHelp": "Browser-ul tău nu permite share direct ca imagine. Salvează cardul și pune-l în Story manual.",
-    "errorHelp": "Ceva nu a mers. Mai încearcă o dată, sau salvează cardul ca PNG."
+    "errorHelp": "Ceva nu a mers. Mai încearcă o dată, sau salvează cardul ca PNG.",
+    "anonymousSignInCTA": "Autentifică-te ca să primești linkul tău personalizat",
+    "modal": {
+      "eyebrow": "GATA!",
+      "title": "Ai terminat — arată colegilor",
+      "lead": "Trimite-le cardul tău. E gratuit, durează 90 sec și nimic nu se publică automat.",
+      "closeLabel": "Închide"
+    }
   },
   "auth": {
     "close": "Închide",

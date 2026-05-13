@@ -5,8 +5,8 @@ import Link from 'next/link';
 import {useEffect, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {useAuthGate} from '@/components/auth/auth-provider';
-import ReferralShareCard from '@/components/referrals/referral-share-card';
 import ShareableCard from '@/components/results/shareable-card';
+import ShareableCardModal from '@/components/results/shareable-card-modal';
 import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
 import type {Institution, Program} from '@/lib/careers/types';
 import type {CareerMatch, MatchResult, NextTestSuggestion, UserProfile} from '@/lib/matcher';
@@ -131,6 +131,41 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
   const {isSaved, toggleSaveCareer, profile} = useAuthGate();
   const [status, setStatus] = useState<'loading' | 'no-data' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
+  // Share-first modal: auto-opens once per user, then can be re-triggered manually.
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalTrigger, setModalTrigger] = useState<'auto' | 'manual'>('auto');
+  const [didShareInModal, setDidShareInModal] = useState(false);
+
+  // Auto-open the modal the first time the user reaches a ready results page.
+  useEffect(() => {
+    if (status !== 'ready') return;
+    if (typeof window === 'undefined') return;
+    try {
+      const seen = window.localStorage.getItem('cesafiu:shareableCardModal:seenAt');
+      if (!seen) {
+        setModalTrigger('auto');
+        setDidShareInModal(false);
+        setModalOpen(true);
+      }
+    } catch {
+      // localStorage blocked (private mode, locked-down browser) — skip silently.
+    }
+  }, [status]);
+
+  function dismissModal() {
+    setModalOpen(false);
+    try {
+      window.localStorage.setItem('cesafiu:shareableCardModal:seenAt', String(Date.now()));
+    } catch {
+      // ignore
+    }
+  }
+
+  function reopenModal() {
+    setModalTrigger('manual');
+    setDidShareInModal(false);
+    setModalOpen(true);
+  }
 
   useEffect(() => {
     const stored = readStoredResults();
@@ -517,33 +552,52 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
           ))}
         </div>
 
-        {/* Save CTA */}
-        <div className="resultSaveCard">
-          <div className="resultSaveTitle">
-            {isSaved(top.career.id) ? t('saveTitleDone') : t('saveTitle')}
+        {/* Save CTA + paper-plane share re-trigger (overlaps the bottom edge by design) */}
+        <div style={{position: 'relative', marginBottom: 28}}>
+          <div className="resultSaveCard" style={{marginBottom: 0}}>
+            <div className="resultSaveTitle">
+              {isSaved(top.career.id) ? t('saveTitleDone') : t('saveTitle')}
+            </div>
+            <p className="resultSaveBody">
+              {isSaved(top.career.id) ? t('saveBodyDone') : t('saveBody')}
+            </p>
+            <button
+              className="button buttonPrimary"
+              onClick={() => toggleSaveCareer(top.career.id)}
+              style={{width: '100%', background: isSaved(top.career.id) ? 'var(--purple)' : '#000'}}
+            >
+              {isSaved(top.career.id) ? t('saveCTADone') : t('saveCTA')}
+            </button>
           </div>
-          <p className="resultSaveBody">
-            {isSaved(top.career.id) ? t('saveBodyDone') : t('saveBody')}
-          </p>
           <button
-            className="button buttonPrimary"
-            onClick={() => toggleSaveCareer(top.career.id)}
-            style={{width: '100%', background: isSaved(top.career.id) ? 'var(--purple)' : '#000'}}
+            type="button"
+            onClick={reopenModal}
+            aria-label={t('reopenShareLabel')}
+            title={t('reopenShareLabel')}
+            style={{
+              position: 'absolute',
+              left: '50%',
+              bottom: -22,
+              transform: 'translateX(-50%)',
+              width: 44,
+              height: 44,
+              background: 'var(--yellow)',
+              border: '2px solid #000',
+              borderRadius: '50%',
+              boxShadow: '3px 3px 0 #000',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 0,
+            }}
           >
-            {isSaved(top.career.id) ? t('saveCTADone') : t('saveCTA')}
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#000" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
           </button>
         </div>
-
-        <ShareableCard
-          locale={locale}
-          riasec={userProfile?.riasec ?? null}
-          topScore={top.score}
-          top3={others.length > 0
-            ? [{name: top.career.name, score: top.score}, ...others.slice(0, 2).map((m) => ({name: m.career.name, score: m.score}))]
-            : [{name: top.career.name, score: top.score}]}
-        />
-
-        <ReferralShareCard archetype={top.career.name} locale={locale} />
 
         {/* Profil Complet hook */}
         <div className="paidHookCard">
@@ -580,6 +634,23 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
         </div>
       </div>
       <BottomNav active="results" locale={locale} />
+
+      <ShareableCardModal
+        open={modalOpen}
+        onDismiss={dismissModal}
+        trigger={modalTrigger}
+        didShare={didShareInModal}
+      >
+        <ShareableCard
+          locale={locale}
+          riasec={userProfile?.riasec ?? null}
+          topScore={top.score}
+          top3={others.length > 0
+            ? [{name: top.career.name, score: top.score}, ...others.slice(0, 2).map((m) => ({name: m.career.name, score: m.score}))]
+            : [{name: top.career.name, score: top.score}]}
+          onUserAction={() => setDidShareInModal(true)}
+        />
+      </ShareableCardModal>
     </main>
   );
 }

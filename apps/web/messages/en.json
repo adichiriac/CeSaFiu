@@ -201,7 +201,8 @@
     "paidCTA": "START COMPLETE PROFILE →",
     "paidBlockedCTA": "PARENT CONSENT REQUIRED",
     "paidDisclaimer": "This will become a paid package later. For now, we are testing it free during the pilot. Under 16: available after parent or guardian consent.",
-    "browseCTA": "EXPLORE ALL CAREERS →"
+    "browseCTA": "EXPLORE ALL CAREERS →",
+    "reopenShareLabel": "Send your card"
   },
   "shareableCard": {
     "eyebrow": "YOUR CARD",
@@ -224,7 +225,14 @@
     "shareText": "I came out as {archetype} on CeSăFiu. Try it yourself — 90 sec, no account: cesafiu.ro",
     "sharedHelp": "Sent. Check where you posted it.",
     "unsupportedHelp": "Your browser doesn't support direct image sharing. Save the card and add it to your story manually.",
-    "errorHelp": "Something went wrong. Try again, or save the card as PNG."
+    "errorHelp": "Something went wrong. Try again, or save the card as PNG.",
+    "anonymousSignInCTA": "Sign in to get your personalized link",
+    "modal": {
+      "eyebrow": "DONE!",
+      "title": "You're done — show your classmates",
+      "lead": "Send them your card. It's free, takes 90 sec, and nothing is posted automatically.",
+      "closeLabel": "Close"
+    }
   },
   "auth": {
     "close": "Close",
