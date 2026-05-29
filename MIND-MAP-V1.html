@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ce Să Fiu? — Mind Map V1 · Constructuri × Arhetipuri</title>
+<style>
+  :root {
+    --paper: #fef9f1;
+    --paper-2: #f4eadc;
+    --ink: #1d1c17;
+    --ink-soft: #494454;
+    --purple: #6b38d4;
+    --purple-light: #8455ef;
+    --yellow: #ffe170;
+    --green: #a9f900;
+    --blue: #b8e7ff;
+    --red: #ff6156;
+    --R: #f4a261;   /* Realistic — practical, hands-on */
+    --I: #6b38d4;   /* Investigative — analytical */
+    --A: #ff6b9d;   /* Artistic — expressive */
+    --S: #2a9d8f;   /* Social — caring */
+    --E: #e76f51;   /* Enterprising — bold */
+    --C: #4a6fa5;   /* Conventional — structured */
+    --shadow: 0 1px 0 #1d1c17, 0 2px 0 #1d1c17, 0 6px 18px rgba(29,28,23,.08);
+    --shadow-flat: 0 1px 0 #1d1c17, 0 2px 0 #1d1c17;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: ui-rounded, "SF Pro Rounded", "Inter", system-ui, -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+  header {
+    padding: 32px 40px 16px;
+    border-bottom: 2px solid var(--ink);
+    background: var(--paper);
+    position: sticky; top: 0; z-index: 10;
+  }
+  header h1 {
+    font-size: 28px; margin: 0 0 4px; letter-spacing: -.02em;
+  }
+  header .sub {
+    font-size: 14px; color: var(--ink-soft); margin: 0 0 12px;
+  }
+  .toolbar {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  }
+  .pill {
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-flat);
+    transition: transform .08s ease;
+  }
+  .pill:hover { transform: translateY(-1px); }
+  .pill:active { transform: translateY(1px); box-shadow: none; }
+  .pill.active { background: var(--ink); color: var(--paper); }
+  .pill.warn { background: var(--yellow); }
+  .legend {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    font-size: 11px; margin-top: 8px;
+  }
+  .legend span { padding: 2px 8px; border-radius: 999px; border: 1.5px solid var(--ink); font-weight: 600; }
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 24px;
+    padding: 24px 40px 80px;
+    min-height: calc(100vh - 150px);
+  }
+  @media (max-width: 900px) {
+    main { grid-template-columns: 1fr; }
+    .detail { position: static !important; max-height: none !important; }
+  }
+
+  /* ───── Mind map view ───── */
+  .map {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 1280px) { .map { grid-template-columns: 1fr; } }
+
+  .construct {
+    border: 2px solid var(--ink);
+    border-radius: 18px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .construct .head {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    border-bottom: 2px solid var(--ink);
+    background: var(--c-bg, var(--paper-2));
+    color: var(--c-fg, var(--ink));
+  }
+  .construct .letter {
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    font-size: 22px; font-weight: 800;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: var(--shadow-flat);
+  }
+  .construct .head h2 {
+    margin: 0; font-size: 18px; letter-spacing: -.01em;
+  }
+  .construct .head .desc {
+    font-size: 12px; color: var(--ink-soft); margin-top: 2px;
+  }
+  .construct .arche-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+    padding: 14px;
+  }
+  .arche {
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    background: var(--paper);
+    padding: 10px 12px;
+    cursor: pointer;
+    text-align: left;
+    box-shadow: var(--shadow-flat);
+    font: inherit;
+    color: inherit;
+    transition: transform .08s ease, background .12s ease;
+    position: relative;
+  }
+  .arche:hover { transform: translateY(-2px); }
+  .arche:active { transform: translateY(0); }
+  .arche.selected { background: var(--yellow); }
+  .arche.flagged::after {
+    content: "✎";
+    position: absolute; top: 6px; right: 8px;
+    font-size: 11px; color: var(--red); font-weight: 700;
+  }
+  .arche .pair {
+    font-size: 10px; font-weight: 700; letter-spacing: .12em;
+    color: var(--ink-soft);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .arche .pair .glyph { font-size: 14px; }
+  .arche .name {
+    font-size: 13px; font-weight: 700;
+    margin-top: 2px;
+    line-height: 1.25;
+  }
+  .arche .tag {
+    font-size: 11px; color: var(--ink-soft);
+    margin-top: 4px; line-height: 1.3;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .arche .count {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 10px;
+    background: var(--paper-2);
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    padding: 1px 8px;
+    font-weight: 700;
+  }
+
+  /* ───── Detail panel ───── */
+  .detail {
+    position: sticky; top: 160px;
+    align-self: start;
+    border: 2px solid var(--ink);
+    border-radius: 18px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    padding: 18px;
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+  }
+  .detail .empty {
+    color: var(--ink-soft); font-size: 13px; text-align: center; padding: 32px 0;
+  }
+  .detail .pair-large {
+    font-size: 11px; letter-spacing: .15em; color: var(--ink-soft); font-weight: 700;
+  }
+  .detail h3 {
+    margin: 4px 0 2px; font-size: 22px; letter-spacing: -.01em;
+  }
+  .detail .glyph-large {
+    font-size: 28px; margin-right: 6px;
+  }
+  .detail .en {
+    font-size: 12px; color: var(--ink-soft); font-style: italic; margin-bottom: 8px;
+  }
+  .detail .tag-large {
+    background: var(--paper-2);
+    border: 1.5px dashed var(--ink);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    margin: 8px 0 14px;
+  }
+  .detail h4 {
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 14px 0 6px;
+  }
+  .alt-list { display: flex; flex-direction: column; gap: 6px; margin: 0 0 8px; padding: 0; list-style: none; }
+  .alt-list li {
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    padding: 8px 10px;
+    background: var(--paper);
+    font-size: 13px;
+  }
+  .alt-list li .why {
+    display: block;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+  .careers {
+    display: flex; flex-wrap: wrap; gap: 4px;
+    margin: 0; padding: 0; list-style: none;
+  }
+  .careers li {
+    font-size: 11px;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    padding: 2px 8px;
+    background: var(--paper);
+  }
+  .careers li.muted {
+    color: var(--ink-soft);
+    border-style: dashed;
+  }
+  .flag-btn {
+    width: 100%;
+    margin-top: 12px;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    padding: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-flat);
+    font-size: 13px;
+  }
+  .flag-btn.on { background: var(--yellow); }
+  .flag-btn:active { transform: translateY(1px); box-shadow: none; }
+  .review-notes {
+    width: 100%; min-height: 60px;
+    margin-top: 8px;
+    border: 1.5px solid var(--ink); border-radius: 10px;
+    padding: 8px 10px;
+    background: var(--paper);
+    font: inherit; font-size: 12px;
+    resize: vertical;
+  }
+  .review-notes:focus { outline: 2px solid var(--purple); outline-offset: 1px; }
+
+  /* ───── Construct intro section ───── */
+  .intro {
+    grid-column: 1 / -1;
+    background: var(--paper-2);
+    border: 2px solid var(--ink);
+    border-radius: 18px;
+    padding: 16px 20px;
+    margin-bottom: 4px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .intro strong { color: var(--ink); }
+  .intro a { color: var(--purple); }
+
+  /* counts in header */
+  .stats {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .stats b { color: var(--ink); }
+
+  /* filter state */
+  body.flagged-only .arche:not(.flagged) { display: none; }
+  body.flagged-only .construct:not(:has(.arche.flagged)) { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Ce Să Fiu? — Mind Map V1</h1>
+  <p class="sub">Maparea dintre <strong>cele 6 constructuri RIASEC</strong> și <strong>cele 30 de arhetipuri</strong> (perechi top-1 + top-2) folosite pe cardurile de share. Click pe un arhetip ca să vezi varianta actuală, propuneri alternative de nume și cariere ancorate.</p>
+  <div class="toolbar">
+    <button class="pill" id="filter-all">Toate</button>
+    <button class="pill warn" id="filter-flagged">Doar cele marcate pentru revizuire</button>
+    <button class="pill" id="lang-ro">RO</button>
+    <button class="pill" id="lang-en">EN</button>
+    <button class="pill" id="export-btn">Export markdown</button>
+    <span class="stats" id="stats"></span>
+  </div>
+  <div class="legend" id="legend"></div>
+</header>
+
+<main>
+  <section class="map" id="map">
+    <div class="intro">
+      <strong>De ce există acest document.</strong> Numele arhetipurilor sunt afișate pe shareable cards, în rezultate și în PDF-ul Profil Complet. Câteva sună prea clinic / sterp pentru publicul 14–18 (ex. <em>Constructorul, Operatorul, Auditorul</em>). Aici poți compara perechea RIASEC cu numele actual, vedea cariere ancorate și marca arhetipurile care au nevoie de renaming. Sursa numelor: <code>apps/web/src/lib/results/archetypes.ts</code>. Cariere: <code>data/careers.json</code> (170 cariere, mapate după primele două litere RIASEC).
+    </div>
+  </section>
+
+  <aside class="detail" id="detail">
+    <div class="empty">Selectează un arhetip ca să vezi detalii, propuneri alternative de nume și carierele ancorate.</div>
+  </aside>
+</main>
+
+<script>
+/* ────────────────────────────────────────────────────────────
+ * Data — keep in sync with apps/web/src/lib/results/archetypes.ts
+ * ──────────────────────────────────────────────────────────── */
+
+const CONSTRUCTS = [
+  { code: 'R', name: 'Realistic',     ro: 'Practic / Hands-on',
+    desc: 'Lucru cu mâinile, instrumente, mașini, fizicalitate. Rezultate vizibile.',
+    color: 'var(--R)' },
+  { code: 'I', name: 'Investigative', ro: 'Curios / Analitic',
+    desc: 'Cercetare, întrebări, modele, descoperire. Învățare de dragul învățării.',
+    color: 'var(--I)' },
+  { code: 'A', name: 'Artistic',      ro: 'Expresiv / Creativ',
+    desc: 'Idee + estetică, narațiune, formă. Originalitate ca metodă.',
+    color: 'var(--A)' },
+  { code: 'S', name: 'Social',        ro: 'Cu oameni / Sprijin',
+    desc: 'Ajut, învăț, conectez, vindec. Relația e instrumentul principal.',
+    color: 'var(--S)' },
+  { code: 'E', name: 'Enterprising',  ro: 'Inițiativă / Influență',
+    desc: 'Conducere, persuasiune, risc, antreprenoriat. Mișc lucruri înainte.',
+    color: 'var(--E)' },
+  { code: 'C', name: 'Conventional',  ro: 'Structură / Acuratețe',
+    desc: 'Sisteme, reguli, organizare, verificare. Ordine ca formă de grijă.',
+    color: 'var(--C)' },
+];
+
+/* Glyph per pair — mirrors ARCHETYPE_GLYPHS in archetypes.ts */
+const GLYPHS = {
+  RI:'⚒', RA:'✦', RS:'⚡', RE:'✺', RC:'⚙',
+  IR:'◇', IA:'◊', IS:'✦', IE:'✺', IC:'∆',
+  AR:'✦', AI:'◇', AS:'★', AE:'✺', AC:'◈',
+  SR:'♥', SI:'✦', SA:'◊', SE:'⚡', SC:'★',
+  ER:'✺', EI:'∆', EA:'★', ES:'✦', EC:'⚡',
+  CR:'⚙', CI:'∆', CA:'◈', CS:'★', CE:'⚡',
+};
+
+/* Current names + tag (RO/EN), plus alt-name candidates + reviewer note.
+ * `flag: true` is a soft default — names I suspect Adi will want to rename.
+ * Alt names follow these rules:
+ *   – evită "-ul"-uri prea corporate/oficial (Manager-ul, Auditor-ul)
+ *   – preferă concrete cu imagistică (Pionierul, Detectivul, Curatorul)
+ *   – păstrează genul neutru / atractiv pentru 14-18                            */
+
+const ARCHETYPES = {
+  RI: { ro:{name:'CONSTRUCTORUL',        tag:'Te atrag rolurile între logică și acțiune practică.'},
+        en:{name:'THE BUILDER',          tag:'Drawn to roles between logic and hands-on action.'},
+        flag:true,
+        alts:[
+          {name:'INGINERUL-MAKER',       why:'„Maker" e termen folosit deja de Gen Z; sună mai contemporan decât „constructor".'},
+          {name:'INVENTATORUL PRACTIC',  why:'Captează combinația I+R fără să sune ca un job în construcții.'},
+          {name:'REALIZATORUL',          why:'Pune accent pe „livrez ceva", nu pe meserie.'},
+        ] },
+  RA: { ro:{name:'MEȘTEȘUGARUL',         tag:'Te atrag rolurile între gust și manualitate.'},
+        en:{name:'THE CRAFTSPERSON',     tag:'Drawn to roles between taste and manual making.'},
+        flag:false,
+        alts:[
+          {name:'ARTIZANUL',             why:'Mai modern, încă păstrează ideea de craft.'},
+          {name:'MAKER-UL ESTETIC',      why:'Aliniat cu vocabularul actual de „maker culture".'},
+          {name:'FĂURITORUL',            why:'Mai poetic; lasă mai mult spațiu pentru identitate.'},
+        ] },
+  RS: { ro:{name:'ANTRENORUL',           tag:'Te atrag rolurile între acțiune și oameni.'},
+        en:{name:'THE COACH',            tag:'Drawn to roles between action and people.'},
+        flag:false,
+        alts:[
+          {name:'SALVATORUL DE TEREN',   why:'Mai eroic; potrivit pentru paramedici/pompieri/jandarmi.'},
+          {name:'COACH-UL ACTIV',        why:'Reformulare modernă a „antrenor".'},
+          {name:'GHIDUL FIZIC',          why:'Bun dacă vrem să separăm de „mentor" abstract.'},
+        ] },
+  RE: { ro:{name:'FONDATORUL',           tag:'Te atrag rolurile între acțiune și antreprenoriat.'},
+        en:{name:'THE FOUNDER',          tag:'Drawn to roles between action and entrepreneurship.'},
+        flag:false,
+        alts:[
+          {name:'PIONIERUL',             why:'Mai accesibil decât „fondator"; nu presupune startup.'},
+          {name:'OPERATORUL ANTREPRENOR',why:'Captează E+R mai precis.'},
+          {name:'CONSTRUCTORUL DE BUSINESS', why:'Refolosește „constructor" pe RE, unde se potrivește mai bine.'},
+        ] },
+  RC: { ro:{name:'INGINERUL',            tag:'Te atrag rolurile între sisteme și execuție.'},
+        en:{name:'THE ENGINEER',         tag:'Drawn to roles between systems and execution.'},
+        flag:true,
+        alts:[
+          {name:'OPERATORUL TEHNIC',     why:'Mai precis pentru meserii calificate non-academice (electrician, sudor, șofer pro).'},
+          {name:'MECANICIANUL DE SISTEM',why:'Aliniat cu identitatea de „om al instrumentelor".'},
+          {name:'TEHNICIANUL DE ÎNCREDERE', why:'Pune accent pe profesionalism, nu pe diplomă.'},
+        ] },
+
+  IR: { ro:{name:'EXPLORATORUL',         tag:'Te atrag rolurile între curiozitate și experiment practic.'},
+        en:{name:'THE EXPLORER',         tag:'Drawn to roles between curiosity and practical experiment.'},
+        flag:false,
+        alts:[
+          {name:'INGINERUL CURIOS',      why:'Mai concret; descrie 80% din carierele IR (software, biotech).'},
+          {name:'CERCETĂTOR-INVENTATOR', why:'Pune cele două laturi în nume.'},
+          {name:'INVESTIGATORUL TEHNIC', why:'Bun pentru cybersecurity, biolog, AI engineer.'},
+        ] },
+  IA: { ro:{name:'GÂNDITORUL CREATIV',   tag:'Te atrag rolurile între idei și estetică.'},
+        en:{name:'THE CREATIVE THINKER', tag:'Drawn to roles between ideas and aesthetics.'},
+        flag:true,
+        alts:[
+          {name:'VISĂTORUL LUCID',       why:'Mai memorabil; captează tensiunea idee↔formă.'},
+          {name:'CARTOGRAFUL IDEILOR',   why:'Imagine concretă; potrivit pentru researcher / UX researcher.'},
+          {name:'ESEISTUL',              why:'Modern, scurt, fără „creativ" supraîncărcat.'},
+        ] },
+  IS: { ro:{name:'PROFESORUL',           tag:'Te atrag rolurile între cunoaștere și oameni.'},
+        en:{name:'THE TEACHER',          tag:'Drawn to roles between knowledge and people.'},
+        flag:true,
+        alts:[
+          {name:'MENTORUL',              why:'Mai puțin instituțional; potrivit și pentru medic/cercetător.'},
+          {name:'VINDECĂTORUL CU CARTE', why:'Captează componenta medicală/științifică a IS.'},
+          {name:'TRADUCĂTORUL DE CUNOAȘTERE', why:'Subliniază rolul de „explică pentru ceilalți".'},
+        ] },
+  IE: { ro:{name:'INOVATORUL',           tag:'Te atrag rolurile între idei și inițiativă.'},
+        en:{name:'THE INNOVATOR',        tag:'Drawn to roles between ideas and initiative.'},
+        flag:false,
+        alts:[
+          {name:'VIZIONARUL',            why:'Mai mare; bun pentru startup founder + product manager.'},
+          {name:'DISRUPTOR-UL',          why:'Modern, dar poate fi prea „buzz".'},
+          {name:'STRATEGUL CURIOS',      why:'Conservator; păstrează tonul existent.'},
+        ] },
+  IC: { ro:{name:'ANALISTUL',            tag:'Te atrag rolurile între date și structură.'},
+        en:{name:'THE ANALYST',          tag:'Drawn to roles between data and structure.'},
+        flag:true,
+        alts:[
+          {name:'DETECTIVUL DATELOR',    why:'Imagine vizuală puternică; mai atrăgător la 16 ani.'},
+          {name:'LOGICIANUL',            why:'Pune accent pe gândire, nu pe job.'},
+          {name:'INVESTIGATORUL CIFRELOR', why:'Captează data scientist + cybersec + farmacist.'},
+        ] },
+
+  AR: { ro:{name:'ARTISTUL TANGIBIL',    tag:'Te atrag rolurile între estetică și materialitate.'},
+        en:{name:'THE TANGIBLE ARTIST',  tag:'Drawn to roles between aesthetics and materiality.'},
+        flag:true,
+        alts:[
+          {name:'MAKER-UL VIZUAL',       why:'Mai contemporan; păstrează ideea „cu mâinile + frumos".'},
+          {name:'SCULPTORUL',            why:'Metaforă forte; merge dincolo de pictură/ceramică.'},
+          {name:'ARTISTUL MANUAL',       why:'Cea mai conservatoare alternativă, dar curată.'},
+        ] },
+  AI: { ro:{name:'CERCETĂTORUL ARTISTIC',tag:'Te atrag rolurile între curiozitate și expresie.'},
+        en:{name:'THE ART RESEARCHER',   tag:'Drawn to roles between curiosity and expression.'},
+        flag:true,
+        alts:[
+          {name:'CARTOGRAFUL SENSIBIL',  why:'Mai expresiv; păstrează contrastul I+A.'},
+          {name:'ESTETICIANUL CURIOS',   why:'Mai aproape de UX researcher / cercetător artistic.'},
+          {name:'OBSERVATORUL CREATIV',  why:'Scurt, neutru, „știu să mă uit".'},
+        ] },
+  AS: { ro:{name:'POVESTITORUL',         tag:'Te atrag rolurile între narațiune și oameni.'},
+        en:{name:'THE STORYTELLER',      tag:'Drawn to roles between narrative and people.'},
+        flag:false,
+        alts:[
+          {name:'NARATORUL',             why:'Mai literar; păstrează ideea.'},
+          {name:'COMUNICATORUL CREATIV', why:'Mai larg; include instructional designer.'},
+          {name:'GLASUL',                why:'Foarte scurt, identitar; ar funcționa pe card.'},
+        ] },
+  AE: { ro:{name:'PERFORMERUL',          tag:'Te atrag rolurile între expresie și public.'},
+        en:{name:'THE PERFORMER',        tag:'Drawn to roles between expression and audience.'},
+        flag:false,
+        alts:[
+          {name:'ARTISTUL PUBLIC',       why:'Mai descriptiv; nu se confundă cu „performance review".'},
+          {name:'SHOWMAN-UL',            why:'Energic; potrivit pentru YouTuber, actor, content creator.'},
+          {name:'VOCEA',                 why:'Scurt și sugestiv.'},
+        ] },
+  AC: { ro:{name:'DESIGNERUL',           tag:'Te atrag rolurile între estetică și ordine.'},
+        en:{name:'THE DESIGNER',         tag:'Drawn to roles between aesthetics and order.'},
+        flag:false,
+        alts:[
+          {name:'CURATORUL',             why:'Mai precis pentru editor/redactor-șef (singura carieră AC).'},
+          {name:'EDITORUL VIZUAL',       why:'Mai aproape de realitatea jobului.'},
+          {name:'CIZELATORUL',           why:'Poetic; captează rafinarea continuă.'},
+        ] },
+
+  SR: { ro:{name:'OPERATORUL SOCIAL',    tag:'Te atrag rolurile între oameni și activitate practică.'},
+        en:{name:'THE SOCIAL OPERATOR',  tag:'Drawn to roles between people and hands-on activity.'},
+        flag:true,
+        alts:[
+          {name:'SPRIJINUL',             why:'Cald, accesibil; mai potrivit pentru îngrijitor/moașă/asistent vet.'},
+          {name:'AJUTORUL ACTIV',        why:'Captează S+R fără tonul corporate.'},
+          {name:'TERAPEUTUL DE TEREN',   why:'Bun pentru terapeut ocupațional, kineto, antrenor.'},
+        ] },
+  SI: { ro:{name:'EDUCATORUL',           tag:'Te atrag rolurile între oameni și cunoaștere.'},
+        en:{name:'THE EDUCATOR',         tag:'Drawn to roles between people and knowledge.'},
+        flag:false,
+        alts:[
+          {name:'MENTORUL SPECIALIST',   why:'Mai aproape de medic + kineto + logoped.'},
+          {name:'VINDECĂTORUL',          why:'Atrăgător pentru zona de health-S.'},
+          {name:'GHIDUL TERAPEUTIC',     why:'Captează specific terapie + educație.'},
+        ] },
+  SA: { ro:{name:'INTERPRETUL SOCIAL',   tag:'Te atrag rolurile între oameni și expresie creativă.'},
+        en:{name:'THE SOCIAL INTERPRETER',tag:'Drawn to roles between people and creative expression.'},
+        flag:true,
+        alts:[
+          {name:'EMPATUL CREATIV',       why:'Mai cald; descrie psiholog clinic + profesor + educator.'},
+          {name:'MEDIATORUL',            why:'Mai funcțional; bun pentru cosmeticiană + asistent social.'},
+          {name:'TERAPEUTUL CREATIV',    why:'Punte clară între S și A.'},
+        ] },
+  SE: { ro:{name:'CONECTORUL DE OAMENI', tag:'Te atrag rolurile între oameni: HR, sales, organizare echipe.'},
+        en:{name:'THE PEOPLE CONNECTOR', tag:'Drawn to roles between people: HR, sales, team organising.'},
+        flag:false,
+        alts:[
+          {name:'LIANTUL',               why:'Scurt; captează exact funcția.'},
+          {name:'CATALIZATORUL',         why:'Mai mișcat; energic.'},
+          {name:'ANIMATORUL DE COMUNITATE', why:'Foarte descriptiv pentru community builder + ghid turistic.'},
+        ] },
+  SC: { ro:{name:'ORGANIZATORUL',        tag:'Te atrag rolurile între oameni și structură.'},
+        en:{name:'THE ORGANISER',        tag:'Drawn to roles between people and structure.'},
+        flag:false,
+        alts:[
+          {name:'COORDONATORUL',         why:'Mai cald decât „organizator"; potrivit pentru office manager.'},
+          {name:'GARDIANUL DE GRIJĂ',    why:'Foarte cald; potrivit pentru protecția copilului.'},
+          {name:'LIDERUL DE ECHIPĂ',     why:'Mai pragmatic.'},
+        ] },
+
+  ER: { ro:{name:'ANTREPRENORUL',        tag:'Te atrag rolurile între inițiativă și execuție practică.'},
+        en:{name:'THE ENTREPRENEUR',     tag:'Drawn to roles between initiative and practical execution.'},
+        flag:false,
+        alts:[
+          {name:'PIONIERUL DE TEREN',    why:'Captează E+R cu mai mult eroism.'},
+          {name:'COMANDANTUL',           why:'Bun pentru ofițer activ (singura carieră ER).'},
+          {name:'LIDERUL DE OPERAȚIUNE', why:'Concret pentru armată / lider operațional.'},
+        ] },
+  EI: { ro:{name:'STRATEGUL',            tag:'Te atrag rolurile între decizie și analiză.'},
+        en:{name:'THE STRATEGIST',       tag:'Drawn to roles between decision-making and analysis.'},
+        flag:false,
+        alts:[
+          {name:'TACTICIANUL',           why:'Variantă cu mai mult „acțiune".'},
+          {name:'DECISORUL ANALITIC',    why:'Foarte descriptiv.'},
+          {name:'VIZIONARUL CU CIFRE',   why:'Bun pentru product manager + avocat + growth.'},
+        ] },
+  EA: { ro:{name:'PRODUCĂTORUL',         tag:'Te atrag rolurile între inițiativă și expresie creativă.'},
+        en:{name:'THE PRODUCER',         tag:'Drawn to roles between initiative and creative expression.'},
+        flag:false,
+        alts:[
+          {name:'SHOWRUNNER-UL',         why:'Modern, captează E+A perfect.'},
+          {name:'REGIZORUL DE PROIECT',  why:'Imagine concretă pentru PR + ecommerce founder.'},
+          {name:'PRODUCĂTORUL CREATIV',  why:'Variantă minoră care păstrează numele.'},
+        ] },
+  ES: { ro:{name:'CONECTORUL',           tag:'Te atrag rolurile între inițiativă și oameni.'},
+        en:{name:'THE CONNECTOR',        tag:'Drawn to roles between initiative and people.'},
+        flag:true,
+        alts:[
+          {name:'NETWORKER-UL',          why:'Modern; clar pentru agent imobiliar + sales rep.'},
+          {name:'DIPLOMATUL',            why:'Captează ofițer poliție + antreprenor social.'},
+          {name:'IMPULSORUL',            why:'Cuvânt rar dar memorabil; „mișcă lucrurile".'},
+        ] },
+  EC: { ro:{name:'MANAGERUL',            tag:'Te atrag rolurile între decizie și structură.'},
+        en:{name:'THE MANAGER',          tag:'Drawn to roles between decision-making and structure.'},
+        flag:true,
+        alts:[
+          {name:'LIDERUL OPERATIV',      why:'Mai puțin corporate decât „manager".'},
+          {name:'ORCHESTRATORUL',        why:'Imagine puternică; potrivit pentru proiecte europene.'},
+          {name:'DIRIJORUL DE PROIECT',  why:'Captează metaforic, dar foarte clar.'},
+        ] },
+
+  CR: { ro:{name:'TEHNICIANUL',          tag:'Te atrag rolurile între execuție și sisteme.'},
+        en:{name:'THE TECHNICIAN',       tag:'Drawn to roles between execution and systems.'},
+        flag:true,
+        alts:[
+          {name:'OPERATORUL DE PRECIZIE',why:'Mai aspirational; potrivit pentru CNC + sysadmin.'},
+          {name:'SPECIALISTUL TEHNIC',   why:'Conservator; respectă meseria.'},
+          {name:'GARDIANUL DE SISTEM',   why:'Imagine concretă pentru securitate + IT support.'},
+        ] },
+  CI: { ro:{name:'AUDITORUL',            tag:'Te atrag rolurile între date și verificare.'},
+        en:{name:'THE AUDITOR',          tag:'Drawn to roles between data and verification.'},
+        flag:true,
+        alts:[
+          {name:'VERIFICATORUL',         why:'Mai simplu, mai puțin „inspector fiscal".'},
+          {name:'DETECTIVUL CIFRELOR',   why:'Imagine puternică pentru contabil + analist + GDPR.'},
+          {name:'GARDIANUL DATELOR',     why:'Modern; potrivit pentru compliance + DPO.'},
+        ] },
+  CA: { ro:{name:'EDITORUL',             tag:'Te atrag rolurile între structură și estetică.'},
+        en:{name:'THE EDITOR',           tag:'Drawn to roles between structure and aesthetics.'},
+        flag:false,
+        alts:[
+          {name:'CURATORUL DE CUVINTE',  why:'Mai colorat; bun pentru a se distinge de AC.'},
+          {name:'POLISHER-UL',           why:'Modern; descrie fix munca de editare.'},
+          {name:'CIZELATORUL',           why:'Poetic; perechea poate-fi-frumoasă cu AC.'},
+        ] },
+  CS: { ro:{name:'CONSILIERUL',          tag:'Te atrag rolurile între structură și oameni.'},
+        en:{name:'THE ADVISOR',          tag:'Drawn to roles between structure and people.'},
+        flag:false,
+        alts:[
+          {name:'GHIDUL DE ÎNCREDERE',   why:'Mai cald pentru funcționar bancar + funcționar public.'},
+          {name:'OMUL DE LA GHIȘEU',     why:'Onest și concret; recuperează imaginea jobului.'},
+          {name:'INTERMEDIARUL',         why:'Funcțional; captează rolul „pun lucrurile cap la cap".'},
+        ] },
+  CE: { ro:{name:'OPERATORUL',           tag:'Te atrag rolurile între structură și acțiune.'},
+        en:{name:'THE OPERATIONS LEAD',  tag:'Drawn to roles between structure and action.'},
+        flag:true,
+        alts:[
+          {name:'DISPECERUL',            why:'Imagine concretă; perfect pentru ERP/CRM/RevOps.'},
+          {name:'COORDONATORUL OPERAȚIONAL', why:'Conservator; un pas mai cald decât „operator".'},
+          {name:'CONFIGURATORUL',        why:'Modern; captează SAP consultant + CRM specialist.'},
+        ] },
+};
+
+/* Career anchors per pair — extracted from data/careers.json (170 careers,
+ * grouped by first two RIASEC letters). Shortened display: id + name. */
+const CAREERS_BY_PAIR = {"AI":[{"id":"product-designer","n":"Product Designer"},{"id":"game-developer","n":"Game Developer"},{"id":"arhitect","n":"Arhitect"},{"id":"marketing-content-seo","n":"SEO / Content Marketer"},{"id":"traducator","n":"Traducător / Interpret"},{"id":"fotograf","n":"Fotograf profesionist"},{"id":"restaurator","n":"Restaurator de patrimoniu"},{"id":"artist-plastic","n":"Artist plastic (pictor / sculptor)"},{"id":"editor-video","n":"Editor video / Videograf"},{"id":"dj-producer","n":"DJ / Producător muzical"},{"id":"motion-designer","n":"Motion Designer"},{"id":"game-designer","n":"Game Designer"},{"id":"urban-planner","n":"Urbanist / Planificator urban"}],"IC":[{"id":"data-scientist","n":"Data Scientist"},{"id":"cybersecurity","n":"Specialist Cybersecurity"},{"id":"farmacist","n":"Farmacist"},{"id":"marketing-performance","n":"Performance Marketer / Paid Media"},{"id":"ofiter-informatii","n":"Ofițer informații / Analist intelligence (SRI, SIE, DIA)"},{"id":"qa-tester","n":"QA Engineer / Software Tester"},{"id":"data-engineer","n":"Data Engineer"},{"id":"low-code-developer","n":"Low-code / No-code Developer"},{"id":"clinical-research-coordinator","n":"Coordonator studii clinice"}],"AE":[{"id":"creative-director","n":"Creative Director"},{"id":"content-creator","n":"Content Creator"},{"id":"freelance-designer","n":"Freelance Designer"},{"id":"marketing-brand","n":"Brand Manager / Brand Strategist"},{"id":"jurnalist-reporter","n":"Reporter / Jurnalist de teren"},{"id":"jurnalist-podcast","n":"Podcaster / Independent media creator"},{"id":"youtuber","n":"Content Creator / YouTuber / Streamer"},{"id":"actor","n":"Actor / Performer"},{"id":"social-media-manager","n":"Social Media Manager"}],"ES":[{"id":"social-entrepreneur","n":"Antreprenor Social"},{"id":"ofiter-politie","n":"Ofițer de poliție / Inspector (MAI)"},{"id":"agent-imobiliar","n":"Agent imobiliar"},{"id":"sales-rep","n":"Reprezentant vânzări B2B / Account Executive"},{"id":"event-planner","n":"Event Planner / Organizator evenimente"}],"IA":[{"id":"researcher","n":"Cercetător"},{"id":"jurnalist-investigativ","n":"Jurnalist de investigație / Investigative reporter"},{"id":"ux-researcher","n":"UX Researcher"}],"SE":[{"id":"community-builder","n":"Community Builder"},{"id":"psiholog-organizational","n":"Psiholog organizațional / People & Culture"},{"id":"ospatar","n":"Ospătar / Bartender"},{"id":"ghid-turistic","n":"Ghid turistic / Animator turistic"},{"id":"receptioner-hotel","n":"Recepționer hotel / Front office"},{"id":"hr-specialist","n":"Specialist HR / Recruiter"},{"id":"customer-success-manager","n":"Customer Success Manager"},{"id":"corporate-trainer","n":"Trainer corporate / Formator"}],"IR":[{"id":"freelance-developer","n":"Freelance Developer"},{"id":"self-taught-engineer","n":"Self-taught Engineer"},{"id":"inginer-electronic","n":"Inginer electronist / Telecomunicații"},{"id":"inginer-chimist","n":"Inginer chimist / Biotech / Petrochimie"},{"id":"software-engineer","n":"Software Engineer"},{"id":"devops","n":"DevOps / Cloud Engineer"},{"id":"mobile-developer","n":"Mobile Developer (iOS / Android)"},{"id":"biolog","n":"Biolog / Cercetător științific"},{"id":"ai-engineer","n":"AI Engineer / Inginer AI"},{"id":"machine-learning-engineer","n":"Machine Learning Engineer"},{"id":"medical-lab-technician","n":"Tehnician laborator medical"},{"id":"mlops-engineer","n":"MLOps Engineer"},{"id":"energy-auditor","n":"Auditor energetic pentru clădiri"},{"id":"process-engineer","n":"Inginer proces / Process Engineer"},{"id":"environmental-engineer","n":"Inginer de mediu"},{"id":"gis-specialist","n":"Specialist GIS / geospațial"}],"EI":[{"id":"startup-founder","n":"Startup Founder"},{"id":"avocat","n":"Avocat"},{"id":"marketing-growth","n":"Growth Marketer / Growth Lead"},{"id":"product-manager","n":"Product Manager"},{"id":"sustainability-manager","n":"Sustainability / ESG Manager"}],"RA":[{"id":"crafts-entrepreneur","n":"Antreprenor Craft"},{"id":"bucatar","n":"Bucătar / Chef"},{"id":"croitor","n":"Croitor / Designer vestimentar"},{"id":"bijutier","n":"Bijutier / Faurar"},{"id":"tamplar-mobilier","n":"Tâmplar / Designer mobilier"},{"id":"tehnician-dentar","n":"Tehnician dentar"},{"id":"painter-finisher","n":"Zugrav / Finisor construcții"}],"RI":[{"id":"inginer-mecanic","n":"Inginer mecanic"},{"id":"inginer-electric","n":"Inginer electric / Electrotehnică"},{"id":"inginer-energetic","n":"Inginer energetic / Energy engineer"},{"id":"stomatolog","n":"Medic stomatolog"},{"id":"inginer-auto","n":"Inginer Auto / Automotive"},{"id":"mecanic-auto","n":"Mecanic auto / Tehnician auto"},{"id":"agronom","n":"Inginer agronom / horticultor"},{"id":"inginer-constructii","n":"Inginer construcții civile"},{"id":"pilot-militar","n":"Pilot militar (Forțele Aeriene)"},{"id":"inginer-aparare","n":"Inginer în industria de apărare"},{"id":"sysadmin","n":"Sysadmin / IT Support / Network Admin"},{"id":"mechatronics-technician","n":"Tehnician mecatronică"},{"id":"radiology-technician","n":"Tehnician radiologie și imagistică"},{"id":"auto-electrician","n":"Electrician auto"},{"id":"robotics-engineer","n":"Inginer robotică / automatizări"},{"id":"building-automation-technician","n":"Tehnician automatizări clădiri / BMS"},{"id":"wind-turbine-technician","n":"Tehnician turbine eoliene"},{"id":"battery-technician","n":"Tehnician baterii / sisteme de stocare energie"},{"id":"biomedical-engineer","n":"Inginer biomedical"},{"id":"drone-operator","n":"Operator drone / pilot UAV"}],"SI":[{"id":"asistent-medical","n":"Asistent medical generalist"},{"id":"psiholog-scolar","n":"Psiholog școlar / Consilier vocațional"},{"id":"kinetoterapeut","n":"Kinetoterapeut / Fizioterapeut"},{"id":"logoped","n":"Logoped / Terapeut tulburări de comunicare"},{"id":"special-education-teacher","n":"Profesor de sprijin / Educație specială"},{"id":"nutritionist-dietetician","n":"Nutriționist / Dietetician"}],"RC":[{"id":"electrician-autorizat","n":"Electrician autorizat"},{"id":"tehnician-hvac","n":"Tehnician HVAC / Instalator"},{"id":"instalator-sanitar","n":"Instalator sanitar și de gaze"},{"id":"sudor","n":"Sudor (welder)"},{"id":"optician","n":"Optician / Tehnician optic"},{"id":"sofer-profesionist","n":"Șofer profesionist (cat. C/CE — TIR)"},{"id":"subofiter-armata","n":"Subofițer / Militar profesionist (MApN)"},{"id":"operator-depozit","n":"Operator depozit / Magaziner"},{"id":"operator-cnc","n":"Operator CNC / Tehnician CNC"},{"id":"instalator-pv","n":"Instalator panouri solare (PV) / Electrician verde"},{"id":"mecanic-frigotehnist","n":"Mecanic frigotehnist / Tehnician refrigerare"},{"id":"mason-bricklayer","n":"Zidar / Constructor structuri"},{"id":"ev-charging-technician","n":"Tehnician stații încărcare vehicule electrice"},{"id":"security-systems-technician","n":"Tehnician sisteme securitate / CCTV"}],"IS":[{"id":"medic-generalist","n":"Medic generalist / specialist"},{"id":"profesor-universitar","n":"Profesor universitar / Cercetător academic"},{"id":"medic-veterinar","n":"Medic veterinar"},{"id":"digital-health-specialist","n":"Specialist sănătate digitală"}],"SA":[{"id":"psiholog-clinician","n":"Psiholog clinician / Psihoterapeut"},{"id":"profesor-gimnaziu-liceu","n":"Profesor de gimnaziu / liceu"},{"id":"cosmeticiana","n":"Cosmeticiană / Esteticiană"},{"id":"asistent-social","n":"Asistent social"},{"id":"educator","n":"Educator pentru copii / Învățător"}],"AC":[{"id":"jurnalist-editor","n":"Editor / Redactor-șef"}],"SR":[{"id":"antrenor-sportiv","n":"Antrenor sportiv / Personal Trainer"},{"id":"maseur","n":"Maseur / Terapeut manual"},{"id":"asistent-vet","n":"Asistent medical veterinar / Tehnician veterinar"},{"id":"ingrijitor-batrani","n":"Îngrijitor persoane vârstnice / Asistent personal"},{"id":"midwife","n":"Moașă"},{"id":"occupational-therapist","n":"Terapeut ocupațional"}],"AS":[{"id":"stilist","n":"Coafor / Stilist / Make-up Artist"},{"id":"frizer","n":"Frizer (barber)"},{"id":"coafor","n":"Coafor / Hairstylist"},{"id":"make-up-artist","n":"Make-up Artist"},{"id":"instructional-designer","n":"Instructional Designer / Creator cursuri online"}],"EA":[{"id":"ecommerce-founder","n":"Fondator e-commerce / Brand DTC"},{"id":"pr-specialist","n":"PR Specialist / Comunicare"}],"AR":[{"id":"manichiurista","n":"Manichiuristă / Pedichiuristă / Nail artist"},{"id":"cofetar-patiser","n":"Cofetar / Patiser"},{"id":"tatuator","n":"Tatuator / Tattoo Artist"},{"id":"florar","n":"Florar / Designer floral"},{"id":"ceramist","n":"Ceramist / Olar"},{"id":"3d-artist","n":"3D Artist / Artist 3D"}],"RS":[{"id":"paramedic","n":"Paramedic / Asistent SMURD"},{"id":"agent-securitate","n":"Agent securitate / Bodyguard"},{"id":"jandarm","n":"Jandarm (Jandarmeria Română — MAI)"},{"id":"pompier-isu","n":"Pompier / Subofițer ISU (IGSU — MAI)"}],"CI":[{"id":"contabil","n":"Contabil / Expert contabil"},{"id":"financial-analyst","n":"Analist financiar"},{"id":"logistics-planner","n":"Planificator logistică / Transport Planner"},{"id":"quality-engineer","n":"Inginer calitate / Quality Engineer"},{"id":"auditor","n":"Auditor financiar"},{"id":"compliance-officer","n":"Compliance Officer"},{"id":"data-protection-officer","n":"Data Protection Officer / GDPR"},{"id":"carbon-accounting-specialist","n":"Specialist carbon accounting / emisii"}],"ER":[{"id":"ofiter-armata","n":"Ofițer activ — Armata României (MApN)"}],"SC":[{"id":"asistent-manager","n":"Asistent manager / Office manager"},{"id":"child-protection-specialist","n":"Specialist protecția copilului"}],"EC":[{"id":"manager-proiect","n":"Project Manager"},{"id":"specialist-achizitii","n":"Specialist achiziții (Procurement / Buyer)"},{"id":"eu-project-manager","n":"Manager proiecte europene"}],"CS":[{"id":"functionar-bancar","n":"Funcționar bancar / Consilier client bancă"},{"id":"casier-vanzator","n":"Casier / Vânzător comercial / Lucrător comercial"},{"id":"civil-servant","n":"Funcționar public / Administrație publică"}],"RE":[{"id":"curier-livrator","n":"Curier / Livrator (gig — Glovo, Bolt, Tazz)"}],"CE":[{"id":"sap-erp-consultant","n":"Consultant ERP / SAP"},{"id":"crm-specialist","n":"CRM Specialist / Marketing Automation"},{"id":"revenue-operations-specialist","n":"Revenue Operations Specialist"},{"id":"customs-officer","n":"Lucrător vamal / Inspector vamal"}],"CR":[]};
+
+/* ────────────────────────────────────────────────────────────
+ * State + render
+ * ──────────────────────────────────────────────────────────── */
+
+const STATE = {
+  locale: 'ro',
+  selected: null,
+  // Flagged / review state persisted in localStorage
+  reviewed: JSON.parse(localStorage.getItem('cesafiu.mindmap.reviewed') || '{}'),
+  notes:    JSON.parse(localStorage.getItem('cesafiu.mindmap.notes')    || '{}'),
+};
+
+function saveState(){
+  localStorage.setItem('cesafiu.mindmap.reviewed', JSON.stringify(STATE.reviewed));
+  localStorage.setItem('cesafiu.mindmap.notes',    JSON.stringify(STATE.notes));
+}
+
+function pairsForConstruct(letter){
+  // Same order as in archetypes.ts: e.g. R → RI, RA, RS, RE, RC
+  const others = ['R','I','A','S','E','C'].filter(c => c !== letter);
+  return others.map(c => letter + c);
+}
+
+function isFlagged(pair){
+  if (STATE.reviewed[pair] === true) return true;
+  if (STATE.reviewed[pair] === false) return false;
+  // Soft default — only when user hasn't decided
+  return !!ARCHETYPES[pair]?.flag;
+}
+
+function renderLegend(){
+  const el = document.getElementById('legend');
+  el.innerHTML = '';
+  CONSTRUCTS.forEach(c => {
+    const sp = document.createElement('span');
+    sp.style.background = c.color + '22';
+    sp.style.borderColor = c.color;
+    sp.style.color = c.color;
+    sp.innerHTML = `<b style="color:inherit">${c.code}</b> · ${c.ro}`;
+    el.appendChild(sp);
+  });
+}
+
+function renderStats(){
+  const flagged = Object.keys(ARCHETYPES).filter(isFlagged).length;
+  document.getElementById('stats').innerHTML =
+    `<b>${Object.keys(ARCHETYPES).length}</b> arhetipuri · <b>${flagged}</b> de revizuit · <b>${Object.values(CAREERS_BY_PAIR).reduce((a,b)=>a+b.length,0)}</b> cariere ancorate`;
+}
+
+function renderMap(){
+  const map = document.getElementById('map');
+  // Keep the intro card, wipe everything else
+  const intro = map.querySelector('.intro');
+  map.innerHTML = '';
+  if (intro) map.appendChild(intro);
+
+  CONSTRUCTS.forEach(c => {
+    const wrap = document.createElement('div');
+    wrap.className = 'construct';
+    wrap.style.setProperty('--c-bg', c.color + '22');
+    wrap.style.setProperty('--c-fg', c.color);
+
+    const head = document.createElement('div');
+    head.className = 'head';
+    head.innerHTML = `
+      <div class="letter" style="background:${c.color};color:#fff">${c.code}</div>
+      <div>
+        <h2 style="color:${c.color}">${c.name} · ${c.ro}</h2>
+        <div class="desc">${c.desc}</div>
+      </div>
+    `;
+    wrap.appendChild(head);
+
+    const grid = document.createElement('div');
+    grid.className = 'arche-grid';
+    pairsForConstruct(c.code).forEach(pair => {
+      const a = ARCHETYPES[pair];
+      if (!a) return;
+      const careers = CAREERS_BY_PAIR[pair] || [];
+      const data = a[STATE.locale];
+      const btn = document.createElement('button');
+      btn.className = 'arche';
+      if (STATE.selected === pair) btn.classList.add('selected');
+      if (isFlagged(pair)) btn.classList.add('flagged');
+      btn.dataset.pair = pair;
+      btn.innerHTML = `
+        <div class="pair"><span class="glyph">${GLYPHS[pair] || '✦'}</span> ${pair}</div>
+        <div class="name">${data.name}</div>
+        <div class="tag">${data.tag}</div>
+        <div class="count">${careers.length} ${careers.length === 1 ? 'carieră' : 'cariere'}</div>
+      `;
+      btn.addEventListener('click', () => selectPair(pair));
+      grid.appendChild(btn);
+    });
+    wrap.appendChild(grid);
+    map.appendChild(wrap);
+  });
+}
+
+function selectPair(pair){
+  STATE.selected = pair;
+  renderMap();
+  renderDetail();
+}
+
+function renderDetail(){
+  const el = document.getElementById('detail');
+  if (!STATE.selected) {
+    el.innerHTML = `<div class="empty">Selectează un arhetip ca să vezi detalii, propuneri alternative de nume și carierele ancorate.</div>`;
+    return;
+  }
+  const pair = STATE.selected;
+  const a = ARCHETYPES[pair];
+  const data = a[STATE.locale];
+  const en   = a.en;
+  const careers = CAREERS_BY_PAIR[pair] || [];
+  const flagged = isFlagged(pair);
+  const note = STATE.notes[pair] || '';
+
+  const constructInfo = CONSTRUCTS.find(c => c.code === pair[0]);
+  const secondInfo    = CONSTRUCTS.find(c => c.code === pair[1]);
+
+  el.innerHTML = `
+    <div class="pair-large">${pair} · ${constructInfo.name} + ${secondInfo.name}</div>
+    <h3><span class="glyph-large">${GLYPHS[pair] || '✦'}</span> ${data.name}</h3>
+    ${STATE.locale === 'ro' ? `<div class="en">EN: ${en.name} — ${en.tag}</div>` : ''}
+    <div class="tag-large">${data.tag}</div>
+
+    <h4>Constructuri în pereche</h4>
+    <div style="display:flex;gap:8px;font-size:12px;margin-bottom:8px">
+      <span style="background:${constructInfo.color}22;color:${constructInfo.color};border:1.5px solid ${constructInfo.color};border-radius:8px;padding:4px 8px">
+        <b>${pair[0]}</b> ${constructInfo.ro}
+      </span>
+      <span style="background:${secondInfo.color}22;color:${secondInfo.color};border:1.5px solid ${secondInfo.color};border-radius:8px;padding:4px 8px">
+        <b>${pair[1]}</b> ${secondInfo.ro}
+      </span>
+    </div>
+
+    <h4>Propuneri alternative de nume</h4>
+    <ul class="alt-list">
+      ${a.alts.map(alt => `
+        <li>
+          <strong>${alt.name}</strong>
+          <span class="why">${alt.why}</span>
+        </li>
+      `).join('')}
+    </ul>
+
+    <h4>Cariere ancorate (${careers.length})</h4>
+    ${careers.length === 0
+      ? `<div style="font-size:12px;color:var(--ink-soft);font-style:italic">Nicio carieră încă în <code>data/careers.json</code> pentru această pereche — extindere candidate.</div>`
+      : `<ul class="careers">${careers.map(c => `<li title="${c.id}">${c.n}</li>`).join('')}</ul>`}
+
+    <h4>Notă de revizuire</h4>
+    <textarea class="review-notes" id="note-input" placeholder="Ex: prea clinic, sugerăm „Detectivul Datelor"…">${note}</textarea>
+
+    <button class="flag-btn ${flagged ? 'on' : ''}" id="flag-btn">
+      ${flagged ? '✓ Marcat pentru revizuire' : 'Marchează pentru revizuire'}
+    </button>
+  `;
+
+  document.getElementById('flag-btn').addEventListener('click', () => {
+    STATE.reviewed[pair] = !flagged;
+    saveState();
+    renderMap();
+    renderDetail();
+    renderStats();
+  });
+  document.getElementById('note-input').addEventListener('input', (e) => {
+    STATE.notes[pair] = e.target.value;
+    saveState();
+  });
+}
+
+/* ────── Toolbar wiring ────── */
+document.getElementById('filter-all').addEventListener('click', (e) => {
+  document.body.classList.remove('flagged-only');
+  document.getElementById('filter-flagged').classList.remove('active');
+  e.currentTarget.classList.add('active');
+});
+document.getElementById('filter-flagged').addEventListener('click', (e) => {
+  document.body.classList.add('flagged-only');
+  document.getElementById('filter-all').classList.remove('active');
+  e.currentTarget.classList.add('active');
+});
+document.getElementById('lang-ro').addEventListener('click', (e) => {
+  STATE.locale = 'ro';
+  setLangActive();
+  renderMap(); renderDetail();
+});
+document.getElementById('lang-en').addEventListener('click', (e) => {
+  STATE.locale = 'en';
+  setLangActive();
+  renderMap(); renderDetail();
+});
+function setLangActive(){
+  document.getElementById('lang-ro').classList.toggle('active', STATE.locale === 'ro');
+  document.getElementById('lang-en').classList.toggle('active', STATE.locale === 'en');
+}
+
+document.getElementById('export-btn').addEventListener('click', () => {
+  const flagged = Object.keys(ARCHETYPES).filter(isFlagged);
+  let md = `# Mind Map V1 — arhetipuri marcate pentru revizuire\n\n_Export generat: ${new Date().toISOString().slice(0,10)}_\n\n`;
+  md += `## Sumar\n\n- ${flagged.length} / ${Object.keys(ARCHETYPES).length} arhetipuri marcate\n\n`;
+  flagged.forEach(pair => {
+    const a = ARCHETYPES[pair];
+    const careers = (CAREERS_BY_PAIR[pair] || []).map(c => c.n);
+    md += `## ${pair} — ${a.ro.name}\n`;
+    md += `- **Tag actual (RO):** ${a.ro.tag}\n`;
+    md += `- **EN:** ${a.en.name} — ${a.en.tag}\n`;
+    md += `- **Note:** ${STATE.notes[pair] || '_(niciuna)_'}\n`;
+    md += `- **Cariere ancorate (${careers.length}):** ${careers.join(', ') || '_niciuna_'}\n`;
+    md += `- **Propuneri alternative:**\n`;
+    a.alts.forEach(alt => { md += `  - **${alt.name}** — ${alt.why}\n`; });
+    md += `\n`;
+  });
+  // Trigger download
+  const blob = new Blob([md], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `archetype-review-${new Date().toISOString().slice(0,10)}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+/* ────── Init ────── */
+setLangActive();
+document.getElementById('filter-all').classList.add('active');
+renderLegend();
+renderStats();
+renderMap();
+renderDetail();
+</script>
+</body>
+</html>
