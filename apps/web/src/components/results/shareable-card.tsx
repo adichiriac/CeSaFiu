@@ -136,10 +136,13 @@ export default function ShareableCard({locale, riasec, topScore, top3, onUserAct
 
       const file = new File([blob], `cesafiu-${archetype.pair}${topScore}.png`, {type: 'image/png'});
       const navAny = navigator as Navigator & {canShare?: (data: ShareData) => boolean; share?: (data: ShareData) => Promise<void>};
+      // The URL is already interpolated into `text` via the {url} placeholder,
+      // so we deliberately do NOT pass a separate `url` field — WhatsApp /
+      // Messages / iOS share sheets concatenate text + url when both are
+      // present, which caused the link to appear twice.
       const shareData: ShareData & {files?: File[]} = {
         title: t('shareTitle'),
         text: t('shareText', {archetype: archetype.name, url: shareUrl}),
-        url: shareUrl,
         files: [file],
       };
 
