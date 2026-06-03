@@ -4243,7 +4243,7 @@ h1 {
 .browseUniStickerRow span {
   border: 2px solid #000;
   background: var(--yellow);
-  color: var(--ink-on-bright);
+  color: #15110d;
   box-shadow: 4px 4px 0 #000;
   padding: 8px 12px;
   font-size: 12px;
@@ -4253,12 +4253,13 @@ h1 {
 
 .browseUniStickerRow span.isWhite {
   background: var(--surface);
+  color: var(--ink);
   transform: rotate(1deg);
 }
 
 .browseUniStickerRow span.isGreen {
   background: var(--green);
-  color: var(--ink-on-bright);
+  color: #15110d;
 }
 
 .browseUniHashRow span {
