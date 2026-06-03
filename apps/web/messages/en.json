@@ -532,5 +532,11 @@
     "closeIcon": "✕",
     "honeypotLabel": "Website",
     "charCount": "{count}/{max}"
+  },
+  "theme": {
+    "system": "Auto",
+    "light": "Light",
+    "dark": "Dark",
+    "cycle": "Theme: {mode} — tap to change"
   }
 }

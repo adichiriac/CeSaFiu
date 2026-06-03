@@ -9,6 +9,11 @@ import {isLocale, locales, type Locale} from '@/i18n/config';
 import {AuthProvider} from '@/components/auth/auth-provider';
 import FeedbackWidget from '@/components/feedback/feedback-widget';
 import ReferralTracker from '@/components/referrals/referral-tracker';
+import ThemeToggle from '@/components/theme-toggle';
+
+// Applied before paint to avoid a light/dark flash; mirrors theme-toggle logic.
+const THEME_INIT_SCRIPT =
+  "(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();";
 
 const UMAMI_URL = process.env.NEXT_PUBLIC_UMAMI_URL ?? 'https://umami-production-00d8.up.railway.app';
 const UMAMI_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? 'b582fdd9-94f2-47c2-86ce-54bcc810e434';
@@ -87,6 +92,8 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
   return (
     <html lang={locale}>
       <head>
+        {/* Apply stored theme before paint to prevent a flash of the wrong theme */}
+        <script dangerouslySetInnerHTML={{__html: THEME_INIT_SCRIPT}} />
         {/* Material Symbols for quiz icons */}
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
@@ -115,6 +122,7 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
               <ReferralTracker />
             </Suspense>
             {children}
+            <ThemeToggle />
             <FeedbackWidget />
           </AuthProvider>
         </NextIntlClientProvider>

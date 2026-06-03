@@ -532,5 +532,11 @@
     "closeIcon": "✕",
     "honeypotLabel": "Website",
     "charCount": "{count}/{max}"
+  },
+  "theme": {
+    "system": "Auto",
+    "light": "Luminos",
+    "dark": "Întunecat",
+    "cycle": "Temă: {mode} — atinge pentru a schimba"
   }
 }
