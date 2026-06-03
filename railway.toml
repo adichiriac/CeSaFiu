@@ -1,6 +1,6 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "mkdir -p apps/web/.next/cache && find apps/web/.next/cache -mindepth 1 -exec rm -rf {} + && npm run build -w @cesafiu/web"
+buildCommand = "npm run build -w @cesafiu/web"
 
 [deploy]
 startCommand = "npm run start -w @cesafiu/web -- -p ${PORT:-3000}"
