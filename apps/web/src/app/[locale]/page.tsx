@@ -3,6 +3,7 @@ import {isLocale, type Locale} from '@/i18n/config';
 import {LanguageSelector} from '@/components/LanguageSelector';
 import BottomNav from '@/components/bottom-nav';
 import ProfilCompletCard from '@/components/profil-complet-card';
+import ThemeToggle from '@/components/theme-toggle';
 import Link from 'next/link';
 import {notFound} from 'next/navigation';
 
@@ -59,6 +60,7 @@ export default async function HomePage({params}: HomePageProps) {
           </Link>
           <div className="prototypeHeaderRight">
             <LanguageSelector />
+            <ThemeToggle />
             <a className="helpButton" href="#home-help" aria-label={t('helpLabel')}>
               {t('helpGlyph')}
             </a>

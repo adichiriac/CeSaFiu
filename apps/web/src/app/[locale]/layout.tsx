@@ -9,7 +9,6 @@ import {isLocale, locales, type Locale} from '@/i18n/config';
 import {AuthProvider} from '@/components/auth/auth-provider';
 import FeedbackWidget from '@/components/feedback/feedback-widget';
 import ReferralTracker from '@/components/referrals/referral-tracker';
-import ThemeToggle from '@/components/theme-toggle';
 
 // Applied before paint to avoid a light/dark flash; mirrors theme-toggle logic.
 const THEME_INIT_SCRIPT =
@@ -122,7 +121,6 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
               <ReferralTracker />
             </Suspense>
             {children}
-            <ThemeToggle />
             <FeedbackWidget />
           </AuthProvider>
         </NextIntlClientProvider>

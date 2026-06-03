@@ -14,6 +14,7 @@ import {useRouter} from 'next/navigation';
 import type {MouseEvent} from 'react';
 import {getSupabaseBrowserClient} from '@/lib/supabase/client';
 import {recordReferralTestCompleted} from '@/lib/referrals/client';
+import ThemeToggle from '@/components/theme-toggle';
 
 type QuestionnaireClientProps = {
   brandCe: string;
@@ -365,8 +366,11 @@ function ScenarioGameHeader({
           <span>{brandCe}</span>
           <strong>{brandRest}</strong>
         </Link>
-        <div className="gameCounterBadge">
-          {current} / {total}
+        <div className="gameHeaderActions">
+          <ThemeToggle />
+          <div className="gameCounterBadge">
+            {current} / {total}
+          </div>
         </div>
       </div>
 
@@ -412,6 +416,7 @@ function QuestionnaireHeader({
         <div style={{width: `${progress}%`}} />
       </div>
       <p>{definition.subtitle}</p>
+      <ThemeToggle />
     </header>
   );
 }

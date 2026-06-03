@@ -7,6 +7,7 @@ import {useTranslations} from 'next-intl';
 import {useAuthGate} from '@/components/auth/auth-provider';
 import ShareableCard from '@/components/results/shareable-card';
 import ShareableCardModal from '@/components/results/shareable-card-modal';
+import ThemeToggle from '@/components/theme-toggle';
 import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
 import type {Institution, Program} from '@/lib/careers/types';
 import type {CareerMatch, MatchResult, NextTestSuggestion, UserProfile} from '@/lib/matcher';
@@ -287,9 +288,12 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
       <div className={isDarkHero ? 'resultHero isDarkHero' : 'resultHero'} style={{background: topColor, color: topTextColor}}>
         <div className="resultHeroNav">
           <span className="sticker stickerWhite">{t('vibeLabel')}</span>
-          <Link href={`/${locale}/test/scenarii`} className="resultRetakeLink" style={{color: topTextColor}}>
-            {t('retakeLabel')}
-          </Link>
+          <div className="resultHeroActions">
+            <Link href={`/${locale}/test/scenarii`} className="resultRetakeLink" style={{color: topTextColor}}>
+              {t('retakeLabel')}
+            </Link>
+            <ThemeToggle />
+          </div>
         </div>
 
         <div className="resultHeroMeta">{t('fitLabel')}</div>
@@ -335,7 +339,7 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
           {label: t('metaCerere'), value: top.career.demand},
           {label: t('metaVibe'),   value: top.career.vibe},
         ].map((m, i) => (
-          <div key={i} className="resultMetaCell" style={{background: i === 1 ? 'var(--paper-2)' : '#fff'}}>
+          <div key={i} className="resultMetaCell" style={{background: i === 1 ? 'var(--paper-2)' : 'var(--surface)'}}>
             <div className="resultMetaLabel">{m.label}</div>
             <div className="resultMetaValue">{m.value}</div>
           </div>
@@ -550,7 +554,7 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
               <Link
                 className="button buttonPrimary"
                 href={`/${locale}${NEXT_TEST_HREFS[nextTest.kind] ?? '/test/scenarii'}`}
-                style={{display: 'block', textAlign: 'center', background: 'var(--yellow)', color: '#000', borderColor: '#000'}}
+                style={{display: 'block', textAlign: 'center', background: 'var(--yellow)', color: 'var(--ink-on-bright)', borderColor: '#000'}}
               >
                 {nextTestLabel[nextTest.kind] ?? nextTest.kind}
               </Link>

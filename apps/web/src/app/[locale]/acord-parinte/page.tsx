@@ -1,4 +1,5 @@
 import {isLocale, locales, type Locale} from '@/i18n/config';
+import ThemeToggle from '@/components/theme-toggle';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import Link from 'next/link';
 import {notFound} from 'next/navigation';
@@ -44,10 +45,13 @@ export default async function AcordParintePage({params, searchParams}: AcordPari
   return (
     <main className="questionnairePage">
       <section className="questionnairePanel consentRequiredPanel">
-        <Link className="miniBrand" href={`/${locale}`}>
-          <span>{homeT('brandCe')}</span>
-          <strong>{homeT('brandRest')}</strong>
-        </Link>
+        <div className="consentHeader">
+          <Link className="miniBrand" href={`/${locale}`}>
+            <span>{homeT('brandCe')}</span>
+            <strong>{homeT('brandRest')}</strong>
+          </Link>
+          <ThemeToggle />
+        </div>
         <p className="testEyebrow">{eyebrow}</p>
         <h1>{title}</h1>
         <p>{lead}</p>

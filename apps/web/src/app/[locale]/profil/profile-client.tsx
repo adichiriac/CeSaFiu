@@ -1,6 +1,7 @@
 'use client';
 
 import BottomNav from '@/components/bottom-nav';
+import ThemeToggle from '@/components/theme-toggle';
 import Link from 'next/link';
 import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
@@ -138,6 +139,7 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
           <Link className="profileHeaderAction" href={`/${locale}/test/scenarii`}>
             {t('retakeShort')}
           </Link>
+          <ThemeToggle />
         </header>
 
         <div className="profileIntro">

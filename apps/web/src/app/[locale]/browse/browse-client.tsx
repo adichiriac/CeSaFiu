@@ -2,6 +2,7 @@
 
 import BottomNav from '@/components/bottom-nav';
 import {useAuthGate} from '@/components/auth/auth-provider';
+import ThemeToggle from '@/components/theme-toggle';
 import Link from 'next/link';
 import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
@@ -49,12 +50,12 @@ const FILTERS = [
 
 const UNI_TAGS = ['all', 'IT', 'medicină', 'business', 'artă', 'umaniste', 'inginerie', 'antreprenoriat', 'profesional', 'autodidact'];
 const UNI_TIER_COLORS: Record<string, {background: string; color: string}> = {
-  TOP: {background: 'var(--green)', color: '#000'},
-  GOOD: {background: 'var(--yellow)', color: '#000'},
+  TOP: {background: 'var(--green)', color: 'var(--ink-on-bright)'},
+  GOOD: {background: 'var(--yellow)', color: 'var(--ink-on-bright)'},
   BOOTCAMP: {background: 'var(--purple)', color: '#fff'},
   PROGRAM: {background: '#000', color: 'var(--green)'},
-  TRADE: {background: 'var(--yellow)', color: '#000'},
-  POST: {background: '#fff', color: '#000'},
+  TRADE: {background: 'var(--yellow)', color: 'var(--ink-on-bright)'},
+  POST: {background: 'var(--surface)', color: 'var(--ink)'},
 };
 const CITY_PRIORITY = [
   'București',
@@ -124,9 +125,7 @@ export default function BrowseClient({careers, institutions, paths, programs, lo
         <Link href={`/${locale}`} className="miniBrand">
           <span>{t('brandCe')}</span><strong>{t('brandRest')}</strong>
         </Link>
-        <button className="browseHelpButton" type="button" aria-label={t('helpLabel')}>
-          {t('helpGlyph')}
-        </button>
+        <ThemeToggle />
       </div>
 
       <div className="browseIntro">
@@ -463,7 +462,7 @@ function UnisBrowse({
       <div className="browseUniList">
         {filtered.map((u) => {
           const tier = u.tier.toUpperCase();
-          const tierColor = UNI_TIER_COLORS[tier] ?? {background: '#fff', color: '#000'};
+          const tierColor = UNI_TIER_COLORS[tier] ?? {background: 'var(--surface)', color: 'var(--ink)'};
 
           return (
           <button
@@ -521,7 +520,7 @@ function UniDetail({
   uni: Institution;
 }) {
   const tier = uni.tier.toUpperCase();
-  const tierColor = UNI_TIER_COLORS[tier] ?? {background: '#fff', color: '#000'};
+  const tierColor = UNI_TIER_COLORS[tier] ?? {background: 'var(--surface)', color: 'var(--ink)'};
   const link = uniLinkFor(uni);
 
   return (

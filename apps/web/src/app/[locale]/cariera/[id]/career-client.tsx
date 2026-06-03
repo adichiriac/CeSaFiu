@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import ThemeToggle from '@/components/theme-toggle';
 import {useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {useAuthGate} from '@/components/auth/auth-provider';
@@ -43,7 +44,7 @@ export default function CareerClient({career, locale, programs}: CareerClientPro
   const {isSaved, toggleSaveCareer} = useAuthGate();
   const saved = isSaved(career.id);
   const heroColor = CAREER_COLORS[career.color] ?? 'var(--purple)';
-  const heroTextColor = career.color === 'purple' ? '#fff' : '#000';
+  const heroTextColor = career.color === 'purple' ? '#fff' : 'var(--ink-on-bright)';
 
   const tabs: Array<{id: Tab; label: string}> = [
     {id: 'day',    label: t('tabDay')},
@@ -60,14 +61,17 @@ export default function CareerClient({career, locale, programs}: CareerClientPro
             <Link href={`/${locale}/rezultate`} className="button buttonSecondary careerBackBtn">
               {t('back')}
             </Link>
-            <button
-              className="button careerSaveBtn"
-              onClick={() => toggleSaveCareer(career.id)}
-              style={{background: saved ? '#000' : '#fff', color: saved ? 'var(--green)' : '#000'}}
-              aria-label={saved ? t('saveBtnUnsave') : t('saveBtnSave')}
-            >
-              {saved ? '★' : '☆'}
-            </button>
+            <div className="careerHeroActions">
+              <ThemeToggle />
+              <button
+                className="button careerSaveBtn"
+                onClick={() => toggleSaveCareer(career.id)}
+                style={{background: saved ? '#000' : 'var(--surface)', color: saved ? 'var(--green)' : 'var(--ink)'}}
+                aria-label={saved ? t('saveBtnUnsave') : t('saveBtnSave')}
+              >
+                {saved ? '★' : '☆'}
+              </button>
+            </div>
           </div>
 
           <div className="careerHeroContent">
