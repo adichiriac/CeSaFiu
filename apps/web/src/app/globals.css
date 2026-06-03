@@ -15,6 +15,8 @@
      --on-accent = text/icons sitting on colored or black fills (stays light). */
   --surface: #fff;
   --surface-frost: rgba(255, 255, 255, 0.92);
+  /* --sheet: the warm translucent "paper sheet" canvas behind page content. */
+  --sheet: var(--sheet);
   /* --ink-fixed: dark fills that stay dark in BOTH themes (cards with light text). */
   --ink-fixed: #1d1c17;
   --on-accent: #fff;
@@ -43,6 +45,7 @@
     --ink-soft: #b4adbf;
     --surface: #242029;
     --surface-frost: rgba(31, 27, 37, 0.92);
+    --sheet: rgba(31, 27, 37, 0.94);
     --ink-fixed: #0f0d12;
     --blue: #1c2f3a;
     --grid-line: rgba(255, 255, 255, 0.05);
@@ -59,6 +62,7 @@
   --ink-soft: #b4adbf;
   --surface: #242029;
   --surface-frost: rgba(31, 27, 37, 0.92);
+  --sheet: rgba(31, 27, 37, 0.94);
   --ink-fixed: #0f0d12;
   --blue: #1c2f3a;
   --grid-line: rgba(255, 255, 255, 0.05);
@@ -547,9 +551,9 @@ h1 {
   border: 3px solid var(--line);
   background:
     radial-gradient(circle, var(--grid-line) 1px, transparent 1.4px),
-    linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-    rgba(254, 249, 241, 0.95);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    var(--sheet);
   background-size: 12px 12px, 38px 38px, 38px 38px, auto;
   box-shadow: 12px 12px 0 #000;
   padding: clamp(18px, 4vw, 38px);
@@ -1402,9 +1406,9 @@ h1 {
   border: 0;
   background:
     radial-gradient(circle, var(--grid-line) 1px, transparent 1.4px),
-    linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-    rgba(254, 249, 241, 0.92);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    var(--sheet);
   background-size: 12px 12px, 42px 42px, 42px 42px, auto;
   overflow: hidden;
 }
@@ -3090,9 +3094,9 @@ h1 {
   margin: 0 auto;
   background:
     radial-gradient(circle, var(--grid-line) 1px, transparent 1.4px),
-    linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-    rgba(254, 249, 241, 0.96);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    var(--sheet);
   background-size: 12px 12px, 42px 42px, 42px 42px, auto;
 }
 
@@ -4312,9 +4316,9 @@ h1 {
   padding: 18px 20px 28px;
   background:
     radial-gradient(circle, var(--grid-line) 1px, transparent 1.4px),
-    linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-    rgba(254, 249, 241, 0.96);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    var(--sheet);
   background-size: 12px 12px, 42px 42px, 42px 42px, auto;
 }
 
@@ -5674,8 +5678,8 @@ h1 {
   box-shadow: 10px 10px 0 #000;
   background:
     radial-gradient(circle, var(--grid-line) 1px, transparent 1.4px),
-    linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
     var(--paper);
   background-size: 12px 12px, 42px 42px, 42px 42px, auto;
   padding: 24px;
