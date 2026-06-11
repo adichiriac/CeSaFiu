@@ -11,6 +11,7 @@ import ThemeToggle from '@/components/theme-toggle';
 import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
 import type {Institution, Program} from '@/lib/careers/types';
 import type {CareerMatch, MatchResult, NextTestSuggestion, UserProfile} from '@/lib/matcher';
+import {WORLDS, type WorldId} from '@/lib/results/worlds';
 
 /**
  * NextTestSuggestion.kind values that route to the Profil Complet bundle.
@@ -185,12 +186,13 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
       body: JSON.stringify(body),
     })
       .then((r) => r.json())
-      .then((data: {matches: CareerMatch[]; confidence: number; sources: string[]; userProfile: UserProfile; nextTest: NextTestSuggestion | null}) => {
+      .then((data: {matches: CareerMatch[]; confidence: number; sources: string[]; userProfile: UserProfile; nextTest: NextTestSuggestion | null; worlds?: WorldId[]}) => {
         const matches = Object.assign(data.matches ?? [], {
           confidence: data.confidence,
           sources: data.sources,
           userProfile: data.userProfile,
           nextTest: data.nextTest,
+          worlds: data.worlds ?? [],
         }) as unknown as MatchResult;
         setResult(matches);
         setStatus('ready');
@@ -256,6 +258,10 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
   const confColor = confidence < 0.30 ? 'var(--yellow)' : confidence < 0.60 ? 'var(--green)' : 'var(--purple)';
   const topCodes = topRiasecCodes(userProfile?.riasec ?? {});
   const completedTests = sources.length;
+
+  // Archetypes V2 — Worlds layer, derived server-side by the matcher
+  // (raw scores never reach the client; see MatchResult.worlds).
+  const worlds = (result.worlds ?? []).filter((id): id is WorldId => id in WORLDS);
 
   if (!top) return null;
 
@@ -533,6 +539,27 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
             </p>
           </div>
         </div>
+
+        {/* Worlds to explore (Archetypes V2, Stratul 2) */}
+        {worlds.length > 0 && (
+          <div className="resultWorldsCard">
+            <div className="resultSectionEyebrow">{t('worldsEyebrow')}</div>
+            <div className="resultWorldsTitle">{t('worldsTitle')}</div>
+            <div className="resultWorldsChips">
+              {worlds.map((id) => (
+                <Link
+                  key={id}
+                  className="resultWorldChip"
+                  href={`/${locale}/browse?world=${id}`}
+                >
+                  <span aria-hidden="true">{WORLDS[id].glyph}</span>{' '}
+                  {locale === 'en' ? WORLDS[id].nameEn : WORLDS[id].nameRo}
+                </Link>
+              ))}
+            </div>
+            <p className="resultWorldsNote">{t('worldsNote')}</p>
+          </div>
+        )}
 
         {/* Honesty nudge */}
         <div className="resultHonestyCard">

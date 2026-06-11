@@ -13,6 +13,9 @@
  * Top-N diversified via MMR so the user doesn't see four near-clones of #1.
  */
 
+import {CAREER_WORLDS} from './results/career-worlds';
+import {deriveWorlds, type WorldId} from './results/worlds';
+
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 export const RIASEC_KEYS = ['R', 'I', 'A', 'S', 'E', 'C'] as const;
@@ -103,6 +106,13 @@ export type MatchResult = CareerMatch[] & {
   sources: string[];
   userProfile: UserProfile;
   nextTest: NextTestSuggestion | null;
+  /**
+   * Additive (Archetypes V2): world ids derived server-side from raw scores.
+   * Raw/normalized scores are intentionally NOT serialized — exposing them
+   * would bypass the calibrated 25-95 display contract and hand clients a
+   * reverse-engineering signal for the scoring shape.
+   */
+  worlds: WorldId[];
 };
 
 export type NextTestSuggestion = {
@@ -486,7 +496,7 @@ export function computeMatches(input: MatchInput): MatchResult {
   if (noAnswers) {
     const empty = Object.assign(
       scored.map((s) => ({ career: s.career, score: 0, why: '' as const })),
-      { confidence: 0, sources: [] as string[], userProfile, nextTest: suggestNextTest([]) },
+      { confidence: 0, sources: [] as string[], userProfile, nextTest: suggestNextTest([]), worlds: [] as WorldId[] },
     );
     return empty as unknown as MatchResult;
   }
@@ -536,10 +546,19 @@ export function computeMatches(input: MatchInput): MatchResult {
   const spreadBonus = Math.min(0.30, spread * 1.5);
   const confidence = Math.min(1, breadthBase + spreadBonus);
 
+  // 5. Worlds (Archetypes V2, display layer). Derived here, server-side, from
+  // the raw-ordered list — raw scores are never serialized to clients.
+  const worlds = deriveWorlds(
+    sorted.map((s) => ({ careerId: s.career.id, weight: s.raw / maxRaw })),
+    CAREER_WORLDS,
+    confidence,
+  ).map((w) => w.world.id);
+
   return Object.assign(allMatches, {
     confidence,
     sources: userProfile.sources,
     userProfile,
     nextTest: suggestNextTest(userProfile.sources),
+    worlds,
   }) as unknown as MatchResult;
 }

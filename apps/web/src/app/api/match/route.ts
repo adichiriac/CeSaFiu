@@ -101,5 +101,6 @@ export async function POST(request: Request) {
     sources: result.sources,
     userProfile: result.userProfile,
     nextTest: result.nextTest,
+    worlds: result.worlds,
   });
 }

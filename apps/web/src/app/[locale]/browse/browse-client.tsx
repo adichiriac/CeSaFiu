@@ -8,6 +8,8 @@ import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import type {Career} from '@/lib/matcher';
 import type {Institution, PathEntry, Program} from '@/lib/careers/types';
+import {CAREER_WORLDS} from '@/lib/results/career-worlds';
+import {WORLD_IDS, WORLDS, type WorldId} from '@/lib/results/worlds';
 
 type BrowseClientProps = {
   careers: Career[];
@@ -103,7 +105,13 @@ export default function BrowseClient({careers, institutions, paths, programs, lo
   const [section, setSection] = useState<Section>('unis');
 
   useEffect(() => {
-    setSection(parseSection(new URLSearchParams(window.location.search).get('section')));
+    const params = new URLSearchParams(window.location.search);
+    // A ?world= deep link (result-page chips) lands on the careers tab.
+    if (!params.get('section') && params.get('world')) {
+      setSection('careers');
+    } else {
+      setSection(parseSection(params.get('section')));
+    }
   }, []);
 
   const tabs: Array<{id: Section; label: string}> = [
@@ -162,8 +170,24 @@ type TFunc = ReturnType<typeof useTranslations<'browse'>>;
 function CareersBrowse({careers, locale, t}: {careers: Career[]; locale: string; t: TFunc}) {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
+  const [world, setWorld] = useState<'all' | WorldId>('all');
+
+  // Deep link from result-page world chips: /browse?world=<id>
+  useEffect(() => {
+    const w = new URLSearchParams(window.location.search).get('world');
+    if (w && (WORLD_IDS as string[]).includes(w)) setWorld(w as WorldId);
+  }, []);
+
+  function selectWorld(next: 'all' | WorldId) {
+    setWorld(next);
+    if (typeof window !== 'undefined') {
+      const suffix = next === 'all' ? '' : `&world=${next}`;
+      window.history.replaceState(null, '', `/${locale}/browse?section=careers${suffix}`);
+    }
+  }
 
   const filtered = careers.filter((c) => {
+    if (world !== 'all' && !(CAREER_WORLDS[c.id] ?? []).includes(world)) return false;
     if (filter !== 'all' && c.pathType !== filter) return false;
     if (search) {
       const q = search.toLowerCase();
@@ -182,6 +206,30 @@ function CareersBrowse({careers, locale, t}: {careers: Career[]; locale: string;
           onChange={(e) => setSearch(e.target.value)}
         />
         <span className="browseSearchIcon">{`⌕`}</span>
+      </div>
+
+      {/* Worlds filter (Archetypes V2, Stratul 2) */}
+      <div className="browseFilterGroup">
+        <div className="browseFilterLabel">{t('worldsLabel')}</div>
+        <div className="browseFilterScroller">
+          <button
+            className={world === 'all' ? 'browseFilterChip isSelected' : 'browseFilterChip'}
+            aria-selected={world === 'all'}
+            onClick={() => selectWorld('all')}
+          >
+            {t('allWorlds')}
+          </button>
+          {WORLD_IDS.map((id) => (
+            <button
+              key={id}
+              className={world === id ? 'browseFilterChip isSelected' : 'browseFilterChip'}
+              aria-selected={world === id}
+              onClick={() => selectWorld(id)}
+            >
+              {WORLDS[id].glyph} {locale === 'en' ? WORLDS[id].nameEn : WORLDS[id].nameRo}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="browseFilterRow">
