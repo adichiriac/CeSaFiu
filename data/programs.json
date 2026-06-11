@@ -24,7 +24,7 @@
       "inginerie",
       "management"
     ],
-    "notes": "[v1] Licență 4 ani — absolvenții primesc gradul de locotenent și sunt repartizați în unitățile MApN. Selecție: dosar MApN, medical clasa II, psihologic, fizic (barem armată). Gratuit, cazare + soldă pe durata studiilor.",
+    "notes": "Licență 4 ani — absolvenții primesc gradul de locotenent și sunt repartizați în unitățile MApN. Selecție: dosar MApN, medical clasa II, psihologic, fizic (barem armată). Gratuit, cazare + soldă pe durata studiilor.",
     "admission": {
       "exam": "Dosar + concurs (matematică sau română, limba engleză, probă fizică)",
       "deadline": "iulie 2026",
@@ -56,7 +56,7 @@
       "apărare",
       "management"
     ],
-    "notes": "[v1] Specializare infanterie, artilerie, geniu, transmisiuni, logistică. Grad locotenent la absolvire. Cazare + soldă pe durata studiilor.",
+    "notes": "Specializare infanterie, artilerie, geniu, transmisiuni, logistică. Grad locotenent la absolvire. Cazare + soldă pe durata studiilor.",
     "admission": {
       "exam": "Dosar MApN + concurs (fizic + cunoștințe generale)",
       "deadline": "iulie 2026",
@@ -87,7 +87,7 @@
       "apărare",
       "aviație"
     ],
-    "notes": "[v1] Cel mai selectiv program militar din RO. Condiții: medical clasa I OACI, psihologic avansat, fizic, cognitiv, matematik. Grad locotenent + brevet pilot militar la absolvire. Studii gratuite + soldă.",
+    "notes": "Cel mai selectiv program militar din RO. Condiții: medical clasa I OACI, psihologic avansat, fizic, cognitiv, matematică. Grad locotenent + brevet pilot militar la absolvire. Studii gratuite + soldă.",
     "admission": {
       "exam": "Dosar MApN + medical OACI clasa I + psihologic + fizic + concurs (matematică + fizică)",
       "deadline": "mai-iunie 2026",
@@ -120,7 +120,7 @@
       "inginerie",
       "aerospațial"
     ],
-    "notes": "[v1] Specializare inginerie pentru structurile Forțelor Aeriene (MRO, sisteme de arme, electronică de bord). Grad locotenent inginer.",
+    "notes": "Specializare inginerie pentru structurile Forțelor Aeriene (MRO, sisteme de arme, electronică de bord). Grad locotenent inginer.",
     "admission": {
       "exam": "Dosar MApN + concurs (matematică + fizică + fizic)",
       "deadline": "iulie 2026",
@@ -153,7 +153,7 @@
       "marină",
       "navigație"
     ],
-    "notes": "[v1] Dublă utilitate: militar (Forțe Navale — grad locotenent) și civil (brevet STCW pentru maritim internațional). Pregătire pe nava-școală Mircea. Constanța.",
+    "notes": "Dublă utilitate: militar (Forțe Navale — grad locotenent) și civil (brevet STCW pentru maritim internațional). Pregătire pe nava-școală Mircea. Constanța.",
     "admission": {
       "exam": "Dosar MApN/civil + concurs (matematică + fizică + înot obligatoriu)",
       "deadline": "iulie 2026",
@@ -187,7 +187,7 @@
       "drept",
       "ordine publică"
     ],
-    "notes": "[v1] Specialitate polițienească. Grad inspector MAI la absolvire. Selecție: dosar MAI + medical + psihologic + fizic + concurs (drept + lb. română). Studii gratuite + bursă lunară.",
+    "notes": "Specialitate polițienească. Grad inspector MAI la absolvire. Selecție: dosar MAI + medical + psihologic + fizic + concurs (drept + lb. română). Studii gratuite + bursă lunară.",
     "admission": {
       "exam": "Dosar MAI + medical + psihologic + fizic + concurs (drept / lb. română)",
       "deadline": "iulie 2026",
@@ -220,7 +220,7 @@
       "urgențe",
       "ISU"
     ],
-    "notes": "[v1] Facultatea de Pompieri — ofițeri ISU/IGSU. Grad locotenent la absolvire, repartizare în inspectoratele județene ISU. Studii gratuite + bursă.",
+    "notes": "Facultatea de Pompieri — ofițeri ISU/IGSU. Grad locotenent la absolvire, repartizare în inspectoratele județene ISU. Studii gratuite + bursă.",
     "admission": {
       "exam": "Dosar MAI + medical + psihologic + fizic + concurs",
       "deadline": "iulie 2026",
@@ -252,7 +252,7 @@
       "intelligence",
       "securitate"
     ],
-    "notes": "[v1] Admitere prin recrutare SRI — nu prin platformele standard de admitere universitară. Dosar confidențial + investigație de securitate + psihologic + fizic + interviu. Licență 4 ani + grad ofițer SRI.",
+    "notes": "Admitere prin recrutare SRI — nu prin platformele standard de admitere universitară. Dosar confidențial + investigație de securitate + psihologic + fizic + interviu. Licență 4 ani + grad ofițer SRI.",
     "admission": {
       "exam": "Recrutare directă SRI (contact prin sri.ro/cariere) + investigație securitate + psihologic + fizic",
       "deadline": "variabil — recrutare continuă",
@@ -584,7 +584,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v1] Top medicină în RO. Concurs cel mai greu, ultima medie istoric ~9.50 (loc bugetat).",
+    "notes": "Top medicină în RO. Concurs cel mai greu, ultima medie istoric ~9.50 (loc bugetat).",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -616,7 +616,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v1] Medicină dentară de elită. Mulți absolvenți deschid cabinet privat.",
+    "notes": "Medicină dentară de elită. Mulți absolvenți deschid cabinet privat.",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -648,7 +648,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v1] Cel mai mare bazin de absolvenți pentru industria farma din RO.",
+    "notes": "Cel mai mare bazin de absolvenți pentru industria farma din RO.",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -682,7 +682,7 @@
       "medicină",
       "profesional"
     ],
-    "notes": "[v1] Licență 4 ani — concurență mai mare decât la postliceale dar permite mobilitate UE imediată.",
+    "notes": "Licență 4 ani — concurență mai mare decât la postliceale dar permite mobilitate UE imediată.",
     "admission": {
       "exam": "concurs scris (Biologie + Anatomie)",
       "deadline": "iulie 2026",
@@ -717,7 +717,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v1] Trilingv. Programele EN și FR atrag studenți din EU și Africa francofonă.",
+    "notes": "Trilingv. Programele EN și FR atrag studenți din EU și Africa francofonă.",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -749,7 +749,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v1] Stomatologie premium în Transilvania.",
+    "notes": "Stomatologie premium în Transilvania.",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -782,7 +782,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v1] Singura farmacie trilingvă din RO.",
+    "notes": "Singura farmacie trilingvă din RO.",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -817,7 +817,7 @@
       "medicină",
       "profesional"
     ],
-    "notes": "[v1] Licență AMG 4 ani — și cu predare în engleză.",
+    "notes": "Licență AMG 4 ani — și cu predare în engleză.",
     "admission": {
       "exam": "concurs scris (Biologie + Anatomie)",
       "deadline": "iulie 2026",
@@ -857,7 +857,7 @@
       "IT",
       "inginerie"
     ],
-    "notes": "[v1] Cel mai competitiv program tech din RO. Recrutori (UiPath, Adobe, Bitdefender) vin pe campus.",
+    "notes": "Cel mai competitiv program tech din RO. Recrutori (UiPath, Adobe, Bitdefender) vin pe campus.",
     "admission": {
       "exam": "concurs (Mate + Info SAU Mate + Fizică)",
       "deadline": "iulie"
@@ -896,7 +896,7 @@
       "IT",
       "inginerie"
     ],
-    "notes": "[v1] Mix de IT + control systems. Drum solid spre automotive și automation.",
+    "notes": "Mix de IT + control systems. Drum solid spre automotive și automation.",
     "admission": {
       "exam": "concurs (Mate + Fizică sau Mate + Info)",
       "deadline": "iulie 2026",
@@ -932,7 +932,7 @@
       "IT",
       "inginerie"
     ],
-    "notes": "[v1] Hub embedded + telecom. Parteneriate cu Continental, Bosch, Vodafone.",
+    "notes": "Hub embedded + telecom. Parteneriate cu Continental, Bosch, Vodafone.",
     "admission": {
       "exam": "concurs (Mate + Fizică sau Mate + Info)",
       "deadline": "iulie 2026",
@@ -973,7 +973,7 @@
       "IT",
       "business"
     ],
-    "notes": "[v1] Programare + statistică + business — drum tipic spre fintech, consultanță, BI.",
+    "notes": "Programare + statistică + business — drum tipic spre fintech, consultanță, BI.",
     "admission": {
       "exam": "dosar (media BAC pondere 100%) sau concurs",
       "deadline": "iulie 2026",
@@ -1010,7 +1010,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v1] Drum clasic spre digital marketing, brand management. Multe internshipuri în multinaționale.",
+    "notes": "Drum clasic spre digital marketing, brand management. Multe internshipuri în multinaționale.",
     "admission": {
       "exam": "dosar (media BAC pondere 100%) sau concurs",
       "deadline": "iulie 2026",
@@ -1046,7 +1046,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v1] Drum spre banking, audit, controlling. Big4 (Deloitte, PwC, EY, KPMG) recrutează pe campus.",
+    "notes": "Drum spre banking, audit, controlling. Big4 (Deloitte, PwC, EY, KPMG) recrutează pe campus.",
     "admission": {
       "exam": "dosar (media BAC pondere 100%) sau concurs",
       "deadline": "iulie 2026",
@@ -1086,7 +1086,7 @@
     "tags": [
       "IT"
     ],
-    "notes": "[v1] Cea mai bine clasată informatică universitară din RO. Patru linii lingvistice. Prof. solidă pe algoritmi + AI.",
+    "notes": "Cea mai bine clasată informatică universitară din RO. Patru linii lingvistice. Prof. solidă pe algoritmi + AI.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -1120,7 +1120,7 @@
     "tags": [
       "IT"
     ],
-    "notes": "[v1] Drum mai matematic — pentru ML / cercetare / academic.",
+    "notes": "Drum mai matematic — pentru ML / cercetare / academic.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -1153,7 +1153,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v1] Top psihologie în RO. Drum spre cabinet privat după licență + master + atestat.",
+    "notes": "Top psihologie în RO. Drum spre cabinet privat după licență + master + atestat.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -1189,7 +1189,7 @@
       "umaniste",
       "drept"
     ],
-    "notes": "[v1] Cea mai prestigioasă facultate de drept din RO. Concurs greu (4-5 candidați/loc).",
+    "notes": "Cea mai prestigioasă facultate de drept din RO. Concurs greu (4-5 candidați/loc).",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică (drept = test logic)",
       "deadline": "iulie 2026",
@@ -1221,7 +1221,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v1] Bazin major de absolvenți. Plus master pentru atestat în psihoterapie.",
+    "notes": "Bazin major de absolvenți. Plus master pentru atestat în psihoterapie.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică (drept = test logic)",
       "deadline": "iulie 2026",
@@ -1287,7 +1287,7 @@
       "medicină",
       "profesional"
     ],
-    "notes": "[v1] Postliceala sanitară Carol Davila — cea mai mare din capitală.",
+    "notes": "Postliceala sanitară Carol Davila — cea mai mare din capitală.",
     "admission": {
       "exam": "dosar (diplomă liceu, BAC opțional)",
       "deadline": "septembrie 2026",
@@ -1359,7 +1359,7 @@
       "profesional",
       "inginerie"
     ],
-    "notes": "[v1] Operare instalații energetice — drum direct spre Enel, Transelectrica, Hidroelectrica.",
+    "notes": "Operare instalații energetice — drum direct spre Enel, Transelectrica, Hidroelectrica.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -1394,7 +1394,7 @@
       "IT",
       "autodidact"
     ],
-    "notes": "[v1] Bootcamp 12 luni cu plată după angajare (income share). Job-garantat la parteneri (Endava, Cognizant, Adobe).",
+    "notes": "Bootcamp 12 luni cu plată după angajare (income share). Job-garantat la parteneri (Endava, Cognizant, Adobe).",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorts trimestriale)",
@@ -1427,7 +1427,7 @@
       "business",
       "autodidact"
     ],
-    "notes": "[v1] Cursurile IAA sunt cele mai recunoscute pe piața RO de marketing — certificare IAB.",
+    "notes": "Cursurile IAA sunt cele mai recunoscute pe piața RO de marketing — certificare IAB.",
     "admission": {
       "exam": "înscriere directă",
       "deadline": "rolling",
@@ -1460,7 +1460,7 @@
       "frumusețe",
       "meserii"
     ],
-    "notes": "[v2] Calificare nivel 3 ANC, recunoscută UE. Înscrieri în iulie-august.",
+    "notes": "Calificare nivel 3 ANC, recunoscută UE. Înscrieri în iulie-august.",
     "lastReviewed": "2026-04-30",
     "admission": {
       "exam": "dosar (dipl. clasa 8)",
@@ -1492,7 +1492,7 @@
       "frumusețe",
       "meserii"
     ],
-    "notes": "[v2] Curs scurt 720h, certificat ANC nivel 3.",
+    "notes": "Curs scurt 720h, certificat ANC nivel 3.",
     "admission": {
       "exam": "înscriere continuă (min. 16 ani)",
       "deadline": "rolling",
@@ -1521,7 +1521,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v2] Calificare ANC nivel 3.",
+    "notes": "Calificare ANC nivel 3.",
     "admission": {
       "exam": "înscriere continuă (min. 16 ani)",
       "deadline": "rolling",
@@ -1550,7 +1550,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v2] Calificare ANC nivel 3.",
+    "notes": "Calificare ANC nivel 3.",
     "admission": {
       "exam": "înscriere continuă (min. 16 ani)",
       "deadline": "rolling",
@@ -1579,7 +1579,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v2] Calificare ANC nivel 3.",
+    "notes": "Calificare ANC nivel 3.",
     "admission": {
       "exam": "înscriere continuă (min. 16 ani)",
       "deadline": "rolling",
@@ -1609,7 +1609,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v2] Curs ANC autorizat.",
+    "notes": "Curs ANC autorizat.",
     "admission": {
       "exam": "înscriere continuă (min. 16 ani)",
       "deadline": "rolling",
@@ -1639,7 +1639,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v2] Academie privată premium — recomandată după certificat ANC de bază.",
+    "notes": "Academie privată premium — recomandată după certificat ANC de bază.",
     "admission": {
       "exam": "înscriere continuă (min. 16 ani)",
       "deadline": "rolling",
@@ -1671,7 +1671,7 @@
       "turism",
       "alimentație"
     ],
-    "notes": "[v2] Profil servicii — turism și alimentație, calificare nivel 3.",
+    "notes": "Profil servicii — turism și alimentație, calificare nivel 3.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -1706,7 +1706,7 @@
       "turism",
       "alimentație"
     ],
-    "notes": "[v2] Profil servicii — turism și alimentație publică.",
+    "notes": "Profil servicii — turism și alimentație publică.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -1738,7 +1738,7 @@
     "tags": [
       "turism"
     ],
-    "notes": "[v2] Liceul de referință pe turism în Moldova.",
+    "notes": "Liceul de referință pe turism în Moldova.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -1770,7 +1770,7 @@
       "turism",
       "alimentație"
     ],
-    "notes": "[v2] Sector 6 — programe duale cu lanțuri HoReCa.",
+    "notes": "Sector 6 — programe duale cu lanțuri HoReCa.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -1801,7 +1801,7 @@
     "tags": [
       "turism"
     ],
-    "notes": "[v2] Domeniu turism și alimentație, profil servicii.",
+    "notes": "Domeniu turism și alimentație, profil servicii.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -1831,7 +1831,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Calificare ANC nivel 3, COR 514206 (Tatuator).",
+    "notes": "Calificare ANC nivel 3, COR 514206 (Tatuator).",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -1860,7 +1860,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Inclus microblading + dermopigmentare.",
+    "notes": "Inclus microblading + dermopigmentare.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -1889,7 +1889,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Calificare ANC nivel 3, recunoscută UE.",
+    "notes": "Calificare ANC nivel 3, recunoscută UE.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -1919,7 +1919,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Probă practică desen la admitere. Singurul departament de top din RO.",
+    "notes": "Probă practică desen la admitere. Singurul departament de top din RO.",
     "admission": {
       "exam": "probă practică artă (desen + studiu compoziție) + dosar",
       "deadline": "iulie 2026",
@@ -1949,7 +1949,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Specializare pictură murală + pictură tempera.",
+    "notes": "Specializare pictură murală + pictură tempera.",
     "admission": {
       "exam": "probă practică artă (desen + studiu compoziție) + dosar",
       "deadline": "iulie 2026",
@@ -1979,7 +1979,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Acreditat ARACIS.",
+    "notes": "Acreditat ARACIS.",
     "admission": {
       "exam": "dosar + probă practică unde aplicabil",
       "deadline": "iulie 2026",
@@ -2010,7 +2010,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Probă practică artă la admitere.",
+    "notes": "Probă practică artă la admitere.",
     "admission": {
       "exam": "probă practică artă (desen + studiu compoziție) + dosar",
       "deadline": "iulie 2026",
@@ -2042,7 +2042,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Alternativa clujeană, focus design contemporan.",
+    "notes": "Alternativa clujeană, focus design contemporan.",
     "admission": {
       "exam": "probă practică artă (desen + studiu compoziție) + dosar",
       "deadline": "iulie 2026",
@@ -2071,7 +2071,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Singura universitate de arte din Moldova.",
+    "notes": "Singura universitate de arte din Moldova.",
     "admission": {
       "exam": "probă practică artă (desen + studiu compoziție) + dosar",
       "deadline": "iulie 2026",
@@ -2102,7 +2102,7 @@
       "construcții",
       "meserii"
     ],
-    "notes": "[v2] Sistem dual cu firme de instalații — bursă + masă + contract.",
+    "notes": "Sistem dual cu firme de instalații — bursă + masă + contract.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -2135,7 +2135,7 @@
       "construcții",
       "meserii"
     ],
-    "notes": "[v2] Calificare nivel 3, sistem dual.",
+    "notes": "Calificare nivel 3, sistem dual.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -2167,7 +2167,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v2] Certificat IIW recunoscut UE — automat job în DE / NL / NO.",
+    "notes": "Certificat IIW recunoscut UE — automat job în DE / NL / NO.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -2200,7 +2200,7 @@
       "meserii",
       "construcții"
     ],
-    "notes": "[v2] Furnizor ANC, certificate de calificare nivel 2-3.",
+    "notes": "Furnizor ANC, certificate de calificare nivel 2-3.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -2230,7 +2230,7 @@
     "tags": [
       "construcții"
     ],
-    "notes": "[v2] Sistem dual cu Strabag, Bog'Art.",
+    "notes": "Sistem dual cu Strabag, Bog'Art.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -2259,7 +2259,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v2] Profil industrie textilă, școală profesională 3 ani.",
+    "notes": "Profil industrie textilă, școală profesională 3 ani.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -2290,7 +2290,7 @@
       "frumusețe",
       "meserii"
     ],
-    "notes": "[v2] Curs ANC scurt + ucenicie la florării existente.",
+    "notes": "Curs ANC scurt + ucenicie la florării existente.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -2320,7 +2320,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] Postliceal acreditat, certificat nivel 5 ANC.",
+    "notes": "Postliceal acreditat, certificat nivel 5 ANC.",
     "admission": {
       "exam": "dosar (diplomă liceu, BAC opțional)",
       "deadline": "septembrie 2026",
@@ -2351,7 +2351,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] Postliceal 2 ani — alternativă la cursul ANC scurt.",
+    "notes": "Postliceal 2 ani — alternativă la cursul ANC scurt.",
     "admission": {
       "exam": "dosar (diplomă liceu, BAC opțional)",
       "deadline": "septembrie 2026",
@@ -2382,7 +2382,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] Postliceal 3 ani — alternativă la facultatea UMF.",
+    "notes": "Postliceal 3 ani — alternativă la facultatea UMF.",
     "admission": {
       "exam": "dosar (diplomă liceu, BAC opțional)",
       "deadline": "septembrie 2026",
@@ -2412,7 +2412,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] Postliceal acreditat în Bacău.",
+    "notes": "Postliceal acreditat în Bacău.",
     "admission": {
       "exam": "dosar (diplomă liceu, BAC opțional)",
       "deadline": "septembrie 2026",
@@ -2443,7 +2443,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] București + Constanța.",
+    "notes": "București + Constanța.",
     "admission": {
       "exam": "dosar (diplomă liceu, BAC opțional)",
       "deadline": "septembrie 2026",
@@ -2472,7 +2472,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] Postliceal lângă UMF — pipeline natural.",
+    "notes": "Postliceal lângă UMF — pipeline natural.",
     "admission": {
       "exam": "dosar (diplomă liceu, BAC opțional)",
       "deadline": "septembrie 2026",
@@ -2501,7 +2501,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] Postliceal sanitar, recunoscut UE.",
+    "notes": "Postliceal sanitar, recunoscut UE.",
     "admission": {
       "exam": "dosar (diplomă liceu, BAC opțional)",
       "deadline": "septembrie 2026",
@@ -2530,7 +2530,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] Cale rapidă (3 ani vs 6 ani facultate).",
+    "notes": "Cale rapidă (3 ani vs 6 ani facultate).",
     "admission": {
       "exam": "dosar (diplomă liceu, BAC opțional)",
       "deadline": "septembrie 2026",
@@ -2563,7 +2563,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] Concurs scris (Biologie + Chimie organică). Recunoaștere UE directă.",
+    "notes": "Concurs scris (Biologie + Chimie organică). Recunoaștere UE directă.",
     "admission": {
       "exam": "concurs scris",
       "deadline": "iulie 2026",
@@ -2595,7 +2595,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] Una dintre cele 4 USAMV principale.",
+    "notes": "Una dintre cele 4 USAMV principale.",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -2624,7 +2624,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] Acoperire Moldova.",
+    "notes": "Acoperire Moldova.",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -2654,7 +2654,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v2] USAMV „Regele Mihai I\".",
+    "notes": "USAMV „Regele Mihai I\".",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -2685,7 +2685,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v2] PNRR + bani UE pentru ferme.",
+    "notes": "PNRR + bani UE pentru ferme.",
     "admission": {
       "exam": "concurs (Mate + Biologie sau Chimie)",
       "deadline": "iulie 2026",
@@ -2715,7 +2715,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v2] Acoperire Transilvania.",
+    "notes": "Acoperire Transilvania.",
     "admission": {
       "exam": "concurs (Mate + Biologie sau Chimie)",
       "deadline": "iulie 2026",
@@ -2747,7 +2747,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v2] UTCB e parte din UPB după reforma 2024.",
+    "notes": "UTCB e parte din UPB după reforma 2024.",
     "admission": {
       "exam": "concurs (Mate + Fizică sau Mate + Info)",
       "deadline": "iulie 2026",
@@ -2776,7 +2776,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v2] PNRR + boom imobiliar.",
+    "notes": "PNRR + boom imobiliar.",
     "admission": {
       "exam": "concurs (Mate + Fizică sau Mate + Info)",
       "deadline": "iulie 2026",
@@ -2804,7 +2804,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v2] Acoperire Moldova.",
+    "notes": "Acoperire Moldova.",
     "admission": {
       "exam": "concurs (Mate + Fizică sau Mate + Info)",
       "deadline": "iulie 2026",
@@ -2835,7 +2835,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v2] Tradiție în domeniul sportiv + recuperare.",
+    "notes": "Tradiție în domeniul sportiv + recuperare.",
     "admission": {
       "exam": "dosar + probă fizică (3 probe sportive)",
       "deadline": "iulie 2026",
@@ -2866,7 +2866,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v2] Acreditat ARACIS.",
+    "notes": "Acreditat ARACIS.",
     "admission": {
       "exam": "dosar + probă practică unde aplicabil",
       "deadline": "iulie 2026",
@@ -2896,7 +2896,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v2] Specialitate din 1998, parte din Facultatea de Educație Fizică.",
+    "notes": "Specialitate din 1998, parte din Facultatea de Educație Fizică.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -2926,7 +2926,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] Lucru în primării, ONG-uri, proiecte UE.",
+    "notes": "Lucru în primării, ONG-uri, proiecte UE.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică (drept = test logic)",
       "deadline": "iulie 2026",
@@ -2956,7 +2956,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] Cuplu cu Sociologie pentru cercetare.",
+    "notes": "Cuplu cu Sociologie pentru cercetare.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -2987,7 +2987,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] Bazăă pentru carieră în logopedie + special needs.",
+    "notes": "Bazăă pentru carieră în logopedie + special needs.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -3018,7 +3018,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] PIPP — directorat carieră în educație.",
+    "notes": "PIPP — directorat carieră în educație.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică (drept = test logic)",
       "deadline": "iulie 2026",
@@ -3047,7 +3047,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] Alternativa moldoveană.",
+    "notes": "Alternativa moldoveană.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -3076,7 +3076,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] PIPP + Psihopedagogie Specială.",
+    "notes": "PIPP + Psihopedagogie Specială.",
     "admission": {
       "exam": "dosar + probă practică unde aplicabil",
       "deadline": "iulie 2026",
@@ -3110,7 +3110,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v2] Cale către cercetare + biotech.",
+    "notes": "Cale către cercetare + biotech.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică (drept = test logic)",
       "deadline": "iulie 2026",
@@ -3142,7 +3142,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v2] Acreditat ARACIS, lab-uri cercetare.",
+    "notes": "Acreditat ARACIS, lab-uri cercetare.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -3173,7 +3173,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v2] Tradiție în științele vieții.",
+    "notes": "Tradiție în științele vieții.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -3202,7 +3202,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Conservatorul București — fundament clasic + electronic.",
+    "notes": "Conservatorul București — fundament clasic + electronic.",
     "admission": {
       "exam": "probă practică interpretare/compoziție + teorie muzicală",
       "deadline": "iulie 2026",
@@ -3230,7 +3230,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] A doua mare academie de muzică.",
+    "notes": "A doua mare academie de muzică.",
     "admission": {
       "exam": "probă practică interpretare/compoziție + teorie muzicală",
       "deadline": "iulie 2026",
@@ -3263,7 +3263,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Cale internațională acceptată în industria muzicală.",
+    "notes": "Cale internațională acceptată în industria muzicală.",
     "admission": {
       "exam": "dosar + portofoliu",
       "deadline": "rolling (intake-uri trimestriale)",
@@ -3292,7 +3292,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Probă practică brutală la admitere.",
+    "notes": "Probă practică brutală la admitere.",
     "admission": {
       "exam": "probă practică (recital + improvizație + interviu)",
       "deadline": "iulie 2026",
@@ -3320,7 +3320,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Singura școală de actorie din Moldova.",
+    "notes": "Singura școală de actorie din Moldova.",
     "admission": {
       "exam": "probă practică (recital + improvizație + interviu)",
       "deadline": "iulie 2026",
@@ -3349,7 +3349,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Bilingv RO/HU.",
+    "notes": "Bilingv RO/HU.",
     "admission": {
       "exam": "probă practică (recital + improvizație + interviu)",
       "deadline": "iulie 2026",
@@ -3382,7 +3382,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Universitate privată acreditată.",
+    "notes": "Universitate privată acreditată.",
     "admission": {
       "exam": "dosar + interviu",
       "deadline": "septembrie 2026",
@@ -3414,7 +3414,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Cale academică pentru cinematografie + foto.",
+    "notes": "Cale academică pentru cinematografie + foto.",
     "admission": {
       "exam": "probă practică (recital + improvizație + interviu)",
       "deadline": "iulie 2026",
@@ -3442,7 +3442,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Cursuri scurte cu fotografi profesioniști.",
+    "notes": "Cursuri scurte cu fotografi profesioniști.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -3471,7 +3471,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v2] Singura universitate civilă maritimă RO. Job placement bun pe vase comerciale.",
+    "notes": "Singura universitate civilă maritimă RO. Job placement bun pe vase comerciale.",
     "admission": {
       "exam": "concurs (Mate + Fizică) + probă medicală maritimă",
       "deadline": "iulie 2026",
@@ -3505,7 +3505,7 @@
       "artă",
       "inginerie"
     ],
-    "notes": "[v2] Singura universitate de top de arhitectură în RO.",
+    "notes": "Singura universitate de top de arhitectură în RO.",
     "admission": {
       "exam": "probă practică desen + concurs Mate + Fizică",
       "deadline": "iulie 2026",
@@ -3535,7 +3535,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v2] Alternativa transilvăneană la UAUIM.",
+    "notes": "Alternativa transilvăneană la UAUIM.",
     "admission": {
       "exam": "probă practică desen + concurs Mate + Fizică",
       "deadline": "iulie 2026",
@@ -3567,7 +3567,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] Cale clasică pentru traducători + interpreți.",
+    "notes": "Cale clasică pentru traducători + interpreți.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică (drept = test logic)",
       "deadline": "iulie 2026",
@@ -3596,7 +3596,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] Multilingv (RO/HU/EN/DE).",
+    "notes": "Multilingv (RO/HU/EN/DE).",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -3628,7 +3628,7 @@
     "tags": [
       "comunicare"
     ],
-    "notes": "[v2] Cea mai bună școală de comunicare/jurnalism în RO.",
+    "notes": "Cea mai bună școală de comunicare/jurnalism în RO.",
     "admission": {
       "exam": "dosar + interviu motivațional + eseu",
       "deadline": "iulie 2026",
@@ -3658,7 +3658,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] FJSC — Facultatea de Jurnalism și Științe ale Comunicării.",
+    "notes": "FJSC — Facultatea de Jurnalism și Științe ale Comunicării.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică (drept = test logic)",
       "deadline": "iulie 2026",
@@ -3688,7 +3688,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v2] Cale academică pentru antrenori + personal trainers.",
+    "notes": "Cale academică pentru antrenori + personal trainers.",
     "admission": {
       "exam": "dosar + probă fizică",
       "deadline": "iulie 2026",
@@ -3717,7 +3717,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v2] Diversificată — Vest.",
+    "notes": "Diversificată — Vest.",
     "admission": {
       "exam": "dosar + probă practică unde aplicabil",
       "deadline": "iulie 2026",
@@ -3748,7 +3748,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v2] Sistem dual cu producători auto din zonă.",
+    "notes": "Sistem dual cu producători auto din zonă.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -3778,7 +3778,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v2] Profil mecanică, școală profesională 3 ani.",
+    "notes": "Profil mecanică, școală profesională 3 ani.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -3808,7 +3808,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] PIPP + modul psihopedagogic = profesor învățământ primar.",
+    "notes": "PIPP + modul psihopedagogic = profesor învățământ primar.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică (drept = test logic)",
       "deadline": "iulie 2026",
@@ -3836,7 +3836,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v2] PIPP cu modul psihopedagogic.",
+    "notes": "PIPP cu modul psihopedagogic.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -3867,7 +3867,7 @@
       "meserii",
       "transport"
     ],
-    "notes": "[v3] Curs ANC + atestat ARR pentru transport profesional marfă.",
+    "notes": "Curs ANC + atestat ARR pentru transport profesional marfă.",
     "lastReviewed": "2026-04-30",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
@@ -3896,7 +3896,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v3] Liceu profesional cu atestat ARR adițional.",
+    "notes": "Liceu profesional cu atestat ARR adițional.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -3930,7 +3930,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] Cea mai prestigioasă facultate de contabilitate din RO. Programe în engleză disponibile.",
+    "notes": "Cea mai prestigioasă facultate de contabilitate din RO. Programe în engleză disponibile.",
     "admission": {
       "exam": "dosar (media BAC pondere 100%) sau concurs",
       "deadline": "iulie 2026",
@@ -3960,7 +3960,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] FSEGA — Contabilitate.",
+    "notes": "FSEGA — Contabilitate.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -3990,7 +3990,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] FEAA Iași.",
+    "notes": "FEAA Iași.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -4024,7 +4024,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] Cale către bancă + financiar.",
+    "notes": "Cale către bancă + financiar.",
     "admission": {
       "exam": "dosar (media BAC pondere 100%) sau concurs",
       "deadline": "iulie 2026",
@@ -4053,7 +4053,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v3] Curs ANC + atestat MAI obligatoriu.",
+    "notes": "Curs ANC + atestat MAI obligatoriu.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -4081,7 +4081,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] Calificare ANC + atestat ANEVAR optional pt evaluare.",
+    "notes": "Calificare ANC + atestat ANEVAR optional pt evaluare.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -4111,7 +4111,7 @@
     "tags": [
       "turism"
     ],
-    "notes": "[v3] Cale spre management hotelier.",
+    "notes": "Cale spre management hotelier.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -4141,7 +4141,7 @@
     "tags": [
       "turism"
     ],
-    "notes": "[v3] Universitate privată acreditată.",
+    "notes": "Universitate privată acreditată.",
     "admission": {
       "exam": "dosar + interviu",
       "deadline": "septembrie 2026",
@@ -4174,7 +4174,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v3] Cale frecventă către EA / Office Manager.",
+    "notes": "Cale frecventă către EA / Office Manager.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică (drept = test logic)",
       "deadline": "iulie 2026",
@@ -4212,7 +4212,7 @@
     "tags": [
       "comunicare"
     ],
-    "notes": "[v3] Comunicare + PR — multivalent.",
+    "notes": "Comunicare + PR — multivalent.",
     "admission": {
       "exam": "dosar + interviu motivațional + eseu",
       "deadline": "iulie 2026",
@@ -4243,7 +4243,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] Specialitate clară pentru HR.",
+    "notes": "Specialitate clară pentru HR.",
     "admission": {
       "exam": "dosar (media BAC pondere 100%) sau concurs",
       "deadline": "iulie 2026",
@@ -4274,7 +4274,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v3] Mulți HR-i sunt psihologi — cale frecventă.",
+    "notes": "Mulți HR-i sunt psihologi — cale frecventă.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică (drept = test logic)",
       "deadline": "iulie 2026",
@@ -4304,7 +4304,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v3] Calificare scurtă + atestat motostivuitor.",
+    "notes": "Calificare scurtă + atestat motostivuitor.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -4333,7 +4333,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v3] Curs ANC + atestat operare CNC.",
+    "notes": "Curs ANC + atestat operare CNC.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -4361,7 +4361,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v3] Profil mecanică, sistem dual.",
+    "notes": "Profil mecanică, sistem dual.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -4392,7 +4392,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] Curs IAA — vânzări B2B + tools.",
+    "notes": "Curs IAA — vânzări B2B + tools.",
     "admission": {
       "exam": "înscriere directă",
       "deadline": "rolling",
@@ -4424,7 +4424,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] Master MMI specifically pentru sales.",
+    "notes": "Master MMI specifically pentru sales.",
     "admission": {
       "exam": "dosar (media BAC pondere 100%) sau concurs",
       "deadline": "iulie 2026",
@@ -4455,7 +4455,7 @@
       "IT",
       "autodidact"
     ],
-    "notes": "[v3] Bootcamp QA cu placement.",
+    "notes": "Bootcamp QA cu placement.",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorts trimestriale)",
@@ -4482,7 +4482,7 @@
     "tags": [
       "IT"
     ],
-    "notes": "[v3] Iași + online.",
+    "notes": "Iași + online.",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorts trimestriale)",
@@ -4512,7 +4512,7 @@
     "tags": [
       "IT"
     ],
-    "notes": "[v3] Bootcamp + certificări (CCNA, RHCSA, AWS).",
+    "notes": "Bootcamp + certificări (CCNA, RHCSA, AWS).",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorts trimestriale)",
@@ -4545,7 +4545,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] Master ASE — cale cu certificare PMP/PRINCE2.",
+    "notes": "Master ASE — cale cu certificare PMP/PRINCE2.",
     "admission": {
       "exam": "dosar (media BAC pondere 100%) sau concurs",
       "deadline": "iulie 2026",
@@ -4576,7 +4576,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] Cale clasică spre BCR/BRD/ING/Raiffeisen.",
+    "notes": "Cale clasică spre BCR/BRD/ING/Raiffeisen.",
     "admission": {
       "exam": "dosar (media BAC pondere 100%) sau concurs",
       "deadline": "iulie 2026",
@@ -4608,7 +4608,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v3] Specialitate clară pe procurement + supply chain.",
+    "notes": "Specialitate clară pe procurement + supply chain.",
     "admission": {
       "exam": "dosar (media BAC pondere 100%) sau concurs",
       "deadline": "iulie 2026",
@@ -4639,7 +4639,7 @@
       "construcții",
       "meserii"
     ],
-    "notes": "[v3] COR 741103 — calificare nivel 3 ANC. Recunoscută UE.",
+    "notes": "COR 741103 — calificare nivel 3 ANC. Recunoscută UE.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -4667,7 +4667,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v3] Autorizație F-Gas obligatorie pentru lucru cu refrigeranți.",
+    "notes": "Autorizație F-Gas obligatorie pentru lucru cu refrigeranți.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -4696,7 +4696,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v3] Liceu profesional dual.",
+    "notes": "Liceu profesional dual.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -4725,7 +4725,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v3] Calificare ANC + bonus dacă urmează curs DE/IT.",
+    "notes": "Calificare ANC + bonus dacă urmează curs DE/IT.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -4753,7 +4753,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v3] Calificare scurtă pentru entry-level retail.",
+    "notes": "Calificare scurtă pentru entry-level retail.",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani conform calificării)",
       "deadline": "rolling (cohorts lunare)",
@@ -4781,7 +4781,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v3] Profil servicii — comerț.",
+    "notes": "Profil servicii — comerț.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -4811,7 +4811,7 @@
     "tags": [
       "turism"
     ],
-    "notes": "[v4] Stagii la hoteluri litoral — sezon mai-octombrie.",
+    "notes": "Stagii la hoteluri litoral — sezon mai-octombrie.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -4842,7 +4842,7 @@
     "tags": [
       "turism"
     ],
-    "notes": "[v4] Tradiție în alimentație publică Galați.",
+    "notes": "Tradiție în alimentație publică Galați.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -4871,7 +4871,7 @@
     "tags": [
       "turism"
     ],
-    "notes": "[v4] Profil turism Sibiu.",
+    "notes": "Profil turism Sibiu.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -4901,7 +4901,7 @@
     "tags": [
       "turism"
     ],
-    "notes": "[v4] Acces graniță UE — frecvent stagii în hoteluri Bihor + UE.",
+    "notes": "Acces graniță UE — frecvent stagii în hoteluri Bihor + UE.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -4931,7 +4931,7 @@
     "tags": [
       "turism"
     ],
-    "notes": "[v4] Mureș, predare bilingvă RO/HU.",
+    "notes": "Mureș, predare bilingvă RO/HU.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -4961,7 +4961,7 @@
     "tags": [
       "alimentație"
     ],
-    "notes": "[v4] Liceul de referință alimentație Bucovina.",
+    "notes": "Liceul de referință alimentație Bucovina.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -4990,7 +4990,7 @@
     "tags": [
       "turism"
     ],
-    "notes": "[v4] Argeș, profil turism + chimie.",
+    "notes": "Argeș, profil turism + chimie.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -5021,7 +5021,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v4] Sistem dual cu Dacia (Renault) — bursă, contract, angajare.",
+    "notes": "Sistem dual cu Dacia (Renault) — bursă, contract, angajare.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8 + interviu Dacia",
       "deadline": "iulie 2026",
@@ -5051,7 +5051,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v4] Sistem dual cu Ford Craiova.",
+    "notes": "Sistem dual cu Ford Craiova.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -5082,7 +5082,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v4] Platformă industrială Dacia — Mioveni.",
+    "notes": "Platformă industrială Dacia — Mioveni.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -5112,7 +5112,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v4] Sistem dual Schaeffler/Dräxlmaier/IAR Brașov.",
+    "notes": "Sistem dual Schaeffler/Dräxlmaier/IAR Brașov.",
     "admission": {
       "exam": "admitere computerizată + interviu firmă",
       "deadline": "iulie 2026",
@@ -5141,7 +5141,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v4] Henri Coandă Timișoara — postliceal acreditat.",
+    "notes": "Henri Coandă Timișoara — postliceal acreditat.",
     "admission": {
       "exam": "dosar (medie minim 5 la BAC sau diplomă liceu)",
       "deadline": "septembrie 2026",
@@ -5171,7 +5171,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v4] Henri Coandă Brașov.",
+    "notes": "Henri Coandă Brașov.",
     "admission": {
       "exam": "dosar",
       "deadline": "septembrie 2026",
@@ -5202,7 +5202,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v4] FEG Timișoara — multiple specializări postliceale.",
+    "notes": "FEG Timișoara — multiple specializări postliceale.",
     "admission": {
       "exam": "dosar",
       "deadline": "septembrie 2026",
@@ -5230,7 +5230,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v4] FEG Galați.",
+    "notes": "FEG Galați.",
     "admission": {
       "exam": "dosar",
       "deadline": "septembrie 2026",
@@ -5261,7 +5261,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v4] FEG Constanța — include optician.",
+    "notes": "FEG Constanța — include optician.",
     "admission": {
       "exam": "dosar",
       "deadline": "septembrie 2026",
@@ -5291,7 +5291,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v4] Sfântul Ioan — postliceal acreditat București + filiale.",
+    "notes": "Sfântul Ioan — postliceal acreditat București + filiale.",
     "admission": {
       "exam": "dosar",
       "deadline": "septembrie 2026",
@@ -5320,7 +5320,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v4] Filiala ASR în pol industrial siderurgic.",
+    "notes": "Filiala ASR în pol industrial siderurgic.",
     "admission": {
       "exam": "înscriere continuă (min. 16 ani + permis muncă)",
       "deadline": "rolling",
@@ -5347,7 +5347,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v4] Tradiție siderurgică Hunedoara.",
+    "notes": "Tradiție siderurgică Hunedoara.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -5380,7 +5380,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v4] Sistem dual Electrica/Distribuție Energie.",
+    "notes": "Sistem dual Electrica/Distribuție Energie.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -5411,7 +5411,7 @@
     "tags": [
       "construcții"
     ],
-    "notes": "[v4] Acoperire Constanța.",
+    "notes": "Acoperire Constanța.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -5443,7 +5443,7 @@
     "tags": [
       "construcții"
     ],
-    "notes": "[v4] Acoperire Oltenia.",
+    "notes": "Acoperire Oltenia.",
     "admission": {
       "exam": "admitere computerizată",
       "deadline": "iulie 2026",
@@ -5473,7 +5473,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v4] UMFST Tg Mureș — alternativă la postliceal 3 ani.",
+    "notes": "UMFST Tg Mureș — alternativă la postliceal 3 ani.",
     "admission": {
       "exam": "concurs (Biologie + Anatomie)",
       "deadline": "iulie 2026",
@@ -5502,7 +5502,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v4] UMFT Timișoara — licență.",
+    "notes": "UMFT Timișoara — licență.",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -5532,7 +5532,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v4] UAB Alba Iulia — 180 credite ARACIS.",
+    "notes": "UAB Alba Iulia — 180 credite ARACIS.",
     "admission": {
       "exam": "dosar (medie BAC + probă fizică)",
       "deadline": "iulie 2026",
@@ -5561,7 +5561,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v4] UTBV Brașov — Facultatea de Educație Fizică.",
+    "notes": "UTBV Brașov — Facultatea de Educație Fizică.",
     "admission": {
       "exam": "dosar + probă fizică",
       "deadline": "iulie 2026",
@@ -5589,7 +5589,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v4] UAV Arad.",
+    "notes": "UAV Arad.",
     "admission": {
       "exam": "dosar + probă fizică",
       "deadline": "iulie 2026",
@@ -5618,7 +5618,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v4] ULBS Sibiu — alternativă paramedicală la kineto pură.",
+    "notes": "ULBS Sibiu — alternativă paramedicală la kineto pură.",
     "admission": {
       "exam": "dosar (medie BAC)",
       "deadline": "iulie 2026",
@@ -5647,7 +5647,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v4] UPIT — Departamentul Asistență Medicală + Kinetoterapie.",
+    "notes": "UPIT — Departamentul Asistență Medicală + Kinetoterapie.",
     "admission": {
       "exam": "dosar + probă fizică",
       "deadline": "iulie 2026",
@@ -5677,7 +5677,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v4] Filială Cluj — calificare ANC nivel 3.",
+    "notes": "Filială Cluj — calificare ANC nivel 3.",
     "admission": {
       "exam": "înscriere continuă (min. 16 ani)",
       "deadline": "rolling",
@@ -5705,7 +5705,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v4] Calificare ANC nivel 3, înscriere lunară.",
+    "notes": "Calificare ANC nivel 3, înscriere lunară.",
     "admission": {
       "exam": "înscriere continuă",
       "deadline": "rolling",
@@ -5733,7 +5733,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v4] Combinație make-up + estetică facială.",
+    "notes": "Combinație make-up + estetică facială.",
     "admission": {
       "exam": "înscriere continuă",
       "deadline": "rolling",
@@ -5760,7 +5760,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v4] Modul scurt în cadrul Spiru Haret.",
+    "notes": "Modul scurt în cadrul Spiru Haret.",
     "admission": {
       "exam": "dosar",
       "deadline": "iulie/noiembrie",
@@ -5789,7 +5789,7 @@
       "meserii",
       "artă"
     ],
-    "notes": "[v4] Curs ANC + ucenicie atelier partener.",
+    "notes": "Curs ANC + ucenicie atelier partener.",
     "admission": {
       "exam": "înscriere continuă",
       "deadline": "rolling",
@@ -5817,7 +5817,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v4] Calificare nivel 3 + practică în florării.",
+    "notes": "Calificare nivel 3 + practică în florării.",
     "admission": {
       "exam": "înscriere continuă",
       "deadline": "rolling",
@@ -5845,7 +5845,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v4] Furnizor ANC.",
+    "notes": "Furnizor ANC.",
     "admission": {
       "exam": "înscriere continuă (min. 18 ani + cazier curat)",
       "deadline": "rolling",
@@ -5872,7 +5872,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v4] Furnizor ANC.",
+    "notes": "Furnizor ANC.",
     "admission": {
       "exam": "înscriere continuă",
       "deadline": "rolling",
@@ -5900,7 +5900,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v4] Filială FEG — motostivuitor obligatoriu.",
+    "notes": "Filială FEG — motostivuitor obligatoriu.",
     "admission": {
       "exam": "înscriere continuă (min. 18 ani)",
       "deadline": "rolling",
@@ -5931,7 +5931,7 @@
     "tags": [
       "IT"
     ],
-    "notes": "[v4] Income share — plătești după angajare.",
+    "notes": "Income share — plătești după angajare.",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorts trimestriale)",
@@ -5961,7 +5961,7 @@
       "IT",
       "meserii"
     ],
-    "notes": "[v4] Calificare ANC pentru entry-level IT support.",
+    "notes": "Calificare ANC pentru entry-level IT support.",
     "admission": {
       "exam": "înscriere continuă",
       "deadline": "rolling",
@@ -5992,7 +5992,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v4] Master SNSPA — alternativă la ASE.",
+    "notes": "Master SNSPA — alternativă la ASE.",
     "admission": {
       "exam": "dosar + interviu",
       "deadline": "iulie 2026",
@@ -6022,7 +6022,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v4] Certificare internațională — pre-rechizita 3 ani experiență (PMP).",
+    "notes": "Certificare internațională — pre-rechizita 3 ani experiență (PMP).",
     "admission": {
       "exam": "examen online (PMP / PRINCE2 / PSM)",
       "deadline": "rolling",
@@ -6051,7 +6051,7 @@
       "meserii",
       "construcții"
     ],
-    "notes": "[v4] Filială FEG — alternativă la sbinfo.",
+    "notes": "Filială FEG — alternativă la sbinfo.",
     "admission": {
       "exam": "înscriere continuă (min. 18 ani + electrician de bază avantaj)",
       "deadline": "rolling",
@@ -6079,7 +6079,7 @@
     "tags": [
       "sănătate"
     ],
-    "notes": "[v4] Curs DE intensiv + plasare DE prin agenții reglementate (Caritas, Awo).",
+    "notes": "Curs DE intensiv + plasare DE prin agenții reglementate (Caritas, Awo).",
     "admission": {
       "exam": "interviu + nivel A2 germană la finalizare",
       "deadline": "rolling",
@@ -6108,7 +6108,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v5] Cale specifică pentru psiholog școlar / consilier vocațional. Atestat CABINET CJRAE.",
+    "notes": "Cale specifică pentru psiholog școlar / consilier vocațional. Atestat CABINET CJRAE.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -6138,7 +6138,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v5] Master Consiliere = post școală + CJRAE.",
+    "notes": "Master Consiliere = post școală + CJRAE.",
     "admission": {
       "exam": "dosar + interviu",
       "deadline": "iulie 2026",
@@ -6170,7 +6170,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v5] Master ASE — cale corporate + consultanță OD.",
+    "notes": "Master ASE — cale corporate + consultanță OD.",
     "admission": {
       "exam": "dosar (medie licență)",
       "deadline": "iulie 2026",
@@ -6200,7 +6200,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v5] Cale clasică pentru OD + consultanță.",
+    "notes": "Cale clasică pentru OD + consultanță.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -6229,7 +6229,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v5] Curs IAA pe content + SEO + AI workflows.",
+    "notes": "Curs IAA pe content + SEO + AI workflows.",
     "admission": {
       "exam": "înscriere directă",
       "deadline": "rolling",
@@ -6260,7 +6260,7 @@
     "tags": [
       "antreprenoriat"
     ],
-    "notes": "[v5] Pre-acceleratorul UPB + ANIS — bun pentru founders care vor build growth muscle.",
+    "notes": "Pre-acceleratorul UPB + ANIS — bun pentru founders care vor build growth muscle.",
     "admission": {
       "exam": "aplicație + pitch",
       "deadline": "octombrie / februarie (2 cohorte/an)",
@@ -6290,7 +6290,7 @@
     "tags": [
       "comunicare"
     ],
-    "notes": "[v5] SNSPA pentru cale brand strategist / advertising.",
+    "notes": "SNSPA pentru cale brand strategist / advertising.",
     "admission": {
       "exam": "dosar + interviu",
       "deadline": "iulie 2026",
@@ -6319,7 +6319,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v5] Cale către profesor de matematică gimnaziu/liceu — definitivat după primul an.",
+    "notes": "Cale către profesor de matematică gimnaziu/liceu — definitivat după primul an.",
     "admission": {
       "exam": "dosar + concurs (Mate)",
       "deadline": "iulie 2026",
@@ -6349,7 +6349,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v5] Cale către profesor de limbă română / străină — sau editor literar.",
+    "notes": "Cale către profesor de limbă română / străină — sau editor literar.",
     "admission": {
       "exam": "dosar (Limbă română + străină BAC)",
       "deadline": "iulie 2026",
@@ -6378,7 +6378,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v5] Profesor mate la liceu de top, cu posibil pivot universitar.",
+    "notes": "Profesor mate la liceu de top, cu posibil pivot universitar.",
     "admission": {
       "exam": "dosar + concurs",
       "deadline": "iulie 2026",
@@ -6408,7 +6408,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v5] Doctorat la UB = pre-rechizita pentru post universitar.",
+    "notes": "Doctorat la UB = pre-rechizita pentru post universitar.",
     "admission": {
       "exam": "concurs + dosar publicații",
       "deadline": "septembrie 2026",
@@ -6439,7 +6439,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v5] UBB e cea mai bine clasată RO internațional.",
+    "notes": "UBB e cea mai bine clasată RO internațional.",
     "admission": {
       "exam": "concurs + dosar",
       "deadline": "septembrie 2026",
@@ -6470,7 +6470,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v5] UPB — cale clasică pentru inginer electric + automatizări.",
+    "notes": "UPB — cale clasică pentru inginer electric + automatizări.",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -6500,7 +6500,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v5] UTCN — pol industrial Cluj (Electrica, Bosch).",
+    "notes": "UTCN — pol industrial Cluj (Electrica, Bosch).",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -6528,7 +6528,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v5] TUIASI — opțiune Moldova.",
+    "notes": "TUIASI — opțiune Moldova.",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -6559,7 +6559,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v5] UPB — fundament mecanic pentru auto/aerospace.",
+    "notes": "UPB — fundament mecanic pentru auto/aerospace.",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -6590,7 +6590,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v5] UTCN — pol auto + Bosch.",
+    "notes": "UTCN — pol auto + Bosch.",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -6622,7 +6622,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v5] UPB — cale clasică tranziție energetică + ANRE.",
+    "notes": "UPB — cale clasică tranziție energetică + ANRE.",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -6650,7 +6650,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v5] Universitatea din Petroșani — pol energetic.",
+    "notes": "Universitatea din Petroșani — pol energetic.",
     "admission": {
       "exam": "dosar + concurs",
       "deadline": "iulie 2026",
@@ -6680,7 +6680,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v5] UPG Ploiești — pol petrochimic OMV Petrom.",
+    "notes": "UPG Ploiești — pol petrochimic OMV Petrom.",
     "admission": {
       "exam": "concurs (Mate + Fizică sau Chimie)",
       "deadline": "iulie 2026",
@@ -6710,7 +6710,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v5] UPB Chimie — cale către pharma + biotech.",
+    "notes": "UPB Chimie — cale către pharma + biotech.",
     "admission": {
       "exam": "concurs (Mate + Chimie)",
       "deadline": "iulie 2026",
@@ -6740,7 +6740,7 @@
     "tags": [
       "comunicare"
     ],
-    "notes": "[v5] Programe de mentorat + colaborare RISE Project + OCCRP după licență jurnalism.",
+    "notes": "Programe de mentorat + colaborare RISE Project + OCCRP după licență jurnalism.",
     "admission": {
       "exam": "aplicație + portfolio + interviu",
       "deadline": "rolling",
@@ -6768,7 +6768,7 @@
     "tags": [
       "comunicare"
     ],
-    "notes": "[v5] Master specializat post-licență jurnalism.",
+    "notes": "Master specializat post-licență jurnalism.",
     "admission": {
       "exam": "dosar + interviu + eseu",
       "deadline": "septembrie 2026",
@@ -6799,7 +6799,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v5] Drumul real e autodidact — consistență 2+ ani + nișă clară. Echipament audio ~500-2.000 EUR.",
+    "notes": "Drumul real e autodidact — consistență 2+ ani + nișă clară. Echipament audio ~500-2.000 EUR.",
     "admission": {
       "exam": "auto-selectie",
       "deadline": "rolling",
@@ -7588,7 +7588,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Product Designer, UX Researcher și 3D Artist. Admitere: probă practică artă (desen + studiu) + dosar.",
     "admission": {
       "exam": "probă practică artă (desen + studiu) + dosar",
       "deadline": "iulie 2026",
@@ -7618,7 +7618,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Product Designer și UX Researcher. Admitere: probă desen + concurs Mate + Fizică.",
     "admission": {
       "exam": "probă desen + concurs Mate + Fizică",
       "deadline": "iulie 2026",
@@ -7647,7 +7647,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Product Designer. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -7676,7 +7676,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Creative Director. Admitere: probă practică artă (desen + studiu) + dosar.",
     "admission": {
       "exam": "probă practică artă (desen + studiu) + dosar",
       "deadline": "iulie 2026",
@@ -7707,7 +7707,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Antreprenor Social, Manager proiecte europene și Sustainability. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -7736,7 +7736,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Antreprenor Social. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -7765,7 +7765,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Antreprenor Social. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -7794,7 +7794,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Community Builder. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -7823,7 +7823,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Community Builder. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -7852,7 +7852,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Freelance Developer. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -7881,7 +7881,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Startup Founder. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -7909,7 +7909,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Freelance Designer. Admitere: probă practică artă (desen + studiu) + dosar.",
     "admission": {
       "exam": "probă practică artă (desen + studiu) + dosar",
       "deadline": "iulie 2026",
@@ -7938,7 +7938,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Antreprenor Craft. Admitere: probă practică artă (desen + studiu) + dosar.",
     "admission": {
       "exam": "probă practică artă (desen + studiu) + dosar",
       "deadline": "iulie 2026",
@@ -7969,7 +7969,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Avocat, Compliance Officer și Data Protection Officer. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8000,7 +8000,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Avocat, Compliance Officer și Data Protection Officer. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8029,7 +8029,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Inginer chimist. Admitere: dosar + concurs (Biologie/Chimie/Mate).",
     "admission": {
       "exam": "dosar + concurs (Biologie/Chimie/Mate)",
       "deadline": "iulie 2026",
@@ -8058,7 +8058,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Inginer chimist. Admitere: dosar + concurs (Biologie/Chimie/Mate).",
     "admission": {
       "exam": "dosar + concurs (Biologie/Chimie/Mate)",
       "deadline": "iulie 2026",
@@ -8087,7 +8087,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Software Engineer. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8117,7 +8117,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre DevOps și MLOps Engineer. Admitere: concurs (Mate + Fizică).",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -8146,7 +8146,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Specialist Cybersecurity. Admitere: concurs (Mate + Fizică).",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -8175,7 +8175,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Specialist Cybersecurity. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8205,7 +8205,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Game Developer și Game Designer. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8234,7 +8234,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Mobile Developer (iOS. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8263,7 +8263,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Profesor de gimnaziu. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8291,7 +8291,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Profesor universitar. Admitere: concurs (Mate + Fizică).",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -8319,7 +8319,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Profesor universitar. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8347,7 +8347,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Profesor universitar. Admitere: concurs scris (Biologie + Chimie organică).",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -8377,7 +8377,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Arhitect și Urbanist. Admitere: concurs (Mate + Fizică).",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -8406,7 +8406,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Inginer Auto. Admitere: concurs (Mate + Fizică).",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -8435,7 +8435,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre SEO. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8466,7 +8466,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre SEO, Social Media Manager și CRM Specialist. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8495,7 +8495,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Growth Marketer. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8524,7 +8524,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Product Manager. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8553,7 +8553,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Editor. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8582,7 +8582,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Podcaster. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8611,7 +8611,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Podcaster. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8640,7 +8640,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Jurnalist de investigație. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8669,7 +8669,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Antrenor sportiv. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8698,7 +8698,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Traducător. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8727,7 +8727,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Traducător. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8756,7 +8756,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Traducător. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8785,7 +8785,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Fondator e-commerce. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -8813,7 +8813,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Fotograf profesionist. Admitere: probă practică artă (desen + studiu) + dosar.",
     "admission": {
       "exam": "probă practică artă (desen + studiu) + dosar",
       "deadline": "iulie 2026",
@@ -8841,7 +8841,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Fotograf profesionist. Admitere: probă practică artă + dosar.",
     "admission": {
       "exam": "probă practică artă + dosar",
       "deadline": "iulie 2026",
@@ -8870,7 +8870,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Croitor. Admitere: probă practică artă (desen + studiu) + dosar.",
     "admission": {
       "exam": "probă practică artă (desen + studiu) + dosar",
       "deadline": "iulie 2026",
@@ -8899,7 +8899,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Bijutier. Admitere: probă practică artă (desen + studiu) + dosar.",
     "admission": {
       "exam": "probă practică artă (desen + studiu) + dosar",
       "deadline": "iulie 2026",
@@ -8928,7 +8928,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Tâmplar. Admitere: probă practică artă + dosar.",
     "admission": {
       "exam": "probă practică artă + dosar",
       "deadline": "iulie 2026",
@@ -8957,7 +8957,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Inginer agronom. Admitere: dosar + concurs (Biologie/Chimie/Mate).",
     "admission": {
       "exam": "dosar + concurs (Biologie/Chimie/Mate)",
       "deadline": "iulie 2026",
@@ -8986,7 +8986,7 @@
     "tags": [
       "inginerie"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Inginer construcții civile. Admitere: concurs (Mate + Fizică).",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -9016,7 +9016,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Kinetoterapeut și Terapeut ocupațional. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9046,7 +9046,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Asistent social și Specialist protecția copilului. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9076,7 +9076,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Asistent social și Specialist protecția copilului. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9106,7 +9106,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Logoped și Profesor de sprijin. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9136,7 +9136,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Logoped și Profesor de sprijin. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9167,7 +9167,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Biolog, Tehnician laborator medical și Inginer de mediu. Admitere: dosar + concurs (Biologie/Chimie/Mate).",
     "admission": {
       "exam": "dosar + concurs (Biologie/Chimie/Mate)",
       "deadline": "iulie 2026",
@@ -9198,7 +9198,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Biolog, Tehnician laborator medical și Inginer de mediu. Admitere: dosar + concurs (Biologie/Chimie/Mate).",
     "admission": {
       "exam": "dosar + concurs (Biologie/Chimie/Mate)",
       "deadline": "iulie 2026",
@@ -9226,7 +9226,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Biolog. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9255,7 +9255,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Asistent medical veterinar. Admitere: dosar + concurs (Biologie/Chimie/Mate).",
     "admission": {
       "exam": "dosar + concurs (Biologie/Chimie/Mate)",
       "deadline": "iulie 2026",
@@ -9284,7 +9284,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Asistent medical veterinar. Admitere: dosar + concurs (Biologie/Chimie/Mate).",
     "admission": {
       "exam": "dosar + concurs (Biologie/Chimie/Mate)",
       "deadline": "iulie 2026",
@@ -9313,7 +9313,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Contabil și Auditor financiar. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9342,7 +9342,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Agent imobiliar. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9371,7 +9371,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Asistent manager. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9400,7 +9400,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Reprezentant vânzări B2B. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9429,7 +9429,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre QA Engineer. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9459,7 +9459,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Funcționar bancar și Analist financiar. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9489,7 +9489,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Funcționar bancar și Analist financiar. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9519,7 +9519,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v6] Phase 2 schools[]↔programs[] consistency pass — wires existing schools[] mention to canonical programs[] edge.",
+    "notes": "Drum spre Specialist achiziții (Procurement și Planificator logistică. Admitere: dosar (media BAC) + probă specifică unde aplicabil.",
     "admission": {
       "exam": "dosar (media BAC) + probă specifică unde aplicabil",
       "deadline": "iulie 2026",
@@ -9549,7 +9549,7 @@
       "IT",
       "autodidact"
     ],
-    "notes": "[v6] Phase 2 consistency pass — bootcamp track, schools[] mention now wired.",
+    "notes": "Drum spre Freelance Developer. Admitere: test logică + interviu motivațional.",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorte trimestriale)",
@@ -9578,7 +9578,7 @@
       "IT",
       "autodidact"
     ],
-    "notes": "[v6] Phase 2 consistency pass — bootcamp track, schools[] mention now wired.",
+    "notes": "Drum spre Self-taught Engineer. Admitere: test logică + interviu motivațional.",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorte trimestriale)",
@@ -9608,7 +9608,7 @@
       "IT",
       "autodidact"
     ],
-    "notes": "[v6] Phase 2 consistency pass — bootcamp track, schools[] mention now wired.",
+    "notes": "Drum spre Software Engineer și Low-code. Admitere: test logică + interviu motivațional.",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorte trimestriale)",
@@ -9638,7 +9638,7 @@
       "IT",
       "autodidact"
     ],
-    "notes": "[v6] Phase 2 consistency pass — bootcamp track, schools[] mention now wired.",
+    "notes": "Drum spre DevOps și MLOps Engineer. Admitere: test logică + interviu motivațional.",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorte trimestriale)",
@@ -9667,7 +9667,7 @@
       "IT",
       "autodidact"
     ],
-    "notes": "[v6] Phase 2 consistency pass — bootcamp track, schools[] mention now wired.",
+    "notes": "Drum spre Specialist Cybersecurity. Admitere: test logică + interviu motivațional.",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorte trimestriale)",
@@ -9697,7 +9697,7 @@
       "IT",
       "autodidact"
     ],
-    "notes": "[v6] Phase 2 consistency pass — bootcamp track, schools[] mention now wired.",
+    "notes": "Drum spre Game Developer și Game Designer. Admitere: test logică + interviu motivațional.",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorte trimestriale)",
@@ -9726,7 +9726,7 @@
       "IT",
       "autodidact"
     ],
-    "notes": "[v6] Phase 2 consistency pass — bootcamp track, schools[] mention now wired.",
+    "notes": "Drum spre Mobile Developer (iOS. Admitere: test logică + interviu motivațional.",
     "admission": {
       "exam": "test logică + interviu motivațional",
       "deadline": "rolling (cohorte trimestriale)",
@@ -9754,7 +9754,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v6] UMF Craiova — wire schools[] mention.",
+    "notes": "Drum spre Medic generalist. Admitere: concurs scris (Biologie + Chimie organică).",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -9783,7 +9783,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v6] UMF Craiova — wire schools[] mention.",
+    "notes": "Drum spre Medic stomatolog. Admitere: concurs scris (Biologie + Chimie organică).",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -9812,7 +9812,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v6] UMF Craiova — wire schools[] mention.",
+    "notes": "Drum spre Farmacist. Admitere: concurs scris (Biologie + Chimie organică).",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -9841,7 +9841,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v6] UMF Craiova — wire schools[] mention.",
+    "notes": "Drum spre Cosmeticiană. Admitere: concurs scris (Biologie + Chimie organică).",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -9870,7 +9870,7 @@
     "tags": [
       "medicină"
     ],
-    "notes": "[v6] UMF Craiova — wire schools[] mention.",
+    "notes": "Drum spre Tehnician dentar. Admitere: concurs scris (Biologie + Chimie organică).",
     "admission": {
       "exam": "concurs scris (Biologie + Chimie organică)",
       "deadline": "iulie 2026",
@@ -9899,7 +9899,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v6] Privat — wire schools[] mention.",
+    "notes": "Drum spre Brand Manager. Admitere: dosar.",
     "admission": {
       "exam": "dosar",
       "deadline": "septembrie 2026",
@@ -9928,7 +9928,7 @@
     "tags": [
       "business"
     ],
-    "notes": "[v6] Privat — wire schools[] mention.",
+    "notes": "Drum spre Agent imobiliar. Admitere: dosar.",
     "admission": {
       "exam": "dosar",
       "deadline": "septembrie 2026",
@@ -9957,7 +9957,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v6] ANC — wire schools[] mention.",
+    "notes": "Drum spre Frizer (barber). Admitere: înscriere continuă (min. 16-18 ani).",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani)",
       "deadline": "rolling",
@@ -9985,7 +9985,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v6] ANC — wire schools[] mention.",
+    "notes": "Drum spre Manichiuristă. Admitere: înscriere continuă (min. 16-18 ani).",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani)",
       "deadline": "rolling",
@@ -10012,7 +10012,7 @@
     "tags": [
       "frumusețe"
     ],
-    "notes": "[v6] ANC — wire schools[] mention.",
+    "notes": "Drum spre Make-up Artist. Admitere: înscriere continuă (min. 16-18 ani).",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani)",
       "deadline": "rolling",
@@ -10040,7 +10040,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v6] ANC — wire schools[] mention.",
+    "notes": "Drum spre Tatuator. Admitere: înscriere continuă (min. 16-18 ani).",
     "admission": {
       "exam": "înscriere continuă (min. 16-18 ani)",
       "deadline": "rolling",
@@ -10067,7 +10067,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v6] Liceu profesional — wire schools[] mention.",
+    "notes": "Drum spre Sudor (welder). Admitere: admitere computerizată după media clasa 8.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -10096,7 +10096,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v6] Liceu profesional — wire schools[] mention.",
+    "notes": "Drum spre Croitor. Admitere: admitere computerizată după media clasa 8.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -10125,7 +10125,7 @@
     "tags": [
       "meserii"
     ],
-    "notes": "[v6] Liceu profesional — wire schools[] mention.",
+    "notes": "Drum spre Operator CNC. Admitere: admitere computerizată după media clasa 8.",
     "admission": {
       "exam": "admitere computerizată după media clasa 8",
       "deadline": "iulie 2026",
@@ -10155,7 +10155,7 @@
       "antreprenoriat",
       "business"
     ],
-    "notes": "[v6] Accelerator/program — wire schools[] mention.",
+    "notes": "Drum spre Startup Founder. Admitere: aplicație + selecție.",
     "admission": {
       "exam": "aplicație + selecție",
       "deadline": "rolling",
@@ -10184,7 +10184,7 @@
       "antreprenoriat",
       "business"
     ],
-    "notes": "[v6] Accelerator/program — wire schools[] mention.",
+    "notes": "Drum spre Fondator e-commerce. Admitere: aplicație + selecție.",
     "admission": {
       "exam": "aplicație + selecție",
       "deadline": "rolling",
@@ -10212,7 +10212,7 @@
       "antreprenoriat",
       "business"
     ],
-    "notes": "[v6] Accelerator/program — wire schools[] mention.",
+    "notes": "Drum spre Fondator e-commerce. Admitere: aplicație + selecție.",
     "admission": {
       "exam": "aplicație + selecție",
       "deadline": "rolling",
@@ -10242,7 +10242,7 @@
       "antreprenoriat",
       "business"
     ],
-    "notes": "[v6] Accelerator/program — wire schools[] mention.",
+    "notes": "Drum spre Growth Marketer și CRM Specialist. Admitere: aplicație + selecție.",
     "admission": {
       "exam": "aplicație + selecție",
       "deadline": "rolling",
@@ -10270,7 +10270,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v7] AMGD Cluj — formează profesori de muzică pentru gimnaziu/liceu.",
+    "notes": "AMGD Cluj — formează profesori de muzică pentru gimnaziu/liceu.",
     "admission": {
       "exam": "probă practică muzică + dosar",
       "deadline": "iulie 2026",
@@ -10299,7 +10299,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v7] UNMB București — bază pentru profesor de muzică.",
+    "notes": "UNMB București — bază pentru profesor de muzică.",
     "admission": {
       "exam": "probă practică muzică + dosar",
       "deadline": "iulie 2026",
@@ -10328,7 +10328,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v7] George Enescu Iași — singura uni de arte din Moldova; cale către profesor de muzică/arte.",
+    "notes": "George Enescu Iași — singura uni de arte din Moldova; cale către profesor de muzică/arte.",
     "admission": {
       "exam": "probă practică + dosar",
       "deadline": "iulie 2026",
@@ -10357,7 +10357,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v7] UAD Cluj — alternativa clujeană pentru profesor de arte plastice/desen.",
+    "notes": "UAD Cluj — alternativa clujeană pentru profesor de arte plastice/desen.",
     "admission": {
       "exam": "probă practică artă + dosar",
       "deadline": "iulie 2026",
@@ -10387,7 +10387,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v7] U. de Arte Tg. Mureș — cale bilingvă RO/HU spre profesor de arte.",
+    "notes": "U. de Arte Tg. Mureș — cale bilingvă RO/HU spre profesor de arte.",
     "admission": {
       "exam": "probă practică + dosar",
       "deadline": "iulie 2026",
@@ -10416,7 +10416,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v7] UPB are DPPD — profesori de științe exacte pentru liceele de top.",
+    "notes": "UPB are DPPD — profesori de științe exacte pentru liceele de top.",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -10445,7 +10445,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v7] TUIASI — cale spre profesor de mate/info în zona Moldovei.",
+    "notes": "TUIASI — cale spre profesor de mate/info în zona Moldovei.",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -10474,7 +10474,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v7] U. Ovidius Constanța — profesor RO/EN/FR pentru zona litorală.",
+    "notes": "U. Ovidius Constanța — profesor RO/EN/FR pentru zona litorală.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -10503,7 +10503,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v7] U. din Craiova — cale spre profesor în Oltenia, fără să te muți.",
+    "notes": "U. din Craiova — cale spre profesor în Oltenia, fără să te muți.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -10532,7 +10532,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v7] U. din Craiova — profesor de mate/info în sud-vest.",
+    "notes": "U. din Craiova — profesor de mate/info în sud-vest.",
     "admission": {
       "exam": "dosar (media BAC) + concurs Mate",
       "deadline": "iulie 2026",
@@ -10561,7 +10561,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v7] ULBS Sibiu — profesor pentru centrul țării.",
+    "notes": "ULBS Sibiu — profesor pentru centrul țării.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -10590,7 +10590,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v7] U. Transilvania Brașov — profesor în zona Brașovului.",
+    "notes": "U. Transilvania Brașov — profesor în zona Brașovului.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -10619,7 +10619,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v7] UDJG Galați — profesor în sud-estul Moldovei.",
+    "notes": "UDJG Galați — profesor în sud-estul Moldovei.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -10648,7 +10648,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v7] U. din Oradea — profesor pentru zona Crișanei.",
+    "notes": "U. din Oradea — profesor pentru zona Crișanei.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -10677,7 +10677,7 @@
     "tags": [
       "umaniste"
     ],
-    "notes": "[v7] USV Suceava — profesor pentru Bucovina.",
+    "notes": "USV Suceava — profesor pentru Bucovina.",
     "admission": {
       "exam": "dosar (media BAC)",
       "deadline": "iulie 2026",
@@ -10706,7 +10706,7 @@
     "tags": [
       "științe"
     ],
-    "notes": "[v7] UMFST Tg. Mureș — profesor de științe exacte în centru.",
+    "notes": "UMFST Tg. Mureș — profesor de științe exacte în centru.",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -10739,7 +10739,7 @@
       "IT",
       "data"
     ],
-    "notes": "[v7] UPB Calculatoare — bază solidă pentru data science / ML.",
+    "notes": "UPB Calculatoare — bază solidă pentru data science / ML.",
     "admission": {
       "exam": "concurs (Mate + Fizică)",
       "deadline": "iulie 2026",
@@ -10773,7 +10773,7 @@
       "business",
       "data"
     ],
-    "notes": "[v7] ASE — Cibernetică = data science aplicat în business.",
+    "notes": "ASE — Cibernetică = data science aplicat în business.",
     "admission": {
       "exam": "dosar (media BAC) + concurs Mate",
       "deadline": "iulie 2026",
@@ -10806,7 +10806,7 @@
       "IT",
       "data"
     ],
-    "notes": "[v7] UBB — Mate-Info, cea mai bine clasată internațional pentru cale academică spre ML.",
+    "notes": "UBB — Mate-Info, cea mai bine clasată internațional pentru cale academică spre ML.",
     "admission": {
       "exam": "dosar + concurs Mate",
       "deadline": "iulie 2026",
@@ -10837,7 +10837,7 @@
     "tags": [
       "artă"
     ],
-    "notes": "[v7] UNATC — bază tehnică pentru creatori video care vor structură formală.",
+    "notes": "UNATC — bază tehnică pentru creatori video care vor structură formală.",
     "admission": {
       "exam": "probă practică + dosar",
       "deadline": "iulie 2026",
