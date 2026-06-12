@@ -61,7 +61,7 @@ export async function generateMetadata({params}: LocaleLayoutProps): Promise<Met
       siteName: 'Ce Să Fiu?',
       images: [
         {
-          url: `${baseUrl}/og-card.png`,
+          url: `${baseUrl}/og-card-v2.png`,
           width: 1200,
           height: 630,
           alt: title
@@ -74,7 +74,7 @@ export async function generateMetadata({params}: LocaleLayoutProps): Promise<Met
       card: 'summary_large_image',
       title,
       description,
-      images: [`${baseUrl}/og-card.png`]
+      images: [`${baseUrl}/og-card-v2.png`]
     }
   };
 }

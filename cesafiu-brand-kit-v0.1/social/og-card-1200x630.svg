@@ -28,7 +28,8 @@
       <text x="60" y="320" font-family="Epilogue, system-ui, sans-serif" font-weight="900" font-size="92" fill="#111" letter-spacing="-3" data-om-id="51b0d3cd:313">Ce vrei să fii?</text>
       <text x="60" y="410" font-family="Epilogue, system-ui, sans-serif" font-weight="900" font-size="92" fill="#7C3AED" letter-spacing="-3" data-om-id="51b0d3cd:314">Hai să aflăm.</text>
       <!-- Sub-claim -->
-      <text x="60" y="480" font-family="Epilogue, system-ui, sans-serif" font-weight="600" font-size="26" fill="#555" data-om-id="51b0d3cd:315" data-cc-id="cc-6">Test psihometric · 80+ cariere · 95 universități · 6 drumuri de viață</text>
+      <text x="60" y="466" font-family="Epilogue, system-ui, sans-serif" font-weight="600" font-size="26" fill="#555" data-om-id="51b0d3cd:315" data-cc-id="cc-6">Test psihometric · 180+ cariere</text>
+  <text x="60" y="502" font-family="Epilogue, system-ui, sans-serif" font-weight="600" font-size="26" fill="#555" data-cc-id="cc-6b">160+ universități · 6 drumuri de viață</text>
       <!-- Big ? mark, bottom right -->
       <g transform="translate(900 380)" data-om-id="51b0d3cd:316">
         <rect x="0" y="0" width="220" height="220" fill="#111" stroke="#000" stroke-width="3" data-om-id="51b0d3cd:317"/>
