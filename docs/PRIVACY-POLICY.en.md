@@ -35,10 +35,14 @@ When you open the platform and take tests without registering:
 | Your answers to the quiz / personality test / vocational test | **Locally on your device** (localStorage) | To show you results and let you save favourites |
 | Up to 3 "saved" careers (in anonymous mode) | Locally on your device | Discovery — keep your progress without an account |
 | The answers *sent* to our server for score computation | Processed in memory by the `score-quiz` Edge Function (Frankfurt EU), returned immediately | The scoring algorithm runs server-side so we can protect our underlying career/program data |
+| Your "Drumul tău" (Your Journey) progress (checked steps, chosen objective, XP and badges) | **Locally on your device** (localStorage) | To show your progress in the career-exploration journal |
+| The impressions you write after journey steps (free text) | **Only locally on your device** — never sent to any server and never included in analytics | Your personal exploration journal — it reminds you how each experience felt |
 
 **We do not identify you personally** in this mode — we don't know who you are. The answers we send to the server for scoring are NOT saved to a database and are NOT associated with you or with any persistent identifier. Your test history stays on your device until you create an account, are at least 16 (or a parent has confirmed), and explicitly choose to sync.
 
 **Legal basis:** legitimate interest (Art. 6(1)(f) GDPR) — we are responding to your request to see a score; nothing is retained. [TODO: confirm with the lawyer whether this basis or "consent (via click-through to start the quiz)" is preferred.]
+
+**The "Drumul tău" journal — in short:** the steps you check off manually, the impressions you write, and the XP/badges you earn exist **only on your device**. We do not see them, do not send them anywhere, and do not use them for analytics (analytics events record only anonymous facts like "a step was checked", never the text of your impressions). You keep them until: (a) you delete them yourself, using the **"Delete journal and progress"** button on the Journey page, or (b) you clear your browser data. If you switch devices or browsers, the journal does not follow you — there is no copy on our side.
 
 ### 2.2 Data when you create an account
 
@@ -168,6 +172,7 @@ For Google or Apple sign-in, the data exchanged with those providers is addition
 | Paid intents (`paid_intents`) | 24 months or until you unsubscribe | Pre-orders list; storage-limitation principle |
 | Error logs (Sentry) | 30 days (Sentry free plan) | Enough for triage; beyond that, low value |
 | Analytics events (Umami) | 24 months | Medium-term trends; beyond that, no longer useful |
+| The "Drumul tău" journal (checked steps, impressions, XP) | Only on your device, until you delete it in the app or clear browser data | There is no server copy — there is nothing for us to retain or delete |
 
 **[TODO: validate durations with the lawyer.** Default set to 3 years for `consent_records` — aligned with the general Romanian civil limitation (Art. 2517 Civil Code). Confirm whether specific evidence-of-consent obligations require longer.]
 

@@ -1,0 +1,213 @@
+{
+  "_comment": "Drumul tău — path-specific reality-check steps (S3 'Testează realitatea'). Manual, self-reported steps with impression notes. usesInstitutions controls whether the plan section includes university steps.",
+  "facultate": {
+    "usesInstitutions": true,
+    "steps": [
+      {
+        "id": "open-day",
+        "emoji": "🚪",
+        "title": "Mergi la o zi a porților deschise",
+        "title_en": "Go to an open day",
+        "sub": "vezi facultatea pe viu, nu doar pe site",
+        "sub_en": "see the university in person, not just online",
+        "hint": "Caută „porți deschise” + numele facultății. Majoritatea sunt primăvara.",
+        "hint_en": "Search for open days at your saved universities. Most happen in spring."
+      },
+      {
+        "id": "talk-student",
+        "emoji": "💬",
+        "title": "Vorbește cu un student din domeniu",
+        "title_en": "Talk to a student in the field",
+        "sub": "întreabă-l ce l-a surprins în primul an",
+        "sub_en": "ask what surprised them in year one",
+        "hint": "Un cunoscut, un grup de Facebook al facultății sau un student întâlnit la porți deschise.",
+        "hint_en": "A friend, a university Facebook group, or someone you met at an open day."
+      },
+      {
+        "id": "sit-in",
+        "emoji": "📚",
+        "title": "Asistă la un curs sau vizitează campusul",
+        "title_en": "Sit in on a class or visit the campus",
+        "sub": "o oră reală face cât 10 broșuri",
+        "sub_en": "one real hour beats 10 brochures",
+        "hint": "Multe facultăți permit vizite — scrie-le pe mail sau întreabă la porți deschise.",
+        "hint_en": "Many universities allow visits — email them or ask at an open day."
+      }
+    ]
+  },
+  "profesional": {
+    "usesInstitutions": true,
+    "steps": [
+      {
+        "id": "shadow",
+        "emoji": "🏭",
+        "title": "Vizitează un atelier sau o firmă",
+        "title_en": "Visit a workshop or a company",
+        "sub": "o zi de văzut meseria pe viu",
+        "sub_en": "a day watching the trade up close",
+        "hint": "Întreabă la școală de parteneriate duale sau roagă un cunoscut care lucrează în domeniu.",
+        "hint_en": "Ask your school about dual partnerships or ask someone you know in the trade."
+      },
+      {
+        "id": "talk-pro",
+        "emoji": "💬",
+        "title": "Vorbește cu un meseriaș din domeniu",
+        "title_en": "Talk to a professional in the trade",
+        "sub": "program, câștig, cum arată primii ani",
+        "sub_en": "hours, pay, what the first years look like",
+        "hint": "Întreabă-l și ce NU i-a spus nimeni înainte să înceapă.",
+        "hint_en": "Also ask what nobody told them before they started."
+      },
+      {
+        "id": "hands-on",
+        "emoji": "🛠️",
+        "title": "Fă un mini-proiect practic",
+        "title_en": "Do a hands-on mini-project",
+        "sub": "testează dacă îți place lucrul cu mâinile",
+        "sub_en": "test whether you enjoy working with your hands",
+        "hint": "Repară, construiește sau asamblează ceva — contează să termini.",
+        "hint_en": "Fix, build, or assemble something — finishing is what counts."
+      }
+    ]
+  },
+  "autodidact": {
+    "usesInstitutions": false,
+    "steps": [
+      {
+        "id": "course-module",
+        "emoji": "🎓",
+        "title": "Termină un modul dintr-un curs online gratuit",
+        "title_en": "Finish a module of a free online course",
+        "sub": "nu tot cursul — un modul terminat",
+        "sub_en": "not the whole course — one finished module",
+        "hint": "freeCodeCamp, Coursera, Khan Academy, YouTube — alege una și termină primul modul.",
+        "hint_en": "freeCodeCamp, Coursera, Khan Academy, YouTube — pick one and finish module one."
+      },
+      {
+        "id": "mini-project",
+        "emoji": "🧪",
+        "title": "Construiește un mini-proiect",
+        "title_en": "Build a mini-project",
+        "sub": "ceva mic, dar terminat — și al tău",
+        "sub_en": "something small but finished — and yours",
+        "hint": "O pagină web, un script, un design — orice poți arăta cuiva.",
+        "hint_en": "A web page, a script, a design — anything you can show someone."
+      },
+      {
+        "id": "community",
+        "emoji": "👥",
+        "title": "Intră într-o comunitate și pune o întrebare",
+        "title_en": "Join a community and ask a question",
+        "sub": "Discord, Reddit, un grup local",
+        "sub_en": "Discord, Reddit, a local group",
+        "hint": "Autodidacții buni nu învață singuri — învață în public.",
+        "hint_en": "Good self-learners don't learn alone — they learn in public."
+      }
+    ]
+  },
+  "antreprenor": {
+    "usesInstitutions": false,
+    "steps": [
+      {
+        "id": "talk-founder",
+        "emoji": "💬",
+        "title": "Vorbește cu un fondator",
+        "title_en": "Talk to a founder",
+        "sub": "întreabă-l ce nu se vede din afară",
+        "sub_en": "ask what's invisible from the outside",
+        "hint": "Un antreprenor local, un hub de startup-uri sau un eveniment gratuit din orașul tău.",
+        "hint_en": "A local entrepreneur, a startup hub, or a free event in your city."
+      },
+      {
+        "id": "validate",
+        "emoji": "🔍",
+        "title": "Întreabă 5 oameni dacă ar plăti pentru ideea ta",
+        "title_en": "Ask 5 people if they'd pay for your idea",
+        "sub": "feedback real, nu prieteni politicoși",
+        "sub_en": "real feedback, not polite friends",
+        "hint": "Întreabă „ai plăti X lei pentru asta?” — nu „ți se pare o idee bună?”.",
+        "hint_en": "Ask 'would you pay X for this?' — not 'do you like the idea?'."
+      },
+      {
+        "id": "first-sale",
+        "emoji": "💸",
+        "title": "Vinde ceva — orice",
+        "title_en": "Sell something — anything",
+        "sub": "prima vânzare te învață mai mult decât 10 cărți",
+        "sub_en": "the first sale teaches more than 10 books",
+        "hint": "Limonadă, haine vechi pe Vinted, un serviciu mic — contează tranzacția.",
+        "hint_en": "Lemonade, old clothes online, a small service — the transaction is what matters."
+      }
+    ]
+  },
+  "freelance": {
+    "usesInstitutions": false,
+    "steps": [
+      {
+        "id": "portfolio-piece",
+        "emoji": "🎨",
+        "title": "Fă o piesă de portofoliu",
+        "title_en": "Make a portfolio piece",
+        "sub": "ceva ce ai arăta unui client",
+        "sub_en": "something you'd show a client",
+        "hint": "Refă ceva existent mai bine sau inventează un brief — calitatea bate cantitatea.",
+        "hint_en": "Redo something existing, better — or invent a brief. Quality beats quantity."
+      },
+      {
+        "id": "first-gig",
+        "emoji": "🤝",
+        "title": "Ia un mini-proiect real",
+        "title_en": "Take on a real mini-project",
+        "sub": "chiar și gratuit, pentru cineva cunoscut",
+        "sub_en": "even free, for someone you know",
+        "hint": "Un logo pentru clubul școlii, un site pentru un vecin — un client real, cu păreri reale.",
+        "hint_en": "A logo for a school club, a site for a neighbor — a real client with real opinions."
+      },
+      {
+        "id": "talk-freelancer",
+        "emoji": "💬",
+        "title": "Vorbește cu un freelancer activ",
+        "title_en": "Talk to an active freelancer",
+        "sub": "întreabă-l cum își găsește clienții",
+        "sub_en": "ask how they find clients",
+        "hint": "Întreabă și de partea grea: facturi, perioade fără proiecte, clienți dificili.",
+        "hint_en": "Ask about the hard parts too: invoices, dry spells, difficult clients."
+      }
+    ]
+  },
+  "creator": {
+    "usesInstitutions": false,
+    "steps": [
+      {
+        "id": "publish-3",
+        "emoji": "📣",
+        "title": "Publică 3 postări pe aceeași temă",
+        "title_en": "Publish 3 posts on one theme",
+        "sub": "consistența bate viralul",
+        "sub_en": "consistency beats going viral",
+        "hint": "Aceeași temă, aceeași platformă, o săptămână — vezi dacă îți place procesul.",
+        "hint_en": "Same theme, same platform, one week — see if you enjoy the process."
+      },
+      {
+        "id": "read-stats",
+        "emoji": "📊",
+        "title": "Uită-te la statistici și notează ce a mers",
+        "title_en": "Check your stats and note what worked",
+        "sub": "datele îți arată ce vrea audiența",
+        "sub_en": "the data shows what your audience wants",
+        "hint": "Care postare a mers cel mai bine? De ce crezi? Scrie în notițe.",
+        "hint_en": "Which post did best? Why do you think so? Write it in your notes."
+      },
+      {
+        "id": "talk-creator",
+        "emoji": "💬",
+        "title": "Vorbește cu un creator cu audiență",
+        "title_en": "Talk to a creator with an audience",
+        "sub": "întreabă-l cât a durat până la primii 1.000",
+        "sub_en": "ask how long their first 1,000 took",
+        "hint": "Un DM sincer și scurt primește răspuns mai des decât crezi.",
+        "hint_en": "A short, honest DM gets answered more often than you'd think."
+      }
+    ]
+  }
+}

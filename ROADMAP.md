@@ -71,10 +71,12 @@ Triggered only when Phase 1 retention numbers justify it. Lives behind auth.
 **2.1 — "Drumul tău" module** (replaces the current `Vibe-uri` placeholder)
 - For each saved career: 3 dated milestones, 1 reality-check challenge, 2 adjacent path hints.
 - Notifications timed to real deadlines (Bac, admission windows, days-of-open-doors) — not streaks.
+- **Update 2026-06-12:** v1 shipped as `/drum` (see `docs/JOURNEY-DRUMUL-TAU-PLAN.md`), without auth and without notifications. Dated-milestone notifications remain the Phase 2 follow-up; v1's deadline touchpoint is the "Verifică admiterea" step.
 
 **2.2 — Reality-check challenges**
 - "Vorbește cu cineva care face asta — iată scriptul. Încarcă o poză cu notele tale. Scrie 3 lucruri pe care nu le-ai știut."
 - Gamification's useful skeleton without XP/streak cosplay.
+- **Update 2026-06-12:** implemented as the journey's S3 (per-path manual steps + impression notes). The "no XP" stance is explicitly superseded: `/drum` uses cosmetic, lifetime XP derived from real actions — still no streaks, daily goals, or loss mechanics. Rationale in `docs/JOURNEY-DRUMUL-TAU-PLAN.md` §3.
 
 **2.3 — Adjacency hints**
 - For every saved career: 2-3 "vecine" so kids have permission to change their mind without leaving the app.

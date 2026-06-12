@@ -35,10 +35,14 @@ Când deschizi platforma și răspunzi la teste fără să te înregistrezi:
 | Răspunsurile la quiz / test de personalitate / test vocațional | **Local pe dispozitivul tău** (localStorage) | Ca să-ți arătăm rezultate și să-ți poți salva favoritele |
 | Până la 3 cariere "salvate" (în modul anonim) | Local pe dispozitivul tău | Discovery — să-ți păstrăm progresul fără cont |
 | Răspunsurile *trimise* la serverul nostru pentru calcularea scorului | Procesate în memorie de Edge Function `score-quiz` (Frankfurt UE), returnate imediat | Algoritmul de scoring rulează server-side ca să protejăm baza noastră de date privind cariere și școli |
+| Progresul tău pe „Drumul tău" (pași bifați, obiectivul ales, XP și insigne) | **Local pe dispozitivul tău** (localStorage) | Ca să-ți arătăm progresul în jurnalul de explorare a carierei |
+| Impresiile scrise de tine după pașii din „Drumul tău" (text liber) | **Doar local pe dispozitivul tău** — nu sunt trimise niciodată la server și nu apar în analytics | Jurnalul tău personal de explorare — îți amintește ce ai simțit la fiecare experiență |
 
 **Nu te identificăm personal** în acest mod — nu știm cine ești. Răspunsurile pe care le trimitem la server pentru scoring NU sunt salvate într-o bază de date și NU sunt asociate cu tine sau cu un identificator persistent. Tot istoricul testelor rămâne pe dispozitivul tău până când îți creezi cont, ai cel puțin 16 ani (sau părintele a confirmat) și alegi explicit să sincronizezi.
 
 **Temei juridic:** interes legitim (Art. 6(1)(f) GDPR) — răspunzi la cererea ta de a vedea un scor; nu păstrăm urma. [TODO: confirmă cu avocatul dacă acest temei sau "consimțământ" prin clic pe "Start quiz" este preferat.]
+
+**Jurnalul „Drumul tău" — pe scurt:** pașii pe care îi bifezi manual, impresiile pe care le scrii și XP-ul/insignele câștigate există **numai pe dispozitivul tău**. Nu le vedem, nu le trimitem nicăieri, nu le folosim pentru analytics (evenimentele analitice înregistrează doar fapte anonime de tip „un pas a fost bifat", niciodată textul impresiilor). Le păstrezi până când: (a) le ștergi tu, cu butonul **„Șterge jurnalul și progresul"** de pe pagina Drumul tău, sau (b) cureți datele browserului. Dacă schimbi dispozitivul sau browserul, jurnalul nu te urmează — nu există o copie la noi.
 
 ### 2.2 Date când îți creezi cont
 
@@ -168,6 +172,7 @@ Pentru autentificarea cu Google sau Apple, datele schimbate cu acești furnizori
 | Intenții de plată (`paid_intents`) | 24 de luni sau până te dezabonezi | Lista pre-comenzi; principiu storage limitation |
 | Loguri de eroare (Sentry) | 30 zile (plan free Sentry) | Suficient pentru triaj; dincolo de asta, valoare scăzută |
 | Evenimente analitice (Umami) | 24 de luni | Tendințe pe termen mediu, dincolo nu mai e util |
+| Jurnalul „Drumul tău" (pași bifați, impresii, XP) | Doar pe dispozitivul tău, până când îl ștergi din aplicație sau cureți datele browserului | Nu există copie pe server — nu avem ce păstra sau șterge noi |
 
 **[TODO: validează duratele cu avocatul.** Implicit setat la 3 ani pentru `consent_records` — alinierea cu termenul general de prescripție civilă (Art. 2517 Cod Civil RO). Confirmă dacă obligațiile specifice de probă cer un termen mai lung.]
 

@@ -9,6 +9,7 @@ import ShareableCard from '@/components/results/shareable-card';
 import ShareableCardModal from '@/components/results/shareable-card-modal';
 import ThemeToggle from '@/components/theme-toggle';
 import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
+import {useJourneyStore} from '@/stores/journey-store';
 import type {Institution, Program} from '@/lib/careers/types';
 import type {CareerMatch, MatchResult, NextTestSuggestion, UserProfile} from '@/lib/matcher';
 import {WORLDS, type WorldId} from '@/lib/results/worlds';
@@ -131,6 +132,7 @@ function topRiasecCodes(riasec: Record<string, number>): string[] {
 export default function ResultsClient({institutions, locale, programs}: ResultsClientProps) {
   const t = useTranslations('rezultate');
   const {isSaved, toggleSaveCareer, profile} = useAuthGate();
+  const markShareCardSeen = useJourneyStore((state) => state.markShareCardSeen);
   const [status, setStatus] = useState<'loading' | 'no-data' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
   // Share-first modal: auto-opens once per user, then can be re-triggered manually.
@@ -683,7 +685,11 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
           top3={others.length > 0
             ? [{name: top.career.name, score: top.score}, ...others.slice(0, 2).map((m) => ({name: m.career.name, score: m.score}))]
             : [{name: top.career.name, score: top.score}]}
-          onUserAction={() => setDidShareInModal(true)}
+          onUserAction={() => {
+            setDidShareInModal(true);
+            // Journey signal: sharing the card completes the "show a parent" step.
+            markShareCardSeen();
+          }}
         />
       </ShareableCardModal>
     </main>

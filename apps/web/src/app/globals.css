@@ -6267,3 +6267,869 @@ h1 {
     height: 48px;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Drumul tău — gamified journey (/drum)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.journeyPage {
+  min-height: 100vh;
+  padding-bottom: 108px;
+}
+
+.journeyCanvas {
+  width: min(100%, 760px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 18px 20px 28px;
+  background:
+    radial-gradient(circle, var(--grid-line) 1px, transparent 1.4px),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    var(--sheet);
+  background-size: 12px 12px, 42px 42px, 42px 42px, auto;
+}
+
+.journeyLoading {
+  padding: 48px 0;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.journeyHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.journeyHeader h1 {
+  margin: 0 0 4px;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.journeyHeader p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+/* ── Objective card ── */
+
+.journeyObjectiveCard {
+  position: relative;
+  padding: 16px;
+  border: 3px solid #000;
+  box-shadow: 6px 6px 0 #000;
+  background: var(--purple);
+  color: var(--on-accent);
+  margin-bottom: 14px;
+}
+
+.journeyObjectiveLabel {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  color: var(--yellow);
+}
+
+.journeyObjectiveRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.journeyObjectiveEmoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  font-size: 24px;
+  background: var(--surface);
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 #000;
+  transform: rotate(-3deg);
+}
+
+.journeyObjectiveCopy {
+  min-width: 0;
+}
+
+.journeyObjectiveCopy strong {
+  display: block;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 20px;
+  line-height: 1.05;
+}
+
+.journeyObjectiveCopy small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.journeyObjectiveEmpty {
+  margin: 10px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.journeyProgressRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.journeyProgressTrack {
+  flex: 1;
+  height: 14px;
+  border: 2px solid #000;
+  background: rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.journeyProgressFill {
+  height: 100%;
+  background: var(--green);
+  border-right: 2px solid #000;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.journeyXpPill {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border: 2px solid #000;
+  background: #000;
+  color: var(--yellow);
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* ── Badge shelf ── */
+
+.journeyBadgeRow {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin-bottom: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.journeyBadgeLabel {
+  align-self: center;
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: var(--ink-soft);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.journeyBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 64px;
+  padding: 8px 6px;
+  border: 2px dashed var(--ink-soft);
+  background: transparent;
+  color: var(--ink-soft);
+  opacity: 0.55;
+}
+
+.journeyBadge i {
+  font-style: normal;
+  font-size: 20px;
+  filter: grayscale(1);
+}
+
+.journeyBadge small {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.journeyBadge.isEarned {
+  border: 2px solid #000;
+  background: var(--yellow);
+  color: var(--ink-on-bright);
+  box-shadow: 3px 3px 0 #000;
+  opacity: 1;
+  transform: rotate(-1.5deg);
+  animation: journeyBadgePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.journeyBadge.isEarned i {
+  filter: none;
+}
+
+@keyframes journeyBadgePop {
+  0% { transform: scale(0.6) rotate(-8deg); }
+  70% { transform: scale(1.12) rotate(0.5deg); }
+  100% { transform: scale(1) rotate(-1.5deg); }
+}
+
+/* ── Sections + path ── */
+
+.journeySection {
+  margin-bottom: 8px;
+}
+
+.journeySectionLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 12px;
+}
+
+.journeySectionLabel i {
+  flex: 1;
+  height: 2px;
+  background: var(--ink-soft);
+  opacity: 0.35;
+}
+
+.journeySectionLabel span {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  color: var(--ink-soft);
+}
+
+.journeyRealityLead {
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.journeyStepRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.journeyNode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 99px;
+  border: 2.5px solid #000;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.journeyNode:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+
+.journeyNode.isDone {
+  background: var(--green);
+  color: #15110d;
+}
+
+.journeyNode.isCurrent {
+  background: var(--purple);
+  color: var(--on-accent);
+  animation: journeyNodePulse 1.6s ease-in-out infinite;
+}
+
+.journeyNode.isLocked {
+  opacity: 0.55;
+  box-shadow: 2px 2px 0 #000;
+  cursor: not-allowed;
+}
+
+.journeyNode.isManual:not(.isDone) {
+  border-style: dashed;
+}
+
+.journeyNode.isJustDone {
+  animation: journeyStampIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes journeyNodePulse {
+  0%, 100% { box-shadow: 4px 4px 0 #000, 0 0 0 0 rgba(107, 56, 212, 0.45); }
+  50% { box-shadow: 4px 4px 0 #000, 0 0 0 10px rgba(107, 56, 212, 0); }
+}
+
+@keyframes journeyStampIn {
+  0% { transform: scale(0.55) rotate(-12deg); }
+  65% { transform: scale(1.18) rotate(3deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.journeyStepBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.journeyStepCard {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  border: 2.5px solid #000;
+  background: var(--surface);
+  box-shadow: 2px 2px 0 #000;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.journeyStepCard.isCurrent {
+  background: var(--yellow);
+  color: var(--ink-on-bright);
+  box-shadow: 4px 4px 0 #000;
+}
+
+.journeyStepCard.isDone {
+  background: var(--surface);
+  border-color: #000;
+  box-shadow: 4px 4px 0 var(--green);
+}
+
+.journeyStepCard.isLocked {
+  opacity: 0.6;
+}
+
+.journeyStepCard.isJustDone {
+  animation: journeyCardFlash 0.9s ease-out;
+}
+
+@keyframes journeyCardFlash {
+  0% { background: var(--green); }
+  100% { background: var(--surface); }
+}
+
+.journeyStepHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.journeyStepHead strong {
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+.journeyXpChip {
+  flex-shrink: 0;
+  padding: 2px 6px;
+  border: 1.5px solid #000;
+  background: var(--green);
+  color: #15110d;
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.journeyNowChip {
+  flex-shrink: 0;
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--ink-on-bright);
+}
+
+.journeyStepSub {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.journeyStepCard.isCurrent .journeyStepSub {
+  color: var(--ink-on-bright);
+  opacity: 0.75;
+}
+
+.journeyStepNote {
+  display: block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1.5px dashed var(--ink-soft);
+}
+
+.journeyStepNote q {
+  display: block;
+  quotes: "„" "”";
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.journeyStepNote small {
+  display: block;
+  margin-top: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+/* ── Manual step expand panel ── */
+
+.journeyManualPanel {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border: 2px dashed #000;
+  background: var(--surface-frost);
+  animation: journeySlideDown 0.2s ease-out;
+}
+
+@keyframes journeySlideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.journeyManualPanel p {
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+
+.journeyManualPanel p strong {
+  color: var(--ink);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.journeyMarkDoneBtn {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2.5px solid #000;
+  background: var(--green);
+  color: #15110d;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.journeyMarkDoneBtn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #000;
+}
+
+/* ── Gated reality section ── */
+
+.journeyGatedCard {
+  padding: 18px 16px;
+  border: 2.5px dashed var(--ink-soft);
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.journeyGatedCard span {
+  font-size: 26px;
+}
+
+.journeyGatedCard strong {
+  display: block;
+  margin-top: 6px;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.journeyGatedCard p {
+  margin: 6px auto 12px;
+  max-width: 40ch;
+  font-size: 12.5px;
+}
+
+.journeyGatedCta {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 2.5px solid #000;
+  background: var(--yellow);
+  color: var(--ink-on-bright);
+  font-weight: 900;
+  font-size: 13px;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 #000;
+}
+
+/* ── Milestones + finish ── */
+
+.journeyMilestone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 6px;
+  padding: 12px 16px;
+  border: 2.5px dashed var(--ink-soft);
+  color: var(--ink-soft);
+  opacity: 0.65;
+}
+
+.journeyMilestone span {
+  font-size: 20px;
+}
+
+.journeyMilestone small {
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  opacity: 0.75;
+}
+
+.journeyMilestone strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.journeyMilestone em {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.journeyMilestone.isDone {
+  border: 2.5px dashed #000;
+  background: var(--green);
+  color: #15110d;
+  opacity: 1;
+}
+
+.journeyFinishWrap {
+  padding: 14px 0 8px;
+  text-align: center;
+}
+
+.journeyFinish {
+  display: inline-block;
+  padding: 14px 22px;
+  border: 3px solid #000;
+  background: var(--surface);
+  color: var(--ink-soft);
+  box-shadow: 6px 6px 0 #000;
+  transform: rotate(-2deg);
+}
+
+.journeyFinish strong {
+  display: block;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.journeyFinish small {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.journeyFinish.isDone {
+  background: var(--yellow);
+  color: var(--ink-on-bright);
+  animation: journeyStampIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Reward toasts ── */
+
+.journeyToastStack {
+  position: fixed;
+  left: 50%;
+  bottom: 96px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.journeyToast {
+  padding: 8px 16px;
+  border: 2.5px solid #000;
+  background: #000;
+  color: var(--yellow);
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+  animation: journeyToastIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), journeyToastOut 0.3s ease-in 2.8s forwards;
+}
+
+.journeyToast.is-badge {
+  background: var(--purple);
+  color: var(--on-accent);
+}
+
+.journeyToast.is-complete {
+  background: var(--yellow);
+  color: var(--ink-on-bright);
+  font-size: 16px;
+}
+
+@keyframes journeyToastIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.8); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes journeyToastOut {
+  to { opacity: 0; transform: translateY(8px); }
+}
+
+/* ── Confetti (CSS-only) ── */
+
+.journeyConfetti {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.journeyConfetti i {
+  position: absolute;
+  top: -16px;
+  width: 10px;
+  height: 14px;
+  background: var(--green);
+  border: 1.5px solid #000;
+  animation: journeyConfettiFall 2.4s ease-in forwards;
+}
+
+.journeyConfetti i:nth-child(3n) { background: var(--yellow); }
+.journeyConfetti i:nth-child(3n + 1) { background: var(--purple); }
+.journeyConfetti i:nth-child(2n) { width: 8px; height: 10px; }
+
+@keyframes journeyConfettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(540deg); opacity: 0.7; }
+}
+
+/* ── Impression note sheet ── */
+
+.journeySheetBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  animation: journeyFadeIn 0.2s ease-out;
+}
+
+@keyframes journeyFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.journeySheet {
+  position: relative;
+  width: min(100%, 520px);
+  padding: 20px 20px 16px;
+  border: 3px solid #000;
+  border-bottom: none;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 -6px 0 rgba(0, 0, 0, 0.4);
+  animation: journeySheetUp 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes journeySheetUp {
+  from { transform: translateY(40%); }
+  to { transform: translateY(0); }
+}
+
+.journeySheetClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border: 2px solid #000;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.journeySheetStep {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1.5px solid #000;
+  background: var(--green);
+  color: #15110d;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.journeySheet h2 {
+  margin: 10px 0 4px;
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 22px;
+}
+
+.journeySheet p {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.journeySheet textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2.5px solid #000;
+  background: var(--surface-frost);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.journeySheet textarea:focus {
+  outline: 3px solid var(--purple);
+  outline-offset: 1px;
+}
+
+.journeySheetActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.journeySheetSave {
+  flex: 1;
+  padding: 12px;
+  border: 2.5px solid #000;
+  background: var(--purple);
+  color: var(--on-accent);
+  font-family: "Arial Black", "Epilogue", Impact, ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.journeySheetSkip {
+  padding: 12px 16px;
+  border: 2.5px solid #000;
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.journeySheetUndo {
+  display: block;
+  margin: 12px auto 0;
+  padding: 4px 8px;
+  border: none;
+  background: none;
+  color: var(--ink-soft);
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ── Reduced motion ── */
+
+@media (prefers-reduced-motion: reduce) {
+  .journeyNode.isCurrent,
+  .journeyNode.isJustDone,
+  .journeyBadge.isEarned,
+  .journeyStepCard.isJustDone,
+  .journeyFinish.isDone,
+  .journeyToast,
+  .journeyConfetti i,
+  .journeySheet,
+  .journeySheetBackdrop,
+  .journeyManualPanel {
+    animation: none;
+  }
+
+  .journeyProgressFill {
+    transition: none;
+  }
+}
+
+/* ── Wider screens ── */
+
+@media (min-width: 768px) {
+  .journeyCanvas {
+    width: min(100%, 920px);
+    min-height: auto;
+    padding: 28px 32px 36px;
+  }
+}
+
+/* ── Career page: objective #1 CTA ── */
+
+.careerObjectiveBtn {
+  background: var(--purple);
+  color: var(--on-accent);
+  margin-bottom: 8px;
+}
+
+.careerObjectiveBtn.isSet {
+  background: var(--yellow);
+  color: var(--ink-on-bright);
+}
+
+/* ── Journey: safety note + reset ── */
+
+.journeySafetyNote {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border: 1.5px dashed var(--ink-soft);
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+
+.journeyResetWrap {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.journeyResetBtn {
+  padding: 6px 10px;
+  border: none;
+  background: none;
+  color: var(--ink-soft);
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}

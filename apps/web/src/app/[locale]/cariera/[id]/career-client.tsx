@@ -5,6 +5,8 @@ import ThemeToggle from '@/components/theme-toggle';
 import {useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {useAuthGate} from '@/components/auth/auth-provider';
+import {trackEvent} from '@/lib/analytics/umami';
+import {useJourneyStore} from '@/stores/journey-store';
 import type {Career} from '@/lib/matcher';
 import type {Program, Institution} from '@/lib/careers/types';
 
@@ -43,6 +45,28 @@ export default function CareerClient({career, locale, programs}: CareerClientPro
   const [tab, setTab] = useState<Tab>('day');
   const {isSaved, toggleSaveCareer} = useAuthGate();
   const saved = isSaved(career.id);
+  const chosenCareerId = useJourneyStore((state) => state.chosenCareerId);
+  const setChosenCareer = useJourneyStore((state) => state.setChosenCareer);
+  const isObjective = chosenCareerId === career.id;
+
+  function toggleObjective() {
+    const next = isObjective ? null : career.id;
+    setChosenCareer(next);
+    trackEvent('journey_objective_set', {career: career.id, set: Boolean(next)});
+    // Making a career your objective also saves it (it shouldn't vanish from saved lists).
+    if (next && !saved) void toggleSaveCareer(career.id);
+  }
+
+  function toggleSave() {
+    // Unsaving the career that is the current objective also clears the
+    // objective — otherwise the journey would point at a career the student
+    // explicitly removed.
+    if (saved && isObjective) {
+      setChosenCareer(null);
+      trackEvent('journey_objective_set', {career: career.id, set: false});
+    }
+    void toggleSaveCareer(career.id);
+  }
   const heroColor = CAREER_COLORS[career.color] ?? 'var(--purple)';
   const heroTextColor = career.color === 'purple' ? '#fff' : 'var(--ink-on-bright)';
 
@@ -65,7 +89,7 @@ export default function CareerClient({career, locale, programs}: CareerClientPro
               <ThemeToggle />
               <button
                 className="button careerSaveBtn"
-                onClick={() => toggleSaveCareer(career.id)}
+                onClick={toggleSave}
                 style={{background: saved ? '#000' : 'var(--surface)', color: saved ? 'var(--green)' : 'var(--ink)'}}
                 aria-label={saved ? t('saveBtnUnsave') : t('saveBtnSave')}
               >
@@ -228,9 +252,15 @@ export default function CareerClient({career, locale, programs}: CareerClientPro
 
         <div className="careerActions">
           <button
+            className={isObjective ? 'button buttonPrimary careerPrimaryAction careerObjectiveBtn isSet' : 'button buttonPrimary careerPrimaryAction careerObjectiveBtn'}
+            onClick={toggleObjective}
+          >
+            {isObjective ? t('objectiveCTADone') : t('objectiveCTA')}
+          </button>
+          <button
             className="button buttonPrimary careerPrimaryAction"
-            style={{background: saved ? 'var(--green)' : '#000', color: saved ? '#000' : '#fff'}}
-            onClick={() => toggleSaveCareer(career.id)}
+            style={{background: saved ? 'var(--green)' : '#000', color: saved ? '#000' : 'var(--on-accent)'}}
+            onClick={toggleSave}
           >
             {saved ? t('saveCTADone') : t('saveCTA')}
           </button>

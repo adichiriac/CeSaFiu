@@ -10,6 +10,8 @@ import type {Career} from '@/lib/matcher';
 import type {Institution, PathEntry, Program} from '@/lib/careers/types';
 import {CAREER_WORLDS} from '@/lib/results/career-worlds';
 import {WORLD_IDS, WORLDS, type WorldId} from '@/lib/results/worlds';
+import {useJourneyStore} from '@/stores/journey-store';
+import {useUniStore} from '@/stores/uni-store';
 
 type BrowseClientProps = {
   careers: Career[];
@@ -76,20 +78,8 @@ const CITY_PRIORITY = [
 const PATH_COLORS: Record<string, string> = {
   purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)',
 };
-const SAVED_UNI_KEY = 'cesafiu:saved-universities';
-
 function parseSection(value: string | null): Section {
   return value === 'careers' || value === 'paths' || value === 'unis' ? value : 'unis';
-}
-
-function readSavedUniIds() {
-  if (typeof window === 'undefined') return [];
-  try {
-    const raw = window.localStorage.getItem(SAVED_UNI_KEY);
-    return raw ? (JSON.parse(raw) as string[]) : [];
-  } catch {
-    return [];
-  }
 }
 
 function uniLinkFor(uni: Institution) {
@@ -428,8 +418,15 @@ function UnisBrowse({
   const [city, setCity] = useState('all');
   const [tag, setTag] = useState('all');
   const [selectedUniId, setSelectedUniId] = useState<string | null>(null);
-  const [savedUniIds, setSavedUniIds] = useState<string[]>(() => readSavedUniIds());
+  const {savedUniIds, toggleUni} = useUniStore();
+  const markAdmissionViewed = useJourneyStore((s) => s.markAdmissionViewed);
   const careersById = useMemo(() => Object.fromEntries(careers.map((career) => [career.id, career])), [careers]);
+
+  // Journey signal: record which uni details were opened. "Verifică admiterea"
+  // completes only when a VIEWED uni is also SAVED (intersection at derive time).
+  useEffect(() => {
+    if (selectedUniId) markAdmissionViewed(selectedUniId);
+  }, [selectedUniId, markAdmissionViewed]);
 
   const cities = [
     'all',
@@ -449,16 +446,6 @@ function UnisBrowse({
     return true;
   });
 
-  function toggleSavedUni(uniId: string) {
-    setSavedUniIds((ids) => {
-      const next = ids.includes(uniId) ? ids.filter((id) => id !== uniId) : [...ids, uniId];
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem(SAVED_UNI_KEY, JSON.stringify(next));
-      }
-      return next;
-    });
-  }
-
   const selectedUni = selectedUniId ? institutions.find((uni) => uni.id === selectedUniId) : null;
 
   if (selectedUni) {
@@ -467,7 +454,7 @@ function UnisBrowse({
         careersById={careersById}
         isSaved={savedUniIds.includes(selectedUni.id)}
         onBack={() => setSelectedUniId(null)}
-        onSave={() => toggleSavedUni(selectedUni.id)}
+        onSave={() => toggleUni(selectedUni.id)}
         programs={programs.filter((program) => program.universityId === selectedUni.id)}
         t={t}
         uni={selectedUni}

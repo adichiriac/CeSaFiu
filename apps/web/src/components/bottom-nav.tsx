@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {useEffect, useRef, useState} from 'react';
 import {useTranslations} from 'next-intl';
 
-type BottomNavSection = 'tests' | 'explore' | 'results' | 'saved';
+type BottomNavSection = 'tests' | 'explore' | 'journey' | 'results' | 'saved';
 
 type BottomNavProps = {
   active: BottomNavSection;
@@ -62,6 +62,14 @@ export default function BottomNav({active, locale}: BottomNavProps) {
       >
         <span className="browseBottomIcon">⌕</span>
         <span>{t('navExplore')}</span>
+      </Link>
+      <Link
+        aria-current={active === 'journey' ? 'page' : undefined}
+        className={active === 'journey' ? 'browseBottomItem isActive' : 'browseBottomItem'}
+        href={`/${locale}/drum`}
+      >
+        <span className="browseBottomIcon">⚑</span>
+        <span>{t('navJourney')}</span>
       </Link>
       <Link
         aria-current={active === 'results' ? 'page' : undefined}

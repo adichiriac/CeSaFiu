@@ -6,6 +6,8 @@ import Link from 'next/link';
 import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {buildMatchRequest, readStoredResults, useQuizStore} from '@/stores/quiz-store';
+import {useJourneyStore} from '@/stores/journey-store';
+import {useUniStore} from '@/stores/uni-store';
 import {useAuthGate} from '@/components/auth/auth-provider';
 import ReferralStatsCard from '@/components/referrals/referral-stats-card';
 import type {Institution, PathEntry} from '@/lib/careers/types';
@@ -45,20 +47,9 @@ const CAREER_COLORS: Record<string, string> = {
   green: 'var(--green)',
 };
 const BIG5_KEYS = ['O', 'C', 'E', 'A', 'N'] as const;
-const SAVED_UNI_KEY = 'cesafiu:saved-universities';
 
 function browseHref(locale: string, section: 'careers' | 'paths' | 'unis') {
   return `/${locale}/browse?section=${section}`;
-}
-
-function readSavedUniIds() {
-  if (typeof window === 'undefined') return [];
-  try {
-    const raw = window.localStorage.getItem(SAVED_UNI_KEY);
-    return raw ? (JSON.parse(raw) as string[]) : [];
-  } catch {
-    return [];
-  }
 }
 
 function topEntries(tally: Record<string, number> | undefined, limit: number) {
@@ -75,14 +66,13 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
   const [status, setStatus] = useState<'loading' | 'empty' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
   const [completedTests, setCompletedTests] = useState(0);
-  const [savedUniIds, setSavedUniIds] = useState<string[]>([]);
+  const savedUniIds = useUniStore((state) => state.savedUniIds);
   const [constructsOpen, setConstructsOpen] = useState(false);
 
   useEffect(() => {
     const stored = readStoredResults();
     const hasAny = Object.values(stored).some(Boolean);
     setCompletedTests(Object.values(stored).filter(Boolean).length);
-    setSavedUniIds(readSavedUniIds());
 
     if (!hasAny) {
       setStatus('empty');
@@ -413,9 +403,14 @@ function ParentShareCard({
   savedCount: number;
   t: ProfileTFunc;
 }) {
+  const markShareCardSeen = useJourneyStore((state) => state.markShareCardSeen);
+
   function shareProfile() {
     const url = `${window.location.origin}/${locale}/profil`;
     const text = t('parentShareText', {career: careerName, count: savedCount, url});
+
+    // Journey signal: sharing with a parent completes the last journey step.
+    markShareCardSeen();
 
     if (navigator.share) {
       void navigator.share({text, url}).catch(() => undefined);
@@ -426,7 +421,7 @@ function ParentShareCard({
   }
 
   return (
-    <section className="profileSection">
+    <section className="profileSection" id="parent-share">
       <div className="profileParentShareCard">
         <div className="profileParentShareBadge">{t('parentShareBadge')}</div>
         <h2>{t('parentShareTitle')}</h2>
