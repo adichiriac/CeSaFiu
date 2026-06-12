@@ -146,6 +146,38 @@ setupChecklist({
   progressLabel: "resolved",
 });
 
+const checkinButton = document.querySelector("#checkin-48");
+const checkinCountdown = document.querySelector("#checkin-countdown");
+
+// Wizz Air online check-in opens exactly 48h before departure:
+// flight W4 3671 leaves Iași on 20 Jun 2026 at 06:00 (EEST, UTC+3).
+const checkinOpensAt = new Date("2026-06-18T06:00:00+03:00").getTime();
+
+function updateCheckinButton() {
+  const remaining = checkinOpensAt - Date.now();
+
+  if (remaining <= 0) {
+    checkinButton.classList.add("is-live");
+    checkinButton.removeAttribute("aria-disabled");
+    checkinCountdown.textContent = "Check in now ✈";
+    return;
+  }
+
+  const days = Math.floor(remaining / 86400000);
+  const hours = Math.floor((remaining % 86400000) / 3600000);
+  const minutes = Math.floor((remaining % 3600000) / 60000);
+  checkinCountdown.textContent =
+    days > 0
+      ? `48h · opens in ${days}d ${hours}h ${minutes}m`
+      : `48h · opens in ${hours}h ${minutes}m`;
+
+  window.setTimeout(updateCheckinButton, 30000);
+}
+
+if (checkinButton && checkinCountdown) {
+  updateCheckinButton();
+}
+
 setupChecklist({
   selector: "[data-packing]",
   itemKey: "packing",
