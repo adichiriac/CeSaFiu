@@ -26,7 +26,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "AI engineering is becoming a mainstream extension of software/data roles, with strong EU future signal.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "data-engineer",
@@ -51,7 +51,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Distinct from Data Scientist: pipelines, warehouses, cloud data platforms, and analytics infrastructure.",
-    "reviewStatus": "promote",
+    "reviewStatus": "promoted",
     "reviewNote": "promoveaza daca gasim 2 programe reale în RO; altfel merge cu Data Scientist"
   },
   {
@@ -102,7 +102,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "More technical than data science; needs engineering, maths, and model deployment.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "mlops-engineer",
@@ -127,7 +127,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Emerging hybrid of DevOps, data engineering, and AI model operations.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "robotics-engineer",
@@ -153,7 +153,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Relevant for automotive, manufacturing automation, logistics, and future robotics adoption.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "ux-researcher",
@@ -178,7 +178,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Distinct from Product Designer: research, interviews, usability tests, behaviour evidence.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "technical-writer",
@@ -228,7 +228,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Accessible route into automation and internal tools for non-CS students.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "sap-erp-consultant",
@@ -252,7 +252,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Common enterprise role in shared services, consulting, finance, logistics, and manufacturing.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "radiology-technician",
@@ -278,7 +278,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Healthcare demand with a technical profile and clearer route than medical school.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "medical-lab-technician",
@@ -302,7 +302,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Practical healthcare role with stable demand and strong fit for precise, lab-oriented students.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "nutritionist-dietetician",
@@ -326,7 +326,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Preventive health and lifestyle medicine are growing; needs careful legal/credential framing.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "occupational-therapist",
@@ -351,7 +351,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Important for ageing, disability support, rehabilitation, and special needs education.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "midwife",
@@ -377,7 +377,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ANOFM vacancies"
     ],
     "rationale": "Specific regulated healthcare route, distinct from general nursing.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "clinical-research-coordinator",
@@ -401,7 +401,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Bridge between medicine, pharma, regulation, documentation, and research operations.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "biomedical-engineer",
@@ -426,7 +426,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Future-facing intersection of health, devices, sensors, prosthetics, and hospital technology.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "energy-auditor",
@@ -451,7 +451,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Energy efficiency and building renovation are structurally important in EU policy and local construction.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "wind-turbine-technician",
@@ -477,7 +477,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Green-energy technical role; important for Europe even if Romanian local openings fluctuate.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "ev-charging-technician",
@@ -502,7 +502,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Extension of electrician/PV skills into EV infrastructure.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "battery-technician",
@@ -528,7 +528,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Emerging role around EVs, home batteries, solar storage, and industrial energy systems.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "environmental-engineer",
@@ -553,7 +553,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Relevant to compliance, water, waste, ESG, permitting, and green transition projects.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "gis-specialist",
@@ -578,7 +578,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Useful in urbanism, environment, telecom, emergency planning, transport, and agriculture.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "quality-engineer",
@@ -603,7 +603,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Strong fit for Romanian manufacturing, automotive, electronics, pharma, and food production.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "process-engineer",
@@ -628,7 +628,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Core manufacturing role currently missing from the catalogue.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "financial-analyst",
@@ -652,7 +652,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Distinct from accounting and banking; analysis, modelling, reporting, investment/business decisions.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "auditor",
@@ -677,7 +677,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Regulated, stable finance path; useful for students who like order, evidence, and business.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "customer-success-manager",
@@ -703,7 +703,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Common SaaS/business role between sales, support, product knowledge, and relationship management.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "crm-specialist",
@@ -727,7 +727,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Practical digital-business role for students interested in marketing plus systems.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "logistics-planner",
@@ -752,7 +752,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Important for Romania's logistics/retail/production market; distinct from warehouse operator.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "revenue-operations-specialist",
@@ -777,7 +777,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Emerging commercial-ops role around sales funnels, CRM data, reporting, and pricing.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "special-education-teacher",
@@ -802,7 +802,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Important gap next to psychology/logoped/teacher for inclusive education.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "instructional-designer",
@@ -827,7 +827,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Future-facing education role combining pedagogy, content, video, platforms, and assessment.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "corporate-trainer",
@@ -852,7 +852,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Path for students who enjoy explaining, facilitating, and adult learning outside school.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "child-protection-specialist",
@@ -877,7 +877,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Complements social work with a more concrete public-service path.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "motion-designer",
@@ -902,7 +902,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Missing practical creative role between graphic design, video, animation, and advertising.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "3d-artist",
@@ -927,7 +927,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Relevant for games, product visualization, architecture, ads, VR/AR, and 3D printing.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "game-designer",
@@ -951,7 +951,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Distinct from Game Developer: systems, levels, player experience, narrative and mechanics.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "social-media-manager",
@@ -976,7 +976,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Common accessible role for students drawn to content but not necessarily being the creator themselves.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "event-planner",
@@ -1000,7 +1000,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Concrete route for leader/social students; complements hospitality and marketing.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "pr-specialist",
@@ -1025,7 +1025,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Currently underrepresented versus marketing; useful for SNSPA/litere/jurnalism paths.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "mason-bricklayer",
@@ -1049,7 +1049,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "High practical demand; construction trade missing despite existing engineering construction path.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "painter-finisher",
@@ -1073,7 +1073,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Accessible practical job with freelance/self-employment path.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "forklift-operator",
@@ -1121,7 +1121,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Distinct from mechanic auto; grows with vehicle electronics and EV diagnostics.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "mechatronics-technician",
@@ -1146,7 +1146,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Future-proof vocational bridge into automation, robotics, industrial maintenance.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "building-automation-technician",
@@ -1170,7 +1170,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Smart buildings combine electrical, HVAC, sensors, controls, and energy efficiency.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "security-systems-technician",
@@ -1195,7 +1195,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Practical technical path adjacent to electrician, IT support, and physical security.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "civil-servant",
@@ -1218,7 +1218,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Stable public-sector path, currently missing as a normal non-police administrative option.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "customs-officer",
@@ -1242,7 +1242,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Useful addition around border, logistics, compliance, and public administration.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "compliance-officer",
@@ -1267,7 +1267,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Grows with regulation, banking, AML, ESG, privacy, and corporate governance.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "data-protection-officer",
@@ -1291,7 +1291,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Future-facing legal/IT/compliance hybrid around privacy, security, and data rights.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "urban-planner",
@@ -1315,7 +1315,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Complements architecture/GIS/civil engineering; important for cities and public infrastructure.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "eu-project-manager",
@@ -1339,7 +1339,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Very relevant in Romania for NGOs, public administration, universities, and consulting.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "sustainability-manager",
@@ -1365,7 +1365,7 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Forward-looking business role around reporting, regulation, climate, supply chain, and impact.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "carbon-accounting-specialist",
@@ -1389,7 +1389,7 @@ window.QUIZ_DATA.careerCandidates = [
       "Cedefop Skills-OVATE"
     ],
     "rationale": "Emerging ESG/data/regulation niche; likely not first job, but useful future direction.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "digital-health-specialist",
@@ -1414,7 +1414,7 @@ window.QUIZ_DATA.careerCandidates = [
       "ESCO"
     ],
     "rationale": "Bridge between healthcare, product, data, telemedicine, hospital systems, and patient workflows.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
   },
   {
     "id": "drone-operator",
@@ -1439,6 +1439,350 @@ window.QUIZ_DATA.careerCandidates = [
       "WEF Future of Jobs"
     ],
     "rationale": "Useful across media, mapping, agriculture, inspections, emergency response, and security.",
-    "reviewStatus": "promote"
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "ai-ethicist",
+    "name": "AI Ethicist / Responsible AI Officer",
+    "domain": "IT, data, AI",
+    "suggestedPathType": "facultate",
+    "suggestedRiasec": [
+      "I",
+      "C",
+      "S"
+    ],
+    "suggestedBig5": [
+      "O",
+      "C"
+    ],
+    "marketScoreRo": 12,
+    "marketScoreEu": 45,
+    "futureScore": 90,
+    "accessibilityScore": 30,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025",
+      "EU AI Act"
+    ],
+    "rationale": "Responsible-AI/governance roles grow with the EU AI Act; bridges law, ethics and ML teams.",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "prompt-engineer",
+    "name": "Prompt / Context Engineer",
+    "domain": "IT, data, AI",
+    "suggestedPathType": "autodidact",
+    "suggestedRiasec": [
+      "I",
+      "A",
+      "C"
+    ],
+    "suggestedBig5": [
+      "O"
+    ],
+    "marketScoreRo": 15,
+    "marketScoreEu": 40,
+    "futureScore": 80,
+    "accessibilityScore": 55,
+    "sourceRefs": [
+      "rol emergent editorial (presă tech)",
+      "WEF Future of Jobs 2025 (familia AI)"
+    ],
+    "rationale": "New AI-native title with real product demand; accessible via portfolio (editorial emerging role).",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "ai-trainer",
+    "name": "AI Trainer / Specialist fine-tuning",
+    "domain": "IT, data, AI",
+    "suggestedPathType": "mixt",
+    "suggestedRiasec": [
+      "I",
+      "C",
+      "R"
+    ],
+    "suggestedBig5": [
+      "C",
+      "O"
+    ],
+    "marketScoreRo": 12,
+    "marketScoreEu": 38,
+    "futureScore": 78,
+    "accessibilityScore": 45,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (AI & data)",
+      "rol emergent editorial"
+    ],
+    "rationale": "Data preparation and fine-tuning work grows with custom model adoption.",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "ai-red-teamer",
+    "name": "AI Red-teamer / Specialist securitate AI",
+    "domain": "IT, data, AI",
+    "suggestedPathType": "mixt",
+    "suggestedRiasec": [
+      "I",
+      "R",
+      "C"
+    ],
+    "suggestedBig5": [
+      "O",
+      "C"
+    ],
+    "marketScoreRo": 10,
+    "marketScoreEu": 42,
+    "futureScore": 85,
+    "accessibilityScore": 35,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (security în top creșteri)",
+      "rol emergent editorial"
+    ],
+    "rationale": "AI extension of cybersecurity; adversarial testing of AI systems (editorial emerging role).",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "conversation-designer",
+    "name": "Conversation Designer",
+    "domain": "Future hybrid roles",
+    "suggestedPathType": "mixt",
+    "suggestedRiasec": [
+      "A",
+      "S",
+      "I"
+    ],
+    "suggestedBig5": [
+      "O"
+    ],
+    "marketScoreRo": 10,
+    "marketScoreEu": 35,
+    "futureScore": 75,
+    "accessibilityScore": 50,
+    "sourceRefs": [
+      "rol emergent editorial (industrie)",
+      "WEF Future of Jobs 2025 (familia AI)"
+    ],
+    "rationale": "UX writing for AI assistants and agents; chatbots everywhere (editorial emerging role).",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "bioinformatician",
+    "name": "Bioinformatician / Specialist genomică",
+    "domain": "Healthcare and care work",
+    "suggestedPathType": "facultate",
+    "suggestedRiasec": [
+      "I",
+      "R",
+      "C"
+    ],
+    "suggestedBig5": [
+      "O",
+      "C"
+    ],
+    "marketScoreRo": 15,
+    "marketScoreEu": 50,
+    "futureScore": 85,
+    "accessibilityScore": 35,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025",
+      "ESCO"
+    ],
+    "rationale": "Genomics and drug discovery need biology+code hybrids; strong EU demand.",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "genetic-counselor",
+    "name": "Consilier genetic",
+    "domain": "Healthcare and care work",
+    "suggestedPathType": "facultate",
+    "suggestedRiasec": [
+      "S",
+      "I",
+      "C"
+    ],
+    "suggestedBig5": [
+      "A",
+      "O"
+    ],
+    "marketScoreRo": 8,
+    "marketScoreEu": 35,
+    "futureScore": 80,
+    "accessibilityScore": 25,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (life sciences)",
+      "rol emergent în RO"
+    ],
+    "rationale": "Genetic testing grows fast; role barely exists in RO yet — route via medicine/biology + EU master.",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "longevity-specialist",
+    "name": "Specialist longevitate / age-tech",
+    "domain": "Future hybrid roles",
+    "suggestedPathType": "mixt",
+    "suggestedRiasec": [
+      "I",
+      "S",
+      "E"
+    ],
+    "suggestedBig5": [
+      "O"
+    ],
+    "marketScoreRo": 10,
+    "marketScoreEu": 35,
+    "futureScore": 85,
+    "accessibilityScore": 35,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (longevity economy)",
+      "rol emergent editorial"
+    ],
+    "rationale": "Longevity economy is a major global growth direction; RO ages fast.",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "climate-risk-analyst",
+    "name": "Analist risc climatic",
+    "domain": "Business, finance, operations",
+    "suggestedPathType": "facultate",
+    "suggestedRiasec": [
+      "I",
+      "C",
+      "E"
+    ],
+    "suggestedBig5": [
+      "C",
+      "O"
+    ],
+    "marketScoreRo": 20,
+    "marketScoreEu": 50,
+    "futureScore": 85,
+    "accessibilityScore": 35,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025",
+      "CSRD (UE)"
+    ],
+    "rationale": "CSRD/ESG force banks and corporates to quantify climate risk.",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "urban-farmer",
+    "name": "Fermier urban / Specialist agricultură regenerativă",
+    "domain": "Future hybrid roles",
+    "suggestedPathType": "antreprenor",
+    "suggestedRiasec": [
+      "R",
+      "I",
+      "E"
+    ],
+    "suggestedBig5": [
+      "O"
+    ],
+    "marketScoreRo": 15,
+    "marketScoreEu": 30,
+    "futureScore": 70,
+    "accessibilityScore": 60,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (agritech, frontline growth)",
+      "rol emergent editorial"
+    ],
+    "rationale": "Urban demand for local food; PNRR/agritech funding; prototype favourite.",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "community-health-worker",
+    "name": "Lucrător în sănătate comunitară",
+    "domain": "Healthcare and care work",
+    "suggestedPathType": "profesional",
+    "suggestedRiasec": [
+      "S",
+      "R",
+      "C"
+    ],
+    "suggestedBig5": [
+      "A"
+    ],
+    "marketScoreRo": 40,
+    "marketScoreEu": 45,
+    "futureScore": 80,
+    "accessibilityScore": 70,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (care roles)",
+      "OUG 18/2017 (RO)"
+    ],
+    "rationale": "Real RO role (asistent medical comunitar, OUG 18/2017); care economy grows globally (WEF).",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "mental-health-coach",
+    "name": "Coach sănătate mintală / Specialist peer-support",
+    "domain": "Education, psychology, social services",
+    "suggestedPathType": "mixt",
+    "suggestedRiasec": [
+      "S",
+      "A",
+      "I"
+    ],
+    "suggestedBig5": [
+      "A"
+    ],
+    "marketScoreRo": 20,
+    "marketScoreEu": 35,
+    "futureScore": 80,
+    "accessibilityScore": 60,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (wellbeing)",
+      "rol emergent editorial"
+    ],
+    "rationale": "Support demand exceeds clinical capacity; complementary, non-clinical role.",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "elder-care-coordinator",
+    "name": "Coordonator îngrijire vârstnici / age-tech",
+    "domain": "Healthcare and care work",
+    "suggestedPathType": "profesional",
+    "suggestedRiasec": [
+      "S",
+      "E",
+      "C"
+    ],
+    "suggestedBig5": [
+      "A",
+      "C"
+    ],
+    "marketScoreRo": 25,
+    "marketScoreEu": 45,
+    "futureScore": 85,
+    "accessibilityScore": 65,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (care economy)",
+      "rol emergent editorial (age-tech)"
+    ],
+    "rationale": "RO has one of the fastest-ageing populations in the EU; care logistics + age-tech.",
+    "reviewStatus": "promoted"
+  },
+  {
+    "id": "accessibility-specialist",
+    "name": "Specialist accesibilitate & incluziune",
+    "domain": "Education, psychology, social services",
+    "suggestedPathType": "mixt",
+    "suggestedRiasec": [
+      "S",
+      "I",
+      "C"
+    ],
+    "suggestedBig5": [
+      "A",
+      "O"
+    ],
+    "marketScoreRo": 15,
+    "marketScoreEu": 45,
+    "futureScore": 80,
+    "accessibilityScore": 50,
+    "sourceRefs": [
+      "European Accessibility Act (UE)",
+      "WEF Future of Jobs 2025"
+    ],
+    "rationale": "European Accessibility Act (2025) makes digital accessibility mandatory.",
+    "reviewStatus": "promoted"
   }
 ];

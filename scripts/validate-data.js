@@ -9,7 +9,7 @@ const candidateCareers = loadCandidateData();
 const errors = [];
 const warnings = [];
 const CAREER_STATUSES = new Set(['active', 'draft', 'deprecated']);
-const CANDIDATE_STATUSES = new Set(['candidate', 'promote', 'merge', 'reject']);
+const CANDIDATE_STATUSES = new Set(['candidate', 'promote', 'promoted', 'merge', 'reject']);
 const RIASEC_CODES = new Set(['R', 'I', 'A', 'S', 'E', 'C']);
 const OPTIONAL_CAREER_FIELDS = [
   'corCode',

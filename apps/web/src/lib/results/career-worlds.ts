@@ -88,6 +88,11 @@ export const CAREER_WORLDS: Record<string, WorldId[]> = {
   'ai-engineer': ['ai-minds'],
   'machine-learning-engineer': ['ai-minds'],
   'mlops-engineer': ['ai-minds'],
+  'ai-ethicist': ['ai-minds', 'justice-civic'],
+  'prompt-engineer': ['ai-minds'],
+  'ai-trainer': ['ai-minds'],
+  'ai-red-teamer': ['ai-minds', 'protectors'],
+  'conversation-designer': ['ai-minds', 'visual-creators'],
 
   // ── Health ───────────────────────────────────────────────────────────────
   'asistent-medical': ['healers'],
@@ -112,6 +117,9 @@ export const CAREER_WORLDS: Record<string, WorldId[]> = {
   biolog: ['life-explorers'],
   'clinical-research-coordinator': ['life-explorers'],
   'biomedical-engineer': ['life-explorers', 'world-builders'],
+  bioinformatician: ['life-explorers', 'digital-builders'],
+  'genetic-counselor': ['life-explorers', 'healers'],
+  'longevity-specialist': ['life-explorers', 'people-people'],
 
   // ── Climate / environment / green energy ─────────────────────────────────
   agronom: ['planet-guardians'],
@@ -124,6 +132,8 @@ export const CAREER_WORLDS: Record<string, WorldId[]> = {
   'battery-technician': ['planet-guardians'],
   'carbon-accounting-specialist': ['planet-guardians'],
   'gis-specialist': ['planet-guardians', 'digital-builders'],
+  'climate-risk-analyst': ['planet-guardians', 'numbers-people'],
+  'urban-farmer': ['planet-guardians'],
 
   // ── Media / storytelling ─────────────────────────────────────────────────
   'jurnalist-reporter': ['storytellers'],
@@ -202,6 +212,10 @@ export const CAREER_WORLDS: Record<string, WorldId[]> = {
   'instructional-designer': ['people-people'],
   'corporate-trainer': ['people-people'],
   'child-protection-specialist': ['people-people'],
+  'community-health-worker': ['people-people', 'healers'],
+  'mental-health-coach': ['people-people'],
+  'elder-care-coordinator': ['people-people'],
+  'accessibility-specialist': ['people-people', 'visual-creators'],
 
   // ── Defence / public safety ──────────────────────────────────────────────
   'agent-securitate': ['protectors'],

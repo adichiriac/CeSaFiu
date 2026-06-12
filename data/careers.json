@@ -9680,5 +9680,927 @@
     ],
     "lastReviewed": "2026-05-12",
     "status": "active"
+  },
+  {
+    "id": "ai-ethicist",
+    "name": "AI Ethicist / Responsible AI Officer",
+    "tagline": "Ții AI-ul pe drumul corect",
+    "color": "purple",
+    "emoji": "⚖",
+    "pathType": "facultate",
+    "traits": [
+      "analyze",
+      "social",
+      "lead"
+    ],
+    "riasec": [
+      "I",
+      "C",
+      "S"
+    ],
+    "big5": [
+      "O",
+      "C"
+    ],
+    "signals": [
+      "order.compliance",
+      "investigative.research"
+    ],
+    "salary": "Junior: 1.200 — 2.000 €/lună · Mid: 2.000 — 4.000 €/lună · Senior: 4.000 — 7.500 €/lună",
+    "demand": "Emergentă — rară în RO azi; printre familiile AI cu cea mai rapidă creștere global (WEF)",
+    "vibe": "Etică + tehnologie",
+    "description": "Evaluezi sistemele AI înainte să ajungă la oameni: risc, bias, transparență, conformitate cu AI Act. Traduci între ingineri, juriști și management.",
+    "day": [
+      "Review model AI înainte de lansare",
+      "Analiză de bias pe date reale",
+      "Discuție cu echipa de produs",
+      "Documentare cerințe AI Act",
+      "Raport de risc pentru management"
+    ],
+    "skills": [
+      "Etică aplicată",
+      "AI Act / GDPR",
+      "Analiză de risc",
+      "Comunicare",
+      "Înțelegere ML",
+      "Documentare"
+    ],
+    "paths": [
+      "Drept / filosofie / informatică",
+      "Master AI governance (UE)",
+      "Certificări AI ethics",
+      "Experiență în compliance sau produs"
+    ],
+    "schools": [
+      "Drept UB / UBB",
+      "Filosofie + informatică",
+      "SNSPA politici publice",
+      "Mastere europene de AI governance"
+    ],
+    "marketScoreRo": 12,
+    "marketScoreEu": 45,
+    "futureScore": 90,
+    "accessibilityScore": 30,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025",
+      "EU AI Act"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "prompt-engineer",
+    "name": "Prompt / Context Engineer",
+    "tagline": "Înveți AI-ul să înțeleagă exact ce vrei",
+    "color": "yellow",
+    "emoji": "⌁",
+    "pathType": "autodidact",
+    "traits": [
+      "analyze",
+      "create",
+      "tech"
+    ],
+    "riasec": [
+      "I",
+      "A",
+      "C"
+    ],
+    "big5": [
+      "O"
+    ],
+    "signals": [
+      "technical.software",
+      "investigative.research"
+    ],
+    "salary": "Junior: 1.200 — 2.200 €/lună · Mid: 2.200 — 4.500 €/lună · Senior: 4.500 — 8.000 €/lună",
+    "demand": "Emergentă — titlu nou cu cerere reală în produse AI (rol emergent editorial)",
+    "vibe": "Limbaj + sisteme",
+    "description": "Proiectezi instrucțiuni, context și fluxuri pentru modele AI: ce primește modelul, în ce ordine, cu ce limite. Jumătate scris precis, jumătate testare sistematică.",
+    "day": [
+      "Iterezi pe un prompt care eșuează",
+      "A/B test pe variante",
+      "Construiești context din date",
+      "Documentezi pattern-uri reutilizabile",
+      "Review cu echipa de produs"
+    ],
+    "skills": [
+      "Scris precis",
+      "LLM-uri",
+      "Evaluare sistematică",
+      "Python de bază",
+      "RAG / context design",
+      "Răbdare la iterare"
+    ],
+    "paths": [
+      "Autodidact + portofoliu",
+      "Informatică sau lingvistică",
+      "Cursuri LLM online",
+      "Contribuții open-source"
+    ],
+    "schools": [
+      "Informatică UBB / UPB / UAIC",
+      "Litere + tech (combinație)",
+      "Cursuri online (DeepLearning.AI)",
+      "Portofoliu public pe GitHub"
+    ],
+    "marketScoreRo": 15,
+    "marketScoreEu": 40,
+    "futureScore": 80,
+    "accessibilityScore": 55,
+    "sourceRefs": [
+      "rol emergent editorial (presă tech)",
+      "WEF Future of Jobs 2025 (familia AI)"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "ai-trainer",
+    "name": "AI Trainer / Specialist fine-tuning",
+    "tagline": "Crești modele AI pe datele care contează",
+    "color": "blue",
+    "emoji": "⟳",
+    "pathType": "mixt",
+    "traits": [
+      "analyze",
+      "tech"
+    ],
+    "riasec": [
+      "I",
+      "C",
+      "R"
+    ],
+    "big5": [
+      "C",
+      "O"
+    ],
+    "signals": [
+      "investigative.data",
+      "technical.software"
+    ],
+    "salary": "Junior: 1.000 — 1.800 €/lună · Mid: 1.800 — 3.500 €/lună · Senior: 3.500 — 6.000 €/lună",
+    "demand": "Emergentă — apare în echipele AI; crește odată cu adopția modelelor custom",
+    "vibe": "Date + acuratețe",
+    "description": "Pregătești seturi de date, etichetezi, rulezi fine-tuning și măsori unde greșește modelul. Munca invizibilă care face AI-ul utilizabil într-un domeniu real.",
+    "day": [
+      "Curățare set de date",
+      "Definire criterii de evaluare",
+      "Rulare experiment de fine-tuning",
+      "Analiză erori pe cazuri reale",
+      "Raport de calitate către echipă"
+    ],
+    "skills": [
+      "Calitatea datelor",
+      "Evaluare modele",
+      "Python / SQL",
+      "Atenție la detalii",
+      "Domeniu de aplicare",
+      "Documentare"
+    ],
+    "paths": [
+      "Informatică / statistică",
+      "Cursuri ML online",
+      "Stagiu în echipă de date",
+      "Proiecte proprii de fine-tuning"
+    ],
+    "schools": [
+      "Informatică / Cibernetică",
+      "Matematică-informatică",
+      "Cursuri online (fast.ai, HF)",
+      "Bootcamp-uri de date"
+    ],
+    "marketScoreRo": 12,
+    "marketScoreEu": 38,
+    "futureScore": 78,
+    "accessibilityScore": 45,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (AI & data)",
+      "rol emergent editorial"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "ai-red-teamer",
+    "name": "AI Red-teamer / Specialist securitate AI",
+    "tagline": "Spargi AI-ul înainte s-o facă alții",
+    "color": "red",
+    "emoji": "⌖",
+    "pathType": "mixt",
+    "traits": [
+      "analyze",
+      "tech"
+    ],
+    "riasec": [
+      "I",
+      "R",
+      "C"
+    ],
+    "big5": [
+      "O",
+      "C"
+    ],
+    "signals": [
+      "investigative.security",
+      "technical.software"
+    ],
+    "salary": "Junior: 1.500 — 2.500 €/lună · Mid: 2.500 — 5.000 €/lună · Senior: 5.000 — 9.000 €/lună",
+    "demand": "Emergentă — extensie a cybersecurity; cerere globală în creștere rapidă",
+    "vibe": "Hacker etic + AI",
+    "description": "Testezi limitele sistemelor AI: jailbreak-uri, scurgeri de date, manipulare. Găsești vulnerabilitățile înaintea atacatorilor și ajuți echipa să le închidă.",
+    "day": [
+      "Atac simulat pe un asistent AI",
+      "Documentare vulnerabilitate găsită",
+      "Test de scurgere de date",
+      "Discuție cu echipa de model",
+      "Scriere raport red-team"
+    ],
+    "skills": [
+      "Security mindset",
+      "LLM-uri și limitele lor",
+      "Scripting",
+      "Creativitate adversarială",
+      "Raportare clară",
+      "Etică"
+    ],
+    "paths": [
+      "Cybersecurity → AI security",
+      "Informatică + CTF-uri",
+      "Certificări security",
+      "Bug bounty / portofoliu"
+    ],
+    "schools": [
+      "Informatică UPB / UBB",
+      "Cursuri cybersecurity",
+      "Platforme CTF",
+      "Programe de bug bounty"
+    ],
+    "marketScoreRo": 10,
+    "marketScoreEu": 42,
+    "futureScore": 85,
+    "accessibilityScore": 35,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (security în top creșteri)",
+      "rol emergent editorial"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "conversation-designer",
+    "name": "Conversation Designer",
+    "tagline": "Scrii replicile pe care le spune AI-ul",
+    "color": "pink",
+    "emoji": "◖",
+    "pathType": "mixt",
+    "traits": [
+      "create",
+      "social",
+      "tech"
+    ],
+    "riasec": [
+      "A",
+      "S",
+      "I"
+    ],
+    "big5": [
+      "O"
+    ],
+    "signals": [
+      "creative.visual",
+      "technical.software"
+    ],
+    "salary": "Junior: 1.000 — 1.800 €/lună · Mid: 1.800 — 3.500 €/lună · Senior: 3.500 — 6.000 €/lună",
+    "demand": "Emergentă — chatboți și agenți AI peste tot; rol emergent editorial",
+    "vibe": "UX + limbaj",
+    "description": "Proiectezi conversațiile dintre oameni și asistenți AI: ton, fluxuri, cazuri-limită, momentul în care AI-ul predă ștafeta unui om. UX writing pentru dialog.",
+    "day": [
+      "Schiță flux de conversație nou",
+      "Scriere variante de răspuns",
+      "Test cu utilizatori reali",
+      "Analiză conversații eșuate",
+      "Ajustare ton și persona"
+    ],
+    "skills": [
+      "UX writing",
+      "Design de dialog",
+      "Empatie cu utilizatorul",
+      "Testare",
+      "Înțelegere LLM",
+      "Ton de brand"
+    ],
+    "paths": [
+      "Litere / comunicare / design",
+      "Cursuri conversation design",
+      "Portofoliu de fluxuri",
+      "UX writing → conversational"
+    ],
+    "schools": [
+      "Litere / Comunicare",
+      "Design (UNARTE / la distanță)",
+      "Cursuri online specializate",
+      "Portofoliu propriu"
+    ],
+    "marketScoreRo": 10,
+    "marketScoreEu": 35,
+    "futureScore": 75,
+    "accessibilityScore": 50,
+    "sourceRefs": [
+      "rol emergent editorial (industrie)",
+      "WEF Future of Jobs 2025 (familia AI)"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "bioinformatician",
+    "name": "Bioinformatician / Specialist genomică",
+    "tagline": "Citești codul vieții cu cod de calculator",
+    "color": "teal",
+    "emoji": "🧬",
+    "pathType": "facultate",
+    "traits": [
+      "analyze",
+      "tech"
+    ],
+    "riasec": [
+      "I",
+      "R",
+      "C"
+    ],
+    "big5": [
+      "O",
+      "C"
+    ],
+    "signals": [
+      "investigative.data",
+      "investigative.research"
+    ],
+    "salary": "Junior: 1.200 — 2.000 €/lună · Mid: 2.000 — 3.800 €/lună · Senior: 3.800 — 7.000 €/lună",
+    "demand": "Nișată în RO (cercetare + pharma), mare în UE",
+    "vibe": "Biologie + date",
+    "description": "Analizezi date genomice și biologice cu instrumente software: secvențiere ADN, expresie genică, descoperire de medicamente. Biologie făcută cu tastatura.",
+    "day": [
+      "Pipeline de analiză pe date de secvențiere",
+      "Interpretare rezultate cu biologii",
+      "Cod R / Python pentru un studiu",
+      "Citire literatură de specialitate",
+      "Prezentare către echipa de cercetare"
+    ],
+    "skills": [
+      "Python / R",
+      "Statistică",
+      "Biologie moleculară",
+      "Pipeline-uri de date",
+      "Citire papers",
+      "Rigoare"
+    ],
+    "paths": [
+      "Biologie + informatică",
+      "Bioinformatică (master)",
+      "Doctorat / cercetare",
+      "Industrie pharma / biotech"
+    ],
+    "schools": [
+      "Biologie UB / UBB + info",
+      "Mastere bioinformatică (UE)",
+      "UMF-uri (cercetare)",
+      "Programe Erasmus în domeniu"
+    ],
+    "marketScoreRo": 15,
+    "marketScoreEu": 50,
+    "futureScore": 85,
+    "accessibilityScore": 35,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025",
+      "ESCO"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "genetic-counselor",
+    "name": "Consilier genetic",
+    "tagline": "Traduci genetica pe limba familiilor",
+    "color": "green",
+    "emoji": "◍",
+    "pathType": "facultate",
+    "traits": [
+      "social",
+      "analyze"
+    ],
+    "riasec": [
+      "S",
+      "I",
+      "C"
+    ],
+    "big5": [
+      "A",
+      "O"
+    ],
+    "signals": [
+      "social.counseling",
+      "investigative.diagnostic",
+      "health.clinical"
+    ],
+    "salary": "Junior: 900 — 1.400 €/lună · Mid: 1.400 — 2.500 €/lună · Senior: 2.500 — 4.500 €/lună",
+    "demand": "Emergentă — testarea genetică crește rapid; în RO rolul abia se conturează",
+    "vibe": "Empatie + știință",
+    "description": "Ajuți oameni să înțeleagă rezultatele testelor genetice: riscuri ereditare, decizii despre copii, opțiuni medicale. Știință grea livrată cu blândețe. În RO nu există încă program dedicat — ruta trece prin medicină sau biologie + specializare în străinătate.",
+    "day": [
+      "Ședință cu o familie despre un risc ereditar",
+      "Interpretare rezultat de test genetic",
+      "Discuție cu medicul genetician",
+      "Documentare ghiduri internaționale",
+      "Suport emoțional după un diagnostic"
+    ],
+    "skills": [
+      "Genetică medicală",
+      "Consiliere",
+      "Comunicare empatică",
+      "Confidențialitate",
+      "Interpretare teste",
+      "Limite profesionale"
+    ],
+    "paths": [
+      "Medicină sau biologie",
+      "Master genetic counselling (UE)",
+      "Stagii în centre de genetică",
+      "Certificare europeană (EBMG)"
+    ],
+    "schools": [
+      "UMF-uri",
+      "Biologie UB / UBB",
+      "Mastere UE (Olanda, UK)",
+      "Centre de genetică medicală"
+    ],
+    "marketScoreRo": 8,
+    "marketScoreEu": 35,
+    "futureScore": 80,
+    "accessibilityScore": 25,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (life sciences)",
+      "rol emergent în RO"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "longevity-specialist",
+    "name": "Specialist longevitate / age-tech",
+    "tagline": "Faci anii în plus să conteze",
+    "color": "orange",
+    "emoji": "⧖",
+    "pathType": "mixt",
+    "traits": [
+      "analyze",
+      "social",
+      "lead"
+    ],
+    "riasec": [
+      "I",
+      "S",
+      "E"
+    ],
+    "big5": [
+      "O"
+    ],
+    "signals": [
+      "health.clinical",
+      "investigative.research",
+      "business.operations"
+    ],
+    "salary": "Junior: 1.000 — 1.600 €/lună · Mid: 1.600 — 3.000 €/lună · Senior: 3.000 — 5.500 €/lună",
+    "demand": "Emergentă — economia longevității e direcție majoră globală; RO îmbătrânește accelerat",
+    "vibe": "Sănătate + viitor",
+    "description": "Lucrezi la intersecția dintre îmbătrânire sănătoasă și tehnologie: programe de prevenție, produse age-tech, servicii pentru populația 60+. O piață care crește în fiecare an, în care RO abia intră.",
+    "day": [
+      "Evaluare nevoi pentru utilizatori 65+",
+      "Test produs age-tech cu seniori",
+      "Program de prevenție cu o clinică",
+      "Analiză date de sănătate",
+      "Pitch către un finanțator"
+    ],
+    "skills": [
+      "Sănătate publică",
+      "Gerontologie de bază",
+      "Product / servicii",
+      "Empatie intergenerațională",
+      "Date",
+      "Antreprenoriat"
+    ],
+    "paths": [
+      "Sănătate publică / kinetoterapie",
+      "Master sănătate publică",
+      "Startup-uri age-tech",
+      "ONG-uri pentru vârstnici"
+    ],
+    "schools": [
+      "UMF sănătate publică",
+      "Kinetoterapie / nutriție",
+      "ASE (servicii)",
+      "Programe UE de longevitate"
+    ],
+    "marketScoreRo": 10,
+    "marketScoreEu": 35,
+    "futureScore": 85,
+    "accessibilityScore": 35,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (longevity economy)",
+      "rol emergent editorial"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "climate-risk-analyst",
+    "name": "Analist risc climatic",
+    "tagline": "Pui preț pe riscurile climei",
+    "color": "teal",
+    "emoji": "⛆",
+    "pathType": "facultate",
+    "traits": [
+      "analyze",
+      "tech"
+    ],
+    "riasec": [
+      "I",
+      "C",
+      "E"
+    ],
+    "big5": [
+      "C",
+      "O"
+    ],
+    "signals": [
+      "investigative.data",
+      "order.compliance"
+    ],
+    "salary": "Junior: 1.200 — 2.000 €/lună · Mid: 2.000 — 3.800 €/lună · Senior: 3.800 — 7.000 €/lună",
+    "demand": "În creștere — CSRD/ESG obligă băncile și corporațiile să măsoare riscul climatic",
+    "vibe": "Finanțe + climă",
+    "description": "Calculezi cum lovesc schimbările climatice o bancă, o fabrică sau un oraș: inundații, secetă, tranziție energetică. Transformi scenarii climatice în decizii financiare.",
+    "day": [
+      "Model de risc pe un portofoliu bancar",
+      "Analiză scenarii climatice (NGFS)",
+      "Raport CSRD pentru un client",
+      "Discuție cu echipa ESG",
+      "Validare date de emisii"
+    ],
+    "skills": [
+      "Analiză financiară",
+      "Scenarii climatice",
+      "Excel / Python",
+      "Raportare CSRD/ESG",
+      "Comunicare",
+      "Gândire sistemică"
+    ],
+    "paths": [
+      "Finanțe / mediu / inginerie",
+      "Master finanțe sustenabile",
+      "Certificări GARP SCR",
+      "Big4 / bănci (echipe ESG)"
+    ],
+    "schools": [
+      "ASE Finanțe",
+      "Mediu (UB / UBB)",
+      "Mastere UE finanțe verzi",
+      "Programe CFA/GARP"
+    ],
+    "marketScoreRo": 20,
+    "marketScoreEu": 50,
+    "futureScore": 85,
+    "accessibilityScore": 35,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025",
+      "CSRD (UE)"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "urban-farmer",
+    "name": "Fermier urban / Specialist agricultură regenerativă",
+    "tagline": "Crești hrană aproape de oameni",
+    "color": "green",
+    "emoji": "🌱",
+    "pathType": "antreprenor",
+    "traits": [
+      "build",
+      "analyze"
+    ],
+    "riasec": [
+      "R",
+      "I",
+      "E"
+    ],
+    "big5": [
+      "O"
+    ],
+    "salary": "Start: 800 — 1.500 €/lună · Fermă stabilizată: 1.500 — 3.500 €/lună · Cu vânzare directă + abonamente: 3.500+ €/lună",
+    "demand": "Nișată dar în creștere — cerere urbană pentru hrană locală; finanțări PNRR și agritech",
+    "vibe": "Pământ + inovație",
+    "description": "Produci hrană la scară mică și inteligentă: sere urbane, microferme, sol regenerat, vânzare directă către comunitate. Agricultură cu mintea de antreprenor și unelte moderne.",
+    "day": [
+      "Verificare culturi și sistem de irigație",
+      "Livrări către abonați",
+      "Plan de rotație a culturilor",
+      "Postare către comunitatea de clienți",
+      "Experiment pe o parcelă nouă"
+    ],
+    "skills": [
+      "Agronomie practică",
+      "Sol și compost",
+      "Vânzare directă",
+      "Antreprenoriat",
+      "Social media",
+      "Răbdare"
+    ],
+    "paths": [
+      "USAMV / agronomie",
+      "Cursuri de permacultură",
+      "Voluntariat la ferme (WWOOF)",
+      "Microfermă proprie + piață locală"
+    ],
+    "schools": [
+      "USAMV București / Cluj / Iași",
+      "Școli de permacultură",
+      "Programe PNRR / AFIR",
+      "Comunități de agricultură regenerativă"
+    ],
+    "marketScoreRo": 15,
+    "marketScoreEu": 30,
+    "futureScore": 70,
+    "accessibilityScore": 60,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (agritech, frontline growth)",
+      "rol emergent editorial"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "community-health-worker",
+    "name": "Lucrător în sănătate comunitară",
+    "tagline": "Aduci sănătatea acolo unde nu ajunge sistemul",
+    "color": "red",
+    "emoji": "⌖",
+    "pathType": "profesional",
+    "traits": [
+      "social"
+    ],
+    "riasec": [
+      "S",
+      "R",
+      "C"
+    ],
+    "big5": [
+      "A"
+    ],
+    "signals": [
+      "social.care",
+      "health.clinical",
+      "social.community"
+    ],
+    "salary": "Junior: 700 — 1.000 €/lună · Mid: 1.000 — 1.500 €/lună · Senior: 1.500 — 2.200 €/lună",
+    "demand": "Mare și subdimensionată — rețeaua de asistență medicală comunitară din RO e în extindere; îngrijirea e printre creșterile globale mari (WEF)",
+    "vibe": "Teren + oameni",
+    "description": "Ești puntea dintre sistemul medical și comunitățile care nu ajung la el: vizite la domiciliu, prevenție, vaccinare, sprijin pentru mame și vârstnici. Un rol real în RO (asistent medical comunitar), nepopular dar cu impact direct.",
+    "day": [
+      "Vizite la familii din comunitate",
+      "Monitorizare gravide și copii mici",
+      "Campanie locală de prevenție",
+      "Legătura cu medicul de familie",
+      "Raportare către DSP"
+    ],
+    "skills": [
+      "Îngrijire de bază",
+      "Comunicare cu comunități vulnerabile",
+      "Prevenție",
+      "Organizare pe teren",
+      "Empatie",
+      "Rezistență"
+    ],
+    "paths": [
+      "Postliceală sanitară",
+      "Curs asistent medical comunitar",
+      "Angajare la primărie / DSP",
+      "ONG-uri de sănătate"
+    ],
+    "schools": [
+      "Postliceale sanitare",
+      "Programe DSP / primării",
+      "ONG-uri (Crucea Roșie etc.)",
+      "Cursuri de mediator sanitar"
+    ],
+    "marketScoreRo": 40,
+    "marketScoreEu": 45,
+    "futureScore": 80,
+    "accessibilityScore": 70,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (care roles)",
+      "OUG 18/2017 (RO)"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "mental-health-coach",
+    "name": "Coach sănătate mintală / Specialist peer-support",
+    "tagline": "Ești sprijinul dintre om și terapeut",
+    "color": "pink",
+    "emoji": "☼",
+    "pathType": "mixt",
+    "traits": [
+      "social"
+    ],
+    "riasec": [
+      "S",
+      "A",
+      "I"
+    ],
+    "big5": [
+      "A"
+    ],
+    "signals": [
+      "social.counseling",
+      "social.coaching"
+    ],
+    "salary": "Junior: 800 — 1.300 €/lună · Mid: 1.300 — 2.500 €/lună · Senior: 2.500 — 4.500 €/lună",
+    "demand": "În creștere — nevoia de sprijin depășește capacitatea psihologilor; rol complementar, nu înlocuitor",
+    "vibe": "Empatie + structură",
+    "description": "Susții oameni cu obiective de echilibru mintal: obiceiuri, stres, reziliență, sprijin de la egal la egal. Nu diagnostichezi și nu tratezi — lucrezi complementar cu psihologii și știi când să trimiți mai departe.",
+    "day": [
+      "Sesiune 1:1 de coaching",
+      "Grup de sprijin peer-to-peer",
+      "Plan de obiceiuri cu un client",
+      "Studiu de caz cu un supervisor",
+      "Recomandare către psiholog la nevoie"
+    ],
+    "skills": [
+      "Ascultare activă",
+      "Limite profesionale clare",
+      "Tehnici de coaching",
+      "Psihoeducație",
+      "Confidențialitate",
+      "Auto-îngrijire"
+    ],
+    "paths": [
+      "Psihologie (licență)",
+      "Formare în coaching acreditată",
+      "Cursuri peer-support",
+      "Practică supervizată"
+    ],
+    "schools": [
+      "Psihologie UBB / UB / UAIC",
+      "Școli de coaching acreditate",
+      "Programe ONG de peer-support",
+      "Formări continue"
+    ],
+    "marketScoreRo": 20,
+    "marketScoreEu": 35,
+    "futureScore": 80,
+    "accessibilityScore": 60,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (wellbeing)",
+      "rol emergent editorial"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "elder-care-coordinator",
+    "name": "Coordonator îngrijire vârstnici / age-tech",
+    "tagline": "Organizezi grija pentru generația părinților",
+    "color": "orange",
+    "emoji": "⌂",
+    "pathType": "profesional",
+    "traits": [
+      "social",
+      "lead"
+    ],
+    "riasec": [
+      "S",
+      "E",
+      "C"
+    ],
+    "big5": [
+      "A",
+      "C"
+    ],
+    "signals": [
+      "social.care",
+      "business.operations",
+      "order.admin"
+    ],
+    "salary": "Junior: 800 — 1.200 €/lună · Mid: 1.200 — 2.000 €/lună · Senior: 2.000 — 3.500 €/lună",
+    "demand": "Critică pe termen lung — RO are una dintre cele mai accelerate îmbătrâniri din UE",
+    "vibe": "Grijă + organizare",
+    "description": "Coordonezi îngrijirea pentru vârstnici: echipe de îngrijitori, planuri de îngrijire, familie, medici și — tot mai des — tehnologie de monitorizare. Logistica grijii, făcută bine.",
+    "day": [
+      "Plan de îngrijire pentru un caz nou",
+      "Coordonare echipă de îngrijitori",
+      "Discuție cu familia",
+      "Configurare monitorizare la domiciliu",
+      "Evaluare lunară a cazurilor"
+    ],
+    "skills": [
+      "Organizare",
+      "Cunoștințe de geriatrie de bază",
+      "Comunicare cu familii",
+      "Coordonare de echipă",
+      "Age-tech",
+      "Calm"
+    ],
+    "paths": [
+      "Asistență socială",
+      "Postliceală sanitară + experiență",
+      "Curs de management în îngrijire",
+      "Servicii private de îngrijire"
+    ],
+    "schools": [
+      "Asistență Socială (UB / UBB / UAIC)",
+      "Postliceale sanitare",
+      "Furnizori privați de îngrijire",
+      "Cursuri de specializare"
+    ],
+    "marketScoreRo": 25,
+    "marketScoreEu": 45,
+    "futureScore": 85,
+    "accessibilityScore": 65,
+    "sourceRefs": [
+      "WEF Future of Jobs 2025 (care economy)",
+      "rol emergent editorial (age-tech)"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
+  },
+  {
+    "id": "accessibility-specialist",
+    "name": "Specialist accesibilitate & incluziune",
+    "tagline": "Faci produsele să funcționeze pentru toți",
+    "color": "blue",
+    "emoji": "◐",
+    "pathType": "mixt",
+    "traits": [
+      "social",
+      "analyze",
+      "create"
+    ],
+    "riasec": [
+      "S",
+      "I",
+      "C"
+    ],
+    "big5": [
+      "A",
+      "O"
+    ],
+    "signals": [
+      "social.community",
+      "order.compliance",
+      "creative.visual"
+    ],
+    "salary": "Junior: 1.000 — 1.800 €/lună · Mid: 1.800 — 3.500 €/lună · Senior: 3.500 — 6.500 €/lună",
+    "demand": "În creștere — European Accessibility Act (2025) obligă produsele digitale la conformitate",
+    "vibe": "Design + drepturi",
+    "description": "Faci aplicații, site-uri și servicii utilizabile pentru persoane cu dizabilități: audit WCAG, testare cu utilizatori reali, training pentru echipe. Obligatoriu legal în UE din 2025 — și corect uman dintotdeauna.",
+    "day": [
+      "Audit de accesibilitate pe o aplicație",
+      "Test cu utilizatori de screen-reader",
+      "Training pentru echipa de design",
+      "Raport de conformitate EAA",
+      "Prioritizare remedieri cu echipa"
+    ],
+    "skills": [
+      "WCAG / EAA",
+      "Testare cu tehnologii asistive",
+      "UX",
+      "Empatie",
+      "Comunicare cu echipe tech",
+      "Advocacy"
+    ],
+    "paths": [
+      "Design / psihologie / informatică",
+      "Certificare IAAP (CPACC)",
+      "Practică în echipe de produs",
+      "Comunitatea de accesibilitate"
+    ],
+    "schools": [
+      "Psihologie / Design",
+      "Informatică",
+      "Cursuri + certificare IAAP",
+      "ONG-uri de dizabilitate"
+    ],
+    "marketScoreRo": 15,
+    "marketScoreEu": 45,
+    "futureScore": 80,
+    "accessibilityScore": 50,
+    "sourceRefs": [
+      "European Accessibility Act (UE)",
+      "WEF Future of Jobs 2025"
+    ],
+    "lastReviewed": "2026-06-12",
+    "status": "active"
   }
 ]
