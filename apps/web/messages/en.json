@@ -549,7 +549,7 @@
   },
   "drum": {
     "title": "Your journey",
-    "lead": "{done}/{total} steps · each step = +{xp} XP",
+    "lead": "{done}/{total} steps completed",
     "objectiveLabel": "YOUR OBJECTIVE",
     "objectiveChosen": "picked by you",
     "objectiveSuggested": "suggested from your tests — confirm it on the career page",
@@ -597,6 +597,8 @@
     "noteLead": "Write 2-3 lines while it's fresh: what surprised you, what you liked, what you didn't.",
     "notePlaceholder": "Your impressions...",
     "noteSave": "Save impression",
+    "noteSaveAndComplete": "Save and mark done",
+    "noteCompleteWithoutNote": "Mark done without a note",
     "noteSkip": "Later",
     "noteEdit": "✎ edit impression",
     "noteAdd": "+ add impression",
@@ -620,6 +622,6 @@
     "loading": "Loading your journey...",
     "realitySafety": "Safety: for meetings or conversations with people you don’t know, involve a parent or trusted adult.",
     "resetLabel": "Delete journal and progress",
-    "resetConfirm": "Sure? Checked steps, saved impressions, and XP will be permanently deleted. Your tests and saved careers stay."
+    "resetConfirm": "Sure? Checked steps and saved impressions will be permanently deleted. Your tests and saved careers stay."
   }
 }

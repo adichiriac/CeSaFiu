@@ -20,8 +20,8 @@
         "title_en": "Talk to a student in the field",
         "sub": "întreabă-l ce l-a surprins în primul an",
         "sub_en": "ask what surprised them in year one",
-        "hint": "Un cunoscut, un grup de Facebook al facultății sau un student întâlnit la porți deschise.",
-        "hint_en": "A friend, a university Facebook group, or someone you met at an open day."
+        "hint": "Începe cu un cunoscut, asociația oficială a studenților sau cineva întâlnit la porți deschise.",
+        "hint_en": "Start with someone you know, the official student association, or someone you met at an open day."
       },
       {
         "id": "sit-in",
@@ -30,8 +30,8 @@
         "title_en": "Sit in on a class or visit the campus",
         "sub": "o oră reală face cât 10 broșuri",
         "sub_en": "one real hour beats 10 brochures",
-        "hint": "Multe facultăți permit vizite — scrie-le pe mail sau întreabă la porți deschise.",
-        "hint_en": "Many universities allow visits — email them or ask at an open day."
+        "hint": "Cere acordul facultății înainte. Dacă nu se poate, alege un tur oficial sau un curs demonstrativ online.",
+        "hint_en": "Ask the university first. If a visit is not possible, use an official tour or an online sample class."
       }
     ]
   },
@@ -65,8 +65,8 @@
         "title_en": "Do a hands-on mini-project",
         "sub": "testează dacă îți place lucrul cu mâinile",
         "sub_en": "test whether you enjoy working with your hands",
-        "hint": "Repară, construiește sau asamblează ceva — contează să termini.",
-        "hint_en": "Fix, build, or assemble something — finishing is what counts."
+        "hint": "Repară, construiește sau asamblează ceva potrivit nivelului tău, cu echipament și supraveghere când e nevoie.",
+        "hint_en": "Fix, build, or assemble something suited to your level, with safety gear and supervision when needed."
       }
     ]
   },
@@ -96,12 +96,12 @@
       {
         "id": "community",
         "emoji": "👥",
-        "title": "Intră într-o comunitate și pune o întrebare",
-        "title_en": "Join a community and ask a question",
-        "sub": "Discord, Reddit, un grup local",
-        "sub_en": "Discord, Reddit, a local group",
-        "hint": "Autodidacții buni nu învață singuri — învață în public.",
-        "hint_en": "Good self-learners don't learn alone — they learn in public."
+        "title": "Cere feedback într-o comunitate moderată",
+        "title_en": "Ask for feedback in a moderated community",
+        "sub": "arată mini-proiectul, fără date personale",
+        "sub_en": "show your mini-project without sharing personal data",
+        "hint": "Alege comunitatea cursului, un club al școlii sau un grup recomandat de un profesor și pune o întrebare concretă.",
+        "hint_en": "Use the course community, a school club, or a group recommended by a teacher, and ask one specific question."
       }
     ]
   },
@@ -121,22 +121,22 @@
       {
         "id": "validate",
         "emoji": "🔍",
-        "title": "Întreabă 5 oameni dacă ar plăti pentru ideea ta",
-        "title_en": "Ask 5 people if they'd pay for your idea",
-        "sub": "feedback real, nu prieteni politicoși",
-        "sub_en": "real feedback, not polite friends",
-        "hint": "Întreabă „ai plăti X lei pentru asta?” — nu „ți se pare o idee bună?”.",
-        "hint_en": "Ask 'would you pay X for this?' — not 'do you like the idea?'."
+        "title": "Testează oferta cu 5 potențiali clienți",
+        "title_en": "Test your offer with 5 potential customers",
+        "sub": "caută dovezi, nu doar păreri politicoase",
+        "sub_en": "look for evidence, not just polite opinions",
+        "hint": "Întreabă cum rezolvă problema acum, apoi arată oferta și cere o alegere concretă: test, rezervare sau precomandă.",
+        "hint_en": "Ask how they solve the problem today, then show the offer and request a concrete next step: trial, booking, or preorder."
       },
       {
         "id": "first-sale",
         "emoji": "💸",
-        "title": "Vinde ceva — orice",
-        "title_en": "Sell something — anything",
-        "sub": "prima vânzare te învață mai mult decât 10 cărți",
-        "sub_en": "the first sale teaches more than 10 books",
-        "hint": "Limonadă, haine vechi pe Vinted, un serviciu mic — contează tranzacția.",
-        "hint_en": "Lemonade, old clothes online, a small service — the transaction is what matters."
+        "title": "Obține o comandă sau precomandă mică",
+        "title_en": "Get a small order or preorder",
+        "sub": "un angajament real valorează mai mult decât un like",
+        "sub_en": "a real commitment matters more than a like",
+        "hint": "Testează cu persoane cunoscute și implică un adult pentru plăți, livrare sau folosirea unei platforme.",
+        "hint_en": "Test with people you know and involve an adult for payments, delivery, or use of an online platform."
       }
     ]
   },
@@ -156,12 +156,12 @@
       {
         "id": "first-gig",
         "emoji": "🤝",
-        "title": "Ia un mini-proiect real",
-        "title_en": "Take on a real mini-project",
-        "sub": "chiar și gratuit, pentru cineva cunoscut",
-        "sub_en": "even free, for someone you know",
-        "hint": "Un logo pentru clubul școlii, un site pentru un vecin — un client real, cu păreri reale.",
-        "hint_en": "A logo for a school club, a site for a neighbor — a real client with real opinions."
+        "title": "Fă un mini-proiect după un brief real",
+        "title_en": "Complete a mini-project from a real brief",
+        "sub": "scop clar, termen și feedback la final",
+        "sub_en": "clear scope, deadline, and feedback at the end",
+        "hint": "Poate fi pentru un club al școlii sau o persoană cunoscută. Stabiliți dinainte ce livrezi și ce primești în schimb.",
+        "hint_en": "It can be for a school club or someone you know. Agree up front on the deliverable and what you receive in return."
       },
       {
         "id": "talk-freelancer",
@@ -181,32 +181,32 @@
       {
         "id": "publish-3",
         "emoji": "📣",
-        "title": "Publică 3 postări pe aceeași temă",
-        "title_en": "Publish 3 posts on one theme",
-        "sub": "consistența bate viralul",
-        "sub_en": "consistency beats going viral",
-        "hint": "Aceeași temă, aceeași platformă, o săptămână — vezi dacă îți place procesul.",
-        "hint_en": "Same theme, same platform, one week — see if you enjoy the process."
+        "title": "Creează o mini-serie de 3 materiale",
+        "title_en": "Create a three-piece mini-series",
+        "sub": "testează procesul, fără presiunea de a deveni viral",
+        "sub_en": "test the process without pressure to go viral",
+        "hint": "Păstrează aceeași temă. Le poți publica, arăta unui grup mic sau ține în draft dacă nu vrei expunere publică.",
+        "hint_en": "Keep one theme. You can publish them, show a small group, or keep them as drafts if you do not want public exposure."
       },
       {
         "id": "read-stats",
         "emoji": "📊",
-        "title": "Uită-te la statistici și notează ce a mers",
-        "title_en": "Check your stats and note what worked",
-        "sub": "datele îți arată ce vrea audiența",
-        "sub_en": "the data shows what your audience wants",
-        "hint": "Care postare a mers cel mai bine? De ce crezi? Scrie în notițe.",
-        "hint_en": "Which post did best? Why do you think so? Write it in your notes."
+        "title": "Strânge feedback și notează ce a mers",
+        "title_en": "Collect feedback and note what worked",
+        "sub": "folosește reacții reale, nu doar numărul de like-uri",
+        "sub_en": "use real reactions, not just the number of likes",
+        "hint": "Dacă ai publicat, compară statisticile. Dacă nu, cere feedback de la 3 persoane și notează ce au înțeles sau reținut.",
+        "hint_en": "If you published, compare the stats. If not, ask three people what they understood or remembered."
       },
       {
         "id": "talk-creator",
         "emoji": "💬",
-        "title": "Vorbește cu un creator cu audiență",
-        "title_en": "Talk to a creator with an audience",
-        "sub": "întreabă-l cât a durat până la primii 1.000",
-        "sub_en": "ask how long their first 1,000 took",
-        "hint": "Un DM sincer și scurt primește răspuns mai des decât crezi.",
-        "hint_en": "A short, honest DM gets answered more often than you'd think."
+        "title": "Vorbește cu un creator activ",
+        "title_en": "Talk to an active creator",
+        "sub": "întreabă despre rutină, presiune și venituri",
+        "sub_en": "ask about routine, pressure, and income",
+        "hint": "Începe cu cineva cunoscut, un atelier sau un eveniment moderat. Pentru contacte necunoscute, implică un adult.",
+        "hint_en": "Start with someone you know, a workshop, or a moderated event. Involve an adult when contacting strangers."
       }
     ]
   }

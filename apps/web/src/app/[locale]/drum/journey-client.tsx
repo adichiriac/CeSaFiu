@@ -5,9 +5,8 @@
  *
  * Duolingo-style path over REAL app state: tests, chosen career/path, saved
  * unis, share. Path-specific reality-check steps (S3) come from
- * /data/journey-paths.json and are self-reported, each with an impression
- * note. Rewards (XP + badges) are appended to a local ledger; new rewards
- * pop as toasts so completions feel earned.
+ * /data/journey-paths.json and are self-reported, each with an optional
+ * impression note.
  */
 
 import Link from 'next/link';
@@ -18,7 +17,7 @@ import {useTranslations} from 'next-intl';
 import BottomNav from '@/components/bottom-nav';
 import ThemeToggle from '@/components/theme-toggle';
 import {trackEvent} from '@/lib/analytics/umami';
-import {deriveJourney, expectedRewards, XP_PER_STEP} from '@/lib/journey/progress';
+import {deriveJourney} from '@/lib/journey/progress';
 import type {JourneyPathsData, JourneySection, JourneyStep, StepTarget} from '@/lib/journey/types';
 import {useAuthGate} from '@/components/auth/auth-provider';
 import {useJourneyStore} from '@/stores/journey-store';
@@ -36,14 +35,6 @@ type JourneyClientProps = {
   locale: string;
 };
 
-type Toast = {key: string; text: string; kind: 'xp' | 'badge' | 'complete'};
-
-const BADGE_NAME_KEY: Record<string, string> = {
-  m1: 'badgeM1', m2: 'badgeM2', m3: 'badgeM3', m4: 'badgeM4', finish: 'badgeFinish',
-};
-const BADGE_EMOJI: Record<string, string> = {
-  m1: '🧭', m2: '🎯', m3: '🥾', m4: '🗺️', finish: '🏆',
-};
 const NODE_OFFSETS = [0, 36, 64, 36];
 
 export default function JourneyClient({careers, paths, journeyPaths, locale}: JourneyClientProps) {
@@ -57,8 +48,6 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
   const seenShareCard = useJourneyStore((s) => s.seenShareCard);
   const resetJourney = useJourneyStore((s) => s.resetJourney);
   const manual = useJourneyStore((s) => s.manual);
-  const rewards = useJourneyStore((s) => s.rewards);
-  const logReward = useJourneyStore((s) => s.logReward);
   const completeManualStep = useJourneyStore((s) => s.completeManualStep);
   const undoManualStep = useJourneyStore((s) => s.undoManualStep);
   const saveNote = useJourneyStore((s) => s.saveNote);
@@ -69,9 +58,6 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
   const [nudgeId, setNudgeId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [noteSheet, setNoteSheet] = useState<{pathId: string; stepId: string; title: string} | null>(null);
-  const [toasts, setToasts] = useState<Toast[]>([]);
-  const [celebrate, setCelebrate] = useState(false);
-  const [justDone, setJustDone] = useState<Set<string>>(new Set());
   const nudgeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // ── Load client-only inputs (test results + suggested objective) ──────────
@@ -134,60 +120,6 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
     [testsDone, chosenCareer, topMatch, pathId, pathName, savedCareerIds, chosenCareerId, savedUniIds, admissionChecked, seenShareCard, manual, journeyPaths, locale],
   );
 
-  // XP comes from the ledger so it survives path switches (earned is earned).
-  const ledgerXp = useMemo(() => rewards.reduce((sum, r) => sum + r.xp, 0), [rewards]);
-  const earnedBadges = useMemo(
-    () => new Set(rewards.filter((r) => r.badgeId).map((r) => r.badgeId as string)),
-    [rewards],
-  );
-
-  // ── Reward diffing: log new completions, pop toasts ───────────────────────
-  // XP semantics (deliberate): LIFETIME, APPEND-ONLY. Earned XP survives
-  // unsaving a career/path/uni — the work was done. The single exception is
-  // undoing a manual step ("I didn't actually do it"), which withdraws its
-  // reward for honesty. logReward is idempotent, so nothing double-awards.
-  useEffect(() => {
-    if (!mounted) return;
-    const ledgerWasEmpty = useJourneyStore.getState().rewards.length === 0;
-    const xpToasts: Toast[] = [];
-    const otherToasts: Toast[] = [];
-    const freshSteps = new Set<string>();
-    let freshXp = 0;
-
-    for (const reward of expectedRewards(state)) {
-      if (!logReward(reward)) continue; // already in the ledger
-      if (reward.type === 'step') {
-        freshXp += reward.xp;
-        xpToasts.push({key: reward.id, text: t('toastXp', {xp: reward.xp}), kind: 'xp'});
-        freshSteps.add(reward.id.slice('step:'.length));
-        trackEvent('journey_step_done', {step: reward.id});
-      } else if (reward.type === 'milestone' && reward.badgeId) {
-        otherToasts.push({key: reward.id, text: t('toastBadge', {name: t(BADGE_NAME_KEY[reward.badgeId])}), kind: 'badge'});
-        trackEvent('journey_milestone', {badge: reward.badgeId});
-      } else if (reward.type === 'journey') {
-        otherToasts.push({key: reward.id, text: t('toastComplete'), kind: 'complete'});
-        setCelebrate(true);
-        trackEvent('journey_complete');
-      }
-    }
-
-    if (xpToasts.length === 0 && otherToasts.length === 0) return;
-
-    // Backfill (first visit with prior progress, or several catch-up steps):
-    // collapse XP toasts into one summary so the screen isn't a toast storm.
-    const aggregateXp = xpToasts.length > 2
-      ? [{key: `xp-backfill-${Date.now()}`, text: t('toastXp', {xp: freshXp}), kind: 'xp' as const}]
-      : xpToasts;
-    const fresh = [...aggregateXp, ...(ledgerWasEmpty ? otherToasts.slice(-1) : otherToasts)];
-
-    setToasts((prev) => [...prev, ...fresh].slice(-4));
-    setJustDone((prev) => new Set([...prev, ...freshSteps]));
-    const timer = setTimeout(() => {
-      setToasts((prev) => prev.filter((toast) => !fresh.some((f) => f.key === toast.key)));
-    }, 3200);
-    return () => clearTimeout(timer);
-  }, [mounted, state, logReward, t]);
-
   // ── Step interaction ───────────────────────────────────────────────────────
   const hrefFor = useCallback((target: StepTarget): string => {
     switch (target.kind) {
@@ -224,10 +156,13 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
 
   function onMarkDone(step: JourneyStep) {
     if (step.target.kind !== 'manual') return;
-    completeManualStep(step.target.pathId, step.target.stepId);
-    trackEvent('journey_manual_complete', {path: step.target.pathId, step: step.target.stepId});
-    setExpandedId(null);
     setNoteSheet({pathId: step.target.pathId, stepId: step.target.stepId, title: step.title});
+  }
+
+  function completeRealityStep(pathId: string, stepId: string) {
+    completeManualStep(pathId, stepId);
+    trackEvent('journey_manual_complete', {path: pathId, step: stepId});
+    setExpandedId(null);
   }
 
   if (!mounted) {
@@ -249,7 +184,7 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
         <header className="journeyHeader">
           <div>
             <h1>{t('title')}</h1>
-            <p>{t('lead', {done: state.doneCount, total: state.totalCount, xp: XP_PER_STEP})}</p>
+            <p>{t('lead', {done: state.doneCount, total: state.totalCount})}</p>
           </div>
           <ThemeToggle />
         </header>
@@ -272,34 +207,13 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
             <div className="journeyProgressTrack" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={state.pct}>
               <div className="journeyProgressFill" style={{width: `${state.pct}%`}} />
             </div>
-            <span className="journeyXpPill">{t('xpPill', {xp: ledgerXp})}</span>
           </div>
-        </section>
-
-        {/* ── Badge shelf ── */}
-        <section className="journeyBadgeRow" aria-label={t('badgesLabel')}>
-          <span className="journeyBadgeLabel">{t('badgesLabel')}</span>
-          {Object.keys(BADGE_NAME_KEY).map((badgeId) => {
-            const earned = earnedBadges.has(badgeId);
-            return (
-              <span
-                className={earned ? 'journeyBadge isEarned' : 'journeyBadge'}
-                key={badgeId}
-                title={t(BADGE_NAME_KEY[badgeId])}
-                aria-label={earned ? t(BADGE_NAME_KEY[badgeId]) : t('badgeLockedAria')}
-              >
-                <i aria-hidden="true">{earned ? BADGE_EMOJI[badgeId] : '?'}</i>
-                <small>{earned ? t(BADGE_NAME_KEY[badgeId]) : '···'}</small>
-              </span>
-            );
-          })}
         </section>
 
         {/* ── The path ── */}
         {state.sections.map((section, sectionIndex) => (
           <JourneySectionBlock
             expandedId={expandedId}
-            justDone={justDone}
             key={section.id}
             locale={locale}
             nudgeId={nudgeId}
@@ -341,28 +255,18 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
         </div>
       </section>
 
-      {/* ── Reward toasts ── */}
-      <div aria-live="polite" className="journeyToastStack">
-        {toasts.map((toast) => (
-          <div className={`journeyToast is-${toast.kind}`} key={toast.key}>{toast.text}</div>
-        ))}
-      </div>
-
-      {/* ── Completion celebration ── */}
-      {celebrate ? (
-        <div aria-hidden="true" className="journeyConfetti" onAnimationEnd={() => setCelebrate(false)}>
-          {Array.from({length: 18}).map((_, i) => (
-            <i key={i} style={{left: `${(i * 53) % 100}%`, animationDelay: `${(i % 6) * 0.12}s`}} />
-          ))}
-        </div>
-      ) : null}
-
       {/* ── Impression note sheet ── */}
       {noteSheet ? (
         <NoteSheet
           locale={locale}
           onClose={() => setNoteSheet(null)}
+          onCompleteWithoutNote={() => {
+            completeRealityStep(noteSheet.pathId, noteSheet.stepId);
+            setNoteSheet(null);
+          }}
           onSave={(note) => {
+            const key = `${noteSheet.pathId}:${noteSheet.stepId}`;
+            if (!manual[key]) completeRealityStep(noteSheet.pathId, noteSheet.stepId);
             saveNote(noteSheet.pathId, noteSheet.stepId, note);
             trackEvent('journey_note_saved', {path: noteSheet.pathId, step: noteSheet.stepId, has_text: note.trim().length > 0});
             setNoteSheet(null);
@@ -387,10 +291,9 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
 type DrumTFunc = ReturnType<typeof useTranslations<'drum'>>;
 
 function JourneySectionBlock({
-  expandedId, justDone, locale, nudgeId, onMarkDone, onStepTap, pathName, section, sectionIndex, t,
+  expandedId, locale, nudgeId, onMarkDone, onStepTap, pathName, section, sectionIndex, t,
 }: {
   expandedId: string | null;
-  justDone: Set<string>;
   locale: string;
   nudgeId: string | null;
   onMarkDone: (step: JourneyStep) => void;
@@ -428,7 +331,6 @@ function JourneySectionBlock({
           {section.steps.map((step, stepIndex) => (
             <JourneyStepRow
               expanded={expandedId === step.id}
-              isJustDone={justDone.has(step.id)}
               key={step.id}
               locale={locale}
               nudged={nudgeId === step.id}
@@ -460,10 +362,9 @@ function JourneySectionBlock({
 // ── Step row ──────────────────────────────────────────────────────────────────
 
 function JourneyStepRow({
-  expanded, isJustDone, locale, nudged, offset, onMarkDone, onTap, step, t,
+  expanded, locale, nudged, offset, onMarkDone, onTap, step, t,
 }: {
   expanded: boolean;
-  isJustDone: boolean;
   locale: string;
   nudged: boolean;
   offset: number;
@@ -486,7 +387,6 @@ function JourneyStepRow({
     step.current ? 'isCurrent' : '',
     step.locked ? 'isLocked' : '',
     isManual ? 'isManual' : '',
-    isJustDone ? 'isJustDone' : '',
   ].filter(Boolean).join(' ');
 
   const cardClass = [
@@ -494,7 +394,6 @@ function JourneyStepRow({
     step.done ? 'isDone' : '',
     step.current ? 'isCurrent' : '',
     step.locked ? 'isLocked' : '',
-    isJustDone ? 'isJustDone' : '',
   ].filter(Boolean).join(' ');
 
   const ariaState = step.locked ? ` (${t('stepLockedAria')})` : '';
@@ -512,9 +411,7 @@ function JourneyStepRow({
         <button className={cardClass} onClick={() => onTap(step)} type="button">
           <span className="journeyStepHead">
             <strong>{title}</strong>
-            {step.done ? (
-              <em className="journeyXpChip">{t('xpChipDone', {xp: step.xp})}</em>
-            ) : step.current ? (
+            {step.current && !step.done ? (
               <em className="journeyNowChip">{t('now')}</em>
             ) : null}
           </span>
@@ -551,10 +448,11 @@ function JourneyStepRow({
 // ── Impression note sheet ─────────────────────────────────────────────────────
 
 function NoteSheet({
-  locale, onClose, onSave, onUndo, sheet, t,
+  locale, onClose, onCompleteWithoutNote, onSave, onUndo, sheet, t,
 }: {
   locale: string;
   onClose: () => void;
+  onCompleteWithoutNote: () => void;
   onSave: (note: string) => void;
   onUndo: () => void;
   sheet: {pathId: string; stepId: string; title: string};
@@ -574,7 +472,7 @@ function NoteSheet({
         role="dialog"
       >
         <button aria-label={t('noteAriaClose')} className="journeySheetClose" onClick={onClose} type="button">×</button>
-        <small className="journeySheetStep">✓ {sheet.title}</small>
+        <small className="journeySheetStep">{entry ? '✓' : '○'} {sheet.title}</small>
         <h2>{t('noteTitle')}</h2>
         <p>{t('noteLead')}</p>
         <textarea
@@ -587,15 +485,22 @@ function NoteSheet({
         />
         <div className="journeySheetActions">
           <button className="journeySheetSave" onClick={() => onSave(draft)} type="button">
-            {t('noteSave')}
+            {entry ? t('noteSave') : t('noteSaveAndComplete')}
           </button>
+          {!entry ? (
+            <button className="journeySheetSkip" onClick={onCompleteWithoutNote} type="button">
+              {t('noteCompleteWithoutNote')}
+            </button>
+          ) : null}
           <button className="journeySheetSkip" onClick={onClose} type="button">
             {t('noteSkip')}
           </button>
         </div>
-        <button className="journeySheetUndo" onClick={onUndo} type="button">
-          {t('noteUndo')}
-        </button>
+        {entry ? (
+          <button className="journeySheetUndo" onClick={onUndo} type="button">
+            {t('noteUndo')}
+          </button>
+        ) : null}
       </section>
     </div>
   );

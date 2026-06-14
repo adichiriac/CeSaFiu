@@ -549,7 +549,7 @@
   },
   "drum": {
     "title": "Drumul tău",
-    "lead": "{done}/{total} pași · fiecare pas = +{xp} XP",
+    "lead": "{done}/{total} pași completați",
     "objectiveLabel": "OBIECTIVUL TĂU",
     "objectiveChosen": "ales de tine",
     "objectiveSuggested": "sugerat din teste — confirmă-l pe pagina carierei",
@@ -597,6 +597,8 @@
     "noteLead": "Scrie 2-3 rânduri cât e proaspăt: ce te-a surprins, ce ți-a plăcut, ce nu.",
     "notePlaceholder": "Impresiile tale...",
     "noteSave": "Salvează impresia",
+    "noteSaveAndComplete": "Salvează și bifează",
+    "noteCompleteWithoutNote": "Bifează fără impresie",
     "noteSkip": "Mai târziu",
     "noteEdit": "✎ editează impresia",
     "noteAdd": "+ adaugă impresia",
@@ -620,6 +622,6 @@
     "loading": "Se încarcă drumul tău...",
     "realitySafety": "Siguranță: pentru întâlniri sau discuții cu persoane necunoscute, implică un părinte sau un adult de încredere.",
     "resetLabel": "Șterge jurnalul și progresul",
-    "resetConfirm": "Sigur? Se șterg definitiv pașii bifați, impresiile salvate și XP-ul. Testele și carierele salvate rămân."
+    "resetConfirm": "Sigur? Se șterg definitiv pașii bifați și impresiile salvate. Testele și carierele salvate rămân."
   }
 }
