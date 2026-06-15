@@ -981,6 +981,11 @@ h2 {
   color: rgba(255, 255, 255, 0.78);
 }
 
+.logistics .text-link,
+.logistics .inline-links a {
+  color: #fff;
+}
+
 .decisions {
   padding-bottom: 130px;
 }
