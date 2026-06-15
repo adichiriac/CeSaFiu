@@ -926,6 +926,177 @@ h2 {
   font-weight: 800;
 }
 
+.budget {
+  padding-top: 40px;
+}
+
+.budget-highlights,
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.budget-highlights article,
+.scenario-grid article {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+}
+
+.budget-highlights span,
+.scenario-grid span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.budget-highlights strong,
+.scenario-grid strong {
+  display: block;
+  color: var(--forest-950);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+  font-weight: 500;
+}
+
+.budget-highlights small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.budget-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  -webkit-overflow-scrolling: touch;
+}
+
+.budget-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.budget-table th,
+.budget-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.budget-table thead th {
+  background: var(--forest-950);
+  color: #fff;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.budget-table tbody th {
+  color: var(--forest-950);
+  font-size: 0.9rem;
+}
+
+.budget-table td {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.budget-table td:nth-child(3),
+.budget-table tfoot td:first-of-type {
+  color: var(--forest-950);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.budget-table tfoot th,
+.budget-table tfoot td {
+  border-bottom: 0;
+  background: var(--sage-100);
+}
+
+.budget-status {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.budget-status.paid {
+  background: #dcebe5;
+  color: #24513f;
+}
+
+.budget-status.estimate {
+  background: #f3e8c9;
+  color: #695328;
+}
+
+.budget-status.open {
+  background: #f5dfd7;
+  color: #7d432f;
+}
+
+.scenario-grid article {
+  border-top: 5px solid var(--lake);
+}
+
+.scenario-grid article:nth-child(2) {
+  border-top-color: var(--terracotta);
+}
+
+.scenario-grid article:nth-child(3) {
+  border-top-color: var(--gold);
+}
+
+.scenario-grid p {
+  min-height: 42px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.scenario-grid b {
+  color: var(--forest-800);
+  font-size: 0.88rem;
+}
+
+.budget-note {
+  max-width: 900px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.budget-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.cost-hint {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--sage-100);
+  color: var(--forest-800);
+  font-size: 0.79rem;
+}
+
 .logistics {
   width: 100%;
   max-width: none;
@@ -1280,6 +1451,19 @@ footer a {
   .packing-grid,
   .logistics-grid {
     grid-template-columns: 1fr;
+  }
+
+  .budget-highlights,
+  .scenario-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .scenario-grid p {
+    min-height: 0;
+  }
+
+  .budget-table-wrap {
+    margin-inline: -4px;
   }
 
   .booking-card {
