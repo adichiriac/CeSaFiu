@@ -9,8 +9,8 @@
     />
     <meta name="theme-color" content="#18392b" />
     <title>Italy 2026 | Trip Plan</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260615-2" />
+    <script src="script.js?v=20260615-2" defer></script>
   </head>
   <body>
     <svg width="0" height="0" style="position: absolute" aria-hidden="true">
@@ -82,7 +82,14 @@
           <span class="brand-mark" aria-hidden="true">IT</span>
           <span>Italy 2026</span>
         </a>
-        <a class="nav-link" href="#packing">Trip checklist</a>
+        <nav class="quick-nav" aria-label="Trip section shortcuts">
+          <a href="#bookings">Bookings</a>
+          <a href="#budget">Budget</a>
+          <a href="#timeline">Itinerary</a>
+          <a href="#logistics">Logistics</a>
+          <a href="#packing">Checklist</a>
+          <a href="#decisions">Decisions</a>
+        </nav>
       </nav>
 
       <div class="hero-content" id="top">
@@ -133,7 +140,7 @@
     </header>
 
     <main>
-      <section class="section overview" aria-labelledby="overview-title">
+      <section class="section overview collapsible-section" id="bookings" aria-labelledby="overview-title">
         <div class="section-heading">
           <div>
             <p class="eyebrow">At a glance</p>
@@ -229,7 +236,7 @@
             </div>
             <p class="card-kicker">20 Jun 08:00 – 24 Jun 08:00</p>
             <h3>Europcar · Citroën ë-C3</h3>
-            <p class="muted">Planning allowance · €180-260</p>
+            <p class="muted">Confirmed price · €171</p>
             <dl class="detail-list">
               <div>
                 <dt>Vehicle</dt>
@@ -351,7 +358,7 @@
         </details>
       </section>
 
-      <section class="section budget" id="budget" aria-labelledby="budget-title">
+      <section class="section budget collapsible-section" id="budget" aria-labelledby="budget-title">
         <div class="section-heading">
           <div>
             <p class="eyebrow">For two travelers</p>
@@ -363,18 +370,18 @@
         <div class="budget-highlights">
           <article>
             <span>Already confirmed</span>
-            <strong>€535</strong>
-            <small>Flights and three booked stays</small>
+            <strong>€706</strong>
+            <small>Flights, rental car, and three booked stays</small>
           </article>
           <article>
             <span>Base trip estimate</span>
-            <strong>€1,355-1,790</strong>
+            <strong>€1,346-1,701</strong>
             <small>Before Monday's optional activity</small>
           </article>
           <article>
             <span>Likely total</span>
-            <strong>€1,425-2,000</strong>
-            <small>€713-1,000 per person</small>
+            <strong>€1,416-1,911</strong>
+            <small>€708-956 per person</small>
           </article>
         </div>
 
@@ -403,9 +410,9 @@
               </tr>
               <tr>
                 <th scope="row">Rental car</th>
-                <td><span class="budget-status estimate">Estimate</span></td>
-                <td>€180-260</td>
-                <td>Replace this allowance with the voucher total when available</td>
+                <td><span class="budget-status paid">Confirmed</span></td>
+                <td>€171</td>
+                <td>Europcar electric rental for 20-24 June</td>
               </tr>
               <tr>
                 <th scope="row">Night of 22 June</th>
@@ -459,7 +466,7 @@
             <tfoot>
               <tr>
                 <th scope="row" colspan="2">Base trip before Monday activity</th>
-                <td>€1,355-1,790</td>
+                <td>€1,346-1,701</td>
                 <td>Includes both known and estimated costs above</td>
               </tr>
             </tfoot>
@@ -471,26 +478,26 @@
             <span>Monday A · Seaside</span>
             <strong>+ €70-100</strong>
             <p>Ferries and San Fruttuoso Abbey; food is already in the main budget.</p>
-            <b>Total trip: €1,425-1,890</b>
+            <b>Total trip: €1,416-1,801</b>
           </article>
           <article>
             <span>Monday B · E-bikes</span>
             <strong>+ €125-185</strong>
             <p>Two e-bike rentals plus extra road tolls and charging.</p>
-            <b>Total trip: €1,480-1,975</b>
+            <b>Total trip: €1,471-1,886</b>
           </article>
           <article>
             <span>Monday B · Bernina</span>
             <strong>+ €145-210</strong>
             <p>Scenic return rail tickets for two plus station parking.</p>
-            <b>Total trip: €1,500-2,000</b>
+            <b>Total trip: €1,491-1,911</b>
           </article>
         </div>
 
         <p class="budget-note">
           Planning figures checked 15 June 2026. The flight payment was converted
-          at €1 = 5.09 RON and rounded to the nearest euro. Rental price and the
-          night of 22 June remain allowances. The refundable €500 rental deposit
+          at €1 = 5.09 RON and rounded to the nearest euro. The night of
+          22 June remains an allowance. The refundable €500 rental deposit
           is excluded from spending but must be available on the driver's card.
         </p>
         <div class="budget-sources inline-links">
@@ -501,7 +508,7 @@
         </div>
       </section>
 
-      <section class="section" id="timeline" aria-labelledby="timeline-title">
+      <section class="section collapsible-section" id="timeline" aria-labelledby="timeline-title">
         <div class="section-heading timeline-heading">
           <div>
             <p class="eyebrow">Day by day</p>
@@ -1102,7 +1109,7 @@
         </div>
       </section>
 
-      <section class="section logistics" aria-labelledby="logistics-title">
+      <section class="section logistics collapsible-section" id="logistics" aria-labelledby="logistics-title">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Know before you go</p>
@@ -1192,7 +1199,7 @@
         </div>
       </section>
 
-      <section class="section packing" id="packing" aria-labelledby="packing-title">
+      <section class="section packing collapsible-section" id="packing" aria-labelledby="packing-title">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Before departure</p>
@@ -1308,7 +1315,7 @@
         </div>
       </section>
 
-      <section class="section decisions" id="decisions" aria-labelledby="decisions-title">
+      <section class="section decisions collapsible-section" id="decisions" aria-labelledby="decisions-title">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Next actions</p>

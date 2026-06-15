@@ -213,6 +213,35 @@ h1 {
   gap: 10px;
 }
 
+.quick-nav {
+  display: flex;
+  gap: 9px;
+  max-width: 760px;
+  margin-left: auto;
+  overflow-x: auto;
+  padding: 2px 0 8px;
+  scrollbar-width: thin;
+}
+
+.quick-nav a {
+  flex: 0 0 auto;
+  padding: 8px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.76rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.quick-nav a:hover,
+.quick-nav a:focus-visible {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
 .button {
   display: inline-flex;
   min-height: 48px;
@@ -321,6 +350,46 @@ h1 {
   justify-content: space-between;
   gap: 24px;
   margin-bottom: 36px;
+}
+
+.section-collapse-button {
+  display: inline-flex;
+  min-width: 128px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--forest-800);
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.section-collapse-icon {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 180ms ease;
+}
+
+.section-collapse-button[aria-expanded="true"] .section-collapse-icon {
+  transform: rotate(180deg);
+}
+
+.collapsible-section.is-collapsed {
+  padding-block: 38px;
+}
+
+.collapsible-section.is-collapsed .section-heading {
+  margin-bottom: 0;
+}
+
+.logistics .section-collapse-button {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
 }
 
 h2 {
@@ -1389,11 +1458,8 @@ footer a {
   }
 
   .topbar {
+    flex-wrap: wrap;
     padding-top: 16px;
-  }
-
-  .nav-link {
-    display: none;
   }
 
   .hero-content {
@@ -1426,6 +1492,15 @@ footer a {
     display: grid;
   }
 
+  .quick-nav {
+    width: 100%;
+    max-width: none;
+    flex-basis: 100%;
+    margin-top: 14px;
+    margin-left: 0;
+    padding-bottom: 10px;
+  }
+
   .route-art {
     right: -70px;
     bottom: 10px;
@@ -1445,6 +1520,15 @@ footer a {
     display: grid;
     align-items: start;
     gap: 18px;
+  }
+
+  .section-collapse-button {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .collapsible-section.is-collapsed {
+    padding-block: 24px;
   }
 
   .booking-grid,

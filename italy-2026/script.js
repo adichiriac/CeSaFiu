@@ -7,6 +7,8 @@ const saveVoucherButton = document.querySelector("#save-voucher");
 const openVoucherLink = document.querySelector("#open-voucher");
 const removeVoucherButton = document.querySelector("#remove-voucher");
 const voucherStatus = document.querySelector("#voucher-status");
+const collapsibleSections = document.querySelectorAll(".collapsible-section");
+const quickNavLinks = document.querySelectorAll(".quick-nav a");
 
 const voucherStorageKey = "italy-2026-rental-voucher";
 
@@ -582,4 +584,79 @@ setupChecklist({
   progressLabel: "packed",
 });
 
+function setSectionExpanded(section, expanded) {
+  const button = section.querySelector(".section-collapse-button");
+  const content = section.querySelector(".section-content");
+
+  if (!button || !content) {
+    return;
+  }
+
+  button.setAttribute("aria-expanded", String(expanded));
+  button.querySelector(".section-collapse-label").textContent = expanded
+    ? "Hide section"
+    : "Show section";
+  content.hidden = !expanded;
+  section.classList.toggle("is-collapsed", !expanded);
+}
+
+function openHashSection() {
+  if (!window.location.hash) {
+    return;
+  }
+
+  const target = document.querySelector(window.location.hash);
+
+  if (target?.classList.contains("collapsible-section")) {
+    setSectionExpanded(target, true);
+  }
+}
+
+const collapseByDefault = window.matchMedia("(max-width: 640px)").matches;
+
+collapsibleSections.forEach((section) => {
+  const heading = section.querySelector(":scope > .section-heading");
+
+  if (!heading) {
+    return;
+  }
+
+  const content = document.createElement("div");
+  const contentId = `${section.id}-content`;
+  content.className = "section-content";
+  content.id = contentId;
+
+  [...section.children]
+    .filter((child) => child !== heading)
+    .forEach((child) => content.appendChild(child));
+
+  section.appendChild(content);
+
+  const button = document.createElement("button");
+  button.className = "section-collapse-button";
+  button.type = "button";
+  button.setAttribute("aria-controls", contentId);
+  button.innerHTML =
+    '<span class="section-collapse-label">Hide section</span><span class="section-collapse-icon" aria-hidden="true">⌄</span>';
+  button.addEventListener("click", () => {
+    const expanded = button.getAttribute("aria-expanded") === "true";
+    setSectionExpanded(section, !expanded);
+  });
+
+  heading.appendChild(button);
+  setSectionExpanded(section, !collapseByDefault);
+});
+
+quickNavLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    const target = document.querySelector(link.hash);
+
+    if (target?.classList.contains("collapsible-section")) {
+      setSectionExpanded(target, true);
+    }
+  });
+});
+
+window.addEventListener("hashchange", openHashSection);
+openHashSection();
 updateVoucherControls();
