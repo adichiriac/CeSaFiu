@@ -1166,6 +1166,58 @@ h2 {
   font-size: 0.79rem;
 }
 
+.host-notes {
+  padding-top: 40px;
+}
+
+.host-note-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.host-note-card {
+  padding: 26px;
+  border: 1px solid rgba(28, 61, 45, 0.08);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.host-note-card-alert {
+  border-color: rgba(199, 99, 68, 0.24);
+  background:
+    linear-gradient(rgba(245, 223, 215, 0.28), rgba(245, 223, 215, 0.28)),
+    var(--paper);
+}
+
+.host-note-kicker {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.host-note-card h3 {
+  margin-bottom: 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.12;
+}
+
+.host-note-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
 .logistics {
   width: 100%;
   max-width: none;
@@ -1431,7 +1483,8 @@ footer a {
     opacity: 0.35;
   }
 
-  .booking-grid {
+  .booking-grid,
+  .host-note-grid {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -1532,6 +1585,7 @@ footer a {
   }
 
   .booking-grid,
+  .host-note-grid,
   .packing-grid,
   .logistics-grid {
     grid-template-columns: 1fr;
