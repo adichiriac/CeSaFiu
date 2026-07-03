@@ -74,7 +74,22 @@ The landing works, but the hero fires ~6 messages before the first action. Core 
 - **Result preview:** show what you get before starting — reuse P4's 9:16 share card as the preview asset (one deliverable, two uses). Note: NOT a "PDF report" preview — monetization is parked.
 - **Feedback button:** fix the content overlap (shrink or hide-on-scroll-down). Do NOT fold into bottom nav; keep it easy to reach — it's the main signal channel during calibration.
 
-Explicitly deprioritized from the same review (cosmetic, no metric moves): scroll micro-animations (generic-template feel + CLS cost; if ever, respect `prefers-reduced-motion`), extra whitespace/separators (density is brand — fix crowding via hierarchy, not air), distinct test iconography, meta badges. Desktop grid pass: 30-min check, audience is phone-first. Contrast on lime/galben was checked (2026-07-03): `ink-fixed` ≈ 14.9:1, `ink-soft` ≈ 6.9:1 — passes WCAG AA; any fatigue issue is saturation *area*, not text contrast.
+Explicitly deprioritized from the same review (cosmetic, no metric moves): scroll micro-animations (generic-template feel + CLS cost; if ever, respect `prefers-reduced-motion`), extra whitespace/separators (density is brand — fix crowding via hierarchy, not air), distinct test iconography. Desktop grid pass: 30-min check, audience is phone-first. Contrast on lime/galben was checked (2026-07-03): `ink-fixed` ≈ 14.9:1, `ink-soft` ≈ 6.9:1 — passes WCAG AA; any fatigue issue is saturation *area*, not text contrast.
+
+**Spec (mockups validated with Adi, 2026-07-03 — dark + light versions):**
+
+- **Page order:** header → hero (title + 1-line lead) → primary CTA card → "sau alege alt test" (2 compact cards) → Profil Complet row (compact) → "Ce primești la final" (result preview) → "Exemplu real" (Andra) → "Cum funcționează" (3 inline step chips) → bottom nav. The `noRobots` sticker, `eyebrow`, and colored `leadHighlights` are removed; their content ("gratuit", "5 min", "facultăți/cariere/meserii") is absorbed into the lead sentence and CTA meta.
+- **Hero:** keep the existing brand title treatment exactly (— "să fiu" in yellow box, black border + hard shadow; "fac mare?" with lime marker-highlight behind the text, not an underline). Lead: one sentence — "Descoperă ce ți se potrivește — facultăți, cariere, meserii. Fără stres."
+- **Action color = lime (`--green`).** Used ONLY for: primary CTA fill, active nav state, section accent labels. Purple/yellow stay categorical.
+- **Primary CTA card:** lime fill, 3px black border, hard shadow (5px), full-width. Contents: `RECOMANDAT` chip (ink-fixed bg, lime text), "Începe aici →" (heavy weight), meta line "Scenarii reale · 12 situații · gratuit". Links to `/test/scenarii`.
+- **Time badges:** every test card gets a right-aligned duration badge — clock icon + "N min", **no border/chenar, bold weight only** (Adi's call). Durations: Scenarii 5, Vocațional 4, Personalitate 4, Profil Complet 15. Remove duration from the sub-copy to avoid duplication.
+- **Secondary test cards:** 2-up compact row under "SAU ALEGE ALT TEST"; white surface, 2px categorical border. Light-mode note: `--yellow` (#ffe170) is invisible as a border on white — needs a darkened companion token (≈#d9b300 border / #7a6400 text) for the Personalitate card. Purple works as-is.
+- **Profil Complet:** demoted to a compact single row (title + "120 itemi · gratuit în pilot" + time badge + chevron), not a hero-sized block.
+- **Result preview ("Ce primești la final"):** mini share-card (the P4 9:16 asset, ~108px wide, slight -2° rotation, purple, hard shadow) beside 3 one-line promises (Top 3 potriviri / Match + explicație / Pași concreți). Lime accent on section label.
+- **Andra ("Exemplu real"):** paper-2 surface, 3px black border with a 6px yellow left band, quote + one-line hedge ("Testul nu decide în locul tău."). No avatar, no testimonial styling.
+- **Background:** math-notebook grid (24px squares, ~4% ink lines) across the page canvas; cards sit opaque on top (grid does NOT show through cards).
+- **Bottom nav:** keep the existing 5 icons (rachetă/⌕/⚑/★/♥) and add visible labels under each; active tab = lime pill behind the icon (2px black border) + heavy-weight label in ink (not lime — fails contrast on white). "Teste" is active on `/`.
+- **Feedback:** shrink to a ~34px round yellow button sitting above the nav; never overlaps content.
 
 ### P6 — Real voices per career (NEW)
 
