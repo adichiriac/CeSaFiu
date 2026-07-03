@@ -35,7 +35,7 @@
       "Administrarea Resurselor Apărării"
     ],
     "notes": "Universitatea de vârf pentru formarea ofițerilor MApN. Licență 4 ani + grad locotenent. Include și Academia Tehnică Militară (ATM) pentru ingineri militari.",
-    "url": "https://unap.ro"
+    "url": "https://www.unap.ro/index.php/ro/"
   },
   {
     "id": "aft-sibiu",
@@ -53,7 +53,7 @@
       "Relații Internaționale și Studii Europene"
     ],
     "notes": "Formarea ofițerilor pentru infanterie, artilerie, geniu, transmisiuni, logistică. Licență 4 ani + grad locotenent. Parteneriate NATO.",
-    "url": "https://armyacademy.ro"
+    "url": "https://www.armyacademy.ro/"
   },
   {
     "id": "afa-brasov",
@@ -72,7 +72,7 @@
       "Controlul Traficului Aerian"
     ],
     "notes": "Singurul drum oficial pentru pilotul militar în RO. Selecție extrem de riguroasă (medical, psihologic, cognitiv, fizic). Licență 4 ani + brevet de pilot militar.",
-    "url": "https://afahc.ro"
+    "url": "https://www.afahc.ro/"
   },
   {
     "id": "anmb",
@@ -221,7 +221,7 @@
       "Istoria Artei"
     ],
     "notes": "Atmosferă brutală în sens bun — concept-driven.",
-    "url": "https://unarte.ro"
+    "url": "https://unarte.org/"
   },
   {
     "id": "unatc",
@@ -437,7 +437,7 @@
       "Pedagogie Muzicală"
     ],
     "notes": "A doua mare academie de muzică din RO.",
-    "url": "https://amgd.ro"
+    "url": "https://anmgd.ro/"
   },
   {
     "id": "uad",
@@ -522,11 +522,11 @@
       "Bioinginerie Medicală"
     ],
     "notes": "Cea mai veche facultate de medicină din RO.",
-    "url": "https://umfiasi.ro",
+    "url": "https://www.umfiasi.ro/ro",
     "programs": [
       {
         "name": "Asistență Medicală Generală (licență 4 ani)",
-        "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/Specializarea-Asisten%C8%9B%C4%83-medical%C4%83-general%C4%83.aspx"
+        "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Asisten%C8%9B%C4%83%20medical%C4%83%20general%C4%83.aspx"
       }
     ]
   },
@@ -547,7 +547,7 @@
       "Medicină Veterinară"
     ],
     "notes": "Specializări pe agro-business și securitate alimentară.",
-    "url": "https://uaiasi.ro"
+    "url": "http://www.uaiasi.ro/"
   },
   {
     "id": "arte-iasi",
@@ -672,7 +672,7 @@
       "Inginerie"
     ],
     "notes": "Cea mai mare universitate din zona litorală.",
-    "url": "https://univ-ovidius.ro"
+    "url": "https://www.univ-ovidius.ro/"
   },
   {
     "id": "umc",
@@ -712,7 +712,7 @@
       "Agronomie"
     ],
     "notes": "Universitate comprehensivă pentru sud-vestul țării.",
-    "url": "https://ucv.ro"
+    "url": "https://www.ucv.ro/"
   },
   {
     "id": "umf-craiova",
@@ -751,7 +751,7 @@
       "Științe Economice"
     ],
     "notes": "Profil comprehensiv. Hub pentru centrul țării.",
-    "url": "https://ulbsibiu.ro"
+    "url": "https://www.ulbsibiu.ro/ro/"
   },
   {
     "id": "utbv",
@@ -817,7 +817,7 @@
       "Educație Fizică"
     ],
     "notes": "Profil larg pentru zona Crișanei.",
-    "url": "https://uoradea.ro"
+    "url": "https://www.uoradea.ro/"
   },
   {
     "id": "usv",
@@ -880,7 +880,7 @@
       "Educație"
     ],
     "notes": "Universitate medie pentru sud.",
-    "url": "https://valahia.ro"
+    "url": "https://www.valahia.ro/"
   },
   {
     "id": "umf-tgm",
@@ -932,7 +932,7 @@
       "Arte Plastice"
     ],
     "notes": "Singura universitate de arte cu predare în RO și HU.",
-    "url": "https://uartdtgm.ro"
+    "url": "https://www.uat.ro/"
   },
   {
     "id": "uvasileal",
@@ -970,7 +970,7 @@
       "Economie"
     ],
     "notes": "Specializare unică pe minerit și energie.",
-    "url": "https://upet.ro"
+    "url": "https://www.upet.ro/"
   },
   {
     "id": "uav",
@@ -1030,7 +1030,7 @@
       "Economie"
     ],
     "notes": "Singura universitate dedicată industriei petroliere din RO.",
-    "url": "https://upg-ploiesti.ro"
+    "url": "https://www.upg-ploiesti.ro/"
   },
   {
     "id": "spiru-haret",
@@ -1763,7 +1763,7 @@
       "DevOps"
     ],
     "notes": "Bootcamp românesc cu rată ridicată de plasare. ~6 luni full-time.",
-    "url": "https://wantsome.co"
+    "url": "https://wantsome.ro/"
   },
   {
     "id": "spor-academy",
@@ -1918,7 +1918,7 @@
       "Investiție pre-seed"
     ],
     "notes": "Pentru startup-uri tech early-stage. Investiție în schimbul unui mic equity.",
-    "url": "https://techcelerator.com"
+    "url": "https://techcelerator.co/"
   },
   {
     "id": "spherik",
@@ -1935,7 +1935,7 @@
       "Network UBB-UTCN"
     ],
     "notes": "Acceleratorul oficial al UBB + UTCN. Focus startup-uri din Transilvania.",
-    "url": "https://spherik.ro"
+    "url": "https://spherikaccelerator.com/"
   },
   {
     "id": "risi-up",
