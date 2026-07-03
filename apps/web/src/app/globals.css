@@ -1293,6 +1293,15 @@ h1 {
   line-height: 1.4;
 }
 
+.shareableCardSection {
+  --paper: #fef9f1;
+  --paper-2: #f4eadc;
+  --ink: #1d1c17;
+  --ink-soft: #494454;
+  --surface: #fff;
+  color: var(--ink);
+}
+
 .localSaveNote {
   margin: 0;
   color: var(--ink-soft);
