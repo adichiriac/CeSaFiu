@@ -211,6 +211,7 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
             <div className="h-sm">{t('loadingDesc')}</div>
           </div>
         </section>
+        <BottomNav active="results" locale={locale} />
       </main>
     );
   }
@@ -234,6 +235,7 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
             {t('noDataCTA')}
           </Link>
         </section>
+        <BottomNav active="results" locale={locale} />
       </main>
     );
   }
@@ -246,6 +248,7 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
           <h1>{t('errorHeading')}</h1>
           <Link className="button buttonPrimary" href={`/${locale}`}>{t('errorBack')}</Link>
         </section>
+        <BottomNav active="results" locale={locale} />
       </main>
     );
   }

@@ -3466,6 +3466,163 @@ a.homeBundleRow:hover {
   color: var(--on-accent);
 }
 
+/* ── Explore hub (redesign, docs/EXPLORE-REDESIGN-PLAN.md M1) ── */
+
+.browseSectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px 12px;
+}
+
+.browseBackBtn {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 3px solid #000;
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 4px 4px 0 #000;
+  color: var(--ink);
+  font: inherit;
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.browseSectionTitle {
+  font-size: clamp(26px, 6vw, 40px);
+  font-family: "Arial Black", Impact, ui-sans-serif, sans-serif;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1;
+}
+
+.browseHubList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px 20px 12px;
+}
+
+.browseHubCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  border: 3px solid #000;
+  border-radius: 8px;
+  box-shadow: 6px 6px 0 #000;
+  transition: box-shadow .1s, transform .1s;
+}
+
+.browseHubCard:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 8px 8px 0 #000;
+}
+
+.browseHubEmoji {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  background: var(--surface);
+  color: var(--ink);
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  transform: rotate(-3deg);
+}
+
+.browseHubBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.browseHubTitle {
+  font-weight: 900;
+  font-size: 21px;
+  line-height: 1.1;
+}
+
+.browseHubSub {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+.browseHubSaved {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 8px;
+  background: #000;
+  color: var(--yellow);
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.browseHubArrow {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.browseWorldChipRow {
+  padding: 0 0 12px;
+}
+
+.browseWorldChip {
+  border: 2px solid #000;
+  background: var(--yellow);
+  color: var(--ink-on-bright);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 6px 12px;
+  box-shadow: 3px 3px 0 #000;
+  cursor: pointer;
+}
+
+.browseTagMatchScore {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border: 2px solid #000;
+  background: #000;
+  color: var(--green);
+}
+
+.browseUniTabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.browseUniTabs .browseFilterChip {
+  flex: 1;
+  min-height: 44px;
+  font-size: 13px;
+  padding: 6px 8px;
+}
+
+.browseUniMatchReason {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border: 2px solid #000;
+  background: var(--yellow);
+  color: var(--ink-on-bright);
+}
+
 .browseSearchWrap {
   position: relative;
   margin-bottom: 12px;
@@ -5460,6 +5617,8 @@ a.homeBundleRow:hover {
   .browseHeader,
 .browseIntro,
 .browseTabs,
+.browseHubList,
+.browseSectionHeader,
 .browseSection {
     width: min(100%, 920px);
     margin: 0 auto;

@@ -8,9 +8,13 @@ import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import type {Career} from '@/lib/matcher';
 import type {Institution, PathEntry, Program} from '@/lib/careers/types';
+import {COLLECTION_IDS, inCollection, matchedInstitutions, type CollectionId} from '@/lib/careers/collections';
+import {trackEvent} from '@/lib/analytics/umami';
+import {useMatches} from '@/lib/results/use-matches';
 import {CAREER_WORLDS} from '@/lib/results/career-worlds';
 import {WORLD_IDS, WORLDS, type WorldId} from '@/lib/results/worlds';
 import {useJourneyStore} from '@/stores/journey-store';
+import {useQuizStore} from '@/stores/quiz-store';
 import {useUniStore} from '@/stores/uni-store';
 
 type BrowseClientProps = {
@@ -21,7 +25,7 @@ type BrowseClientProps = {
   locale: string;
 };
 
-type Section = 'careers' | 'paths' | 'unis';
+type Section = 'hub' | 'careers' | 'paths' | 'unis';
 type PathFull = PathEntry & {emoji?: string; color?: string; tagline?: string; duration?: string; cost?: string; pros?: string[]; cons?: string[]; bestFor?: string[]; next?: string[]};
 
 const CAREER_COLORS: Record<string, string> = {
@@ -42,15 +46,6 @@ const PATH_TEXT: Record<string, string> = {
   facultate: '#000', autodidact: '#000', antreprenor: '#fff',
   mixt: '#000', bootcamp: '#000', profesional: '#000', creator: '#000', freelance: '#000',
 };
-
-const FILTERS = [
-  {id: 'all',         label: 'Toate'},
-  {id: 'facultate',   label: 'Facultate'},
-  {id: 'profesional', label: 'Profesional'},
-  {id: 'autodidact',  label: 'Autodidact'},
-  {id: 'antreprenor', label: 'Antreprenor'},
-  {id: 'mixt',        label: 'Mixt'},
-];
 
 const UNI_TAGS = ['all', 'IT', 'medicină', 'business', 'artă', 'umaniste', 'inginerie', 'antreprenoriat', 'profesional', 'autodidact'];
 const UNI_TIER_COLORS: Record<string, {background: string; color: string}> = {
@@ -78,8 +73,13 @@ const CITY_PRIORITY = [
 const PATH_COLORS: Record<string, string> = {
   purple: 'var(--purple)', yellow: 'var(--yellow)', green: 'var(--green)',
 };
+
+/** Matched collection shows at most this many careers (plan §1, design cap). */
+const MATCHED_CAP = 12;
+
 function parseSection(value: string | null): Section {
-  return value === 'careers' || value === 'paths' || value === 'unis' ? value : 'unis';
+  if (value === 'universities') return 'unis'; // legacy deep links
+  return value === 'careers' || value === 'paths' || value === 'unis' ? value : 'hub';
 }
 
 /**
@@ -104,30 +104,47 @@ function uniLinkFor(uni: Institution) {
 
 export default function BrowseClient({careers, institutions, paths, programs, locale}: BrowseClientProps) {
   const t = useTranslations('browse');
-  const [section, setSection] = useState<Section>('unis');
+  const [section, setSection] = useState<Section>('hub');
+  const [world, setWorld] = useState<'all' | WorldId>('all');
+  const savedCareerIds = useQuizStore((s) => s.savedCareerIds);
+  const {savedUniIds} = useUniStore();
+  const {savedPath} = useAuthGate();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    // A ?world= deep link (result-page chips) lands on the careers tab.
-    if (!params.get('section') && params.get('world')) {
+    // A ?world= deep link (result-page chips) lands on the careers section
+    // with the world applied as a hidden, dismissible filter (plan §3).
+    const w = params.get('world');
+    if (w && (WORLD_IDS as string[]).includes(w)) {
+      setWorld(w as WorldId);
       setSection('careers');
-    } else {
-      setSection(parseSection(params.get('section')));
+      return;
     }
+    setSection(parseSection(params.get('section')));
   }, []);
 
-  const tabs: Array<{id: Section; label: string}> = [
-    {id: 'careers', label: t('tabCareers')},
-    {id: 'paths',   label: t('tabPaths')},
-    {id: 'unis',    label: t('tabUnis')},
-  ];
-
-  function selectSection(next: Section) {
+  function selectSection(next: Section, source: 'hub' | 'back') {
     setSection(next);
+    if (source === 'hub') trackEvent('browse_hub_card', {id: next});
+    if (next !== 'careers') setWorld('all');
     if (typeof window !== 'undefined') {
-      window.history.replaceState(null, '', `/${locale}/browse?section=${next}`);
+      const url = next === 'hub' ? `/${locale}/browse` : `/${locale}/browse?section=${next}`;
+      window.history.replaceState(null, '', url);
     }
   }
+
+  function clearWorld() {
+    setWorld('all');
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', `/${locale}/browse?section=careers`);
+    }
+  }
+
+  const sectionTitles: Record<Exclude<Section, 'hub'>, string> = {
+    careers: t('hubCareersTitle'),
+    paths: t('hubPathsTitle'),
+    unis: t('hubUnisTitle'),
+  };
 
   return (
     <main className="browsePage">
@@ -138,63 +155,189 @@ export default function BrowseClient({careers, institutions, paths, programs, lo
         <ThemeToggle />
       </div>
 
-      <div className="browseIntro">
-        <h1 className="browseTitle">{t('title')}</h1>
-        <p className="browseSub">{t('lead')}</p>
-      </div>
-
-      <div className="browseTabs">
-        {tabs.map((tab) => (
+      {section === 'hub' ? (
+        <>
+          <div className="browseIntro">
+            <h1 className="browseTitle">{t('hubTitle')}</h1>
+            <p className="browseSub">{t('hubLead')}</p>
+          </div>
+          <BrowseHub
+            counts={{unis: institutions.length, careers: careers.length, paths: paths.length}}
+            saved={{unis: savedUniIds.length, careers: savedCareerIds.length, paths: savedPath ? 1 : 0}}
+            onPick={(next) => selectSection(next, 'hub')}
+            t={t}
+          />
+        </>
+      ) : (
+        <div className="browseSectionHeader">
           <button
-            key={tab.id}
-            className={section === tab.id ? 'browseTab isSelected' : 'browseTab'}
-            aria-selected={section === tab.id}
-            onClick={() => selectSection(tab.id)}
+            className="browseBackBtn"
+            onClick={() => selectSection('hub', 'back')}
+            type="button"
+            aria-label={t('backToHub')}
           >
-            {tab.label}
+            ←
           </button>
-        ))}
-      </div>
+          <h1 className="browseSectionTitle">{sectionTitles[section]}</h1>
+        </div>
+      )}
 
-      {section === 'careers' && <CareersBrowse careers={careers} locale={locale} t={t} />}
-      {section === 'paths'   && <PathsBrowse paths={paths} t={t} />}
-      {section === 'unis'    && <UnisBrowse careers={careers} institutions={institutions} programs={programs} t={t} />}
+      {section === 'careers' && (
+        <CareersBrowse
+          careers={careers}
+          locale={locale}
+          savedCareerIds={savedCareerIds}
+          world={world}
+          onClearWorld={clearWorld}
+          t={t}
+        />
+      )}
+      {section === 'paths' && <PathsBrowse paths={paths} t={t} />}
+      {section === 'unis' && <UnisBrowse careers={careers} institutions={institutions} programs={programs} t={t} />}
 
       <BottomNav active="explore" locale={locale} />
     </main>
   );
 }
 
-// ── Careers ────────────────────────────────────────────────────────────────────
+// ── Hub ────────────────────────────────────────────────────────────────────────
 
 type TFunc = ReturnType<typeof useTranslations<'browse'>>;
 
-function CareersBrowse({careers, locale, t}: {careers: Career[]; locale: string; t: TFunc}) {
-  const [filter, setFilter] = useState('all');
+function BrowseHub({
+  counts,
+  saved,
+  onPick,
+  t,
+}: {
+  counts: {unis: number; careers: number; paths: number};
+  saved: {unis: number; careers: number; paths: number};
+  onPick: (section: Exclude<Section, 'hub'>) => void;
+  t: TFunc;
+}) {
+  const cards: Array<{
+    id: Exclude<Section, 'hub'>;
+    emoji: string;
+    title: string;
+    sub: string;
+    saved: number;
+    background: string;
+    color: string;
+  }> = [
+    {
+      id: 'unis',
+      emoji: '⌂',
+      title: t('hubUnisTitle'),
+      sub: t('hubUnisSub', {count: counts.unis}),
+      saved: saved.unis,
+      background: 'var(--green)',
+      color: 'var(--ink-on-bright)',
+    },
+    {
+      id: 'careers',
+      emoji: '★',
+      title: t('hubCareersTitle'),
+      sub: t('hubCareersSub', {count: counts.careers}),
+      saved: saved.careers,
+      background: 'var(--yellow)',
+      color: 'var(--ink-on-bright)',
+    },
+    {
+      id: 'paths',
+      emoji: '⚑',
+      title: t('hubPathsTitle'),
+      sub: t('hubPathsSub', {count: counts.paths}),
+      saved: saved.paths,
+      background: 'var(--purple)',
+      color: 'var(--on-accent)',
+    },
+  ];
+
+  return (
+    <div className="browseHubList">
+      {cards.map((card) => (
+        <button
+          key={card.id}
+          className="browseHubCard"
+          style={{background: card.background, color: card.color}}
+          onClick={() => onPick(card.id)}
+          type="button"
+        >
+          <span className="browseHubEmoji" aria-hidden="true">{card.emoji}</span>
+          <span className="browseHubBody">
+            <span className="browseHubTitle">{card.title}</span>
+            <span className="browseHubSub">{card.sub}</span>
+            {card.saved > 0 && (
+              <span className="browseHubSaved">{t('hubSavedBadge', {count: card.saved})}</span>
+            )}
+          </span>
+          <span className="browseHubArrow" aria-hidden="true">→</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// ── Careers ────────────────────────────────────────────────────────────────────
+
+function CareersBrowse({
+  careers,
+  locale,
+  savedCareerIds,
+  world,
+  onClearWorld,
+  t,
+}: {
+  careers: Career[];
+  locale: string;
+  savedCareerIds: string[];
+  world: 'all' | WorldId;
+  onClearWorld: () => void;
+  t: TFunc;
+}) {
+  const [collection, setCollection] = useState<CollectionId>('all');
   const [search, setSearch] = useState('');
-  const [world, setWorld] = useState<'all' | WorldId>('all');
+  const {status: matchStatus, result: matchResult} = useMatches();
 
-  // Deep link from result-page world chips: /browse?world=<id>
-  useEffect(() => {
-    const w = new URLSearchParams(window.location.search).get('world');
-    if (w && (WORLD_IDS as string[]).includes(w)) setWorld(w as WorldId);
-  }, []);
-
-  function selectWorld(next: 'all' | WorldId) {
-    setWorld(next);
-    if (typeof window !== 'undefined') {
-      const suffix = next === 'all' ? '' : `&world=${next}`;
-      window.history.replaceState(null, '', `/${locale}/browse?section=careers${suffix}`);
+  const matchScore = useMemo(() => {
+    const scores: Record<string, number> = {};
+    for (const m of matchResult ?? []) {
+      if (m.score > 0) scores[m.career.id] = m.score;
     }
+    return scores;
+  }, [matchResult]);
+
+  const collectionLabels: Record<CollectionId, string> = {
+    all: t('collAll'),
+    matched: t('collMatched'),
+    paid: t('collPaid'),
+    demand: t('collDemand'),
+    nodegree: t('collNoDegree'),
+    creative: t('collCreative'),
+    saved: t('collSaved'),
+  };
+
+  function selectCollection(next: CollectionId) {
+    setCollection(next);
+    trackEvent('browse_collection', {id: next});
   }
 
   const q = normalizeText(search.trim());
-  const filtered = careers.filter((c) => {
+  let filtered = careers.filter((c) => {
     if (world !== 'all' && !(CAREER_WORLDS[c.id] ?? []).includes(world)) return false;
-    if (filter !== 'all' && c.pathType !== filter) return false;
+    if (!inCollection(c, collection, {matchScore: matchScore[c.id], isSaved: savedCareerIds.includes(c.id)})) return false;
     if (q && !normalizeText(`${c.name} ${c.tagline} ${c.description}`).includes(q)) return false;
     return true;
   });
+  if (collection === 'matched') {
+    filtered = filtered
+      .slice()
+      .sort((a, b) => (matchScore[b.id] ?? 0) - (matchScore[a.id] ?? 0))
+      .slice(0, MATCHED_CAP);
+  }
+
+  const matchedEmpty = collection === 'matched' && (matchStatus === 'no-data' || matchStatus === 'error');
+  const savedEmpty = collection === 'saved' && savedCareerIds.length === 0;
 
   return (
     <div className="browseSection">
@@ -208,44 +351,45 @@ function CareersBrowse({careers, locale, t}: {careers: Career[]; locale: string;
         <span className="browseSearchIcon">{`⌕`}</span>
       </div>
 
-      {/* Worlds filter (Archetypes V2, Stratul 2) */}
-      <div className="browseFilterGroup">
-        <div className="browseFilterLabel">{t('worldsLabel')}</div>
-        <div className="browseFilterScroller">
-          <button
-            className={world === 'all' ? 'browseFilterChip isSelected' : 'browseFilterChip'}
-            aria-selected={world === 'all'}
-            onClick={() => selectWorld('all')}
-          >
-            {t('allWorlds')}
+      {world !== 'all' && (
+        <div className="browseWorldChipRow">
+          <button className="browseWorldChip" onClick={onClearWorld} type="button" aria-label={t('worldFilterClear')}>
+            {t('worldFilterChip', {name: `${WORLDS[world].glyph} ${locale === 'en' ? WORLDS[world].nameEn : WORLDS[world].nameRo}`})}
+            <span aria-hidden="true"> ✕</span>
           </button>
-          {WORLD_IDS.map((id) => (
-            <button
-              key={id}
-              className={world === id ? 'browseFilterChip isSelected' : 'browseFilterChip'}
-              aria-selected={world === id}
-              onClick={() => selectWorld(id)}
-            >
-              {WORLDS[id].glyph} {locale === 'en' ? WORLDS[id].nameEn : WORLDS[id].nameRo}
-            </button>
-          ))}
         </div>
-      </div>
+      )}
 
       <div className="browseFilterRow">
-        {FILTERS.map((f) => (
+        {COLLECTION_IDS.map((id) => (
           <button
-            key={f.id}
-            className={filter === f.id ? 'browseFilterChip isSelected' : 'browseFilterChip'}
-            aria-selected={filter === f.id}
-            onClick={() => setFilter(f.id)}
+            key={id}
+            className={collection === id ? 'browseFilterChip isSelected' : 'browseFilterChip'}
+            aria-selected={collection === id}
+            onClick={() => selectCollection(id)}
           >
-            {f.label}
+            {collectionLabels[id]}
           </button>
         ))}
       </div>
 
-      {filtered.length === 0 && (
+      {matchedEmpty && (
+        <div className="browseEmpty">
+          <div className="h-sm">{t('emptyMatchedTitle')}</div>
+          <div className="body-sm" style={{color: 'var(--ink-soft)', marginTop: 4}}>
+            {t('emptyMatchedBody')}
+          </div>
+        </div>
+      )}
+      {savedEmpty && (
+        <div className="browseEmpty">
+          <div className="h-sm">{t('emptySavedTitle')}</div>
+          <div className="body-sm" style={{color: 'var(--ink-soft)', marginTop: 4}}>
+            {t('emptySavedBody')}
+          </div>
+        </div>
+      )}
+      {!matchedEmpty && !savedEmpty && filtered.length === 0 && (
         <div className="browseEmpty">
           <div className="h-sm">{t('emptyTitle')}</div>
           <div className="body-sm" style={{color: 'var(--ink-soft)', marginTop: 4}}>
@@ -267,7 +411,10 @@ function CareersBrowse({careers, locale, t}: {careers: Career[]; locale: string;
               {c.emoji}
             </div>
             <div className="browseCareerInfo">
-              <div className="browseCareerName">{c.name}</div>
+              <div className="browseCareerName">
+                {c.name}
+                {savedCareerIds.includes(c.id) ? <span aria-hidden="true"> ♥</span> : null}
+              </div>
               <div className="browseCareerTagline">{c.tagline}</div>
               <div className="browseCareerTags">
                 <span
@@ -279,6 +426,9 @@ function CareersBrowse({careers, locale, t}: {careers: Career[]; locale: string;
                 >
                   {PATH_LABEL[c.pathType] ?? c.pathType.toUpperCase()}
                 </span>
+                {(matchScore[c.id] ?? 0) > 0 && (
+                  <span className="browseTagMatchScore">{matchScore[c.id]}%</span>
+                )}
                 <span className="browseTagSoft">{c.demand}</span>
               </div>
             </div>
@@ -427,11 +577,24 @@ function UnisBrowse({
 }) {
   const [city, setCity] = useState('all');
   const [tag, setTag] = useState('all');
+  const [tab, setTab] = useState<'all' | 'matched' | 'saved'>('all');
   const [search, setSearch] = useState('');
   const [selectedUniId, setSelectedUniId] = useState<string | null>(null);
   const {savedUniIds, toggleUni} = useUniStore();
+  const {status: matchStatus, result: matchResult} = useMatches();
   const markAdmissionViewed = useJourneyStore((s) => s.markAdmissionViewed);
   const careersById = useMemo(() => Object.fromEntries(careers.map((career) => [career.id, career])), [careers]);
+
+  // ✨ Potrivite: institutions hosting programs linked to the top-3 match careers.
+  const {uniIds: matchedUniIds, reason: matchReason} = useMemo(
+    () => matchedInstitutions(matchResult, programs),
+    [matchResult, programs],
+  );
+
+  function selectTab(next: 'all' | 'matched' | 'saved') {
+    setTab(next);
+    trackEvent('browse_uni_tab', {id: next});
+  }
 
   // Journey signal: record which uni details were opened. "Verifică admiterea"
   // completes only when a VIEWED uni is also SAVED (intersection at derive time).
@@ -463,6 +626,8 @@ function UnisBrowse({
   // like "balneo" or "ingrijitor" surface the unis that offer those programs.
   const q = normalizeText(search.trim());
   const filtered = institutions.flatMap((u) => {
+    if (tab === 'saved' && !savedUniIds.includes(u.id)) return [];
+    if (tab === 'matched' && !matchedUniIds.has(u.id)) return [];
     if (city !== 'all' && u.city !== city) return [];
     if (tag !== 'all' && !(u.tags ?? []).includes(tag)) return [];
     if (!q) return [{uni: u, matchedPrograms: [] as Program[]}];
@@ -503,6 +668,24 @@ function UnisBrowse({
         <span className="browseSearchIcon">{`⌕`}</span>
       </div>
 
+      <div className="browseUniTabs">
+        {([
+          {id: 'all', label: t('uniTabAll', {count: institutions.length})},
+          {id: 'matched', label: t('uniTabMatched', {count: matchedUniIds.size})},
+          {id: 'saved', label: t('uniTabSaved', {count: savedUniIds.length})},
+        ] as const).map((tabItem) => (
+          <button
+            key={tabItem.id}
+            className={tab === tabItem.id ? 'browseFilterChip isSelected' : 'browseFilterChip'}
+            aria-selected={tab === tabItem.id}
+            onClick={() => selectTab(tabItem.id)}
+            type="button"
+          >
+            {tabItem.label}
+          </button>
+        ))}
+      </div>
+
       <div className="browseFilterGroup">
         <div className="browseFilterLabel">{t('cityLabel')}</div>
         <div className="browseFilterScroller">
@@ -533,7 +716,23 @@ function UnisBrowse({
         </div>
       </div>
 
-      {filtered.length === 0 && (
+      {tab === 'matched' && (matchedUniIds.size === 0 || matchStatus === 'no-data' || matchStatus === 'error') && (
+        <div className="browseEmpty">
+          <div className="h-sm">{t('emptyMatchedTitle')}</div>
+          <div className="body-sm" style={{color: 'var(--ink-soft)', marginTop: 4}}>
+            {t('emptyMatchedBody')}
+          </div>
+        </div>
+      )}
+      {tab === 'saved' && savedUniIds.length === 0 && (
+        <div className="browseEmpty">
+          <div className="h-sm">{t('emptySavedTitle')}</div>
+          <div className="body-sm" style={{color: 'var(--ink-soft)', marginTop: 4}}>
+            {t('emptySavedUniBody')}
+          </div>
+        </div>
+      )}
+      {tab === 'all' && filtered.length === 0 && (
         <div className="browseEmpty">
           <div className="h-sm">{t('emptyTitle')}</div>
           <div className="body-sm" style={{color: 'var(--ink-soft)', marginTop: 4}}>
@@ -570,6 +769,12 @@ function UnisBrowse({
               </div>
             </div>
             {u.notes ? <p className="browseUniDescription">{u.notes}</p> : null}
+            {tab === 'matched' && matchReason[u.id] ? (
+              /* Why this uni is in Potrivite: the program linked to a top match career. */
+              <div className="browseTagRow">
+                <span className="browseUniMatchReason">✨ {matchReason[u.id]}</span>
+              </div>
+            ) : null}
             {matchedPrograms.length > 0 ? (
               /* Why this uni matched the search: show the matching programs. */
               <div className="browseTagRow">
