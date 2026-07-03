@@ -9,97 +9,39 @@
     "brandRest": "să fiu?",
     "helpLabel": "How the tests work",
     "helpGlyph": "?",
-    "noRobots": "Career options...free!",
-    "eyebrow": "3 free tests + Complete Profile free in pilot",
     "titleLine1": "What",
     "titleLine2": "should I be",
     "titleLine3": "when I",
     "titleLine4": "grow up?",
-    "leadPrefix": "Discover what fits you, without the stress. Quick quizzes + real ideas:",
-    "leadHighlight1": "Degrees,",
-    "leadHighlight2": "careers,",
-    "leadHighlight3": "trades",
     "tests": [
       {
-        "id": "scenarii",
-        "label": "Real scenarios",
-        "sub": "Pilot winner · 12 situations · 5 min",
-        "description": "It reads concrete reactions, not abstract self-descriptions.",
-        "href": "/test/scenarii",
-        "action": "Start scenarios"
-      },
-      {
         "id": "vocational",
-        "label": "Vocational (short)",
-        "sub": "Holland · 20 items · 4 min",
-        "description": "Shows which kinds of activities attract you most.",
-        "href": "/test/vocational",
-        "action": "Start vocational"
+        "label": "Vocational",
+        "sub": "Holland · 20 items",
+        "minutes": "4 min",
+        "href": "/test/vocational"
       },
       {
         "id": "personalitate",
-        "label": "Short personality",
-        "sub": "Big Five · 15 items · 4 min",
-        "description": "A first profile for energy, structure, curiosity, and how you work with people.",
-        "href": "/test/personalitate",
-        "action": "Start personality"
+        "label": "Personality",
+        "sub": "Big Five · 15 items",
+        "minutes": "4 min",
+        "href": "/test/personalitate"
       }
     ],
     "profilCompletCard": {
-      "eyebrow": "COMPLETE PROFILE · FREE IN PILOT",
-      "label": "More precise. More detailed.",
-      "sub": "60-item Big Five + 60-item vocational + PDF report",
-      "description": "For when it matters: use the result to choose between real options.",
-      "action": "START COMPLETE PROFILE →",
+      "label": "Complete profile",
+      "sub": "120 items · free during pilot",
       "blockedAction": "PARENT CONSENT REQUIRED",
       "footer": "Free during the pilot. Under 16: available after parent or guardian consent.",
-      "href": "/test/ipip-neo-60"
+      "href": "/test/ipip-neo-60",
+      "minutes": "15 min"
     },
     "recommendedTest": "Start here",
-    "startGuideTitle": "Where do I start?",
-    "startGuideLead": "If you are not sure which test to pick, start with the one that gives the best signal for the time you have.",
-    "startGuides": [
-      {
-        "label": "Want a fast first vibe",
-        "value": "Real scenarios"
-      },
-      {
-        "label": "Only have 5 minutes",
-        "value": "Vocational (short)"
-      },
-      {
-        "label": "Want a short personality read",
-        "value": "Short personality"
-      },
-      {
-        "label": "Want a precise, detailed report",
-        "value": "Complete Profile · free in pilot"
-      }
-    ],
     "resultsPreviewTitle": "What you get at the end",
-    "resultsPreviewLead": "You get a top 3 list of matching careers + Romanian institutions that can take you there.",
-    "resultsPreviewItems": [
-      {
-        "title": "Top 3 matches",
-        "body": "Career directions that fit your answers, not what would merely sound impressive."
-      },
-      {
-        "title": "Match + explanation",
-        "body": "An orientation score and a clear summary of why that direction came up for you."
-      },
-      {
-        "title": "Real options",
-        "body": "Degrees, jobs, paths, and roles you can explore in Romania."
-      },
-      {
-        "title": "Concrete steps",
-        "body": "Your path toward what actually fits you."
-      }
-    ],
     "storyEyebrow": "REAL EXAMPLE",
-    "storyTitle": "Not just scores",
     "storyQuote": "Andra took the test, saw visual design was a real fit, followed the needed steps, and now studies at UNArte.",
-    "storyMeta": "The test does not decide for you. It shortens the path to options worth exploring seriously.",
+    "storyMeta": "The test doesn't decide for you. It shortens your road.",
     "helpTitle": "How it works",
     "helpLead": "You answer simply. We translate the signal into concrete career options.",
     "helpBody": "You do not need to know what Big Five or Holland mean. Pick a test, answer honestly, then see which paths, universities, and roles are worth exploring.",
@@ -135,7 +77,48 @@
     "libraryTitle": "Not just university",
     "libraryLead": "Results should be able to recommend university, trade school, self-taught, creator, founder, or a mixed path. That remains the product direction.",
     "navResults": "My careers →",
-    "navBrowse": "Explore all"
+    "navBrowse": "Explore all",
+    "lead": "Find what fits you — universities, careers, trades. No stress.",
+    "primaryCta": {
+      "badge": "RECOMMENDED",
+      "title": "Start here",
+      "meta": "Real scenarios · 12 situations · free",
+      "minutes": "5 min",
+      "href": "/test/scenarii"
+    },
+    "otherTestsLabel": "Or pick another test",
+    "previewCard": {
+      "eyebrow": "YOUR ARCHETYPE",
+      "name": "The world builder",
+      "match": "★ MATCH 87%",
+      "list": [
+        "Architect",
+        "Game designer",
+        "Urban planner"
+      ],
+      "site": "cesafiu.ro"
+    },
+    "previewPromises": [
+      {
+        "title": "Top 3 matches",
+        "body": "directions that fit your answers."
+      },
+      {
+        "title": "Match + explanation",
+        "body": "why you got this direction."
+      },
+      {
+        "title": "Concrete steps",
+        "body": "universities and paths in Romania."
+      }
+    ],
+    "previewBadge": "Pick your mission and follow your road!",
+    "howTitle": "How it works",
+    "howSteps": [
+      "1 · Answer",
+      "2 · See matches",
+      "3 · Explore"
+    ]
   },
   "questionnaire": {
     "missionInProgress": "Mission in progress",

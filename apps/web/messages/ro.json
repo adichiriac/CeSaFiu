@@ -9,97 +9,39 @@
     "brandRest": "să fiu?",
     "helpLabel": "Cum funcționează testele",
     "helpGlyph": "?",
-    "noRobots": "Opțiuni de carieră...gratuit!",
-    "eyebrow": "3 teste rapide + Profil Complet (gratuit o perioada limitata)",
     "titleLine1": "Ce",
     "titleLine2": "să fiu",
     "titleLine3": "când mă",
     "titleLine4": "fac mare?",
-    "leadPrefix": "Descoperă ce ți se potrivește, fără stres. Quiz-uri rapide + idei reale:",
-    "leadHighlight1": "Facultăți,",
-    "leadHighlight2": "cariere,",
-    "leadHighlight3": "meserii",
     "tests": [
       {
-        "id": "scenarii",
-        "label": "Scenarii reale",
-        "sub": "Pilot winner · 12 situații · 5 min",
-        "description": "Te citește prin reacții concrete, nu prin auto-descrieri abstracte.",
-        "href": "/test/scenarii",
-        "action": "Start scenarii"
-      },
-      {
         "id": "vocational",
-        "label": "Vocațional (scurt)",
-        "sub": "Holland · 20 itemi · 4 min",
-        "description": "Îți arată ce tipuri de activități te atrag cel mai mult.",
-        "href": "/test/vocational",
-        "action": "Start vocațional"
+        "label": "Vocațional",
+        "sub": "Holland · 20 itemi",
+        "minutes": "4 min",
+        "href": "/test/vocational"
       },
       {
         "id": "personalitate",
-        "label": "Personalitate (scurt)",
-        "sub": "Big Five · 15 itemi · 4 min",
-        "description": "Un prim profil despre energie, structură, curiozitate și felul în care lucrezi cu oamenii.",
-        "href": "/test/personalitate",
-        "action": "Start personalitate"
+        "label": "Personalitate",
+        "sub": "Big Five · 15 itemi",
+        "minutes": "4 min",
+        "href": "/test/personalitate"
       }
     ],
     "profilCompletCard": {
-      "eyebrow": "PROFIL COMPLET · GRATUIT ÎN PILOT",
-      "label": "Mai precis. Mai detaliat.",
-      "sub": "60 itemi Big Five + 60 itemi vocațional + raport PDF",
-      "description": "Pentru când contează: foloseşti rezultatul ca să decizi între opţiuni reale.",
-      "action": "ÎNCEPE PROFILUL COMPLET →",
+      "label": "Profil complet",
+      "sub": "120 itemi · gratuit în pilot",
       "blockedAction": "NEVOIE DE ACORD PĂRINTE",
       "footer": "Gratuit în pilot. Sub 16 ani: disponibil după acordul unui părinte sau tutore.",
-      "href": "/test/ipip-neo-60"
+      "href": "/test/ipip-neo-60",
+      "minutes": "15 min"
     },
     "recommendedTest": "Începe aici",
-    "startGuideTitle": "De unde încep?",
-    "startGuideLead": "Dacă nu știi ce test să alegi, începe cu varianta care îți dă cel mai bun semnal pentru timpul pe care îl ai.",
-    "startGuides": [
-      {
-        "label": "Vrei un prim vibe rapid",
-        "value": "Scenarii reale"
-      },
-      {
-        "label": "Ai doar 5 minute",
-        "value": "Vocațional (scurt)"
-      },
-      {
-        "label": "Vrei stilul tău pe scurt",
-        "value": "Personalitate"
-      },
-      {
-        "label": "Vrei un raport detaliat și exact",
-        "value": "Profil Complet · gratuit în pilot"
-      }
-    ],
     "resultsPreviewTitle": "Ce primești la final",
-    "resultsPreviewLead": "Vei primi top 3 cariere potrivite + instituții din România care te pot duce acolo.",
-    "resultsPreviewItems": [
-      {
-        "title": "Top 3 potriviri",
-        "body": "Direcții de carieră care se potrivesc cu răspunsurile tale, nu cu ce ar suna bine pe hârtie."
-      },
-      {
-        "title": "Match + explicație",
-        "body": "Un scor orientativ și un rezumat clar despre de ce ți-a ieșit direcția respectivă."
-      },
-      {
-        "title": "Opțiuni reale",
-        "body": "Facultăți, meserii, parcursuri și roluri pe care le poți explora în România."
-      },
-      {
-        "title": "Pași concreți",
-        "body": "Drumul tău către ceea ce ți se potrivește."
-      }
-    ],
     "storyEyebrow": "EXEMPLU REAL",
-    "storyTitle": "Nu doar scoruri",
     "storyQuote": "Andra a dat testul, a văzut că i se potrivește designul vizual, apoi a urmat pașii necesari și acum e la UNArte.",
-    "storyMeta": "Testul nu decide în locul tău. Îți scurtează drumul spre opțiuni care merită explorate serios.",
+    "storyMeta": "Testul nu decide în locul tău. Îți scurtează drumul.",
     "helpTitle": "Cum funcționează",
     "helpLead": "Tu răspunzi simplu. Noi traducem răspunsurile în opțiuni concrete de carieră.",
     "helpBody": "Nu trebuie să știi ce înseamnă Big Five sau Holland. Alegi testul, răspunzi sincer, apoi vezi ce trasee, facultăți și roluri merită explorate.",
@@ -135,7 +77,48 @@
     "libraryTitle": "Nu doar facultate",
     "libraryLead": "Rezultatele trebuie să poată recomanda facultate, profesional, autodidact, creator, antreprenor sau traseu mixt. Asta rămâne direcția produsului.",
     "navResults": "Carierele mele →",
-    "navBrowse": "Explorează toate"
+    "navBrowse": "Explorează toate",
+    "lead": "Descoperă ce ți se potrivește — facultăți, cariere, meserii. Fără stres.",
+    "primaryCta": {
+      "badge": "RECOMANDAT",
+      "title": "Începe aici",
+      "meta": "Scenarii reale · 12 situații · gratuit",
+      "minutes": "5 min",
+      "href": "/test/scenarii"
+    },
+    "otherTestsLabel": "Sau alege alt test",
+    "previewCard": {
+      "eyebrow": "ARHETIPUL TĂU",
+      "name": "Constructorul de lumi",
+      "match": "★ MATCH 87%",
+      "list": [
+        "Arhitect",
+        "Game designer",
+        "Urbanist"
+      ],
+      "site": "cesafiu.ro"
+    },
+    "previewPromises": [
+      {
+        "title": "Top 3 potriviri",
+        "body": "direcții care se potrivesc cu răspunsurile tale."
+      },
+      {
+        "title": "Match + explicație",
+        "body": "de ce ți-a ieșit direcția asta."
+      },
+      {
+        "title": "Pași concreți",
+        "body": "facultăți și parcursuri din România."
+      }
+    ],
+    "previewBadge": "Alege misiunea și urmează-ți drumul!",
+    "howTitle": "Cum funcționează",
+    "howSteps": [
+      "1 · Răspunzi",
+      "2 · Vezi potriviri",
+      "3 · Explorezi"
+    ]
   },
   "questionnaire": {
     "missionInProgress": "Misiune în curs",

@@ -1,23 +1,22 @@
 'use client';
 
 /**
- * Profil Complet bundle card.
+ * Profil Complet — compact row (P5 landing spec).
  *
- * Renders the deep bundle (IPIP-NEO-60 + Vocațional Complet + PDF report)
- * with a consent-aware CTA. The bundle is free during the pilot and structured
- * so it can become a paid product later. For pending_parent users the CTA is
- * disabled with a "needs parent consent" badge — visible offer, no dead-end nav.
+ * Demoted from a hero-sized bundle card to a single compact row:
+ * title + "120 itemi · gratuit în pilot" + borderless time badge + chevron.
+ * Consent gating is unchanged: pending_parent users see a disabled row with
+ * the "needs parent consent" badge — visible offer, no dead-end nav.
  *
- * Used on the landing page below the free-tests rail. The /rezultate page
+ * Used on the landing page below the test cards. The /rezultate page
  * has its own equivalent bundle hook (results-client.tsx), and /profil has
  * a button-style equivalent inline.
- *
- * See docs/PAID-BUNDLE-POSITIONING.md.
  */
 
 import Link from 'next/link';
 import {useTranslations} from 'next-intl';
 import {useAuthGate} from '@/components/auth/auth-provider';
+import TimeBadge from '@/components/time-badge';
 
 type ProfilCompletCardProps = {
   locale: string;
@@ -28,52 +27,44 @@ export default function ProfilCompletCard({locale}: ProfilCompletCardProps) {
   const {profile} = useAuthGate();
   const blocked = profile?.consent_status === 'pending_parent';
 
-  const eyebrow = t('eyebrow');
   const label = t('label');
   const sub = t('sub');
-  const description = t('description');
-  const action = t('action');
+  const minutes = t('minutes');
   const blockedAction = t('blockedAction');
   const footer = t('footer');
   const href = t('href');
 
   if (blocked) {
     return (
-      <section
-        className="prototypeBundleCard prototypeBundleCard--blocked"
-        aria-labelledby="profil-complet-title"
-      >
-        <span className="prototypeBundleEyebrow">{eyebrow}</span>
-        <strong className="prototypeBundleLabel" id="profil-complet-title">
-          {label}
-        </strong>
-        <span className="prototypeBundleSub">{sub}</span>
-        <p className="prototypeBundleDescription">{description}</p>
-        <button
-          className="prototypeBundleAction prototypeBundleAction--blocked"
-          disabled
-          type="button"
-        >
-          {blockedAction}
-        </button>
-        <p className="prototypeBundleFooter">{footer}</p>
+      <section className="homeBundleRow homeBundleRow--blocked" aria-labelledby="profil-complet-title">
+        <span className="homeBundleCopy">
+          <strong className="homeBundleLabel" id="profil-complet-title">
+            {label}
+          </strong>
+          <span className="homeBundleSub">{sub}</span>
+        </span>
+        <span className="homeBundleRight">
+          <span className="homeBundleBlockedBadge">{blockedAction}</span>
+        </span>
+        <p className="homeBundleFooter">{footer}</p>
       </section>
     );
   }
 
   return (
-    <Link
-      className="prototypeBundleCard"
-      href={`/${locale}${href}`}
-      aria-labelledby="profil-complet-title"
-    >
-      <span className="prototypeBundleEyebrow">{eyebrow}</span>
-      <strong className="prototypeBundleLabel" id="profil-complet-title">
-        {label}
-      </strong>
-      <span className="prototypeBundleSub">{sub}</span>
-      <p className="prototypeBundleDescription">{description}</p>
-      <span className="prototypeBundleAction">{action}</span>
+    <Link className="homeBundleRow" href={`/${locale}${href}`} aria-labelledby="profil-complet-title">
+      <span className="homeBundleCopy">
+        <strong className="homeBundleLabel" id="profil-complet-title">
+          {label}
+        </strong>
+        <span className="homeBundleSub">{sub}</span>
+      </span>
+      <span className="homeBundleRight">
+        <TimeBadge minutes={minutes} />
+        <span className="homeBundleChevron" aria-hidden="true">
+          ›
+        </span>
+      </span>
     </Link>
   );
 }

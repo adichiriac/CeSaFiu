@@ -88,8 +88,11 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
   setRequestLocale(locale as Locale);
   const messages = await getMessages();
 
+  // suppressHydrationWarning: the no-flash theme script sets data-theme on
+  // <html> before hydration, so this attribute legitimately differs from the
+  // server render. Suppression is attribute-only and element-scoped.
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         {/* Apply stored theme before paint to prevent a flash of the wrong theme */}
         <script dangerouslySetInnerHTML={{__html: THEME_INIT_SCRIPT}} />
