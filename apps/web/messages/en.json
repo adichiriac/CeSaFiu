@@ -140,7 +140,12 @@
   "questionnaire": {
     "missionInProgress": "Mission in progress",
     "progressCompleted": "{progress}% completed",
-    "resultsCTA": "SEE MATCHING CAREERS →"
+    "resultsCTA": "SEE MATCHING CAREERS →",
+    "resumeEyebrow": "Welcome back",
+    "resumeTitle": "You have a test in progress",
+    "resumeBody": "You left off at question {current} of {total}. Your answers are saved.",
+    "resumeContinue": "Continue where I left off",
+    "resumeRestart": "Start over"
   },
   "rezultate": {
     "loading": "Calculating...",

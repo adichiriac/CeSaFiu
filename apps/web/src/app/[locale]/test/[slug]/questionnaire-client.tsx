@@ -36,6 +36,7 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
   const [isAdvancing, setIsAdvancing] = useState(false);
   const [pendingOptionId, setPendingOptionId] = useState<string | null>(null);
   const [likertVariant, setLikertVariant] = useState<'scale' | 'cards'>('scale');
+  const [resumeDraft, setResumeDraft] = useState<QuestionnaireDraft | null>(null);
   const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const question = definition.questions[questionIndex];
   const result = useMemo(() => computeResult(definition, answers), [answers, definition]);
@@ -58,6 +59,49 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
       setLikertVariant('cards');
     }
   }, []);
+
+  // ── Draft resilience ─────────────────────────────────────────────────────
+  // In-progress answers are persisted per answer so a refresh, crashed tab or
+  // locked phone doesn't wipe the test (worst case: IPIP-NEO-60, 60 questions).
+
+  // On mount: offer to resume a recent unfinished draft.
+  useEffect(() => {
+    setResumeDraft(readDraft(definition));
+  }, []);
+
+  // Persist the draft on every answer (skipped while the resume prompt is up,
+  // because answers is still empty then — the old draft stays intact).
+  useEffect(() => {
+    if (isComplete || answeredCount === 0) {
+      return;
+    }
+    try {
+      localStorage.setItem(
+        draftStorageKey(definition.slug),
+        JSON.stringify({
+          slug: definition.slug,
+          answers,
+          updatedAt: new Date().toISOString(),
+        }),
+      );
+    } catch {
+      // Draft persistence is best-effort; never block the quiz.
+    }
+  }, [answers, answeredCount, definition.slug, isComplete]);
+
+  // Warn before closing/refreshing the tab mid-test (belt and suspenders —
+  // the draft above already survives, but this prevents accidental exits).
+  useEffect(() => {
+    if (isComplete || answeredCount === 0) {
+      return;
+    }
+    const warn = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = '';
+    };
+    window.addEventListener('beforeunload', warn);
+    return () => window.removeEventListener('beforeunload', warn);
+  }, [answeredCount, isComplete]);
 
   useEffect(() => {
     if (!isComplete) {
@@ -98,6 +142,7 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
     };
     try {
       localStorage.setItem(`cesafiu:test:${definition.slug}:latest`, JSON.stringify(payload));
+      clearDraft(definition.slug);
       void recordTestCompleted(definition.slug);
       if (definition.slug === 'scenarii') {
         router.push(`/${locale}/rezultate`);
@@ -151,11 +196,27 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
     if (advanceTimerRef.current) {
       clearTimeout(advanceTimerRef.current);
     }
+    clearDraft(definition.slug);
     setAnswers({});
     setQuestionIndex(0);
     setIsComplete(false);
     setPendingOptionId(null);
     setIsAdvancing(false);
+  }
+
+  function resumeFromDraft() {
+    if (!resumeDraft) {
+      return;
+    }
+    const firstUnanswered = definition.questions.findIndex((q) => !(q.id in resumeDraft.answers));
+    setAnswers(resumeDraft.answers);
+    setQuestionIndex(firstUnanswered === -1 ? definition.questions.length - 1 : firstUnanswered);
+    setResumeDraft(null);
+  }
+
+  function discardDraft() {
+    clearDraft(definition.slug);
+    setResumeDraft(null);
   }
 
   if (isComplete) {
@@ -192,6 +253,40 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
           <div className="testActions">
             <button className="button buttonSecondary" onClick={restart} type="button">
               {definition.restartLabel}
+            </button>
+            <Link className="button buttonSecondary" href={`/${locale}`}>
+              {definition.homeLabel}
+            </Link>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  if (resumeDraft) {
+    const total = definition.questions.length;
+    const draftAnswered = Object.keys(resumeDraft.answers).length;
+    const resumeAt = Math.min(draftAnswered + 1, total);
+    const draftProgress = Math.round((draftAnswered / total) * 100);
+
+    return (
+      <main className="questionnairePage">
+        <section className="questionnairePanel" aria-labelledby="resume-title">
+          <QuestionnaireHeader brandCe={brandCe} brandRest={brandRest} definition={definition} locale={locale} progress={draftProgress} />
+          <p className="testEyebrow">{tQ('resumeEyebrow')}</p>
+          <h1 id="resume-title">{tQ('resumeTitle')}</h1>
+          <p className="localSaveNote">{tQ('resumeBody', {current: resumeAt, total})}</p>
+          <button
+            className="button buttonPrimary"
+            onClick={resumeFromDraft}
+            style={{display: 'block', width: '100%', textAlign: 'center', marginBottom: 12}}
+            type="button"
+          >
+            {tQ('resumeContinue')}
+          </button>
+          <div className="testActions">
+            <button className="button buttonSecondary" onClick={discardDraft} type="button">
+              {tQ('resumeRestart')}
             </button>
             <Link className="button buttonSecondary" href={`/${locale}`}>
               {definition.homeLabel}
@@ -329,6 +424,58 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
       </section>
     </main>
   );
+}
+
+// ── Draft persistence helpers ────────────────────────────────────────────────
+
+type QuestionnaireDraft = {
+  slug: string;
+  answers: Record<string, QuestionnaireAnswer>;
+  updatedAt: string;
+};
+
+const DRAFT_MAX_AGE_MS = 24 * 60 * 60 * 1000; // resume window: 24h
+
+function draftStorageKey(slug: string) {
+  return `cesafiu:test:${slug}:draft`;
+}
+
+/** Read a resumable draft: same slug, < 24h old, with at least one still-valid answer. */
+function readDraft(definition: QuestionnaireDefinition): QuestionnaireDraft | null {
+  try {
+    const raw = localStorage.getItem(draftStorageKey(definition.slug));
+    if (!raw) {
+      return null;
+    }
+    const draft = JSON.parse(raw) as QuestionnaireDraft;
+    if (draft.slug !== definition.slug) {
+      return null;
+    }
+    if (Date.now() - new Date(draft.updatedAt).getTime() > DRAFT_MAX_AGE_MS) {
+      clearDraft(definition.slug);
+      return null;
+    }
+    // Drop answers to questions that no longer exist (definition changed since save).
+    const validIds = new Set(definition.questions.map((q) => q.id));
+    const answers = Object.fromEntries(
+      Object.entries(draft.answers ?? {}).filter(([id]) => validIds.has(id)),
+    );
+    if (Object.keys(answers).length === 0) {
+      return null;
+    }
+    // A fully-answered draft means the completion effect never ran — treat as in-progress.
+    return {...draft, answers};
+  } catch {
+    return null;
+  }
+}
+
+function clearDraft(slug: string) {
+  try {
+    localStorage.removeItem(draftStorageKey(slug));
+  } catch {
+    // ignore
+  }
 }
 
 const OPTION_ICON_MAP: Record<string, string> = {

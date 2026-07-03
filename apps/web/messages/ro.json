@@ -140,7 +140,12 @@
   "questionnaire": {
     "missionInProgress": "Misiune în curs",
     "progressCompleted": "{progress}% completat",
-    "resultsCTA": "VEZI CARIERELE POTRIVITE →"
+    "resultsCTA": "VEZI CARIERELE POTRIVITE →",
+    "resumeEyebrow": "Bine ai revenit",
+    "resumeTitle": "Ai un test început",
+    "resumeBody": "Ai rămas la întrebarea {current} din {total}. Răspunsurile tale sunt salvate.",
+    "resumeContinue": "Continuă de unde am rămas",
+    "resumeRestart": "Începe din nou"
   },
   "rezultate": {
     "loading": "Se calculează...",
