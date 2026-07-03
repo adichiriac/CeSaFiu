@@ -11,7 +11,7 @@ import {useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import type {QuizAnswerOption} from '@/lib/matcher';
 import {useRouter} from 'next/navigation';
-import type {MouseEvent} from 'react';
+import type {KeyboardEvent as ReactKeyboardEvent, MouseEvent} from 'react';
 import {getSupabaseBrowserClient} from '@/lib/supabase/client';
 import {recordReferralTestCompleted} from '@/lib/referrals/client';
 import ThemeToggle from '@/components/theme-toggle';
@@ -89,19 +89,24 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
     }
   }, [answers, answeredCount, definition.slug, isComplete]);
 
-  // Warn before closing/refreshing the tab mid-test (belt and suspenders —
-  // the draft above already survives, but this prevents accidental exits).
+  // Keyboard shortcuts for likert tests: digits 1–5 answer the current question.
+  // Deliberately re-subscribed every render so the handler sees fresh state.
   useEffect(() => {
-    if (isComplete || answeredCount === 0) {
+    if (definition.kind !== 'likert' || isComplete || resumeDraft) {
       return;
     }
-    const warn = (event: BeforeUnloadEvent) => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      const target = event.target as HTMLElement | null;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) return;
+      const option = question.options.find((o) => o.id === event.key);
+      if (!option) return;
       event.preventDefault();
-      event.returnValue = '';
+      choose(Number(option.id), option.id);
     };
-    window.addEventListener('beforeunload', warn);
-    return () => window.removeEventListener('beforeunload', warn);
-  }, [answeredCount, isComplete]);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
 
   useEffect(() => {
     if (!isComplete) {
@@ -161,6 +166,11 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
     setAnswers(nextAnswers);
     setPendingOptionId(optionId);
     setIsAdvancing(true);
+
+    // Short haptic confirmation on supporting devices (no-op on iOS Safari).
+    if (typeof navigator !== 'undefined') {
+      navigator.vibrate?.(10);
+    }
 
     const isLast = questionIndex === definition.questions.length - 1;
     advanceTimerRef.current = setTimeout(() => {
@@ -223,7 +233,14 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
     return (
       <main className="questionnairePage">
         <section className="questionnairePanel resultPanel" aria-labelledby="result-title">
-          <QuestionnaireHeader brandCe={brandCe} brandRest={brandRest} definition={definition} locale={locale} progress={100} />
+          <ScenarioGameHeader
+            brandCe={brandCe}
+            brandRest={brandRest}
+            definition={definition}
+            locale={locale}
+            progress={100}
+            questionIndex={definition.questions.length - 1}
+          />
           <p className="testEyebrow">{definition.resultEyebrow}</p>
           <h1 id="result-title">{definition.resultTitle}</h1>
           <div className="resultList">
@@ -272,7 +289,14 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
     return (
       <main className="questionnairePage">
         <section className="questionnairePanel" aria-labelledby="resume-title">
-          <QuestionnaireHeader brandCe={brandCe} brandRest={brandRest} definition={definition} locale={locale} progress={draftProgress} />
+          <ScenarioGameHeader
+            brandCe={brandCe}
+            brandRest={brandRest}
+            definition={definition}
+            locale={locale}
+            progress={draftProgress}
+            questionIndex={Math.min(draftAnswered, total - 1)}
+          />
           <p className="testEyebrow">{tQ('resumeEyebrow')}</p>
           <h1 id="resume-title">{tQ('resumeTitle')}</h1>
           <p className="localSaveNote">{tQ('resumeBody', {current: resumeAt, total})}</p>
@@ -302,32 +326,26 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
   return (
     <main className="questionnairePage">
       <section className={isScenarii ? 'questionnairePanel questionnairePanel--game' : 'questionnairePanel'} aria-labelledby="question-title">
-        {isScenarii ? (
-          <ScenarioGameHeader
-            brandCe={brandCe}
-            brandRest={brandRest}
-            definition={definition}
-            locale={locale}
-            progress={progress}
-            questionIndex={questionIndex}
-          />
-        ) : (
-          <QuestionnaireHeader brandCe={brandCe} brandRest={brandRest} definition={definition} locale={locale} progress={progress} />
-        )}
+        <ScenarioGameHeader
+          brandCe={brandCe}
+          brandRest={brandRest}
+          definition={definition}
+          locale={locale}
+          progress={progress}
+          questionIndex={questionIndex}
+        />
 
-        <div className={isAdvancing ? 'questionStage isAdvancing' : 'questionStage'}>
+        <div className={isAdvancing ? 'questionStage isAdvancing' : 'questionStage'} key={question.id}>
           {!isScenarii && (
             <div className="questionMeta">
               <div className="questionMetaLabels">
                 <p className="testEyebrow">{definition.eyebrow}</p>
                 {question.tag ? <span className="questionTraitTag">{question.tag}</span> : null}
               </div>
-              <span>
-                {questionIndex + 1}/{definition.questions.length}
-              </span>
             </div>
           )}
 
+          {definition.kind === 'likert' ? <p className="questionHint">{tQ('likertHint')}</p> : null}
           <h1 id="question-title">{question.prompt}</h1>
 
           {isScenarii ? (
@@ -421,6 +439,7 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
             {definition.homeLabel}
           </Link>
         </div>
+        <p className="autosaveNote">{tQ('autosaveNote')}</p>
       </section>
     </main>
   );
@@ -540,34 +559,6 @@ function ScenarioGameHeader({
   );
 }
 
-function QuestionnaireHeader({
-  brandCe,
-  brandRest,
-  definition,
-  locale,
-  progress
-}: {
-  brandCe: string;
-  brandRest: string;
-  definition: QuestionnaireDefinition;
-  locale: string;
-  progress: number;
-}) {
-  return (
-    <header className="questionnaireHeader">
-      <Link className="miniBrand" href={`/${locale}`}>
-        <span>{brandCe}</span>
-        <strong>{brandRest}</strong>
-      </Link>
-      <div className="testProgress" aria-label={definition.subtitle}>
-        <div style={{width: `${progress}%`}} />
-      </div>
-      <p>{definition.subtitle}</p>
-      <ThemeToggle />
-    </header>
-  );
-}
-
 function LikertScaleOptions({
   currentAnswer,
   isAdvancing,
@@ -584,8 +575,36 @@ function LikertScaleOptions({
   const firstLabel = question.options[0]?.label;
   const lastLabel = question.options[question.options.length - 1]?.label;
 
+  // Label shown under the scale: the option being confirmed (during the 450ms
+  // check animation), or the previously chosen one when reviewing via "Back".
+  const displayOption =
+    (isAdvancing && pendingOptionId
+      ? question.options.find((option) => option.id === pendingOptionId)
+      : undefined) ??
+    (currentAnswer != null
+      ? question.options.find((option) => option.id === String(currentAnswer))
+      : undefined);
+
+  // Roving tabindex target: the selected option, or the first one.
+  const tabStopId = currentAnswer != null ? String(currentAnswer) : question.options[0]?.id;
+
+  function onGroupKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
+    const moves: Record<string, number> = {ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1};
+    const delta = moves[event.key];
+    if (!delta) {
+      return;
+    }
+    event.preventDefault();
+    const group = event.currentTarget;
+    const buttons = Array.from(group.querySelectorAll<HTMLButtonElement>('.likertScaleButton'));
+    const focusedIndex = buttons.findIndex((button) => button === document.activeElement);
+    const startIndex = focusedIndex === -1 ? 0 : focusedIndex;
+    const nextIndex = (startIndex + delta + buttons.length) % buttons.length;
+    buttons[nextIndex]?.focus();
+  }
+
   return (
-    <div className="likertScaleOptions" role="radiogroup" aria-labelledby="question-title">
+    <div className="likertScaleOptions" role="radiogroup" aria-labelledby="question-title" onKeyDown={onGroupKeyDown}>
       <div className="likertScaleControl">
         <div className="likertScaleRail" aria-hidden="true" />
         <div className="likertScaleButtons">
@@ -605,11 +624,13 @@ function LikertScaleOptions({
             return (
               <button
                 aria-label={option.label}
-                aria-pressed={selected}
+                aria-checked={selected}
+                role="radio"
                 className={optionClass}
                 disabled={isAdvancing}
                 key={option.id}
                 onClick={() => onChoose(option.id)}
+                tabIndex={option.id === tabStopId ? 0 : -1}
                 type="button"
               >
                 <span>{option.id}</span>
@@ -619,6 +640,9 @@ function LikertScaleOptions({
           })}
         </div>
       </div>
+      <p aria-live="polite" className="likertSelectedLabel">
+        {displayOption ? `${displayOption.id} — ${displayOption.label}` : ' '}
+      </p>
       <div className="likertScaleLabels">
         <span>{firstLabel}</span>
         <span>{lastLabel}</span>

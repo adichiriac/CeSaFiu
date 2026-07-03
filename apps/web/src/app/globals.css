@@ -689,11 +689,58 @@ h1 {
   transition:
     opacity 380ms ease,
     transform 380ms ease;
+  /* Runs on mount — the stage is keyed by question id, so every new question
+     enters visibly instead of swapping in place. */
+  animation: questionEnter 260ms ease-out;
 }
 
 .questionStage.isAdvancing {
   opacity: 0;
   transform: translateY(10px);
+}
+
+@keyframes questionEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.questionHint {
+  margin: 0 0 -6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.autosaveNote {
+  margin: 10px 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .questionStage {
+    animation: none;
+    transition: none;
+  }
+
+  .gameProgressFill {
+    transition: none;
+  }
+
+  .gameProgressShimmer,
+  .gamePulseDot {
+    animation: none;
+  }
 }
 
 .questionOptions,
@@ -805,11 +852,22 @@ h1 {
   animation: optionCheckPop 180ms ease-out;
 }
 
+.likertSelectedLabel {
+  min-height: 20px;
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--purple);
+}
+
 .likertScaleLabels {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  margin-top: 16px;
+  margin-top: 10px;
   color: var(--ink-soft);
   font-size: 12px;
   font-weight: 900;
@@ -3770,6 +3828,12 @@ h1 {
   color: var(--ink-soft);
 }
 
+/* Program that matched the uni search — explains why this card is shown. */
+.browseUniCard .browseTagSoft.browseTagMatch {
+  background: var(--purple);
+  color: var(--on-accent);
+}
+
 .browseTagRow {
   display: flex;
   gap: 6px;
@@ -6187,6 +6251,18 @@ h1 {
     border-radius: var(--radius-lg) 0 0 var(--radius-lg);
     padding: 8px 10px;
     font-size: 12px;
+  }
+
+  /* On test pages the Back/Home buttons sit at the bottom of the panel and a
+     fixed bottom offset can always collide at some scroll position. Keep the
+     tab as a slim vertical drawer handle on the right edge instead. */
+  body:has(.questionnairePage) .feedbackTab {
+    writing-mode: vertical-rl;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    padding: 12px 6px;
+    font-size: 11px;
   }
 }
 

@@ -145,7 +145,9 @@
     "resumeTitle": "You have a test in progress",
     "resumeBody": "You left off at question {current} of {total}. Your answers are saved.",
     "resumeContinue": "Continue where I left off",
-    "resumeRestart": "Start over"
+    "resumeRestart": "Start over",
+    "likertHint": "How much does this sound like you?",
+    "autosaveNote": "Your answers are saved automatically on this device"
   },
   "rezultate": {
     "loading": "Calculating...",
@@ -454,6 +456,7 @@
     "cityLabel": "CITY",
     "domainLabel": "DOMAIN",
     "searchPlaceholder": "Search a career...",
+    "searchPlaceholderUnis": "Search a school, program or city...",
     "emptyTitle": "Nothing found",
     "emptyBody": "Change the filter or search for something else.",
     "pathsCount": "{count} PATHS · NOT JUST ONE",

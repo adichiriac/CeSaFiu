@@ -82,6 +82,18 @@ function parseSection(value: string | null): Section {
   return value === 'careers' || value === 'paths' || value === 'unis' ? value : 'unis';
 }
 
+/**
+ * Diacritics-insensitive search normalization: "ingrijitor" matches
+ * "Îngrijitor", "balneo" matches "Balneofiziokinetoterapie".
+ * NFD decomposition strips both comma-below (ș/ț) and cedilla (ş/ţ) variants.
+ */
+function normalizeText(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
 function uniLinkFor(uni: Institution) {
   if (uni.url) return {url: uni.url, isFallback: false};
   return {
@@ -176,13 +188,11 @@ function CareersBrowse({careers, locale, t}: {careers: Career[]; locale: string;
     }
   }
 
+  const q = normalizeText(search.trim());
   const filtered = careers.filter((c) => {
     if (world !== 'all' && !(CAREER_WORLDS[c.id] ?? []).includes(world)) return false;
     if (filter !== 'all' && c.pathType !== filter) return false;
-    if (search) {
-      const q = search.toLowerCase();
-      if (!`${c.name} ${c.tagline} ${c.description}`.toLowerCase().includes(q)) return false;
-    }
+    if (q && !normalizeText(`${c.name} ${c.tagline} ${c.description}`).includes(q)) return false;
     return true;
   });
 
@@ -417,6 +427,7 @@ function UnisBrowse({
 }) {
   const [city, setCity] = useState('all');
   const [tag, setTag] = useState('all');
+  const [search, setSearch] = useState('');
   const [selectedUniId, setSelectedUniId] = useState<string | null>(null);
   const {savedUniIds, toggleUni} = useUniStore();
   const markAdmissionViewed = useJourneyStore((s) => s.markAdmissionViewed);
@@ -440,10 +451,28 @@ function UnisBrowse({
     }),
   ].slice(0, 12);
 
-  const filtered = institutions.filter((u) => {
-    if (city !== 'all' && u.city !== city) return false;
-    if (tag !== 'all' && !(u.tags ?? []).includes(tag)) return false;
-    return true;
+  const programsByUni = useMemo(() => {
+    const map: Record<string, Program[]> = {};
+    for (const program of programs) {
+      (map[program.universityId] ??= []).push(program);
+    }
+    return map;
+  }, [programs]);
+
+  // Search matches the institution itself OR any of its programs, so queries
+  // like "balneo" or "ingrijitor" surface the unis that offer those programs.
+  const q = normalizeText(search.trim());
+  const filtered = institutions.flatMap((u) => {
+    if (city !== 'all' && u.city !== city) return [];
+    if (tag !== 'all' && !(u.tags ?? []).includes(tag)) return [];
+    if (!q) return [{uni: u, matchedPrograms: [] as Program[]}];
+
+    const matchedPrograms = (programsByUni[u.id] ?? []).filter((program) =>
+      normalizeText(`${program.name} ${(program.tags ?? []).join(' ')}`).includes(q),
+    );
+    const uniMatches = normalizeText(`${u.name} ${u.city} ${(u.tags ?? []).join(' ')}`).includes(q);
+    if (!uniMatches && matchedPrograms.length === 0) return [];
+    return [{uni: u, matchedPrograms}];
   });
 
   const selectedUni = selectedUniId ? institutions.find((uni) => uni.id === selectedUniId) : null;
@@ -464,6 +493,16 @@ function UnisBrowse({
 
   return (
     <div className="browseSection">
+      <div className="browseSearchWrap">
+        <input
+          className="browseSearch"
+          placeholder={t('searchPlaceholderUnis')}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <span className="browseSearchIcon">{`⌕`}</span>
+      </div>
+
       <div className="browseFilterGroup">
         <div className="browseFilterLabel">{t('cityLabel')}</div>
         <div className="browseFilterScroller">
@@ -494,8 +533,17 @@ function UnisBrowse({
         </div>
       </div>
 
+      {filtered.length === 0 && (
+        <div className="browseEmpty">
+          <div className="h-sm">{t('emptyTitle')}</div>
+          <div className="body-sm" style={{color: 'var(--ink-soft)', marginTop: 4}}>
+            {t('emptyBody')}
+          </div>
+        </div>
+      )}
+
       <div className="browseUniList">
-        {filtered.map((u) => {
+        {filtered.map(({uni: u, matchedPrograms}) => {
           const tier = u.tier.toUpperCase();
           const tierColor = UNI_TIER_COLORS[tier] ?? {background: 'var(--surface)', color: 'var(--ink)'};
 
@@ -522,7 +570,17 @@ function UnisBrowse({
               </div>
             </div>
             {u.notes ? <p className="browseUniDescription">{u.notes}</p> : null}
-            {(u.tags ?? []).length > 0 && (
+            {matchedPrograms.length > 0 ? (
+              /* Why this uni matched the search: show the matching programs. */
+              <div className="browseTagRow">
+                {matchedPrograms.slice(0, 2).map((program) => (
+                  <span key={program.id} className="browseTagSoft browseTagMatch">🎓 {program.name}</span>
+                ))}
+                {matchedPrograms.length > 2 ? (
+                  <span className="browseTagSoft">+{matchedPrograms.length - 2}</span>
+                ) : null}
+              </div>
+            ) : (u.tags ?? []).length > 0 && (
               <div className="browseTagRow">
                 {u.tags.slice(0, 4).map((tg) => (
                   <span key={tg} className="browseTagSoft">{tg}</span>
