@@ -14,7 +14,10 @@
     "data:build": "node scripts/build-data-artifacts.js",
     "data:map": "node scripts/build-data-map.js",
     "data:report": "node scripts/report-career-catalogue.js",
-    "data:candidates": "node scripts/report-career-candidates.js"
+    "data:candidates": "node scripts/report-career-candidates.js",
+    "data:links": "node scripts/check-links.js",
+    "data:review": "node scripts/review-data.js",
+    "data:freshness": "node scripts/check-data-freshness.js"
   },
   "engines": {
     "node": "22.x",

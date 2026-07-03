@@ -1,0 +1,2392 @@
+{
+  "date": "2026-07-03",
+  "results": [
+    {
+      "kind": "institution",
+      "id": "ub",
+      "name": "Universitatea din București (UB)",
+      "url": "https://unibuc.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://unibuc.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "pub",
+      "name": "Universitatea Politehnică din București (UPB)",
+      "url": "https://upb.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://upb.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "afa-brasov",
+      "name": "Academia Forțelor Aeriene \"Henri Coandă\"",
+      "url": "https://www.afahc.ro/",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://www.afahc.ro/",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "institution",
+      "id": "aft-sibiu",
+      "name": "Academia Forțelor Terestre \"Nicolae Bălcescu\"",
+      "url": "https://www.armyacademy.ro/",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://www.armyacademy.ro/",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "institution",
+      "id": "anmb",
+      "name": "Academia Navală \"Mircea cel Bătrân\"",
+      "url": "https://anmb.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.anmb.ro/",
+      "chain": [
+        {
+          "from": "https://anmb.ro",
+          "to": "https://www.anmb.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "unatc",
+      "name": "UNATC „I.L. Caragiale\" — Teatrală și Cinematografică",
+      "url": "https://unatc.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://unatc.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "ase",
+      "name": "Academia de Studii Economice (ASE)",
+      "url": "https://ase.ro",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://ase.ro",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "institution",
+      "id": "umfcd",
+      "name": "UMF „Carol Davila\"",
+      "url": "https://umfcd.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcd.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "usamv-buc",
+      "name": "USAMV București",
+      "url": "https://usamv.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://usamv.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "unarte",
+      "name": "UNARTE — Universitatea Națională de Arte",
+      "url": "https://unarte.org/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://unarte.org/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "unefs",
+      "name": "UNEFS — Educație Fizică și Sport",
+      "url": "https://unefs.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://unefs.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "acad-politie",
+      "name": "Academia de Poliție \"Alexandru Ioan Cuza\"",
+      "url": "https://academiadepolitie.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://academiadepolitie.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "ani",
+      "name": "Academia Națională de Informații \"Mihai Viteazul\"",
+      "url": "https://animv.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.animv.ro/",
+      "chain": [
+        {
+          "from": "https://animv.ro",
+          "to": "https://www.animv.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "uauim",
+      "name": "UAUIM — Arhitectură și Urbanism „Ion Mincu\"",
+      "url": "https://uauim.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.uauim.ro/",
+      "chain": [
+        {
+          "from": "https://uauim.ro",
+          "to": "https://www.uauim.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "acad-militara",
+      "name": "Academia Militară \"Alexandru Ioan Cuza\"",
+      "url": "https://www.unap.ro/index.php/ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.unap.ro/index.php/ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "umf-cluj",
+      "name": "UMF „Iuliu Hațieganu\" Cluj",
+      "url": "https://umfcluj.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcluj.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "snspa",
+      "name": "SNSPA — Studii Politice și Administrative",
+      "url": "https://snspa.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://snspa.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "amgd",
+      "name": "Academia de Muzică „Gheorghe Dima\"",
+      "url": "https://anmgd.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://anmgd.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "utcn",
+      "name": "UTCN — Tehnică Cluj-Napoca",
+      "url": "https://utcluj.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://utcluj.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "unmb",
+      "name": "UNMB — Universitatea Națională de Muzică",
+      "url": "https://unmb.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.unmb.ro/",
+      "chain": [
+        {
+          "from": "https://unmb.ro",
+          "to": "https://www.unmb.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "usamv-iasi",
+      "name": "USAMV „Ion Ionescu de la Brad\" Iași",
+      "url": "http://www.uaiasi.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "http://www.uaiasi.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "uad",
+      "name": "UAD — Artă și Design Cluj-Napoca",
+      "url": "https://uad.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://uad.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "arte-iasi",
+      "name": "Universitatea Națională de Arte „George Enescu\"",
+      "url": "https://arteiasi.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.arteiasi.ro/",
+      "chain": [
+        {
+          "from": "https://arteiasi.ro",
+          "to": "https://www.arteiasi.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "tuiasi",
+      "name": "TUIASI — Tehnică „Gheorghe Asachi\" Iași",
+      "url": "https://tuiasi.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.tuiasi.ro/",
+      "chain": [
+        {
+          "from": "https://tuiasi.ro",
+          "to": "https://www.tuiasi.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "upt",
+      "name": "UPT — Politehnica Timișoara",
+      "url": "https://upt.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.upt.ro/",
+      "chain": [
+        {
+          "from": "https://upt.ro",
+          "to": "https://www.upt.ro/",
+          "code": 307
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "ubb",
+      "name": "UBB — Universitatea Babeș-Bolyai",
+      "url": "https://ubbcluj.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.ubbcluj.ro/ro/",
+      "chain": [
+        {
+          "from": "https://ubbcluj.ro",
+          "to": "https://www.ubbcluj.ro/",
+          "code": 302
+        },
+        {
+          "from": "https://www.ubbcluj.ro/",
+          "to": "https://www.ubbcluj.ro/ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "ovidius",
+      "name": "Universitatea „Ovidius\" Constanța",
+      "url": "https://www.univ-ovidius.ro/",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://www.univ-ovidius.ro/",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "institution",
+      "id": "usamv-cluj",
+      "name": "USAMV Cluj-Napoca",
+      "url": "https://usamvcluj.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.usamvcluj.ro/",
+      "chain": [
+        {
+          "from": "https://usamvcluj.ro",
+          "to": "https://www.usamvcluj.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "umft",
+      "name": "UMF „Victor Babeș\" Timișoara",
+      "url": "https://umft.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.umft.ro/ro/acasa/",
+      "chain": [
+        {
+          "from": "https://umft.ro",
+          "to": "https://www.umft.ro/ro/acasa/",
+          "code": 302
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "uvt",
+      "name": "UVT — Universitatea de Vest Timișoara",
+      "url": "https://uvt.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.uvt.ro/",
+      "chain": [
+        {
+          "from": "https://uvt.ro",
+          "to": "https://www.uvt.ro/",
+          "code": 307
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "ucv",
+      "name": "Universitatea din Craiova",
+      "url": "https://www.ucv.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.ucv.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "udjg",
+      "name": "UDJG — „Dunărea de Jos\" Galați",
+      "url": "https://ugal.ro",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://ugal.ro",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "institution",
+      "id": "ulbs",
+      "name": "ULBS — „Lucian Blaga\" Sibiu",
+      "url": "https://www.ulbsibiu.ro/ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.ulbsibiu.ro/ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "umc",
+      "name": "Universitatea Maritimă Constanța",
+      "url": "https://cmu-edu.eu",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://cmu-edu.eu",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "umf-craiova",
+      "name": "UMF Craiova",
+      "url": "https://umfcv.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcv.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "utbv",
+      "name": "Universitatea „Transilvania\" Brașov",
+      "url": "https://unitbv.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://unitbv.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "unstpb-pitesti",
+      "name": "UNSTPB — Centrul Universitar Pitești",
+      "url": "https://upit.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://upit.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "usamv-tim",
+      "name": "USAMV „Regele Mihai I\" Timișoara",
+      "url": "https://usvt.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://usvt.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "valahia",
+      "name": "Universitatea „Valahia\" Târgoviște",
+      "url": "https://www.valahia.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.valahia.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "umf-tgm",
+      "name": "UMF „George Emil Palade\" Târgu Mureș",
+      "url": "https://umfst.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfst.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "umfst",
+      "name": "UMFST — Inginerie & Științe Târgu Mureș",
+      "url": "https://umfst.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfst.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "arte-tgm",
+      "name": "Universitatea de Arte din Târgu Mureș",
+      "url": "https://www.uat.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.uat.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "usv",
+      "name": "USV — „Ștefan cel Mare\" Suceava",
+      "url": "https://usv.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://usv.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "uaic",
+      "name": "UAIC — Universitatea „Alexandru Ioan Cuza\"",
+      "url": "https://www.uaic.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.uaic.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "upet",
+      "name": "Universitatea din Petroșani",
+      "url": "https://www.upet.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.upet.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "upg",
+      "name": "Universitatea Petrol-Gaze Ploiești",
+      "url": "https://www.upg-ploiesti.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.upg-ploiesti.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "uvasileal",
+      "name": "Universitatea „Vasile Alecsandri\" Bacău",
+      "url": "https://ub.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.ub.ro/",
+      "chain": [
+        {
+          "from": "https://ub.ro",
+          "to": "https://www.ub.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "spiru-haret",
+      "name": "Universitatea „Spiru Haret\"",
+      "url": "https://spiruharet.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://spiruharet.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "titu-maiorescu",
+      "name": "Universitatea „Titu Maiorescu\"",
+      "url": "https://utm.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.utm.ro/",
+      "chain": [
+        {
+          "from": "https://utm.ro",
+          "to": "https://www.utm.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "cantemir",
+      "name": "Universitatea Creștină „Dimitrie Cantemir\"",
+      "url": "https://ucdc.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.ucdc.ro/",
+      "chain": [
+        {
+          "from": "https://ucdc.ro",
+          "to": "https://www.ucdc.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "uav",
+      "name": "Universitatea „Aurel Vlaicu\" Arad",
+      "url": "https://uav.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://uav.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "ueb",
+      "name": "Universitatea Ecologică din București",
+      "url": "https://ueb.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://ueb.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "bioterra",
+      "name": "Universitatea „Bioterra\"",
+      "url": "https://bioterra.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://bioterra.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "uab",
+      "name": "Universitatea „1 Decembrie 1918\" Alba Iulia",
+      "url": "https://uab.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.uab.ro/",
+      "chain": [
+        {
+          "from": "https://uab.ro",
+          "to": "https://www.uab.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "athenaeum",
+      "name": "Universitatea „Athenaeum\"",
+      "url": "https://univath.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://univath.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "bogdan-voda",
+      "name": "Universitatea „Bogdan Vodă\"",
+      "url": "https://ubv.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://ubv.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "sapientia",
+      "name": "Universitatea „Sapientia\" EMTE",
+      "url": "https://sapientia.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://sapientia.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "apollonia",
+      "name": "Universitatea „Apollonia\"",
+      "url": "https://univapollonia.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.univapollonia.ro/",
+      "chain": [
+        {
+          "from": "https://univapollonia.ro",
+          "to": "https://www.univapollonia.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "rau",
+      "name": "Universitatea Româno-Americană (RAU)",
+      "url": "https://rau.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.rau.ro/",
+      "chain": [
+        {
+          "from": "https://rau.ro",
+          "to": "https://www.rau.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "uoradea",
+      "name": "Universitatea din Oradea",
+      "url": "https://www.uoradea.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.uoradea.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "titulescu",
+      "name": "Universitatea „Nicolae Titulescu\"",
+      "url": "https://univnt.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.univnt.ro/",
+      "chain": [
+        {
+          "from": "https://univnt.ro",
+          "to": "https://www.univnt.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "ioan-slavici",
+      "name": "Universitatea „Ioan Slavici\"",
+      "url": "https://islavici.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://islavici.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "goldis",
+      "name": "Universitatea de Vest „Vasile Goldiș\"",
+      "url": "https://uvvg.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.uvvg.ro/",
+      "chain": [
+        {
+          "from": "https://uvvg.ro",
+          "to": "https://www.uvvg.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "agora",
+      "name": "Universitatea „Agora\"",
+      "url": "https://univagora.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.univagora.ro/",
+      "chain": [
+        {
+          "from": "https://univagora.ro",
+          "to": "https://www.univagora.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "mihail-kogalniceanu",
+      "name": "Universitatea „Mihail Kogălniceanu\"",
+      "url": "https://umk.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umk.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "brancoveanu",
+      "name": "Universitatea „Constantin Brâncoveanu\"",
+      "url": "https://univcb.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://univcb.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "andrei-saguna",
+      "name": "Universitatea „Andrei Șaguna\"",
+      "url": "https://andreisaguna.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://andreisaguna.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "tibiscus",
+      "name": "Universitatea „Tibiscus\"",
+      "url": "https://tibiscus.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://tibiscus.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "lt-1mai-ploiesti",
+      "name": "Liceul Tehnologic „1 Mai\" Ploiești",
+      "url": "https://lt1mai.ro",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://lt1mai.ro",
+      "chain": [],
+      "error": "ENOTFOUND"
+    },
+    {
+      "kind": "institution",
+      "id": "petre-andrei",
+      "name": "Universitatea „Petre Andrei\"",
+      "url": "https://upa.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.upa.ro/",
+      "chain": [
+        {
+          "from": "https://upa.ro",
+          "to": "https://www.upa.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "ct-energetic-buc",
+      "name": "Colegiul Tehnic Energetic „Remus Răduleț\"",
+      "url": "https://ctenergeticremusradulet.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.ctenergeticremusradulet.ro/ro",
+      "chain": [
+        {
+          "from": "https://ctenergeticremusradulet.ro",
+          "to": "http://www.ctenergeticremusradulet.ro/",
+          "code": 301
+        },
+        {
+          "from": "http://www.ctenergeticremusradulet.ro/",
+          "to": "https://www.ctenergeticremusradulet.ro/",
+          "code": 301
+        },
+        {
+          "from": "https://www.ctenergeticremusradulet.ro/",
+          "to": "https://www.ctenergeticremusradulet.ro/ro",
+          "code": 302
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "george-bacovia",
+      "name": "Universitatea „George Bacovia\"",
+      "url": "https://ugb.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.ugb.ro/",
+      "chain": [
+        {
+          "from": "https://ugb.ro",
+          "to": "https://www.ugb.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "wantsome",
+      "name": "Wantsome",
+      "url": "https://wantsome.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://wantsome.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "design-mentor",
+      "name": "DesignMentor",
+      "url": "https://designmentor.ro",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://designmentor.ro",
+      "chain": [],
+      "error": "ENOTFOUND"
+    },
+    {
+      "kind": "institution",
+      "id": "iaa-academy",
+      "name": "IAA Academy",
+      "url": "https://iaa.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://iaa.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "emanuel",
+      "name": "Universitatea „Emanuel\" Oradea",
+      "url": "https://emanuel.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://emanuel.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "techcelerator",
+      "name": "Techcelerator",
+      "url": "https://techcelerator.co/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://techcelerator.co/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "codecool",
+      "name": "Codecool",
+      "url": "https://codecool.com/ro",
+      "status": "BROKEN",
+      "code": 403,
+      "finalUrl": "https://codecool.com/ro",
+      "chain": [],
+      "error": "HTTP 403"
+    },
+    {
+      "kind": "institution",
+      "id": "innovation-labs",
+      "name": "Innovation Labs",
+      "url": "https://innovationlabs.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://innovationlabs.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "spherik",
+      "name": "Spherik Accelerator",
+      "url": "https://spherikaccelerator.com/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://spherikaccelerator.com/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "how-to-web",
+      "name": "How to Web — Spotlight & Mission",
+      "url": "https://howtoweb.co",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.howtoweb.co/",
+      "chain": [
+        {
+          "from": "https://howtoweb.co",
+          "to": "https://www.howtoweb.co/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "eit-digital",
+      "name": "EIT Digital Master School",
+      "url": "https://masterschool.eitdigital.eu",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://masterschool.eitdigital.eu",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "spp-medical-iasi",
+      "name": "Postliceala Sanitară „Grigore Ghica Vodă\"",
+      "url": "https://scoalasanitara-iasi.ro/new/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://scoalasanitara-iasi.ro/new/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "founder-institute",
+      "name": "Founder Institute Bucharest",
+      "url": "https://fi.co/s/bucharest",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://fi.co/s/bucharest",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "artifex",
+      "name": "Universitatea „Artifex\"",
+      "url": "https://artifex.org.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.artifex.org.ro/",
+      "chain": [
+        {
+          "from": "https://artifex.org.ro",
+          "to": "https://www.artifex.org.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "techstars",
+      "name": "Techstars",
+      "url": "https://techstars.com",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.techstars.com/",
+      "chain": [
+        {
+          "from": "https://techstars.com",
+          "to": "https://www.techstars.com/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "ct-iuliu-maniu",
+      "name": "Colegiul Tehnic „Iuliu Maniu\"",
+      "url": "https://administratiascolilor6.ro/colegiul-tehnic-iuliu-maniu",
+      "status": "BROKEN",
+      "code": 404,
+      "finalUrl": "https://administratiascolilor6.ro/colegiul-tehnic-iuliu-maniu",
+      "chain": [],
+      "error": "HTTP 404"
+    },
+    {
+      "kind": "institution",
+      "id": "yc",
+      "name": "Y Combinator",
+      "url": "https://ycombinator.com",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.ycombinator.com/",
+      "chain": [
+        {
+          "from": "https://ycombinator.com",
+          "to": "https://www.ycombinator.com/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "lt-economic-turism-iasi",
+      "name": "Liceul Tehnologic Economic de Turism",
+      "url": "https://www.admitereliceu.ro/institutie/liceul-tehnologic-economic-de-turism-iasi",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.admitereliceu.ro/institutie/liceul-tehnologic-economic-de-turism-iasi",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "alex-constantin-academy",
+      "name": "Alex Constantin Academy",
+      "url": "https://alex-constantin.ro/academy",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://alex-constantin.ro/academy/",
+      "chain": [
+        {
+          "from": "https://alex-constantin.ro/academy",
+          "to": "https://alex-constantin.ro/academy/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "cneab",
+      "name": "Colegiul Național Economic „Andrei Bârseanu\"",
+      "url": "https://cneab.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://cneab.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "oby-ink-academy",
+      "name": "Oby Ink Academy",
+      "url": "https://www.obyinkacademy.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.obyinkacademy.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "tattoo-expo",
+      "name": "Tattoo Expo / Cursuri ANC",
+      "url": "https://tattoo-expo.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.tattoo-expo.ro/",
+      "chain": [
+        {
+          "from": "https://tattoo-expo.ro",
+          "to": "http://www.tattoo-expo.ro/",
+          "code": 301
+        },
+        {
+          "from": "http://www.tattoo-expo.ro/",
+          "to": "https://www.tattoo-expo.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "feg-calificare",
+      "name": "Centrul de Calificare FEG (Fundația Ecologică Green)",
+      "url": "https://www.centru-de-calificare.feg.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.centru-de-calificare.feg.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "lt-airinei",
+      "name": "Colegiul Tehnic de Poștă și Telecomunicații „Gheorghe Airinei\"",
+      "url": "https://administratiascolilor6.ro/colegiul-tehnic-de-posta-si-telecomunicatii-gheorghe-airinei",
+      "status": "BROKEN",
+      "code": 404,
+      "finalUrl": "https://administratiascolilor6.ro/colegiul-tehnic-de-posta-si-telecomunicatii-gheorghe-airinei",
+      "chain": [],
+      "error": "HTTP 404"
+    },
+    {
+      "kind": "institution",
+      "id": "ucecom-spiruharet",
+      "name": "Colegiul UCECOM „Spiru Haret\"",
+      "url": "https://www.ucecom-spiruharet.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.ucecom-spiruharet.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "estetica-crin",
+      "name": "Centrul Estetica Crin",
+      "url": "https://www.estetica-crin.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.estetica-crin.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "spp-henri-coanda",
+      "name": "Școala Postliceală „Henri Coandă\"",
+      "url": "https://univ-henricoanda.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://univ-henricoanda.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "eurojobs-cf",
+      "name": "Eurojobs — Centru de Formare Profesională",
+      "url": "https://euro-jobs.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://euro-jobs.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "nagvo-grup",
+      "name": "NAGVO GRUP — Centru de Calificare",
+      "url": "https://www.nagvogrup.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.nagvogrup.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "gs-ferdinand",
+      "name": "Liceul Tehnologic „Ferdinand I\"",
+      "url": "http://www.gsferdinand.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "http://gsferdinand.ro/",
+      "chain": [
+        {
+          "from": "http://www.gsferdinand.ro",
+          "to": "http://gsferdinand.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "spp-sanity-bacau",
+      "name": "Sanity — Școala Sanitară Postliceală Bacău",
+      "url": "https://www.bacau.sanity.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.bacau.sanity.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "badass-tattoo-academy",
+      "name": "Badass Tattoo Academy",
+      "url": "https://badass-tattoo.ro/curs-tatuaje",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://badass-tattoo.ro/curs-tatuaje/",
+      "chain": [
+        {
+          "from": "https://badass-tattoo.ro/curs-tatuaje",
+          "to": "https://badass-tattoo.ro/curs-tatuaje/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "lt-dacia-pitesti",
+      "name": "Liceul Tehnologic „Dacia\" Pitești",
+      "url": "https://liceuldaciapitesti.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://liceuldaciapitesti.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "lt-auto-craiova",
+      "name": "Liceul Tehnologic Auto Craiova",
+      "url": "https://www.liceulautocraiova.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.liceulautocraiova.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "ctias-suceava",
+      "name": "Colegiul Tehnic de Industrie Alimentară Suceava",
+      "url": "https://www.ctiasv.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.ctiasv.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "spp-henri-coanda-tim",
+      "name": "Școala Postliceală „Henri Coandă\" Timișoara",
+      "url": "https://univ-henricoanda.ro/scoala-postliceala-henri-coanda-timisoara/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://univ-henricoanda.ro/scoala-postliceala-henri-coanda-timisoara/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "sae-institute-bg",
+      "name": "SAE Institute (online + studii hibride)",
+      "url": "https://www.sae.edu",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.sae.edu/choose-your-region/",
+      "chain": [
+        {
+          "from": "https://www.sae.edu",
+          "to": "https://www.sae.edu/choose-your-region/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "institution",
+      "id": "spp-henri-coanda-bv",
+      "name": "Școala Postliceală „Henri Coandă\" Brașov",
+      "url": "https://univ-henricoanda.ro/scoala-postliceala-henri-coanda-brasov/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://univ-henricoanda.ro/scoala-postliceala-henri-coanda-brasov/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "spp-feg-tim",
+      "name": "Școala Postliceală FEG Timișoara",
+      "url": "http://www.scoalafeg.ro/filiale-scoala-feg/scoala-postliceala-feg-timisoara/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "http://www.scoalafeg.ro/filiale-scoala-feg/scoala-postliceala-feg-timisoara/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "spp-feg-galati",
+      "name": "Școala Postliceală FEG Galați",
+      "url": "http://www.scoalafeg.ro/filiale-scoala-feg/scoala-postliceala-feg-galati/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "http://www.scoalafeg.ro/filiale-scoala-feg/scoala-postliceala-feg-galati/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "ulbs-kineto",
+      "name": "ULBS Sibiu — Balneofiziokinetoterapie și Recuperare",
+      "url": "https://catalog.ulbsibiu.ro/program-de-studii/balneofiziokinetoterapie-si-recuperare/",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://catalog.ulbsibiu.ro/program-de-studii/balneofiziokinetoterapie-si-recuperare/",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "institution",
+      "id": "upit-kineto",
+      "name": "Universitatea din Pitești — Kinetoterapie",
+      "url": "https://www.upit.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.upit.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "uab-kineto",
+      "name": "Universitatea „1 Decembrie 1918\" Alba Iulia — Kinetoterapie",
+      "url": "https://www.uab.ro/admitere/programe-de-studiu/facultatea-de-drept-si-stiinte-sociale/51-kinetoterapie-si-motricitate-speciala/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.uab.ro/admitere/programe-de-studiu/facultatea-de-drept-si-stiinte-sociale/51-kinetoterapie-si-motricitate-speciala/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "asr-sudor",
+      "name": "Asociația de Sudură din România (ASR)",
+      "url": "https://asr.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://asr.ro",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "aft-sibiu-management",
+      "name": "Management Militar — Forțe Terestre",
+      "universityId": "aft-sibiu",
+      "url": "https://www.armyacademy.ro/admitere_licenta.php",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://www.armyacademy.ro/admitere_licenta.php",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "program",
+      "id": "afa-brasov-pilot",
+      "name": "Navigație Aeriană (Pilot Militar)",
+      "universityId": "afa-brasov",
+      "url": "https://www.afahc.ro/ro/programe_studii/admitere_licenta.html",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://www.afahc.ro/ro/programe_studii/admitere_licenta.html",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "program",
+      "id": "afa-brasov-inginerie",
+      "name": "Inginerie Aerospațială Militară",
+      "universityId": "afa-brasov",
+      "url": "https://www.afahc.ro/ro/programe_studii/admitere_licenta.html",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://www.afahc.ro/ro/programe_studii/admitere_licenta.html",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "program",
+      "id": "acad-politie-drept",
+      "name": "Drept (Ordine și Siguranță Publică)",
+      "universityId": "acad-politie",
+      "url": "https://admitere.academiadepolitie.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://admitere.academiadepolitie.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "spp-sf-ioan",
+      "name": "Școala Postliceală Sanitară „Sfântul Ioan\"",
+      "url": "https://www.sanitari.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.sanitari.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "acad-militara-management",
+      "name": "Management Militar / Inginerie Militară",
+      "universityId": "acad-militara",
+      "url": "https://www.unap.ro/index.php/ro/admitere/licenta",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.unap.ro/index.php/ro/admitere/licenta",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "acad-politie-pompieri",
+      "name": "Inginerie de Prevenire și Stingere a Incendiilor",
+      "universityId": "acad-politie",
+      "url": "https://admitere.academiadepolitie.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://admitere.academiadepolitie.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "umf-iasi",
+      "name": "UMF „Grigore T. Popa\" Iași",
+      "url": "https://www.umfiasi.ro/ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.umfiasi.ro/ro",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umf-iasi-medicina",
+      "name": "Medicină",
+      "universityId": "umf-iasi",
+      "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Medicin%C4%83.aspx",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Medicin%C4%83.aspx",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umf-iasi-stomatologie",
+      "name": "Medicină Dentară",
+      "universityId": "umf-iasi",
+      "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Medicin%C4%83%20Dentar%C4%83.aspx",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Medicin%C4%83%20Dentar%C4%83.aspx",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umf-iasi-amg",
+      "name": "Asistență Medicală Generală",
+      "universityId": "umf-iasi",
+      "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Asisten%C8%9B%C4%83%20medical%C4%83%20general%C4%83.aspx",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Asisten%C8%9B%C4%83%20medical%C4%83%20general%C4%83.aspx",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umf-iasi-farmacie",
+      "name": "Farmacie",
+      "universityId": "umf-iasi",
+      "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Farmacie.aspx",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Farmacie.aspx",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umf-iasi-tehnica-dentara",
+      "name": "Tehnică Dentară",
+      "universityId": "umf-iasi",
+      "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Tehnic%C4%83%20Dentar%C4%83.aspx",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Tehnic%C4%83%20Dentar%C4%83.aspx",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umf-iasi-bioinginerie",
+      "name": "Bioinginerie",
+      "universityId": "umf-iasi",
+      "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Bioinginerie%20.aspx",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Bioinginerie%20.aspx",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "ani-informatii",
+      "name": "Informații și Securitate Națională",
+      "universityId": "ani",
+      "url": "https://animv.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.animv.ro/",
+      "chain": [
+        {
+          "from": "https://animv.ro",
+          "to": "https://www.animv.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "program",
+      "id": "umf-iasi-nutritie",
+      "name": "Nutriție și Dietetică",
+      "universityId": "umf-iasi",
+      "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Nutri%C8%9Bie%20%C8%99i%20Dietetic%C4%83.aspx",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Nutri%C8%9Bie%20%C8%99i%20Dietetic%C4%83.aspx",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umfcd-medicina",
+      "name": "Medicină Generală",
+      "universityId": "umfcd",
+      "url": "https://umfcd.ro/admitere-la-studii-universitare-de-licenta-in-cadrul-umfcd-pentru-anul-universitar-2026-2027/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcd.ro/admitere-la-studii-universitare-de-licenta-in-cadrul-umfcd-pentru-anul-universitar-2026-2027/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umf-iasi-balneo",
+      "name": "Balneofiziokinetoterapie și Recuperare",
+      "universityId": "umf-iasi",
+      "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Balneo-fiziokinetoterapie%20%C8%99i%20recuperare.aspx",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Balneo-fiziokinetoterapie%20%C8%99i%20recuperare.aspx",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umfcd-stomatologie",
+      "name": "Medicină Dentară",
+      "universityId": "umfcd",
+      "url": "https://umfcd.ro/admitere-la-studii-universitare-de-licenta-in-cadrul-umfcd-pentru-anul-universitar-2026-2027/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcd.ro/admitere-la-studii-universitare-de-licenta-in-cadrul-umfcd-pentru-anul-universitar-2026-2027/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umfcd-farmacie",
+      "name": "Farmacie",
+      "universityId": "umfcd",
+      "url": "https://umfcd.ro/admitere-la-studii-universitare-de-licenta-in-cadrul-umfcd-pentru-anul-universitar-2026-2027/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcd.ro/admitere-la-studii-universitare-de-licenta-in-cadrul-umfcd-pentru-anul-universitar-2026-2027/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umfcd-amg",
+      "name": "Asistență Medicală Generală",
+      "universityId": "umfcd",
+      "url": "https://umfcd.ro/admitere-la-studii-universitare-de-licenta-in-cadrul-umfcd-pentru-anul-universitar-2026-2027/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcd.ro/admitere-la-studii-universitare-de-licenta-in-cadrul-umfcd-pentru-anul-universitar-2026-2027/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umfcluj-medicina",
+      "name": "Medicină Generală",
+      "universityId": "umf-cluj",
+      "url": "https://umfcluj.ro/programe-studii/admitere-licenta/admitere-iulie-2026/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcluj.ro/programe-studii/admitere-licenta/admitere-iulie-2026/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umfcluj-stomatologie",
+      "name": "Medicină Dentară",
+      "universityId": "umf-cluj",
+      "url": "https://umfcluj.ro/programe-studii/admitere-licenta/admitere-iulie-2026/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcluj.ro/programe-studii/admitere-licenta/admitere-iulie-2026/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "spp-atlas",
+      "name": "Școala Postliceală „Atlas\"",
+      "url": "https://scoalaatlas.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://scoalaatlas.ro",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umfcluj-farmacie",
+      "name": "Farmacie",
+      "universityId": "umf-cluj",
+      "url": "https://umfcluj.ro/programe-studii/admitere-licenta/admitere-iulie-2026/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcluj.ro/programe-studii/admitere-licenta/admitere-iulie-2026/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umfcluj-amg",
+      "name": "Asistență Medicală Generală",
+      "universityId": "umf-cluj",
+      "url": "https://umfcluj.ro/programe-studii/admitere-licenta/admitere-iulie-2026/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://umfcluj.ro/programe-studii/admitere-licenta/admitere-iulie-2026/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "upb-cs",
+      "name": "Calculatoare și Tehnologia Informației",
+      "universityId": "pub",
+      "url": "https://acs.pub.ro/admitere/licenta/",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://acs.pub.ro/admitere/licenta/",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "program",
+      "id": "upb-automatica",
+      "name": "Automatică și Informatică Aplicată",
+      "universityId": "pub",
+      "url": "https://acs.pub.ro/admitere/licenta/",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://acs.pub.ro/admitere/licenta/",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "program",
+      "id": "anmb-navigatie",
+      "name": "Management Militar Naval / Navigație",
+      "universityId": "anmb",
+      "url": "https://anmb.ro/admitere",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.anmb.ro/ro/files/admitere/admitere.html",
+      "chain": [
+        {
+          "from": "https://anmb.ro/admitere",
+          "to": "https://www.anmb.ro/admitere",
+          "code": 301
+        },
+        {
+          "from": "https://www.anmb.ro/admitere",
+          "to": "https://www.anmb.ro/ro/files/admitere/admitere.html",
+          "code": 302
+        }
+      ]
+    },
+    {
+      "kind": "program",
+      "id": "ase-marketing",
+      "name": "Marketing",
+      "universityId": "ase",
+      "url": "https://ase.ro/admitere/",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://ase.ro/admitere/",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "program",
+      "id": "ase-finante",
+      "name": "Finanțe-Bănci",
+      "universityId": "ase",
+      "url": "https://ase.ro/admitere/",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://ase.ro/admitere/",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "program",
+      "id": "ubb-mate-info",
+      "name": "Matematică-Informatică",
+      "universityId": "ubb",
+      "url": "https://math.ubbcluj.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://math.ubbcluj.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "ubb-psihologie",
+      "name": "Psihologie",
+      "universityId": "ubb",
+      "url": "https://psiedu.ubbcluj.ro/31-admitere-facultate",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://psiedu.ubbcluj.ro/31-admitere-facultate",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "upb-electronica",
+      "name": "Electronică, Telecomunicații și Tehnologia Informației",
+      "universityId": "pub",
+      "url": "https://upb.ro/etti/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://upb.ro/etti/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "ub-drept",
+      "name": "Drept",
+      "universityId": "ub",
+      "url": "https://drept.unibuc.ro/admitere/",
+      "status": "HOME-REDIRECT",
+      "code": 200,
+      "finalUrl": "https://drept.unibuc.ro/",
+      "chain": [
+        {
+          "from": "https://drept.unibuc.ro/admitere/",
+          "to": "https://drept.unibuc.ro/",
+          "code": 302
+        }
+      ]
+    },
+    {
+      "kind": "program",
+      "id": "ub-psihologie",
+      "name": "Psihologie",
+      "universityId": "ub",
+      "url": "https://fpse.unibuc.ro/admitere/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://fpse.unibuc.ro/admitere/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "ase-cibernetica",
+      "name": "Cibernetică și Informatică Economică",
+      "universityId": "ase",
+      "url": "https://csie.ase.ro/admitere/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://csie.ase.ro/admitere/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "ct-energetic-electrician",
+      "name": "Electrician",
+      "universityId": "ct-energetic-buc",
+      "url": "https://www.ctenergeticremusradulet.ro/ro/scoala-profesionala-dual-3-ani",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.ctenergeticremusradulet.ro/ro/scoala-profesionala-dual-3-ani",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "ct-energetic-operator",
+      "name": "Operator energetic",
+      "universityId": "ct-energetic-buc",
+      "url": "https://www.ctenergeticremusradulet.ro/ro/scoala-profesionala-dual-3-ani",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.ctenergeticremusradulet.ro/ro/scoala-profesionala-dual-3-ani",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "iaa-digital-marketing",
+      "name": "Digital Marketing Practitioner",
+      "universityId": "iaa-academy",
+      "url": "https://iaa.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://iaa.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "codecool-fullstack",
+      "name": "Full-stack JavaScript Developer",
+      "universityId": "codecool",
+      "url": "https://codecool.com/ro/cursuri/curs-full-stack-developer/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://codecool.com/ro/cursuri/curs-full-stack-developer/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "feg-coafor",
+      "name": "Curs Coafor (calificare ANC)",
+      "universityId": "feg-calificare",
+      "url": "https://www.centru-de-calificare.feg.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.centru-de-calificare.feg.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "feg-frizer",
+      "name": "Curs Frizer (calificare ANC)",
+      "universityId": "feg-calificare",
+      "url": "https://www.centru-de-calificare.feg.ro/curs-frizer/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.centru-de-calificare.feg.ro/curs-frizer/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "feg-cosmetician",
+      "name": "Curs Cosmetician",
+      "universityId": "feg-calificare",
+      "url": "https://www.centru-de-calificare.feg.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.centru-de-calificare.feg.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "feg-maseur",
+      "name": "Curs Maseur",
+      "universityId": "feg-calificare",
+      "url": "https://www.centru-de-calificare.feg.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.centru-de-calificare.feg.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "alex-constantin-makeup",
+      "name": "Hairstyling + Make-up avansat",
+      "universityId": "alex-constantin-academy",
+      "url": "https://alex-constantin.ro/academy/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://alex-constantin.ro/academy/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "spp-iasi-amg",
+      "name": "Asistent medical generalist",
+      "universityId": "spp-medical-iasi",
+      "url": "https://scoalasanitara-iasi.ro/new/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://scoalasanitara-iasi.ro/new/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "ct-iuliu-maniu-bucatar-ospatar",
+      "name": "Bucătar / Ospătar / Tehnician turism",
+      "universityId": "ct-iuliu-maniu",
+      "url": "https://administratiascolilor6.ro/colegiul-tehnic-iuliu-maniu",
+      "status": "BROKEN",
+      "code": 404,
+      "finalUrl": "https://administratiascolilor6.ro/colegiul-tehnic-iuliu-maniu",
+      "chain": [],
+      "error": "HTTP 404"
+    },
+    {
+      "kind": "program",
+      "id": "lt-airinei-bucatar",
+      "name": "Bucătar / Ospătar",
+      "universityId": "lt-airinei",
+      "url": "https://administratiascolilor6.ro/colegiul-tehnic-de-posta-si-telecomunicatii-gheorghe-airinei",
+      "status": "BROKEN",
+      "code": 404,
+      "finalUrl": "https://administratiascolilor6.ro/colegiul-tehnic-de-posta-si-telecomunicatii-gheorghe-airinei",
+      "chain": [],
+      "error": "HTTP 404"
+    },
+    {
+      "kind": "program",
+      "id": "lt-economic-iasi-turism",
+      "name": "Tehnician în turism / Bucătar / Ospătar",
+      "universityId": "lt-economic-turism-iasi",
+      "url": "https://www.admitereliceu.ro/institutie/liceul-tehnologic-economic-de-turism-iasi",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.admitereliceu.ro/institutie/liceul-tehnologic-economic-de-turism-iasi",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "oby-ink-tatuator",
+      "name": "Curs Tatuator artistic",
+      "universityId": "oby-ink-academy",
+      "url": "https://www.obyinkacademy.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.obyinkacademy.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "ucecom-frizer-coafor",
+      "name": "Frizer-Coafor-Manichiurist-Pedichiurist",
+      "universityId": "ucecom-spiruharet",
+      "url": "https://www.ucecom-spiruharet.ro/curs/frizer-coafor-manichiurist-pedichiurist/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.ucecom-spiruharet.ro/curs/frizer-coafor-manichiurist-pedichiurist/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "tattoo-expo-tatuator",
+      "name": "Curs Tatuator artistic + cosmetic",
+      "universityId": "tattoo-expo",
+      "url": "https://tattoo-expo.ro/inscriere-cursuri",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://tattoo-expo.ro/inscriere-cursuri",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "ubb-cs",
+      "name": "Informatică",
+      "universityId": "ubb",
+      "url": "https://www.cs.ubbcluj.ro/admitere/",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.cs.ubbcluj.ro/anunturi/anunturi-admitere/",
+      "chain": [
+        {
+          "from": "https://www.cs.ubbcluj.ro/admitere/",
+          "to": "http://www.cs.ubbcluj.ro/category/anunturi/anunturi-admitere/",
+          "code": 301
+        },
+        {
+          "from": "http://www.cs.ubbcluj.ro/category/anunturi/anunturi-admitere/",
+          "to": "https://www.cs.ubbcluj.ro/category/anunturi/anunturi-admitere/",
+          "code": 301
+        },
+        {
+          "from": "https://www.cs.ubbcluj.ro/category/anunturi/anunturi-admitere/",
+          "to": "https://www.cs.ubbcluj.ro/anunturi/anunturi-admitere/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "program",
+      "id": "arteiasi-restaurare-licenta",
+      "name": "Conservare-Restaurare (licență)",
+      "universityId": "arte-iasi",
+      "url": "https://www.arteiasi.ro/facultatea-de-arte-vizuale-si-design/studii-de-licenta/conservare-si-restaurare/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.arteiasi.ro/facultatea-de-arte-vizuale-si-design/studii-de-licenta/conservare-si-restaurare/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "cneab-turism",
+      "name": "Tehnician în turism",
+      "universityId": "cneab",
+      "url": "https://cneab.ro/wp/domeniul-turism-si-alimentatie/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://cneab.ro/wp/domeniul-turism-si-alimentatie/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "nagvo-tatuator",
+      "name": "Curs Tatuator (Tattoo Artist)",
+      "universityId": "nagvo-grup",
+      "url": "https://www.nagvogrup.ro/course-item/curs-tatuaj-tatoo-artist/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.nagvogrup.ro/course-item/curs-tatuaj-tatoo-artist/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "estetica-crin-frizer",
+      "name": "Curs Frizer-Coafor",
+      "universityId": "estetica-crin",
+      "url": "https://www.estetica-crin.ro/curs-autorizat-coafor-frizer-incepatori-ploiesti/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.estetica-crin.ro/curs-autorizat-coafor-frizer-incepatori-ploiesti/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "uvt-restaurare-licenta",
+      "name": "Conservare și Restaurare",
+      "universityId": "uvt",
+      "url": "https://admitere.uvt.ro/program/conservare-si-restaurare/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://admitere.uvt.ro/program/conservare-si-restaurare/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "unarte-restaurare-licenta",
+      "name": "Conservare-Restaurare (licență 4 ani)",
+      "universityId": "unarte",
+      "url": "https://unarte.org/en/faculty-of-art-history-theory/conservation-restoration/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://unarte.org/en/faculty-of-art-history-theory/conservation-restoration/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "eurojobs-zidar-sudor",
+      "name": "Zidar / Sudor / Lăcătuș",
+      "universityId": "eurojobs-cf",
+      "url": "https://euro-jobs.ro/activitatile-eurojobs/cursuri-de-calificare/zidar-pietrar-tencuitor/",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://euro-jobs.ro/cursuri-de-calificare/zidar-pietrar-tencuitor/",
+      "chain": [
+        {
+          "from": "https://euro-jobs.ro/activitatile-eurojobs/cursuri-de-calificare/zidar-pietrar-tencuitor/",
+          "to": "https://euro-jobs.ro/cursuri-de-calificare/zidar-pietrar-tencuitor/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "program",
+      "id": "spp-henri-coanda-amg",
+      "name": "Asistent medical generalist",
+      "universityId": "spp-henri-coanda",
+      "url": "https://univ-henricoanda.ro/scoala-postliceala-henri-coanda-oradea-2/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://univ-henricoanda.ro/scoala-postliceala-henri-coanda-oradea-2/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "spp-henri-coanda-optician",
+      "name": "Tehnician optometrist",
+      "universityId": "spp-henri-coanda",
+      "url": "https://univ-henricoanda.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://univ-henricoanda.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "spp-henri-coanda-tehdent",
+      "name": "Tehnician dentar",
+      "universityId": "spp-henri-coanda",
+      "url": "https://univ-henricoanda.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://univ-henricoanda.ro/",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "hyperion",
+      "name": "Universitatea „Hyperion\"",
+      "url": "https://hyperion.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://hyperion.ro",
+      "chain": []
+    },
+    {
+      "kind": "institution",
+      "id": "hyperion-foto",
+      "name": "Hyperion — Facultatea de Arte (Foto-Video)",
+      "url": "https://hyperion.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://hyperion.ro",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "usamv-buc-vet",
+      "name": "Medicină Veterinară (licență integrată 6 ani)",
+      "universityId": "usamv-buc",
+      "url": "https://fmvb.ro/en/admission/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://fmvb.ro/en/admission/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "gs-ferdinand-instalator",
+      "name": "Instalator instalații tehnico-sanitare și de gaze",
+      "universityId": "gs-ferdinand",
+      "url": "http://www.gsferdinand.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "http://gsferdinand.ro/",
+      "chain": [
+        {
+          "from": "http://www.gsferdinand.ro",
+          "to": "http://gsferdinand.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "program",
+      "id": "gs-ferdinand-tamplar",
+      "name": "Dulgher-tâmplar / Zidar-pietrar-tencuitor",
+      "universityId": "gs-ferdinand",
+      "url": "http://www.gsferdinand.ro",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "http://gsferdinand.ro/",
+      "chain": [
+        {
+          "from": "http://www.gsferdinand.ro",
+          "to": "http://gsferdinand.ro/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "program",
+      "id": "spp-sanity-amg",
+      "name": "Asistent medical generalist",
+      "universityId": "spp-sanity-bacau",
+      "url": "https://www.bacau.sanity.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.bacau.sanity.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "wantsome-qa",
+      "name": "Software Testing",
+      "universityId": "wantsome",
+      "url": "https://wantsome.ro/cursuri/curs-acreditat-de-testare-manuala-si-testare-automata/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://wantsome.ro/cursuri/curs-acreditat-de-testare-manuala-si-testare-automata/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "uvt-kineto",
+      "name": "Kinetoterapie și Motricitate Specială",
+      "universityId": "uvt",
+      "url": "https://admitere.uvt.ro/program/kinetoterapie-si-motricitate-speciala/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://admitere.uvt.ro/program/kinetoterapie-si-motricitate-speciala/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "hyperion-foto-video",
+      "name": "Foto-Video / Multimedia",
+      "universityId": "hyperion-foto",
+      "url": "https://hyperion.ro",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://hyperion.ro",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "usamv-cluj-vet",
+      "name": "Medicină Veterinară",
+      "universityId": "usamv-cluj",
+      "url": "https://admitere.usamvcluj.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://admitere.usamvcluj.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "feg-ingrijitor",
+      "name": "Curs Îngrijitor bătrâni la domiciliu",
+      "universityId": "feg-calificare",
+      "url": "https://www.centru-de-calificare.feg.ro/curs-ingrijitoare-batrani-la-domiciliu/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.centru-de-calificare.feg.ro/curs-ingrijitoare-batrani-la-domiciliu/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "lt-dacia-pitesti-mecanic",
+      "name": "Mecanic auto + Tehnician transporturi (sistem dual)",
+      "universityId": "lt-dacia-pitesti",
+      "url": "https://liceuldaciapitesti.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://liceuldaciapitesti.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "lt-auto-craiova-mecanic",
+      "name": "Mecanic auto / Electrician auto",
+      "universityId": "lt-auto-craiova",
+      "url": "https://www.liceulautocraiova.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.liceulautocraiova.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "sae-music-prod",
+      "name": "Music Production / Audio Engineering",
+      "universityId": "sae-institute-bg",
+      "url": "https://www.sae.edu",
+      "status": "REDIRECT",
+      "code": 200,
+      "finalUrl": "https://www.sae.edu/choose-your-region/",
+      "chain": [
+        {
+          "from": "https://www.sae.edu",
+          "to": "https://www.sae.edu/choose-your-region/",
+          "code": 301
+        }
+      ]
+    },
+    {
+      "kind": "program",
+      "id": "spp-henri-coanda-tim-amg",
+      "name": "Asistent medical generalist",
+      "universityId": "spp-henri-coanda-tim",
+      "url": "https://univ-henricoanda.ro/scoala-postliceala-henri-coanda-timisoara/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://univ-henricoanda.ro/scoala-postliceala-henri-coanda-timisoara/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "asr-sudor-iws",
+      "name": "Inspector Sudor IWS / IWE",
+      "universityId": "asr-sudor",
+      "url": "https://asr.ro/calificare-profesionala/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://asr.ro/calificare-profesionala/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "ulbs-balneo",
+      "name": "Balneofiziokinetoterapie și Recuperare",
+      "universityId": "ulbs-kineto",
+      "url": "https://catalog.ulbsibiu.ro/program-de-studii/balneofiziokinetoterapie-si-recuperare/",
+      "status": "BROKEN",
+      "code": null,
+      "finalUrl": "https://catalog.ulbsibiu.ro/program-de-studii/balneofiziokinetoterapie-si-recuperare/",
+      "chain": [],
+      "error": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+    },
+    {
+      "kind": "program",
+      "id": "spp-sf-ioan-amg",
+      "name": "Asistent medical generalist / Tehnician dentar / Asistent farmacie",
+      "universityId": "spp-sf-ioan",
+      "url": "https://www.sanitari.ro/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.sanitari.ro/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "uab-kineto-licenta",
+      "name": "Kinetoterapie și Motricitate Specială",
+      "universityId": "uab-kineto",
+      "url": "https://www.uab.ro/admitere/programe-de-studiu/facultatea-de-drept-si-stiinte-sociale/51-kinetoterapie-si-motricitate-speciala/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.uab.ro/admitere/programe-de-studiu/facultatea-de-drept-si-stiinte-sociale/51-kinetoterapie-si-motricitate-speciala/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "spp-atlas-amg",
+      "name": "Asistent medical generalist",
+      "universityId": "spp-atlas",
+      "url": "https://scoalaatlas.ro/oferta-educationala/scoala-postliceala/asistent-medical-generalist/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://scoalaatlas.ro/oferta-educationala/scoala-postliceala/asistent-medical-generalist/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "spp-henri-coanda-bv-amg",
+      "name": "Asistent medical generalist + Cosmetician medical",
+      "universityId": "spp-henri-coanda-bv",
+      "url": "https://univ-henricoanda.ro/scoala-postliceala-henri-coanda-brasov/",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://univ-henricoanda.ro/scoala-postliceala-henri-coanda-brasov/",
+      "chain": []
+    },
+    {
+      "kind": "program",
+      "id": "umf-iasi-cosmetica",
+      "name": "Cosmetică Medicală și Tehnologia Produsului Cosmetic",
+      "universityId": "umf-iasi",
+      "url": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Cosmetic%C4%83%20Medical%C4%83%20%C8%99i%20Tehnologia%20Produsului%20Cosmetic.aspx",
+      "status": "OK",
+      "code": 200,
+      "finalUrl": "https://www.umfiasi.ro/ro/admitere/program-de-licenta/Pagini/2026/Specializarea%20Cosmetic%C4%83%20Medical%C4%83%20%C8%99i%20Tehnologia%20Produsului%20Cosmetic.aspx",
+      "chain": []
+    }
+  ]
+}

@@ -1,0 +1,962 @@
+# Data review — 2026-07-03
+
+Admission cycle under review: **2026**. Programs: 357 · Institutions: 163.
+Link-check folded in (from 2026-07-03).
+
+**CRITICAL: 22** · WARN: 721 · INFO: 179
+
+## CRITICAL (22)
+
+### dead link (21)
+
+- `institution/afa-brasov` — dead link: https://www.afahc.ro/ (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `institution/aft-sibiu` — dead link: https://www.armyacademy.ro/ (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `institution/ase` — dead link: https://ase.ro (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `institution/ovidius` — dead link: https://www.univ-ovidius.ro/ (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `institution/udjg` — dead link: https://ugal.ro (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `institution/lt-1mai-ploiesti` — dead link: https://lt1mai.ro (ENOTFOUND)
+- `institution/design-mentor` — dead link: https://designmentor.ro (ENOTFOUND)
+- `institution/codecool` — dead link: https://codecool.com/ro (HTTP 403)
+- `institution/ct-iuliu-maniu` — dead link: https://administratiascolilor6.ro/colegiul-tehnic-iuliu-maniu (HTTP 404)
+- `institution/lt-airinei` — dead link: https://administratiascolilor6.ro/colegiul-tehnic-de-posta-si-telecomunicatii-gheorghe-airinei (HTTP 404)
+- `institution/ulbs-kineto` — dead link: https://catalog.ulbsibiu.ro/program-de-studii/balneofiziokinetoterapie-si-recuperare/ (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `program/aft-sibiu-management` — dead link: https://www.armyacademy.ro/admitere_licenta.php (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `program/afa-brasov-pilot` — dead link: https://www.afahc.ro/ro/programe_studii/admitere_licenta.html (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `program/afa-brasov-inginerie` — dead link: https://www.afahc.ro/ro/programe_studii/admitere_licenta.html (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `program/upb-cs` — dead link: https://acs.pub.ro/admitere/licenta/ (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `program/upb-automatica` — dead link: https://acs.pub.ro/admitere/licenta/ (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `program/ase-marketing` — dead link: https://ase.ro/admitere/ (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `program/ase-finante` — dead link: https://ase.ro/admitere/ (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+- `program/ct-iuliu-maniu-bucatar-ospatar` — dead link: https://administratiascolilor6.ro/colegiul-tehnic-iuliu-maniu (HTTP 404)
+- `program/lt-airinei-bucatar` — dead link: https://administratiascolilor6.ro/colegiul-tehnic-de-posta-si-telecomunicatii-gheorghe-airinei (HTTP 404)
+- `program/ulbs-balneo` — dead link: https://catalog.ulbsibiu.ro/program-de-studii/balneofiziokinetoterapie-si-recuperare/ (UNABLE_TO_VERIFY_LEAF_SIGNATURE)
+
+### link collapses to homepage (1)
+
+- `program/ub-drept` — link collapses to homepage: https://drept.unibuc.ro/admitere/ → https://drept.unibuc.ro/
+
+## WARN (721)
+
+### no lastReviewed stamp (337)
+
+- `program/umfcd-medicina` — no lastReviewed stamp
+- `program/umfcd-stomatologie` — no lastReviewed stamp
+- `program/umfcd-farmacie` — no lastReviewed stamp
+- `program/umfcd-amg` — no lastReviewed stamp
+- `program/umfcluj-medicina` — no lastReviewed stamp
+- `program/umfcluj-stomatologie` — no lastReviewed stamp
+- `program/umfcluj-farmacie` — no lastReviewed stamp
+- `program/umfcluj-amg` — no lastReviewed stamp
+- `program/upb-cs` — no lastReviewed stamp
+- `program/upb-automatica` — no lastReviewed stamp
+- `program/upb-electronica` — no lastReviewed stamp
+- `program/ase-cibernetica` — no lastReviewed stamp
+- `program/ase-marketing` — no lastReviewed stamp
+- `program/ase-finante` — no lastReviewed stamp
+- `program/ubb-cs` — no lastReviewed stamp
+- `program/ubb-mate-info` — no lastReviewed stamp
+- `program/ubb-psihologie` — no lastReviewed stamp
+- `program/ub-drept` — no lastReviewed stamp
+- `program/ub-psihologie` — no lastReviewed stamp
+- `program/spp-iasi-amg` — no lastReviewed stamp
+- `program/spp-cd-amg` — no lastReviewed stamp
+- `program/ct-energetic-electrician` — no lastReviewed stamp
+- `program/ct-energetic-operator` — no lastReviewed stamp
+- `program/codecool-fullstack` — no lastReviewed stamp
+- `program/iaa-digital-marketing` — no lastReviewed stamp
+- `program/feg-frizer` — no lastReviewed stamp
+- `program/feg-coafor` — no lastReviewed stamp
+- `program/feg-cosmetician` — no lastReviewed stamp
+- `program/feg-maseur` — no lastReviewed stamp
+- `program/estetica-crin-frizer` — no lastReviewed stamp
+- `program/alex-constantin-makeup` — no lastReviewed stamp
+- `program/lt-viilor-bucatar-ospatar` — no lastReviewed stamp
+- `program/ct-iuliu-maniu-bucatar-ospatar` — no lastReviewed stamp
+- `program/lt-economic-iasi-turism` — no lastReviewed stamp
+- `program/lt-airinei-bucatar` — no lastReviewed stamp
+- `program/cneab-turism` — no lastReviewed stamp
+- `program/oby-ink-tatuator` — no lastReviewed stamp
+- `program/tattoo-expo-tatuator` — no lastReviewed stamp
+- `program/nagvo-tatuator` — no lastReviewed stamp
+- `program/unarte-restaurare-licenta` — no lastReviewed stamp
+- `program/arteiasi-restaurare-licenta` — no lastReviewed stamp
+- `program/uvt-restaurare-licenta` — no lastReviewed stamp
+- `program/unarte-pictura-sculptura` — no lastReviewed stamp
+- `program/uad-arte-vizuale` — no lastReviewed stamp
+- `program/arte-iasi-arte-vizuale` — no lastReviewed stamp
+- `program/gs-ferdinand-instalator` — no lastReviewed stamp
+- `program/gs-ferdinand-tamplar` — no lastReviewed stamp
+- `program/asr-sudor-iws` — no lastReviewed stamp
+- `program/eurojobs-zidar-sudor` — no lastReviewed stamp
+- `program/lt-anghel-saligny-cluj-meserii` — no lastReviewed stamp
+- `program/lt-textil-buc-croitor` — no lastReviewed stamp
+- `program/florarie-academy-curs` — no lastReviewed stamp
+- `program/spp-henri-coanda-amg` — no lastReviewed stamp
+- `program/spp-henri-coanda-optician` — no lastReviewed stamp
+- `program/spp-henri-coanda-tehdent` — no lastReviewed stamp
+- `program/spp-sanity-amg` — no lastReviewed stamp
+- `program/spp-atlas-amg` — no lastReviewed stamp
+- `program/spp-cd-tehdent` — no lastReviewed stamp
+- `program/spp-cd-optician` — no lastReviewed stamp
+- `program/spp-vet-buc-asistent` — no lastReviewed stamp
+- `program/usamv-cluj-vet` — no lastReviewed stamp
+- `program/usamv-iasi-vet` — no lastReviewed stamp
+- `program/usamv-tim-vet` — no lastReviewed stamp
+- `program/usamv-buc-agro` — no lastReviewed stamp
+- `program/usamv-cluj-agro` — no lastReviewed stamp
+- `program/utcb-constructii` — no lastReviewed stamp
+- `program/utcn-constructii` — no lastReviewed stamp
+- `program/tuiasi-constructii` — no lastReviewed stamp
+- `program/unefs-kineto` — no lastReviewed stamp
+- `program/uvt-kineto` — no lastReviewed stamp
+- `program/ubb-kineto` — no lastReviewed stamp
+- `program/ub-asistenta-sociala` — no lastReviewed stamp
+- `program/ubb-asistenta-sociala` — no lastReviewed stamp
+- `program/ubb-psihopedagogie` — no lastReviewed stamp
+- `program/ub-pipp` — no lastReviewed stamp
+- `program/uaic-pipp` — no lastReviewed stamp
+- `program/uvt-pipp` — no lastReviewed stamp
+- `program/ub-biologie` — no lastReviewed stamp
+- `program/ubb-biologie` — no lastReviewed stamp
+- `program/uaic-biologie` — no lastReviewed stamp
+- `program/unmb-compozitie` — no lastReviewed stamp
+- `program/amgd-compozitie` — no lastReviewed stamp
+- `program/sae-music-prod` — no lastReviewed stamp
+- `program/unatc-actorie` — no lastReviewed stamp
+- `program/arte-iasi-actorie` — no lastReviewed stamp
+- `program/arte-tgm-actorie` — no lastReviewed stamp
+- `program/hyperion-foto-video` — no lastReviewed stamp
+- `program/unatc-imagine` — no lastReviewed stamp
+- `program/arc-foto-workshops` — no lastReviewed stamp
+- `program/umc-naval` — no lastReviewed stamp
+- `program/uauim-arhitectura` — no lastReviewed stamp
+- `program/utcn-arhitectura` — no lastReviewed stamp
+- `program/ub-litere-traducere` — no lastReviewed stamp
+- `program/ubb-litere-lma` — no lastReviewed stamp
+- `program/snspa-jurnalism` — no lastReviewed stamp
+- `program/ub-jurnalism` — no lastReviewed stamp
+- `program/unefs-antrenorat` — no lastReviewed stamp
+- `program/uvt-sport` — no lastReviewed stamp
+- `program/ctauto-cluj-mecanic` — no lastReviewed stamp
+- `program/lt-1mai-mecanic` — no lastReviewed stamp
+- `program/ub-pipp-profesor` — no lastReviewed stamp
+- `program/ubb-pipp-profesor` — no lastReviewed stamp
+- `program/lt-1mai-sofer` — no lastReviewed stamp
+- `program/ase-contabilitate` — no lastReviewed stamp
+- `program/ubb-contabilitate` — no lastReviewed stamp
+- `program/uaic-contabilitate` — no lastReviewed stamp
+- `program/ase-finante-contabil` — no lastReviewed stamp
+- `program/feg-agent-securitate` — no lastReviewed stamp
+- `program/feg-agent-imobiliar` — no lastReviewed stamp
+- `program/lt-viilor-receptioner` — no lastReviewed stamp
+- `program/hyperion-turism` — no lastReviewed stamp
+- `program/ub-lma-asistent` — no lastReviewed stamp
+- `program/snspa-comunicare-asistent` — no lastReviewed stamp
+- `program/ase-mru` — no lastReviewed stamp
+- `program/ub-psihologie-hr` — no lastReviewed stamp
+- `program/eurojobs-depozit` — no lastReviewed stamp
+- `program/eurojobs-cnc` — no lastReviewed stamp
+- `program/lt-saligny-cnc` — no lastReviewed stamp
+- `program/iaa-sales` — no lastReviewed stamp
+- `program/ase-marketing-sales` — no lastReviewed stamp
+- `program/codecool-qa` — no lastReviewed stamp
+- `program/wantsome-qa` — no lastReviewed stamp
+- `program/iteach-devops-sysadmin` — no lastReviewed stamp
+- `program/ase-management-proiect` — no lastReviewed stamp
+- `program/ase-banking` — no lastReviewed stamp
+- `program/ase-logistics` — no lastReviewed stamp
+- `program/ct-energetic-pv` — no lastReviewed stamp
+- `program/feg-frigotehnist` — no lastReviewed stamp
+- `program/ct-energetic-frigotehnist` — no lastReviewed stamp
+- `program/feg-ingrijitor` — no lastReviewed stamp
+- `program/feg-comert` — no lastReviewed stamp
+- `program/ct-iuliu-maniu-comert` — no lastReviewed stamp
+- `program/ct-pallady-bucatar` — no lastReviewed stamp
+- `program/ct-rosetti-bucatar` — no lastReviewed stamp
+- `program/lt-macelariu-bucatar` — no lastReviewed stamp
+- `program/ct-mviteazul-turism` — no lastReviewed stamp
+- `program/ct-persu-bucatar` — no lastReviewed stamp
+- `program/ctias-suceava-cofetar` — no lastReviewed stamp
+- `program/ct-nenitescu-bucatar` — no lastReviewed stamp
+- `program/lt-dacia-pitesti-mecanic` — no lastReviewed stamp
+- `program/lt-auto-craiova-mecanic` — no lastReviewed stamp
+- `program/ct-mioveni-cnc` — no lastReviewed stamp
+- `program/ct-cristea-bv-mecanic` — no lastReviewed stamp
+- `program/spp-henri-coanda-tim-amg` — no lastReviewed stamp
+- `program/spp-henri-coanda-bv-amg` — no lastReviewed stamp
+- `program/spp-feg-tim-amg` — no lastReviewed stamp
+- `program/spp-feg-galati-amg` — no lastReviewed stamp
+- `program/spp-feg-cta-amg` — no lastReviewed stamp
+- `program/spp-sf-ioan-amg` — no lastReviewed stamp
+- `program/asr-galati-sudor` — no lastReviewed stamp
+- `program/lt-siderurgic-hd-sudor` — no lastReviewed stamp
+- `program/ct-energetic-cluj-electrician` — no lastReviewed stamp
+- `program/lt-tomis-instalator` — no lastReviewed stamp
+- `program/lt-construct-craiova-meserii` — no lastReviewed stamp
+- `program/umfst-tehdent-licenta` — no lastReviewed stamp
+- `program/umft-tehdent-licenta` — no lastReviewed stamp
+- `program/uab-kineto-licenta` — no lastReviewed stamp
+- `program/utbv-kineto-licenta` — no lastReviewed stamp
+- `program/uav-kineto-licenta` — no lastReviewed stamp
+- `program/ulbs-balneo` — no lastReviewed stamp
+- `program/upit-kineto-licenta` — no lastReviewed stamp
+- `program/feg-frizer-cluj` — no lastReviewed stamp
+- `program/feg-manichiura-iasi` — no lastReviewed stamp
+- `program/feg-make-up` — no lastReviewed stamp
+- `program/ucecom-make-up` — no lastReviewed stamp
+- `program/feg-bijutier` — no lastReviewed stamp
+- `program/feg-florar` — no lastReviewed stamp
+- `program/eurojobs-securitate` — no lastReviewed stamp
+- `program/eurojobs-imobiliar` — no lastReviewed stamp
+- `program/feg-operator-depozit` — no lastReviewed stamp
+- `program/codecool-sysadmin` — no lastReviewed stamp
+- `program/feg-sysadmin` — no lastReviewed stamp
+- `program/snspa-pm` — no lastReviewed stamp
+- `program/pmi-prince2-cert` — no lastReviewed stamp
+- `program/feg-instalator-pv` — no lastReviewed stamp
+- `program/caritas-ingrijitor-de` — no lastReviewed stamp
+- `program/ub-psihologie-scolara` — no lastReviewed stamp
+- `program/ubb-psihopedagogie-scolara` — no lastReviewed stamp
+- `program/ase-mru-psihorg` — no lastReviewed stamp
+- `program/ub-psihologia-muncii` — no lastReviewed stamp
+- `program/iaa-content-seo` — no lastReviewed stamp
+- `program/innovation-labs-growth` — no lastReviewed stamp
+- `program/snspa-marketing-brand` — no lastReviewed stamp
+- `program/ub-mate-profesor` — no lastReviewed stamp
+- `program/ub-litere-profesor` — no lastReviewed stamp
+- `program/ubb-mate-profesor` — no lastReviewed stamp
+- `program/phd-academic` — no lastReviewed stamp
+- `program/phd-academic-ubb` — no lastReviewed stamp
+- `program/upb-electrotehnica` — no lastReviewed stamp
+- `program/utcn-electrotehnica` — no lastReviewed stamp
+- `program/tuiasi-electrotehnica` — no lastReviewed stamp
+- `program/upb-mecanica` — no lastReviewed stamp
+- `program/utcn-mecanica` — no lastReviewed stamp
+- `program/upb-energetica` — no lastReviewed stamp
+- `program/upet-energetica` — no lastReviewed stamp
+- `program/upg-petrochimie` — no lastReviewed stamp
+- `program/upb-chimie` — no lastReviewed stamp
+- `program/rise-project-investigativ` — no lastReviewed stamp
+- `program/snspa-jurnalism-investigativ` — no lastReviewed stamp
+- `program/autodidact-podcast` — no lastReviewed stamp
+- `program/uaic-psihologie` — no lastReviewed stamp
+- `program/uvt-psihologie` — no lastReviewed stamp
+- `program/snspa-mru` — no lastReviewed stamp
+- `program/ubb-psihologie-org` — no lastReviewed stamp
+- `program/snspa-content-strategy` — no lastReviewed stamp
+- `program/uaic-litere-content` — no lastReviewed stamp
+- `program/how-to-web-growth` — no lastReviewed stamp
+- `program/unarte-profesor-arta` — no lastReviewed stamp
+- `program/unefs-profesor-sport` — no lastReviewed stamp
+- `program/uaic-litere-profesor` — no lastReviewed stamp
+- `program/uvt-litere-profesor` — no lastReviewed stamp
+- `program/phd-uaic` — no lastReviewed stamp
+- `program/phd-umfcd` — no lastReviewed stamp
+- `program/tuiasi-mecanica` — no lastReviewed stamp
+- `program/upt-mecanica` — no lastReviewed stamp
+- `program/upt-electrotehnica` — no lastReviewed stamp
+- `program/utcn-electronica` — no lastReviewed stamp
+- `program/tuiasi-electronica` — no lastReviewed stamp
+- `program/upt-electronica` — no lastReviewed stamp
+- `program/utcn-energetica` — no lastReviewed stamp
+- `program/upt-energetica` — no lastReviewed stamp
+- `program/upt-chimie` — no lastReviewed stamp
+- `program/usamv-iasi-alimentara` — no lastReviewed stamp
+- `program/ubb-jurnalism` — no lastReviewed stamp
+- `program/uaic-jurnalism` — no lastReviewed stamp
+- `program/unarte-productdesigner-v6` — no lastReviewed stamp
+- `program/uauim-productdesigner-v6` — no lastReviewed stamp
+- `program/ubb-productdesigner-v6` — no lastReviewed stamp
+- `program/unarte-creativedirector-v6` — no lastReviewed stamp
+- `program/ase-socialentrepreneur-v6` — no lastReviewed stamp
+- `program/snspa-socialentrepreneur-v6` — no lastReviewed stamp
+- `program/ubb-socialentrepreneur-v6` — no lastReviewed stamp
+- `program/ub-communitybuilder-v6` — no lastReviewed stamp
+- `program/snspa-communitybuilder-v6` — no lastReviewed stamp
+- `program/ubb-freelancedeveloper-v6` — no lastReviewed stamp
+- `program/ase-startupfounder-v6` — no lastReviewed stamp
+- `program/unarte-freelancedesigner-v6` — no lastReviewed stamp
+- `program/unarte-craftsentrepreneur-v6` — no lastReviewed stamp
+- `program/snspa-avocat-v6` — no lastReviewed stamp
+- `program/ubb-avocat-v6` — no lastReviewed stamp
+- `program/usamv-buc-inginerchimist-v6` — no lastReviewed stamp
+- `program/usamv-cluj-inginerchimist-v6` — no lastReviewed stamp
+- `program/uaic-softwareengineer-v6` — no lastReviewed stamp
+- `program/utcn-devops-v6` — no lastReviewed stamp
+- `program/utcn-cybersecurity-v6` — no lastReviewed stamp
+- `program/uvt-cybersecurity-v6` — no lastReviewed stamp
+- `program/ubb-gamedeveloper-v6` — no lastReviewed stamp
+- `program/ubb-mobiledeveloper-v6` — no lastReviewed stamp
+- `program/snspa-profesorgimnaziuli-v6` — no lastReviewed stamp
+- `program/pub-profesoruniversita-v6` — no lastReviewed stamp
+- `program/ase-profesoruniversita-v6` — no lastReviewed stamp
+- `program/umf-craiova-profesoruniversita-v6` — no lastReviewed stamp
+- `program/upt-arhitect-v6` — no lastReviewed stamp
+- `program/unstpb-pitesti-inginerauto-v6` — no lastReviewed stamp
+- `program/ub-marketingcontentse-v6` — no lastReviewed stamp
+- `program/ase-marketingcontentse-v6` — no lastReviewed stamp
+- `program/ase-marketinggrowth-v6` — no lastReviewed stamp
+- `program/snspa-productmanager-v6` — no lastReviewed stamp
+- `program/snspa-jurnalisteditor-v6` — no lastReviewed stamp
+- `program/ub-jurnalistpodcast-v6` — no lastReviewed stamp
+- `program/snspa-jurnalistpodcast-v6` — no lastReviewed stamp
+- `program/ub-jurnalistinvestiga-v6` — no lastReviewed stamp
+- `program/ubb-antrenorsportiv-v6` — no lastReviewed stamp
+- `program/snspa-traducator-v6` — no lastReviewed stamp
+- `program/uaic-traducator-v6` — no lastReviewed stamp
+- `program/uvt-traducator-v6` — no lastReviewed stamp
+- `program/ase-ecommercefounder-v6` — no lastReviewed stamp
+- `program/unarte-fotograf-v6` — no lastReviewed stamp
+- `program/uad-fotograf-v6` — no lastReviewed stamp
+- `program/unarte-croitor-v6` — no lastReviewed stamp
+- `program/unarte-bijutier-v6` — no lastReviewed stamp
+- `program/uad-tamplarmobilier-v6` — no lastReviewed stamp
+- `program/usv-agronom-v6` — no lastReviewed stamp
+- `program/upt-inginerconstructii-v6` — no lastReviewed stamp
+- `program/uaic-kinetoterapeut-v6` — no lastReviewed stamp
+- `program/uaic-asistentsocial-v6` — no lastReviewed stamp
+- `program/uvt-asistentsocial-v6` — no lastReviewed stamp
+- `program/uaic-logoped-v6` — no lastReviewed stamp
+- `program/uvt-logoped-v6` — no lastReviewed stamp
+- `program/usamv-buc-biolog-v6` — no lastReviewed stamp
+- `program/usamv-cluj-biolog-v6` — no lastReviewed stamp
+- `program/uvt-biolog-v6` — no lastReviewed stamp
+- `program/usamv-buc-asistentvet-v6` — no lastReviewed stamp
+- `program/usamv-cluj-asistentvet-v6` — no lastReviewed stamp
+- `program/uvt-contabil-v6` — no lastReviewed stamp
+- `program/ase-agentimobiliar-v6` — no lastReviewed stamp
+- `program/ase-asistentmanager-v6` — no lastReviewed stamp
+- `program/snspa-salesrep-v6` — no lastReviewed stamp
+- `program/ubb-qatester-v6` — no lastReviewed stamp
+- `program/ubb-functionarbancar-v6` — no lastReviewed stamp
+- `program/uaic-functionarbancar-v6` — no lastReviewed stamp
+- `program/ubb-specialistachiziti-v6` — no lastReviewed stamp
+- `program/wantsome-freelancedeveloper-v6` — no lastReviewed stamp
+- `program/codecool-selftaughtengineer-v6` — no lastReviewed stamp
+- `program/wantsome-softwareengineer-v6` — no lastReviewed stamp
+- `program/kwiat-academy-devops-v6` — no lastReviewed stamp
+- `program/iteach-bg-cybersecurity-v6` — no lastReviewed stamp
+- `program/codecool-gamedeveloper-v6` — no lastReviewed stamp
+- `program/spor-academy-mobiledeveloper-v6` — no lastReviewed stamp
+- `program/umf-craiova-medicgeneralist-v6` — no lastReviewed stamp
+- `program/umf-craiova-stomatolog-v6` — no lastReviewed stamp
+- `program/umf-craiova-farmacist-v6` — no lastReviewed stamp
+- `program/umf-craiova-cosmeticiana-v6` — no lastReviewed stamp
+- `program/umf-craiova-tehniciandentar-v6` — no lastReviewed stamp
+- `program/rau-marketingbrand-v6` — no lastReviewed stamp
+- `program/rau-agentimobiliar-v6` — no lastReviewed stamp
+- `program/alex-constantin-academy-frizer-v6` — no lastReviewed stamp
+- `program/estetica-crin-manichiurista-v6` — no lastReviewed stamp
+- `program/estetica-crin-makeupartist-v6` — no lastReviewed stamp
+- `program/badass-tattoo-academy-tatuator-v6` — no lastReviewed stamp
+- `program/gs-ferdinand-sudor-v6` — no lastReviewed stamp
+- `program/ct-mecanic-grivita-croitor-v6` — no lastReviewed stamp
+- `program/lt-1mai-ploiesti-operatorcnc-v6` — no lastReviewed stamp
+- `program/techstars-startupfounder-v6` — no lastReviewed stamp
+- `program/iaa-academy-ecommercefounder-v6` — no lastReviewed stamp
+- `program/innovation-labs-ecommercefounder-v6` — no lastReviewed stamp
+- `program/iaa-academy-marketinggrowth-v6` — no lastReviewed stamp
+- `program/amgd-profesor-muzica-v7` — no lastReviewed stamp
+- `program/unmb-profesor-muzica-v7` — no lastReviewed stamp
+- `program/arte-iasi-profesor-muzica-v7` — no lastReviewed stamp
+- `program/uad-profesor-arte-v7` — no lastReviewed stamp
+- `program/arte-tgm-profesor-arte-v7` — no lastReviewed stamp
+- `program/pub-profesor-stiinte-v7` — no lastReviewed stamp
+- `program/tuiasi-profesor-stiinte-v7` — no lastReviewed stamp
+- `program/ovidius-profesor-litere-v7` — no lastReviewed stamp
+- `program/ucv-profesor-litere-v7` — no lastReviewed stamp
+- `program/ucv-profesor-mate-v7` — no lastReviewed stamp
+- `program/ulbs-profesor-litere-v7` — no lastReviewed stamp
+- `program/utbv-profesor-litere-v7` — no lastReviewed stamp
+- `program/udjg-profesor-litere-v7` — no lastReviewed stamp
+- `program/uoradea-profesor-litere-v7` — no lastReviewed stamp
+- `program/usv-profesor-litere-v7` — no lastReviewed stamp
+- `program/umfst-profesor-stiinte-v7` — no lastReviewed stamp
+- `program/pub-data-scientist-v7` — no lastReviewed stamp
+- `program/ase-data-scientist-v7` — no lastReviewed stamp
+- `program/ubb-data-scientist-v7` — no lastReviewed stamp
+- `program/unatc-content-creator-v7` — no lastReviewed stamp
+
+### admission.deadline (65)
+
+- `program/upb-cs` — admission.deadline="iulie" has no deadlineYear — staleness undetectable
+- `program/codecool-fullstack` — admission.deadline="rolling (cohorts trimestriale)" has no deadlineYear — staleness undetectable
+- `program/iaa-digital-marketing` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/feg-frizer` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/feg-coafor` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/feg-cosmetician` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/feg-maseur` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/estetica-crin-frizer` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/alex-constantin-makeup` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/oby-ink-tatuator` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/tattoo-expo-tatuator` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/nagvo-tatuator` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/asr-sudor-iws` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/eurojobs-zidar-sudor` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/florarie-academy-curs` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/sae-music-prod` — admission.deadline="rolling (intake-uri trimestriale)" has no deadlineYear — staleness undetectable
+- `program/arc-foto-workshops` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/eurojobs-tir` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/feg-agent-securitate` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/feg-agent-imobiliar` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/eurojobs-depozit` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/eurojobs-cnc` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/iaa-sales` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/codecool-qa` — admission.deadline="rolling (cohorts trimestriale)" has no deadlineYear — staleness undetectable
+- `program/wantsome-qa` — admission.deadline="rolling (cohorts trimestriale)" has no deadlineYear — staleness undetectable
+- `program/iteach-devops-sysadmin` — admission.deadline="rolling (cohorts trimestriale)" has no deadlineYear — staleness undetectable
+- `program/ct-energetic-pv` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/feg-frigotehnist` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/feg-ingrijitor` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/feg-comert` — admission.deadline="rolling (cohorts lunare)" has no deadlineYear — staleness undetectable
+- `program/asr-galati-sudor` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/feg-frizer-cluj` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/feg-manichiura-iasi` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/feg-make-up` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/ucecom-make-up` — admission.deadline="iulie/noiembrie" has no deadlineYear — staleness undetectable
+- `program/feg-bijutier` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/feg-florar` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/eurojobs-securitate` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/eurojobs-imobiliar` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/feg-operator-depozit` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/codecool-sysadmin` — admission.deadline="rolling (cohorts trimestriale)" has no deadlineYear — staleness undetectable
+- `program/feg-sysadmin` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/pmi-prince2-cert` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/feg-instalator-pv` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/caritas-ingrijitor-de` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/iaa-content-seo` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/innovation-labs-growth` — admission.deadline="octombrie / februarie (2 cohorte/an)" has no deadlineYear — staleness undetectable
+- `program/rise-project-investigativ` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/autodidact-podcast` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/how-to-web-growth` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/wantsome-freelancedeveloper-v6` — admission.deadline="rolling (cohorte trimestriale)" has no deadlineYear — staleness undetectable
+- `program/codecool-selftaughtengineer-v6` — admission.deadline="rolling (cohorte trimestriale)" has no deadlineYear — staleness undetectable
+- `program/wantsome-softwareengineer-v6` — admission.deadline="rolling (cohorte trimestriale)" has no deadlineYear — staleness undetectable
+- `program/kwiat-academy-devops-v6` — admission.deadline="rolling (cohorte trimestriale)" has no deadlineYear — staleness undetectable
+- `program/iteach-bg-cybersecurity-v6` — admission.deadline="rolling (cohorte trimestriale)" has no deadlineYear — staleness undetectable
+- `program/codecool-gamedeveloper-v6` — admission.deadline="rolling (cohorte trimestriale)" has no deadlineYear — staleness undetectable
+- `program/spor-academy-mobiledeveloper-v6` — admission.deadline="rolling (cohorte trimestriale)" has no deadlineYear — staleness undetectable
+- `program/alex-constantin-academy-frizer-v6` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/estetica-crin-manichiurista-v6` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/estetica-crin-makeupartist-v6` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/badass-tattoo-academy-tatuator-v6` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/techstars-startupfounder-v6` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/iaa-academy-ecommercefounder-v6` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/innovation-labs-ecommercefounder-v6` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+- `program/iaa-academy-marketinggrowth-v6` — admission.deadline="rolling" has no deadlineYear — staleness undetectable
+
+### no url — user cannot verify the program (276)
+
+- `program/spp-cd-amg` — no url — user cannot verify the program
+- `program/lt-viilor-bucatar-ospatar` — no url — user cannot verify the program
+- `program/unarte-pictura-sculptura` — no url — user cannot verify the program
+- `program/uad-arte-vizuale` — no url — user cannot verify the program
+- `program/arte-iasi-arte-vizuale` — no url — user cannot verify the program
+- `program/lt-anghel-saligny-cluj-meserii` — no url — user cannot verify the program
+- `program/lt-textil-buc-croitor` — no url — user cannot verify the program
+- `program/florarie-academy-curs` — no url — user cannot verify the program
+- `program/spp-cd-tehdent` — no url — user cannot verify the program
+- `program/spp-cd-optician` — no url — user cannot verify the program
+- `program/spp-vet-buc-asistent` — no url — user cannot verify the program
+- `program/usamv-iasi-vet` — no url — user cannot verify the program
+- `program/usamv-tim-vet` — no url — user cannot verify the program
+- `program/usamv-buc-agro` — no url — user cannot verify the program
+- `program/usamv-cluj-agro` — no url — user cannot verify the program
+- `program/utcb-constructii` — no url — user cannot verify the program
+- `program/utcn-constructii` — no url — user cannot verify the program
+- `program/tuiasi-constructii` — no url — user cannot verify the program
+- `program/unefs-kineto` — no url — user cannot verify the program
+- `program/ubb-kineto` — no url — user cannot verify the program
+- `program/ub-asistenta-sociala` — no url — user cannot verify the program
+- `program/ubb-asistenta-sociala` — no url — user cannot verify the program
+- `program/ubb-psihopedagogie` — no url — user cannot verify the program
+- `program/ub-pipp` — no url — user cannot verify the program
+- `program/uaic-pipp` — no url — user cannot verify the program
+- `program/uvt-pipp` — no url — user cannot verify the program
+- `program/ub-biologie` — no url — user cannot verify the program
+- `program/ubb-biologie` — no url — user cannot verify the program
+- `program/uaic-biologie` — no url — user cannot verify the program
+- `program/unmb-compozitie` — no url — user cannot verify the program
+- `program/amgd-compozitie` — no url — user cannot verify the program
+- `program/unatc-actorie` — no url — user cannot verify the program
+- `program/arte-iasi-actorie` — no url — user cannot verify the program
+- `program/arte-tgm-actorie` — no url — user cannot verify the program
+- `program/unatc-imagine` — no url — user cannot verify the program
+- `program/arc-foto-workshops` — no url — user cannot verify the program
+- `program/umc-naval` — no url — user cannot verify the program
+- `program/uauim-arhitectura` — no url — user cannot verify the program
+- `program/utcn-arhitectura` — no url — user cannot verify the program
+- `program/ub-litere-traducere` — no url — user cannot verify the program
+- `program/ubb-litere-lma` — no url — user cannot verify the program
+- `program/snspa-jurnalism` — no url — user cannot verify the program
+- `program/ub-jurnalism` — no url — user cannot verify the program
+- `program/unefs-antrenorat` — no url — user cannot verify the program
+- `program/uvt-sport` — no url — user cannot verify the program
+- `program/ctauto-cluj-mecanic` — no url — user cannot verify the program
+- `program/lt-1mai-mecanic` — no url — user cannot verify the program
+- `program/ub-pipp-profesor` — no url — user cannot verify the program
+- `program/ubb-pipp-profesor` — no url — user cannot verify the program
+- `program/eurojobs-tir` — no url — user cannot verify the program
+- `program/lt-1mai-sofer` — no url — user cannot verify the program
+- `program/ase-contabilitate` — no url — user cannot verify the program
+- `program/ubb-contabilitate` — no url — user cannot verify the program
+- `program/uaic-contabilitate` — no url — user cannot verify the program
+- `program/ase-finante-contabil` — no url — user cannot verify the program
+- `program/feg-agent-securitate` — no url — user cannot verify the program
+- `program/feg-agent-imobiliar` — no url — user cannot verify the program
+- `program/lt-viilor-receptioner` — no url — user cannot verify the program
+- `program/hyperion-turism` — no url — user cannot verify the program
+- `program/ub-lma-asistent` — no url — user cannot verify the program
+- `program/snspa-comunicare-asistent` — no url — user cannot verify the program
+- `program/ase-mru` — no url — user cannot verify the program
+- `program/ub-psihologie-hr` — no url — user cannot verify the program
+- `program/eurojobs-depozit` — no url — user cannot verify the program
+- `program/eurojobs-cnc` — no url — user cannot verify the program
+- `program/lt-saligny-cnc` — no url — user cannot verify the program
+- `program/iaa-sales` — no url — user cannot verify the program
+- `program/ase-marketing-sales` — no url — user cannot verify the program
+- `program/codecool-qa` — no url — user cannot verify the program
+- `program/iteach-devops-sysadmin` — no url — user cannot verify the program
+- `program/ase-management-proiect` — no url — user cannot verify the program
+- `program/ase-banking` — no url — user cannot verify the program
+- `program/ase-logistics` — no url — user cannot verify the program
+- `program/ct-energetic-pv` — no url — user cannot verify the program
+- `program/feg-frigotehnist` — no url — user cannot verify the program
+- `program/ct-energetic-frigotehnist` — no url — user cannot verify the program
+- `program/feg-comert` — no url — user cannot verify the program
+- `program/ct-iuliu-maniu-comert` — no url — user cannot verify the program
+- `program/ct-pallady-bucatar` — no url — user cannot verify the program
+- `program/ct-rosetti-bucatar` — no url — user cannot verify the program
+- `program/lt-macelariu-bucatar` — no url — user cannot verify the program
+- `program/ct-mviteazul-turism` — no url — user cannot verify the program
+- `program/ct-persu-bucatar` — no url — user cannot verify the program
+- `program/ctias-suceava-cofetar` — no url — user cannot verify the program
+- `program/ct-nenitescu-bucatar` — no url — user cannot verify the program
+- `program/ct-mioveni-cnc` — no url — user cannot verify the program
+- `program/ct-cristea-bv-mecanic` — no url — user cannot verify the program
+- `program/spp-feg-tim-amg` — no url — user cannot verify the program
+- `program/spp-feg-galati-amg` — no url — user cannot verify the program
+- `program/spp-feg-cta-amg` — no url — user cannot verify the program
+- `program/asr-galati-sudor` — no url — user cannot verify the program
+- `program/lt-siderurgic-hd-sudor` — no url — user cannot verify the program
+- `program/ct-energetic-cluj-electrician` — no url — user cannot verify the program
+- `program/lt-tomis-instalator` — no url — user cannot verify the program
+- `program/lt-construct-craiova-meserii` — no url — user cannot verify the program
+- `program/umfst-tehdent-licenta` — no url — user cannot verify the program
+- `program/umft-tehdent-licenta` — no url — user cannot verify the program
+- `program/utbv-kineto-licenta` — no url — user cannot verify the program
+- `program/uav-kineto-licenta` — no url — user cannot verify the program
+- `program/upit-kineto-licenta` — no url — user cannot verify the program
+- `program/feg-frizer-cluj` — no url — user cannot verify the program
+- `program/feg-manichiura-iasi` — no url — user cannot verify the program
+- `program/feg-make-up` — no url — user cannot verify the program
+- `program/ucecom-make-up` — no url — user cannot verify the program
+- `program/feg-bijutier` — no url — user cannot verify the program
+- `program/feg-florar` — no url — user cannot verify the program
+- `program/eurojobs-securitate` — no url — user cannot verify the program
+- `program/eurojobs-imobiliar` — no url — user cannot verify the program
+- `program/feg-operator-depozit` — no url — user cannot verify the program
+- `program/codecool-sysadmin` — no url — user cannot verify the program
+- `program/feg-sysadmin` — no url — user cannot verify the program
+- `program/snspa-pm` — no url — user cannot verify the program
+- `program/pmi-prince2-cert` — no url — user cannot verify the program
+- `program/feg-instalator-pv` — no url — user cannot verify the program
+- `program/caritas-ingrijitor-de` — no url — user cannot verify the program
+- `program/ub-psihologie-scolara` — no url — user cannot verify the program
+- `program/ubb-psihopedagogie-scolara` — no url — user cannot verify the program
+- `program/ase-mru-psihorg` — no url — user cannot verify the program
+- `program/ub-psihologia-muncii` — no url — user cannot verify the program
+- `program/iaa-content-seo` — no url — user cannot verify the program
+- `program/innovation-labs-growth` — no url — user cannot verify the program
+- `program/snspa-marketing-brand` — no url — user cannot verify the program
+- `program/ub-mate-profesor` — no url — user cannot verify the program
+- `program/ub-litere-profesor` — no url — user cannot verify the program
+- `program/ubb-mate-profesor` — no url — user cannot verify the program
+- `program/phd-academic` — no url — user cannot verify the program
+- `program/phd-academic-ubb` — no url — user cannot verify the program
+- `program/upb-electrotehnica` — no url — user cannot verify the program
+- `program/utcn-electrotehnica` — no url — user cannot verify the program
+- `program/tuiasi-electrotehnica` — no url — user cannot verify the program
+- `program/upb-mecanica` — no url — user cannot verify the program
+- `program/utcn-mecanica` — no url — user cannot verify the program
+- `program/upb-energetica` — no url — user cannot verify the program
+- `program/upet-energetica` — no url — user cannot verify the program
+- `program/upg-petrochimie` — no url — user cannot verify the program
+- `program/upb-chimie` — no url — user cannot verify the program
+- `program/rise-project-investigativ` — no url — user cannot verify the program
+- `program/snspa-jurnalism-investigativ` — no url — user cannot verify the program
+- `program/autodidact-podcast` — no url — user cannot verify the program
+- `program/uaic-psihologie` — no url — user cannot verify the program
+- `program/uvt-psihologie` — no url — user cannot verify the program
+- `program/snspa-mru` — no url — user cannot verify the program
+- `program/ubb-psihologie-org` — no url — user cannot verify the program
+- `program/snspa-content-strategy` — no url — user cannot verify the program
+- `program/uaic-litere-content` — no url — user cannot verify the program
+- `program/how-to-web-growth` — no url — user cannot verify the program
+- `program/unarte-profesor-arta` — no url — user cannot verify the program
+- `program/unefs-profesor-sport` — no url — user cannot verify the program
+- `program/uaic-litere-profesor` — no url — user cannot verify the program
+- `program/uvt-litere-profesor` — no url — user cannot verify the program
+- `program/phd-uaic` — no url — user cannot verify the program
+- `program/phd-umfcd` — no url — user cannot verify the program
+- `program/tuiasi-mecanica` — no url — user cannot verify the program
+- `program/upt-mecanica` — no url — user cannot verify the program
+- `program/upt-electrotehnica` — no url — user cannot verify the program
+- `program/utcn-electronica` — no url — user cannot verify the program
+- `program/tuiasi-electronica` — no url — user cannot verify the program
+- `program/upt-electronica` — no url — user cannot verify the program
+- `program/utcn-energetica` — no url — user cannot verify the program
+- `program/upt-energetica` — no url — user cannot verify the program
+- `program/upt-chimie` — no url — user cannot verify the program
+- `program/usamv-iasi-alimentara` — no url — user cannot verify the program
+- `program/ubb-jurnalism` — no url — user cannot verify the program
+- `program/uaic-jurnalism` — no url — user cannot verify the program
+- `program/unarte-productdesigner-v6` — no url — user cannot verify the program
+- `program/uauim-productdesigner-v6` — no url — user cannot verify the program
+- `program/ubb-productdesigner-v6` — no url — user cannot verify the program
+- `program/unarte-creativedirector-v6` — no url — user cannot verify the program
+- `program/ase-socialentrepreneur-v6` — no url — user cannot verify the program
+- `program/snspa-socialentrepreneur-v6` — no url — user cannot verify the program
+- `program/ubb-socialentrepreneur-v6` — no url — user cannot verify the program
+- `program/ub-communitybuilder-v6` — no url — user cannot verify the program
+- `program/snspa-communitybuilder-v6` — no url — user cannot verify the program
+- `program/ubb-freelancedeveloper-v6` — no url — user cannot verify the program
+- `program/ase-startupfounder-v6` — no url — user cannot verify the program
+- `program/unarte-freelancedesigner-v6` — no url — user cannot verify the program
+- `program/unarte-craftsentrepreneur-v6` — no url — user cannot verify the program
+- `program/snspa-avocat-v6` — no url — user cannot verify the program
+- `program/ubb-avocat-v6` — no url — user cannot verify the program
+- `program/usamv-buc-inginerchimist-v6` — no url — user cannot verify the program
+- `program/usamv-cluj-inginerchimist-v6` — no url — user cannot verify the program
+- `program/uaic-softwareengineer-v6` — no url — user cannot verify the program
+- `program/utcn-devops-v6` — no url — user cannot verify the program
+- `program/utcn-cybersecurity-v6` — no url — user cannot verify the program
+- `program/uvt-cybersecurity-v6` — no url — user cannot verify the program
+- `program/ubb-gamedeveloper-v6` — no url — user cannot verify the program
+- `program/ubb-mobiledeveloper-v6` — no url — user cannot verify the program
+- `program/snspa-profesorgimnaziuli-v6` — no url — user cannot verify the program
+- `program/pub-profesoruniversita-v6` — no url — user cannot verify the program
+- `program/ase-profesoruniversita-v6` — no url — user cannot verify the program
+- `program/umf-craiova-profesoruniversita-v6` — no url — user cannot verify the program
+- `program/upt-arhitect-v6` — no url — user cannot verify the program
+- `program/unstpb-pitesti-inginerauto-v6` — no url — user cannot verify the program
+- `program/ub-marketingcontentse-v6` — no url — user cannot verify the program
+- `program/ase-marketingcontentse-v6` — no url — user cannot verify the program
+- `program/ase-marketinggrowth-v6` — no url — user cannot verify the program
+- `program/snspa-productmanager-v6` — no url — user cannot verify the program
+- `program/snspa-jurnalisteditor-v6` — no url — user cannot verify the program
+- `program/ub-jurnalistpodcast-v6` — no url — user cannot verify the program
+- `program/snspa-jurnalistpodcast-v6` — no url — user cannot verify the program
+- `program/ub-jurnalistinvestiga-v6` — no url — user cannot verify the program
+- `program/ubb-antrenorsportiv-v6` — no url — user cannot verify the program
+- `program/snspa-traducator-v6` — no url — user cannot verify the program
+- `program/uaic-traducator-v6` — no url — user cannot verify the program
+- `program/uvt-traducator-v6` — no url — user cannot verify the program
+- `program/ase-ecommercefounder-v6` — no url — user cannot verify the program
+- `program/unarte-fotograf-v6` — no url — user cannot verify the program
+- `program/uad-fotograf-v6` — no url — user cannot verify the program
+- `program/unarte-croitor-v6` — no url — user cannot verify the program
+- `program/unarte-bijutier-v6` — no url — user cannot verify the program
+- `program/uad-tamplarmobilier-v6` — no url — user cannot verify the program
+- `program/usv-agronom-v6` — no url — user cannot verify the program
+- `program/upt-inginerconstructii-v6` — no url — user cannot verify the program
+- `program/uaic-kinetoterapeut-v6` — no url — user cannot verify the program
+- `program/uaic-asistentsocial-v6` — no url — user cannot verify the program
+- `program/uvt-asistentsocial-v6` — no url — user cannot verify the program
+- `program/uaic-logoped-v6` — no url — user cannot verify the program
+- `program/uvt-logoped-v6` — no url — user cannot verify the program
+- `program/usamv-buc-biolog-v6` — no url — user cannot verify the program
+- `program/usamv-cluj-biolog-v6` — no url — user cannot verify the program
+- `program/uvt-biolog-v6` — no url — user cannot verify the program
+- `program/usamv-buc-asistentvet-v6` — no url — user cannot verify the program
+- `program/usamv-cluj-asistentvet-v6` — no url — user cannot verify the program
+- `program/uvt-contabil-v6` — no url — user cannot verify the program
+- `program/ase-agentimobiliar-v6` — no url — user cannot verify the program
+- `program/ase-asistentmanager-v6` — no url — user cannot verify the program
+- `program/snspa-salesrep-v6` — no url — user cannot verify the program
+- `program/ubb-qatester-v6` — no url — user cannot verify the program
+- `program/ubb-functionarbancar-v6` — no url — user cannot verify the program
+- `program/uaic-functionarbancar-v6` — no url — user cannot verify the program
+- `program/ubb-specialistachiziti-v6` — no url — user cannot verify the program
+- `program/wantsome-freelancedeveloper-v6` — no url — user cannot verify the program
+- `program/codecool-selftaughtengineer-v6` — no url — user cannot verify the program
+- `program/wantsome-softwareengineer-v6` — no url — user cannot verify the program
+- `program/kwiat-academy-devops-v6` — no url — user cannot verify the program
+- `program/iteach-bg-cybersecurity-v6` — no url — user cannot verify the program
+- `program/codecool-gamedeveloper-v6` — no url — user cannot verify the program
+- `program/spor-academy-mobiledeveloper-v6` — no url — user cannot verify the program
+- `program/umf-craiova-medicgeneralist-v6` — no url — user cannot verify the program
+- `program/umf-craiova-stomatolog-v6` — no url — user cannot verify the program
+- `program/umf-craiova-farmacist-v6` — no url — user cannot verify the program
+- `program/umf-craiova-cosmeticiana-v6` — no url — user cannot verify the program
+- `program/umf-craiova-tehniciandentar-v6` — no url — user cannot verify the program
+- `program/rau-marketingbrand-v6` — no url — user cannot verify the program
+- `program/rau-agentimobiliar-v6` — no url — user cannot verify the program
+- `program/alex-constantin-academy-frizer-v6` — no url — user cannot verify the program
+- `program/estetica-crin-manichiurista-v6` — no url — user cannot verify the program
+- `program/estetica-crin-makeupartist-v6` — no url — user cannot verify the program
+- `program/badass-tattoo-academy-tatuator-v6` — no url — user cannot verify the program
+- `program/gs-ferdinand-sudor-v6` — no url — user cannot verify the program
+- `program/ct-mecanic-grivita-croitor-v6` — no url — user cannot verify the program
+- `program/lt-1mai-ploiesti-operatorcnc-v6` — no url — user cannot verify the program
+- `program/techstars-startupfounder-v6` — no url — user cannot verify the program
+- `program/iaa-academy-ecommercefounder-v6` — no url — user cannot verify the program
+- `program/innovation-labs-ecommercefounder-v6` — no url — user cannot verify the program
+- `program/iaa-academy-marketinggrowth-v6` — no url — user cannot verify the program
+- `program/amgd-profesor-muzica-v7` — no url — user cannot verify the program
+- `program/unmb-profesor-muzica-v7` — no url — user cannot verify the program
+- `program/arte-iasi-profesor-muzica-v7` — no url — user cannot verify the program
+- `program/uad-profesor-arte-v7` — no url — user cannot verify the program
+- `program/arte-tgm-profesor-arte-v7` — no url — user cannot verify the program
+- `program/pub-profesor-stiinte-v7` — no url — user cannot verify the program
+- `program/tuiasi-profesor-stiinte-v7` — no url — user cannot verify the program
+- `program/ovidius-profesor-litere-v7` — no url — user cannot verify the program
+- `program/ucv-profesor-litere-v7` — no url — user cannot verify the program
+- `program/ucv-profesor-mate-v7` — no url — user cannot verify the program
+- `program/ulbs-profesor-litere-v7` — no url — user cannot verify the program
+- `program/utbv-profesor-litere-v7` — no url — user cannot verify the program
+- `program/udjg-profesor-litere-v7` — no url — user cannot verify the program
+- `program/uoradea-profesor-litere-v7` — no url — user cannot verify the program
+- `program/usv-profesor-litere-v7` — no url — user cannot verify the program
+- `program/umfst-profesor-stiinte-v7` — no url — user cannot verify the program
+- `program/pub-data-scientist-v7` — no url — user cannot verify the program
+- `program/ase-data-scientist-v7` — no url — user cannot verify the program
+- `program/ubb-data-scientist-v7` — no url — user cannot verify the program
+- `program/unatc-content-creator-v7` — no url — user cannot verify the program
+
+### no url (43)
+
+- `institution/avram-iancu` — no url
+- `institution/adventus` — no url
+- `institution/ct-mecanic-grivita` — no url
+- `institution/liceul-edison-buc` — no url
+- `institution/ct-aeronautic-buc` — no url
+- `institution/ctauto-cluj` — no url
+- `institution/ct-tehnoton-iasi` — no url
+- `institution/ct-electrotim` — no url
+- `institution/ct-emi-galati` — no url
+- `institution/ct-resita` — no url
+- `institution/spp-medical-buc` — no url
+- `institution/spp-medical-cluj` — no url
+- `institution/spor-academy` — no url
+- `institution/kwiat-academy` — no url
+- `institution/cgs-academy` — no url
+- `institution/iteach-bg` — no url
+- `institution/bigflow` — no url
+- `institution/risi-up` — no url
+- `institution/lt-economic-viilor` — no url
+- `institution/lt-anghel-saligny-cluj` — no url
+- `institution/lt-construct-iasi` — no url
+- `institution/florarie-academy` — no url
+- `institution/lt-textil-buc` — no url
+- `institution/arc-foto` — no url
+- `institution/spp-vet-buc` — no url
+- `institution/ct-pallady-cta` — no url
+- `institution/ct-rosetti-galati` — no url
+- `institution/lt-macelariu-sibiu` — no url
+- `institution/ct-mviteazul-oradea` — no url
+- `institution/ct-persu-tgm` — no url
+- `institution/ct-nenitescu-pitesti` — no url
+- `institution/ct-mioveni` — no url
+- `institution/ct-cristea-bv` — no url
+- `institution/asr-galati` — no url
+- `institution/lt-siderurgic-hd` — no url
+- `institution/ct-energetic-cluj` — no url
+- `institution/lt-construct-cta` — no url
+- `institution/lt-construct-craiova` — no url
+- `institution/spp-feg-cta` — no url
+- `institution/umfst-tehdent` — no url
+- `institution/umft-tehdent` — no url
+- `institution/utbv-kineto` — no url
+- `institution/uav-kineto` — no url
+
+## INFO (179)
+
+### admission.tuition missing (16)
+
+- `program/acad-militara-management` — admission.tuition missing
+- `program/aft-sibiu-management` — admission.tuition missing
+- `program/afa-brasov-pilot` — admission.tuition missing
+- `program/afa-brasov-inginerie` — admission.tuition missing
+- `program/anmb-navigatie` — admission.tuition missing
+- `program/acad-politie-drept` — admission.tuition missing
+- `program/acad-politie-pompieri` — admission.tuition missing
+- `program/ani-informatii` — admission.tuition missing
+- `program/umf-iasi-amg` — admission.tuition missing
+- `program/umf-iasi-medicina` — admission.tuition missing
+- `program/umf-iasi-tehnica-dentara` — admission.tuition missing
+- `program/umf-iasi-nutritie` — admission.tuition missing
+- `program/umf-iasi-balneo` — admission.tuition missing
+- `program/umf-iasi-cosmetica` — admission.tuition missing
+- `program/upb-cs` — admission.tuition missing
+- `program/usamv-buc-vet` — admission.tuition missing
+
+### no lastReviewed stamp (163)
+
+- `institution/ani` — no lastReviewed stamp
+- `institution/acad-militara` — no lastReviewed stamp
+- `institution/aft-sibiu` — no lastReviewed stamp
+- `institution/afa-brasov` — no lastReviewed stamp
+- `institution/anmb` — no lastReviewed stamp
+- `institution/acad-politie` — no lastReviewed stamp
+- `institution/pub` — no lastReviewed stamp
+- `institution/ub` — no lastReviewed stamp
+- `institution/ase` — no lastReviewed stamp
+- `institution/snspa` — no lastReviewed stamp
+- `institution/unarte` — no lastReviewed stamp
+- `institution/unatc` — no lastReviewed stamp
+- `institution/uauim` — no lastReviewed stamp
+- `institution/umfcd` — no lastReviewed stamp
+- `institution/usamv-buc` — no lastReviewed stamp
+- `institution/unmb` — no lastReviewed stamp
+- `institution/unefs` — no lastReviewed stamp
+- `institution/ubb` — no lastReviewed stamp
+- `institution/utcn` — no lastReviewed stamp
+- `institution/umf-cluj` — no lastReviewed stamp
+- `institution/usamv-cluj` — no lastReviewed stamp
+- `institution/amgd` — no lastReviewed stamp
+- `institution/uad` — no lastReviewed stamp
+- `institution/uaic` — no lastReviewed stamp
+- `institution/tuiasi` — no lastReviewed stamp
+- `institution/umf-iasi` — no lastReviewed stamp
+- `institution/usamv-iasi` — no lastReviewed stamp
+- `institution/arte-iasi` — no lastReviewed stamp
+- `institution/uvt` — no lastReviewed stamp
+- `institution/upt` — no lastReviewed stamp
+- `institution/umft` — no lastReviewed stamp
+- `institution/usamv-tim` — no lastReviewed stamp
+- `institution/ovidius` — no lastReviewed stamp
+- `institution/umc` — no lastReviewed stamp
+- `institution/ucv` — no lastReviewed stamp
+- `institution/umf-craiova` — no lastReviewed stamp
+- `institution/ulbs` — no lastReviewed stamp
+- `institution/utbv` — no lastReviewed stamp
+- `institution/udjg` — no lastReviewed stamp
+- `institution/uoradea` — no lastReviewed stamp
+- `institution/usv` — no lastReviewed stamp
+- `institution/unstpb-pitesti` — no lastReviewed stamp
+- `institution/valahia` — no lastReviewed stamp
+- `institution/umf-tgm` — no lastReviewed stamp
+- `institution/umfst` — no lastReviewed stamp
+- `institution/arte-tgm` — no lastReviewed stamp
+- `institution/uvasileal` — no lastReviewed stamp
+- `institution/upet` — no lastReviewed stamp
+- `institution/uav` — no lastReviewed stamp
+- `institution/uab` — no lastReviewed stamp
+- `institution/upg` — no lastReviewed stamp
+- `institution/spiru-haret` — no lastReviewed stamp
+- `institution/titu-maiorescu` — no lastReviewed stamp
+- `institution/cantemir` — no lastReviewed stamp
+- `institution/rau` — no lastReviewed stamp
+- `institution/hyperion` — no lastReviewed stamp
+- `institution/titulescu` — no lastReviewed stamp
+- `institution/ueb` — no lastReviewed stamp
+- `institution/artifex` — no lastReviewed stamp
+- `institution/bioterra` — no lastReviewed stamp
+- `institution/athenaeum` — no lastReviewed stamp
+- `institution/sapientia` — no lastReviewed stamp
+- `institution/bogdan-voda` — no lastReviewed stamp
+- `institution/avram-iancu` — no lastReviewed stamp
+- `institution/petre-andrei` — no lastReviewed stamp
+- `institution/apollonia` — no lastReviewed stamp
+- `institution/mihail-kogalniceanu` — no lastReviewed stamp
+- `institution/goldis` — no lastReviewed stamp
+- `institution/tibiscus` — no lastReviewed stamp
+- `institution/ioan-slavici` — no lastReviewed stamp
+- `institution/agora` — no lastReviewed stamp
+- `institution/emanuel` — no lastReviewed stamp
+- `institution/adventus` — no lastReviewed stamp
+- `institution/george-bacovia` — no lastReviewed stamp
+- `institution/brancoveanu` — no lastReviewed stamp
+- `institution/andrei-saguna` — no lastReviewed stamp
+- `institution/ct-energetic-buc` — no lastReviewed stamp
+- `institution/ct-mecanic-grivita` — no lastReviewed stamp
+- `institution/liceul-edison-buc` — no lastReviewed stamp
+- `institution/ct-aeronautic-buc` — no lastReviewed stamp
+- `institution/ctauto-cluj` — no lastReviewed stamp
+- `institution/ct-tehnoton-iasi` — no lastReviewed stamp
+- `institution/ct-electrotim` — no lastReviewed stamp
+- `institution/ct-emi-galati` — no lastReviewed stamp
+- `institution/ct-resita` — no lastReviewed stamp
+- `institution/lt-1mai-ploiesti` — no lastReviewed stamp
+- `institution/spp-medical-buc` — no lastReviewed stamp
+- `institution/spp-medical-cluj` — no lastReviewed stamp
+- `institution/spp-medical-iasi` — no lastReviewed stamp
+- `institution/codecool` — no lastReviewed stamp
+- `institution/wantsome` — no lastReviewed stamp
+- `institution/spor-academy` — no lastReviewed stamp
+- `institution/kwiat-academy` — no lastReviewed stamp
+- `institution/cgs-academy` — no lastReviewed stamp
+- `institution/iteach-bg` — no lastReviewed stamp
+- `institution/bigflow` — no lastReviewed stamp
+- `institution/iaa-academy` — no lastReviewed stamp
+- `institution/design-mentor` — no lastReviewed stamp
+- `institution/innovation-labs` — no lastReviewed stamp
+- `institution/techcelerator` — no lastReviewed stamp
+- `institution/spherik` — no lastReviewed stamp
+- `institution/risi-up` — no lastReviewed stamp
+- `institution/founder-institute` — no lastReviewed stamp
+- `institution/how-to-web` — no lastReviewed stamp
+- `institution/techstars` — no lastReviewed stamp
+- `institution/yc` — no lastReviewed stamp
+- `institution/eit-digital` — no lastReviewed stamp
+- `institution/ucecom-spiruharet` — no lastReviewed stamp
+- `institution/feg-calificare` — no lastReviewed stamp
+- `institution/estetica-crin` — no lastReviewed stamp
+- `institution/alex-constantin-academy` — no lastReviewed stamp
+- `institution/lt-economic-viilor` — no lastReviewed stamp
+- `institution/ct-iuliu-maniu` — no lastReviewed stamp
+- `institution/lt-airinei` — no lastReviewed stamp
+- `institution/lt-economic-turism-iasi` — no lastReviewed stamp
+- `institution/cneab` — no lastReviewed stamp
+- `institution/oby-ink-academy` — no lastReviewed stamp
+- `institution/tattoo-expo` — no lastReviewed stamp
+- `institution/nagvo-grup` — no lastReviewed stamp
+- `institution/badass-tattoo-academy` — no lastReviewed stamp
+- `institution/gs-ferdinand` — no lastReviewed stamp
+- `institution/lt-anghel-saligny-cluj` — no lastReviewed stamp
+- `institution/lt-construct-iasi` — no lastReviewed stamp
+- `institution/asr-sudor` — no lastReviewed stamp
+- `institution/eurojobs-cf` — no lastReviewed stamp
+- `institution/florarie-academy` — no lastReviewed stamp
+- `institution/lt-textil-buc` — no lastReviewed stamp
+- `institution/spp-henri-coanda` — no lastReviewed stamp
+- `institution/spp-sanity-bacau` — no lastReviewed stamp
+- `institution/spp-atlas` — no lastReviewed stamp
+- `institution/arc-foto` — no lastReviewed stamp
+- `institution/hyperion-foto` — no lastReviewed stamp
+- `institution/sae-institute-bg` — no lastReviewed stamp
+- `institution/spp-vet-buc` — no lastReviewed stamp
+- `institution/ct-pallady-cta` — no lastReviewed stamp
+- `institution/ct-rosetti-galati` — no lastReviewed stamp
+- `institution/lt-macelariu-sibiu` — no lastReviewed stamp
+- `institution/ct-mviteazul-oradea` — no lastReviewed stamp
+- `institution/ct-persu-tgm` — no lastReviewed stamp
+- `institution/ctias-suceava` — no lastReviewed stamp
+- `institution/ct-nenitescu-pitesti` — no lastReviewed stamp
+- `institution/lt-dacia-pitesti` — no lastReviewed stamp
+- `institution/lt-auto-craiova` — no lastReviewed stamp
+- `institution/ct-mioveni` — no lastReviewed stamp
+- `institution/ct-cristea-bv` — no lastReviewed stamp
+- `institution/spp-henri-coanda-tim` — no lastReviewed stamp
+- `institution/spp-henri-coanda-bv` — no lastReviewed stamp
+- `institution/spp-feg-tim` — no lastReviewed stamp
+- `institution/spp-feg-galati` — no lastReviewed stamp
+- `institution/spp-sf-ioan` — no lastReviewed stamp
+- `institution/asr-galati` — no lastReviewed stamp
+- `institution/lt-siderurgic-hd` — no lastReviewed stamp
+- `institution/ct-energetic-cluj` — no lastReviewed stamp
+- `institution/lt-construct-cta` — no lastReviewed stamp
+- `institution/lt-construct-craiova` — no lastReviewed stamp
+- `institution/spp-feg-cta` — no lastReviewed stamp
+- `institution/umfst-tehdent` — no lastReviewed stamp
+- `institution/umft-tehdent` — no lastReviewed stamp
+- `institution/uab-kineto` — no lastReviewed stamp
+- `institution/utbv-kineto` — no lastReviewed stamp
+- `institution/uav-kineto` — no lastReviewed stamp
+- `institution/ulbs-kineto` — no lastReviewed stamp
+- `institution/upit-kineto` — no lastReviewed stamp
+
+## Review protocol
+
+For each CRITICAL item: open the institution site, verify the current fact, update `data/*.json`, and stamp `lastReviewed` with today's date. See docs/DATA-REVIEW-PROCESS.md.
