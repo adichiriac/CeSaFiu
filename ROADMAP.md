@@ -1,141 +1,164 @@
 # Ce Să Fiu? — Product Roadmap
 
-*Living document. Last updated: 2026-04-27.*
+*Living document. Last updated: 2026-07-03.*
 
 ## North star
 
 Help Romanian teens (grades 9-12, eventually K-12) find a career path that genuinely fits — across **all** post-high-school directions: university, trade school, bootcamp, freelance, founder, creator. Not just universities.
 
-The product should feel like a high-energy mentor, not a bureaucratic test. Free at the entry, paid at the depth.
+The product should feel like a high-energy mentor, not a bureaucratic test. Free at the entry; monetization parked (see "Parked" below).
 
 ---
 
-## Phasing
+## Where we are (2026-07-03)
 
-### Phase 0 — Pilot decision (NOW)
+The product is no longer the static pilot — it's `apps/web` (Next.js, Supabase, i18n-ready), live in production. Shipped and working:
 
-Goal: pick which of the three quiz variants (A Scenarii / B Triplu-lens / C Clasic MVP) becomes the V2 hook quiz.
+- **Phase 0 resolved:** Variant A (Scenarii) won the pilot → lives at `/ro/test/scenarii`.
+- **1.2 Trade school path** — `profesional` is the 6th path; catalogue now 184 careers / 160+ universities incl. Phase C future-looking careers.
+- **1.4 Auth** — Supabase (Google + magic link), EU region.
+- **1.5 Minor consent** — full GDPR Art. 8 flow: age band → parent email → `acord-parinte` confirmation (`/api/consent/*`).
+- **2.1 + 2.2 "Drumul tău"** — shipped as `/drum` (see `docs/JOURNEY-DRUMUL-TAU-PLAN.md`): path-specific reality checks, cosmetic lifetime XP (no streaks/loss mechanics), "Verifică admiterea" deadline touchpoint. Dated-milestone notifications still pending.
+- **Archetypes V2** — renames + career-worlds layer (`docs/ARCHETYPES-V2-PLAN.md`).
+- **Signals layer** — 8-family controlled vocabulary, 15% matching weight, cosine similarity. **Uncalibrated** — needs 20-50 real-user pilot.
+- **Referrals/viral loop** — `/r/[code]`, click/onboarded/test-completed tracking (`docs/VIRAL-SHARING-REFERRALS-PLAN.md`).
+- **Infra/polish** — dark mode, quiz resume, feedback widget + security baseline on `/api/feedback`, Sentry, Umami analytics.
 
-- **Success metric:** top-1 hit-rate (algorithm's #1 pick = user's `chosen` archetype) and top-3 hit-rate. Not completion rate alone — a quiz that picks correctly *is* the right quiz.
-- **Sample needed:** ~50 completed runs per variant with the `chosen` field filled in.
-- **Open bias to fix:** A is currently leading partly because it's listed first on `index.html`. Order-effect contamination.
-- **Action:** randomize card order per visitor in `index.html`; log shown order to Umami; analyze hit-rate per position, not per variant.
-- **Decision rule:** if hit-rate-by-position is stable across variants → it's the variant; if it tracks position → it's order. Re-run if needed.
+---
 
-### Phase 1 — Discovery layer (next 4-8 weeks)
+## Priorities (next 8-12 weeks, in order)
 
-The free, viral, "find your direction" experience. Most of this is already in the V2 prototype (`cesafiu_prototype_v1`). Items below are the deltas.
+### P1 — Calibration before features
 
-**1.1 — Pilot data hygiene** *(Phase 0 closing)*
-- Order randomization patch on live `index.html`.
-- Export current pilot waitlist (Formspree) — it's the Phase 2 closed-beta cohort.
+The matching engine's weights (signals 15%, RIASEC, Big Five, quiz) are theory, not data. A wrong #1 recommendation kills teen trust faster than any missing feature.
 
-**1.2 — Content gap: trade school horizon**
-- Add 6th path object to `data.js` — `profesional` (școala profesională / dual VET / postliceal).
-- Duration 1-3 ani, cost ~0, examples: instalator, electrician, sudor, mecanic auto, asistent medical.
-- Add 2-3 careers in that path (e.g., Tehnician HVAC, Electrician autorizat, Asistent medical generalist).
-- Reflect in RIASEC mapping: this fills the Realistic-dominant gap that previously funneled to engineering only.
+- Get 20-50 authenticated users through quiz + at least one deep test, with `chosen` archetype recorded.
+- Analyze top-1 / top-3 hit-rate; recalibrate signal weights and archetype thresholds.
+- This gates P2-P4 — no point ranking programs with a miscalibrated profile.
 
-**1.3 — Waitlist parity in V2 prototype**
-- Port the existing pilot signup pattern (Formspree + name + email + GDPR consent + Umami `signup_submitted`) to the V2 prototype's `results.jsx` and `deep-results.jsx`.
-- Same form action — pilot and V2 lists merge cleanly.
+### P2 — Program-level match sort (was 1.7 — now unblocked)
 
-**1.4 — Account creation gate**
-- "Salvează în vibe-uri" is the trigger. Quiz/tests stay anonymous until then.
-- Auth providers: **Google + Apple + email magic link**. (Skip Facebook — declining among RO teens, parent-coded.)
-- Stack: **Supabase** (EU region/Frankfurt for GDPR, free up to 50k MAU, OAuth + magic link + Postgres + RLS built-in).
-- Until activation, saves stay in `localStorage` so nothing is lost.
+Auth is live, so profiles persist; the original blocker is gone.
 
-**1.5 — Minor consent flow (GDPR Art. 8)**
-- Romanian digital consent age = 16. Audience starts at 14yo.
-- After OAuth: ask age → if under 16, ask for parent email → send confirmation link → activate on click.
-- Treat the parent email as a feature, not a tax: it seeds the parent companion list.
+- Score each program (programs[] already has riasec[] + pathType) against the user profile; surface institutions by best-program match.
+- UI: "Pentru tine" toggle on Browse → Universități; institution card shows *"Best for you: <Program X> · 87%"*; detail view surfaces matching programs first.
+- Same posture for Browse → Trasee.
 
-**1.6 — Paid-tier validator**
-- At the end of `deep-results.jsx`, add a card: *"Vrei un raport detaliat bazat pe testele tale? €19-29 · livrare PDF în 48h."*
-- Tally form + Stripe Payment Link. No automation initially — fulfill manually for the first ~20 buyers.
-- Goal: validate willingness-to-pay before building the report engine.
-- Test instruments for the report: **public-domain first** (IPIP-NEO for Big Five, O\*NET Interest Profiler for RIASEC). Zero licensing cost. License COGNITROM/SDS only if conversion data justifies it.
+### P3 — Deadline utility layer (NEW — the student-retention bet)
 
-**1.7 — Match-aware sort on universities — at PROGRAM level** *(deferred from Phase 1.5)*
-- Browse → Cariere already has a "Pentru tine" toggle that sorts by match score against the user profile (shipped 2026-04-30 in `cesafiu_prototype_v1`).
-- The natural extension is the same toggle on Browse → Universități, but the score has to be computed at **program level**, not institution level. Reasoning: UMF Iași has 9 programs spanning Realistic + Investigative + Social profiles — scoring the *institution* by its average loses the signal. We score each program against the user profile (already feasible — programs[] has riasec[] and pathType), then surface the institution by its *best-program* match (or top-N programs).
-- UI shape: institution card shows "Best for you: <Program X> · 87%" subtitle when toggle is on. Tap opens the institution detail with the matching programs surfaced first.
-- Same posture for Browse → Trasee: not redundant with the path filter once we're scoring against multiple test sources (e.g., a user who scores high RIASEC-S but answered "antreprenor" in the quiz still sees `antreprenor` highlighted as their preferred path, but `facultate` programs in social fields rank well).
-- Build this in Phase 2 once auth is live — no point computing match-aware uni rankings before profiles are persistent.
+Teens return for **utility**, not engagement mechanics. Give them data they can't easily get elsewhere:
 
-### Phase 2 — Commitment layer (8-16 weeks out)
+- Last-year admission cutoffs (medie de admitere) per program, where public.
+- Bac + admission calendar with countdowns, surfaced in `/drum` and on program pages.
+- "Your grades vs. this program" reality check (self-reported medie → honest feasibility framing, with the usual hedges).
+- This is also what our deadline-only notification principle finally fires on: notifications tied to Bac/admission dates, nothing else. Makes `/drum`'s "Verifică admiterea" step live instead of manual.
+- Data risk: cutoff data is scattered per university. Start with top ~20 institutions by user interest; mark coverage honestly.
 
-Triggered only when Phase 1 retention numbers justify it. Lives behind auth.
+### P4 — Story-format shareability (NEW)
 
-**2.1 — "Drumul tău" module** (replaces the current `Vibe-uri` placeholder)
-- For each saved career: 3 dated milestones, 1 reality-check challenge, 2 adjacent path hints.
-- Notifications timed to real deadlines (Bac, admission windows, days-of-open-doors) — not streaks.
-- **Update 2026-06-12:** v1 shipped as `/drum` (see `docs/JOURNEY-DRUMUL-TAU-PLAN.md`), without auth and without notifications. Dated-milestone notifications remain the Phase 2 follow-up; v1's deadline touchpoint is the "Verifică admiterea" step.
+The referral loop exists but the unit of teen sharing is a 9:16 screenshot on IG/TikTok stories.
 
-**2.2 — Reality-check challenges**
-- "Vorbește cu cineva care face asta — iată scriptul. Încarcă o poză cu notele tale. Scrie 3 lucruri pe care nu le-ai știut."
-- Gamification's useful skeleton without XP/streak cosplay.
-- **Update 2026-06-12:** implemented as the journey's S3 (per-path manual steps + impression notes). The "no XP" stance is explicitly superseded: `/drum` uses cosmetic, lifetime XP derived from real actions — still no streaks, daily goals, or loss mechanics. Rationale in `docs/JOURNEY-DRUMUL-TAU-PLAN.md` §3.
+- Redesign the shared result card as 9:16, identity-flattering, archetype-forward (Gen Z naming from Archetypes V2 helps here).
+- One-tap "save image" / native share sheet from results; referral code baked into the image URL.
+- Follows the one-path CTA principle: share is the primary post-result action, modal-first.
 
-**2.3 — Adjacency hints**
-- For every saved career: 2-3 "vecine" so kids have permission to change their mind without leaving the app.
+### P5 — Landing page: hierarchy & one path (NEW — from 2026-07-03 review)
 
-**2.4 — Parent companion view**
-- Separate URL, leverages the parent emails captured via 1.5.
-- "Întrebări de pus copilului tău săptămâna asta" based on archetype.
-- Likely first paying segment (parents pay, kids consume — the RO consumer pattern).
+The landing works, but the hero fires ~6 messages before the first action. Core fix is **hierarchy, not decoration** — the one-path CTA principle applied to `/ro`:
 
-### Phase 3 — Distribution & B2B (16+ weeks)
+- **Hero simplification:** one big title, one-line subtitle, one dominant CTA ("Începe aici" full-width / highest-contrast element). Badge, tag-line chips, and colored keywords move below the fold or go.
+- **Recommended card:** Scenarii gets visual priority (it's the validated Phase 0 winner and funnel entry); Vocațional/Personalitate step back. Not an aesthetic choice — it's what the pilot data says.
+- **One action color:** reserve a single color exclusively for CTAs; category colors (mov/galben/lime) stay for identity and categories. Don't dilute the neo-brutalist palette — just make "the color you press" learnable.
+- **Bottom nav:** labels under icons + clear active state. Solve together with the open interim-copy question (`Vibe-uri`/`Rezultat`).
+- **Andra higher:** move the real example up; keep it raw and authentic — no corporate-testimonial styling (teens smell fabricated marketing).
+- **Result preview:** show what you get before starting — reuse P4's 9:16 share card as the preview asset (one deliverable, two uses). Note: NOT a "PDF report" preview — monetization is parked.
+- **Feedback button:** fix the content overlap (shrink or hide-on-scroll-down). Do NOT fold into bottom nav; keep it easy to reach — it's the main signal channel during calibration.
 
-Only after Phase 2 has retention.
+Explicitly deprioritized from the same review (cosmetic, no metric moves): scroll micro-animations (generic-template feel + CLS cost; if ever, respect `prefers-reduced-motion`), extra whitespace/separators (density is brand — fix crowding via hierarchy, not air), distinct test iconography, meta badges. Desktop grid pass: 30-min check, audience is phone-first. Contrast on lime/galben was checked (2026-07-03): `ink-fixed` ≈ 14.9:1, `ink-soft` ≈ 6.9:1 — passes WCAG AA; any fatigue issue is saturation *area*, not text contrast.
 
-- **Romanian psych firm collab** (TestCentral / COGNITROM) — for credibility upgrade on paid tier, if needed.
-- **Counselor marketplace** — vetted Romanian career counselors, 30-min reviews, marketplace fee.
-- **University B2B** — admissions funnel for partner universities; their programs surface higher in matching results.
+### P6 — Real voices per career (NEW)
+
+Teens trust people, not taxonomies.
+
+- 3-5 quoted sentences from a real Romanian professional ("ce aș fi vrut să știu la 16 ani") on career detail pages.
+- Fully manual pipeline: outreach → short form → curated quote + first name + city. No video infra.
+- Start with the ~20 careers that appear most in match results; expand by demand.
+
+### P7 — Do-it-with-a-friend mode (NEW — candidate, validate first)
+
+Teens take quizzes together; a social payoff beats a transactional referral code.
+
+- After results: "Compară-ți arhetipul cu un prieten" → shareable pairing link → both see a compatibility/contrast card.
+- Cheap v1: reuse the referral plumbing, add a compare view. Ship behind a flag; keep only if it moves quiz starts.
+
+---
+
+## Phase 2 remainder (behind auth, after P1-P3)
+
+- **Dated-milestone notifications** for `/drum` — depends on P3's calendar data.
+- **2.3 Adjacency hints** — 2-3 "vecine" per saved career, permission to change your mind without leaving the app.
+- **2.4 Parent companion view** — separate URL, seeded by consent-flow parent emails. "Întrebări de pus copilului tău săptămâna asta" per archetype. (Was framed as first paying segment — monetization parked, but the retention/trust value stands on its own.)
+
+## Phase 3 — Distribution & B2B (16+ weeks)
+
+Only after retention is proven.
+
+- **School counselor channel** — *promoted from afterthought:* one dirigenție class = 25 students; a printable one-pager + counselor dashboard-lite is cheap distribution. Worth piloting with 2-3 counselors in Iași before any formal B2B.
+- **Romanian psych firm collab** (TestCentral / COGNITROM) — credibility upgrade, only if the objection shows up in real feedback.
+- **Counselor marketplace** — vetted counselors, 30-min reviews, marketplace fee.
+- **University B2B** — admissions funnel for partner universities.
 - **K-12 expansion** — earlier-grade quizzes, school district partnerships.
 
 ---
 
-## Explicit non-goals (not in pilot, possibly never)
+## Parked (2026-06-12 decision)
 
-These come up regularly. Decision: **defer**, with reasoning.
+**All monetization is shelved until further notice.** Everything is free. This supersedes:
 
-- **Streak/XP/daily-check-in gamification.** The kids who'd engage are the ones who don't need the app. The kids who need it most bounce off streaks. Revisit only if Phase 2 data demands it.
-- **Push notifications for engagement.** Tied to real deadlines only (Bac, admissions). No "you haven't opened the app in 3 days."
+- §1.6 paid-tier validator (€19-29 report, Tally + Stripe).
+- Profil Complet bundle (IPIP-NEO-60 + vocational-deep + PDF, 19 EUR) — positioning doc preserved at `docs/PAID-BUNDLE-POSITIONING.md` for when/if this reopens.
+- The "report content" open question.
+
+The consequence: the roadmap's engine is now **retention + distribution**, not revenue. Revisit monetization only on explicit decision; likeliest reopening order remains parent-pays → B2B, not teen-pays.
+
+---
+
+## Explicit non-goals (unchanged)
+
+- **Streak/daily-check-in gamification.** `/drum`'s cosmetic lifetime XP is the ceiling — no streaks, daily goals, or loss mechanics. The kids who need the app most bounce off streaks.
+- **Push notifications for engagement.** Real deadlines only (Bac, admissions). Never "you haven't opened the app in 3 days."
 - **TikTok / Instagram OAuth.** No mature provider; teens don't want career data tied to social profiles.
-- **Counselor-included paid tier from day 1.** Software margins > service margins. Counselor is a Phase 3 upsell, not the core product.
-- **University partnerships before pilot validation.** Distribution conversations are 3-6 months and we don't have the leverage yet.
+- **Counselor-included paid tier from day 1.** Parked with the rest of monetization anyway.
+- **University partnerships before retention validation.** No leverage yet.
 
 ---
 
 ## Principles & trade-offs
 
-- **Discovery free, depth paid.** The hook quiz is a viral asset and must stay free + anonymous. Paid value sits behind tests + reports + counselor.
-- **Buyer is often the parent, not the teen.** Romanian families pay €30-50 for "ceva concret" (a PDF report), not for "30 min discuție." Design upsells accordingly.
-- **Public-domain test items are good enough for pilot.** The moat is the integrated report (your scores + RO universities + RO trade schools + RO salary data + adjacencies + next steps), not the test items themselves. License real instruments only if the credibility objection comes up in real customer feedback.
-- **Don't bolt commitment onto discovery screens.** Different screens, different mental modes. The user is in a "tell me about myself" mode during discovery and a "help me execute" mode during commitment.
-- **Honesty hedges over false certainty.** A 6-question quiz cannot justify a career recommendation. Always frame results as "starting points, not verdicts." Kids see through false confidence.
+- **Discovery free and anonymous.** The hook quiz is a viral asset. Auth only when the user wants to *keep* something.
+- **Buyer is often the parent, not the teen.** Dormant while monetization is parked, but still shapes the parent companion view.
+- **Public-domain test items are good enough.** The moat is the integrated result (scores + RO universities + RO trade schools + RO salary data + adjacencies + next steps), not the items.
+- **Don't bolt commitment onto discovery screens.** "Tell me about myself" mode ≠ "help me execute" mode.
+- **Honesty hedges over false certainty.** Results are "starting points, not verdicts." Kids see through false confidence. Applies doubly to P3's feasibility framing.
+- **Utility beats engagement mechanics.** (New, from P3.) A teen returns for the admission cutoff, not for a badge.
 
 ---
 
 ## Open questions
 
-- What's the **report content** for the €19-29 paid tier? Length, tone, visuals, how much is templated vs. personalized? Decide before launching the validator.
-- Tab bar in V2 prototype (`Vibe-uri`, `Rezultat`) currently implies an account model that doesn't exist yet. Phase 1.4 makes it real, but copy/UX needs an interim state.
-- When does **i18n** kick in? Pilot is RO-only; first export market most likely Moldova or Hungary. Don't pay the i18n tax until there's a real second locale.
-- Is there a partner Romanian psych firm worth talking to **before** the paid validator launches, or is it cleaner to validate WTP solo first? Default plan: solo first.
+- **Calibration protocol:** how do we recruit the 20-50 pilot users — referral push, school counselor pilot, or paid social? Cheapest credible path?
+- **Cutoff data sourcing (P3):** scrape vs. manual entry vs. crowdsource ("was this your cutoff?"). Licensing/accuracy posture?
+- **Interim tab-bar copy:** `Vibe-uri`/`Rezultat` still imply more account value than exists pre-auth. Needs an honest empty state.
+- **i18n timing:** pilot is RO-only; likeliest second locale Moldova or Hungary. Don't pay the tax until a real second locale exists (plumbing is already in `apps/web`).
 
 ---
 
 ## Working file references
 
-- `/index.html` — live pilot (3-variant quiz hub)
-- `/quiz-a.html`, `/quiz-b.html`, `/quiz-c.html` — pilot variants
-- `/results.html` — pilot research dashboard + waitlist (Formspree `myklbprg`, Umami `signup_submitted`)
-- `/cesafiu_prototype_v1/project/` — V2 prototype bundle (welcome, quiz, personality, vocational, results, deep-results, browse, profile)
-- `/cesafiu_prototype_v1/project/data.js` — careers, paths, universities, RIASEC, Big Five
-- `/cesafiu_prototype_v1/project/uploads/DESIGN.md` — design system tokens
+- `apps/web/` — production app (Next.js): quiz, tests (`/test/[slug]`), results, browse, `cariera/[id]`, `/drum`, `profil`, auth + consent, referrals (`/r/[code]`)
+- `data/` — careers.json (184), institutions.json, programs.json, paths.json (6 incl. `profesional`), questionnaires (ipip-neo-60, vocational-deep), journey-paths.json
+- `docs/` — JOURNEY-DRUMUL-TAU-PLAN, ARCHETYPES-V2-PLAN, VIRAL-SHARING-REFERRALS-PLAN, SCORING-AND-MATCHING, PSYCHOMETRICS, DATA-ARCHITECTURE, SECURITY-HARDENING-PLAN, PAID-BUNDLE-POSITIONING (parked)
+- `/index.html`, `/quiz-a|b|c.html`, `/results.html`, `/cesafiu_prototype_v1/` — legacy pilot artifacts (historical; superseded by `apps/web`)
 
 ---
 
