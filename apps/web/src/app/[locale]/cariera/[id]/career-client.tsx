@@ -126,7 +126,7 @@ export default function CareerClient({career, locale, programs}: CareerClientPro
             <div className="careerMetaLabel">{t('salaryLabel')}</div>
             <div className="careerMetaValue">{career.salary}</div>
           </div>
-          <div className="careerMetaCard" style={{background: 'var(--green)'}}>
+          <div className="careerMetaCard isAccent">
             <div className="careerMetaLabel">{t('demandLabel')}</div>
             <div className="careerMetaValue">{career.demand}</div>
           </div>

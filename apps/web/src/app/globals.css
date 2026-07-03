@@ -3344,6 +3344,11 @@ h1 {
   background: var(--surface);
 }
 
+.careerMetaCard.isAccent {
+  background: var(--green);
+  color: var(--ink-on-bright);
+}
+
 .careerMetaLabel {
   font-size: 10px;
   font-weight: 700;
@@ -3351,11 +3356,20 @@ h1 {
   letter-spacing: .05em;
 }
 
+.careerMetaCard.isAccent .careerMetaLabel {
+  color: rgba(21, 17, 13, 0.78);
+  font-weight: 900;
+}
+
 .careerMetaValue {
   font-weight: 800;
   font-size: 14px;
   margin-top: 4px;
   line-height: 1.3;
+}
+
+.careerMetaCard.isAccent .careerMetaValue {
+  color: var(--ink-on-bright);
 }
 
 .careerDescription {
