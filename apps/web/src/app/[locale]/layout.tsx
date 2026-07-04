@@ -1,4 +1,4 @@
-import type {Metadata} from 'next';
+import type {Metadata, Viewport} from 'next';
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages, getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
@@ -8,6 +8,7 @@ import '../globals.css';
 import {isLocale, locales, type Locale} from '@/i18n/config';
 import {AuthProvider} from '@/components/auth/auth-provider';
 import FeedbackWidget from '@/components/feedback/feedback-widget';
+import PwaManager from '@/components/pwa/pwa-manager';
 import ReferralTracker from '@/components/referrals/referral-tracker';
 
 // Applied before paint to avoid a light/dark flash; mirrors theme-toggle logic.
@@ -28,6 +29,13 @@ export function generateStaticParams() {
   return locales.map((locale) => ({locale}));
 }
 
+export const viewport: Viewport = {
+  themeColor: [
+    {media: '(prefers-color-scheme: light)', color: '#fef9f1'},
+    {media: '(prefers-color-scheme: dark)', color: '#161318'}
+  ]
+};
+
 export async function generateMetadata({params}: LocaleLayoutProps): Promise<Metadata> {
   const {locale} = await params;
   if (!isLocale(locale)) {
@@ -40,8 +48,18 @@ export async function generateMetadata({params}: LocaleLayoutProps): Promise<Met
   const baseUrl = 'https://cesafiu.ro';
 
   return {
+    applicationName: 'Ce Să Fiu?',
     title,
     description,
+    manifest: '/site.webmanifest',
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: 'black-translucent',
+      title: 'Ce Să Fiu?'
+    },
+    formatDetection: {
+      telephone: false
+    },
     icons: {
       icon: [
         {url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png'},
@@ -97,6 +115,7 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
         {/* Apply stored theme before paint to prevent a flash of the wrong theme */}
         <script dangerouslySetInnerHTML={{__html: THEME_INIT_SCRIPT}} />
         {/* Material Symbols for quiz icons */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
           rel="stylesheet"
@@ -124,6 +143,7 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
               <ReferralTracker />
             </Suspense>
             {children}
+            <PwaManager locale={locale} />
             <FeedbackWidget />
           </AuthProvider>
         </NextIntlClientProvider>

@@ -132,6 +132,19 @@
     "likertHint": "Cât de mult ți se potrivește?",
     "autosaveNote": "Răspunsurile se salvează automat pe acest dispozitiv"
   },
+  "pwa": {
+    "installTitle": "Pune CeSaFiu pe ecran",
+    "installBody": "Rezultatele tale, la un tap. Se deschide ca o aplicație, fără store.",
+    "installAction": "Instalează",
+    "iosTitle": "Adaugă pe ecranul principal",
+    "iosBody": "Apasă Share, apoi Adaugă pe ecranul principal.",
+    "iosAction": "Am înțeles",
+    "dismiss": "Închide",
+    "dismissGlyph": "x",
+    "updateTitle": "Versiune nouă",
+    "updateBody": "Reîncarcă atunci când e un moment bun.",
+    "updateAction": "Reîncarcă"
+  },
   "rezultate": {
     "loading": "Se calculează...",
     "loadingDesc": "Analizăm răspunsurile tale",

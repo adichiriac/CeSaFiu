@@ -132,6 +132,19 @@
     "likertHint": "How much does this sound like you?",
     "autosaveNote": "Your answers are saved automatically on this device"
   },
+  "pwa": {
+    "installTitle": "Put CeSaFiu on your screen",
+    "installBody": "Your results, one tap away. It opens like an app, no store needed.",
+    "installAction": "Install",
+    "iosTitle": "Add to Home Screen",
+    "iosBody": "Tap Share, then Add to Home Screen.",
+    "iosAction": "Got it",
+    "dismiss": "Close",
+    "dismissGlyph": "x",
+    "updateTitle": "New version",
+    "updateBody": "Reload when you have a good moment.",
+    "updateAction": "Reload"
+  },
   "rezultate": {
     "loading": "Calculating...",
     "loadingDesc": "Analysing your answers",

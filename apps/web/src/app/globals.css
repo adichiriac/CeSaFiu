@@ -6958,6 +6958,153 @@ a.homeBundleRow:hover {
 }
 
 .journeyConfetti i:nth-child(3n) { background: var(--yellow); }
+
+/* ── PWA install/update surfaces ── */
+
+.pwaToastStack {
+  position: fixed;
+  right: 16px;
+  bottom: calc(96px + env(safe-area-inset-bottom));
+  left: 16px;
+  z-index: 75;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.pwaToast {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  width: min(100%, 520px);
+  padding: 12px;
+  border: 3px solid #000;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 5px 5px 0 #000;
+  pointer-events: auto;
+}
+
+.pwaToast strong,
+.pwaToast p {
+  display: block;
+  margin: 0;
+}
+
+.pwaToast strong {
+  padding-right: 24px;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pwaToast p {
+  margin-top: 4px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.pwaToast--update {
+  background: #000;
+  color: var(--yellow);
+}
+
+.pwaToast--update p {
+  color: var(--on-accent);
+}
+
+.pwaToastAction,
+.pwaToastClose {
+  border: 2px solid #000;
+  border-radius: 5px;
+  font-family: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.pwaToastAction {
+  min-height: 40px;
+  padding: 0 12px;
+  background: var(--green);
+  color: var(--ink-on-bright);
+  white-space: nowrap;
+}
+
+.pwaToastClose {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1;
+}
+
+@media (min-width: 720px) {
+  .pwaToastStack {
+    right: 24px;
+    bottom: 24px;
+    left: auto;
+    justify-items: end;
+  }
+}
+
+@media (max-width: 420px) {
+  .pwaToast {
+    grid-template-columns: 1fr;
+    padding-right: 42px;
+  }
+
+  .pwaToastAction {
+    width: 100%;
+  }
+}
+
+.offlinePage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.offlinePanel {
+  width: min(100%, 560px);
+  padding: 24px;
+  border: 3px solid #000;
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 8px 8px 0 #000;
+}
+
+.offlinePanel h1 {
+  max-width: 12ch;
+  font-size: clamp(40px, 9vw, 72px);
+}
+
+.offlinePanel p:not(.testEyebrow) {
+  margin: 18px 0 0;
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.offlineActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.offlineActions .button {
+  margin-top: 0;
+}
 .journeyConfetti i:nth-child(3n + 1) { background: var(--purple); }
 .journeyConfetti i:nth-child(2n) { width: 8px; height: 10px; }
 

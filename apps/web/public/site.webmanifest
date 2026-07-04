@@ -2,10 +2,11 @@
   "name": "Ce Să Fiu?",
   "short_name": "CeSaFiu",
   "description": "Descoperă facultățile, carierele și meseriile potrivite pentru tine.",
-  "start_url": "/ro",
+  "id": "/?app=cesafiu",
+  "start_url": "/ro?source=pwa",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#6d28d9",
+  "background_color": "#fef9f1",
+  "theme_color": "#fef9f1",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
