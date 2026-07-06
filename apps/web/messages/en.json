@@ -132,6 +132,39 @@
     "likertHint": "How much does this sound like you?",
     "autosaveNote": "Your answers are saved automatically on this device"
   },
+  "valori": {
+    "eyebrow": "Your values · O*NET WIL",
+    "missionLabel": "Sorting in progress",
+    "progressCompleted": "{progress}% completed",
+    "introLead": "RIASEC tells you the domain, Big Five the temperament. Work values separate jobs in the same domain with completely different working lives. Sort 20 cards into 5 columns — about 5 minutes.",
+    "forcedNoteTitle": "The rule of the game",
+    "startCTA": "Start sorting →",
+    "columnsAria": "Choose the importance column",
+    "columnFull": "FULL",
+    "backLabel": "Back",
+    "homeLabel": "Landing",
+    "restartLabel": "Retake the test",
+    "autosaveNote": "Your choices are saved automatically on this device",
+    "reviewEyebrow": "Last step",
+    "reviewTitle": "Check your sort",
+    "reviewHint": "Tap two cards to swap them. Columns stay fixed: 4 cards each.",
+    "swapHint": "You picked a card — tap another one to swap them.",
+    "finishCTA": "See your values →",
+    "resultEyebrow": "Local result",
+    "resultTitle": "What matters to you in a job",
+    "scaleNote": "Score on the {min}–{max} scale, official O*NET WIL method.",
+    "resultsCTA": "SEE MATCHING CAREERS →",
+    "saveNote": "Your result is saved locally, in your browser only.",
+    "resumeEyebrow": "Welcome back",
+    "resumeTitle": "You have a sort in progress",
+    "resumeBody": "You left off at card {current} of {total}. Your choices are saved.",
+    "resumeContinue": "Continue where I left off",
+    "resumeRestart": "Start over",
+    "columnPoints": "{points} points",
+    "recalcTitle": "Your match was recalculated",
+    "recalcBody": "{count, plural, one {One career climbed} other {# careers climbed}} after adding your values.",
+    "recalcUp": "+{delta} {delta, plural, one {spot} other {spots}}"
+  },
   "pwa": {
     "installTitle": "Put CeSaFiu on your screen",
     "installBody": "Your results, one tap away. It opens like an app, no store needed.",
@@ -208,7 +241,12 @@
     "paidBlockedCTA": "PARENT CONSENT REQUIRED",
     "paidDisclaimer": "This will become a paid package later. For now, we are testing it free during the pilot. Under 16: available after parent or guardian consent.",
     "browseCTA": "EXPLORE ALL CAREERS →",
-    "reopenShareLabel": "Send your card"
+    "reopenShareLabel": "Send your card",
+    "valuesHookTie": "{a} and {b} come out tied.",
+    "valuesHookTitle": "Want a sharper match between similar careers?",
+    "valuesHookBody": "Your result is calibrated on interests + personality. Work values separate careers in the same field with different working lives.",
+    "valuesHookCTA": "Sort your values · 5 min →",
+    "nextValues": "Your values (5 min)"
   },
   "shareableCard": {
     "eyebrow": "YOUR CARD",
@@ -435,7 +473,15 @@
     "parentShareText": "I made my Ce Să Fiu profile. Main direction: {career}. Saved alternatives: {count}. See the profile: {url}",
     "retake": "RETAKE QUIZ ↻",
     "emptyTitle": "Profile unavailable",
-    "emptyBody": "We could not read local data. Retake the test and we will try again."
+    "emptyBody": "We could not read local data. Retake the test and we will try again.",
+    "completenessTitle": "Your profile",
+    "completenessHintValues": "Add your <b>work values</b> to separate careers that come out tied.",
+    "completenessHintMore": "Every completed test makes your match more precise.",
+    "completenessHintDone": "Full profile — your match uses everything we know about you.",
+    "testValues": "Your values",
+    "testValuesMeta": "Sort 20 cards · 5 min",
+    "testVocationalDeep": "Full vocational",
+    "testNewBadge": "NEW"
   },
   "browse": {
     "brandCe": "Ce",
@@ -653,6 +699,10 @@
     "loading": "Loading your journey...",
     "realitySafety": "Safety: for meetings or conversations with people you don’t know, involve a parent or trusted adult.",
     "resetLabel": "Delete journal and progress",
-    "resetConfirm": "Sure? Checked steps and saved impressions will be permanently deleted. Your tests and saved careers stay."
+    "resetConfirm": "Sure? Checked steps and saved impressions will be permanently deleted. Your tests and saved careers stay.",
+    "optionalValuesLabel": "Optional step",
+    "optionalValuesTitle": "Discover your values",
+    "optionalValuesSub": "What matters to you in a job · 5 min",
+    "optionalValuesXp": "+40 XP"
   }
 }

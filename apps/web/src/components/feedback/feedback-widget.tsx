@@ -204,6 +204,11 @@ export default function FeedbackWidget() {
         headers.authorization = `Bearer ${accessToken}`;
       }
 
+      const currentPageUrl = typeof window !== 'undefined' ? window.location.href : null;
+      const currentPagePath = typeof window !== 'undefined'
+        ? `${window.location.pathname}${window.location.search}${window.location.hash}`
+        : pathname ?? null;
+
       const response = await fetch('/api/feedback', {
         method: 'POST',
         headers,
@@ -211,7 +216,8 @@ export default function FeedbackWidget() {
           rating,
           category,
           message: message.trim() || null,
-          pagePath: pathname ?? null,
+          pagePath: currentPagePath,
+          pageUrl: currentPageUrl,
           locale,
           appVersion: process.env.NEXT_PUBLIC_APP_VERSION ?? null,
           website,

@@ -48,6 +48,9 @@ export const SIGNAL_KEYS = [
   'health.therapy', 'health.emergency',
 ] as const;
 export const BIG5_KEYS = ['O', 'C', 'E', 'A', 'N', 'S'] as const;
+export const WORK_VALUE_KEYS = [
+  'achievement', 'independence', 'recognition', 'relationships', 'support', 'conditions',
+] as const;
 
 export type RiasecKey = typeof RIASEC_KEYS[number];
 export type PathKey = typeof PATH_KEYS[number];
@@ -63,6 +66,8 @@ export type UserProfile = {
   traits: Tally;
   big5: Tally;
   signals: Tally;
+  /** WIL work values, 0-100 per value (present after „Valorile tale”). */
+  workValues: Tally;
   sources: string[];
 };
 
@@ -72,6 +77,8 @@ export type CareerProfile = {
   traits: Tally;
   big5: Tally;
   signals: Tally;
+  /** Estimated (or O*NET) work-values profile, 0-100 per value. */
+  workValues: Tally;
 };
 
 export type Weights = {
@@ -80,6 +87,8 @@ export type Weights = {
   traits: number;
   signals: number;
   big5: number;
+  /** „Valorile tale” — 0.15 provisional when the test exists; calibrate with P1 pilot data. */
+  values: number;
 };
 
 export type MatchExplanation = {
@@ -90,6 +99,7 @@ export type MatchExplanation = {
     traits: number;
     signals: number;
     big5: number | null;
+    values: number | null;
   };
   riasecHit: string[];
   pathHit: boolean;
@@ -116,7 +126,7 @@ export type MatchResult = CareerMatch[] & {
 };
 
 export type NextTestSuggestion = {
-  kind: 'vocational' | 'vocational-deep' | 'personality' | 'ipip-neo' | 'quick';
+  kind: 'vocational' | 'vocational-deep' | 'personality' | 'ipip-neo' | 'quick' | 'values';
   reason: string;
 };
 
@@ -150,6 +160,9 @@ export type Career = {
   sourceRefs?: string[];
   lastReviewed?: string;
   status?: 'active' | 'draft' | 'deprecated';
+  /** WIL work-values profile 0-100 (scripts/backfill-work-values.mjs). */
+  workValues?: Record<string, number>;
+  workValuesSource?: 'estimated' | 'onet' | 'manual';
 };
 
 /** Answer option from a scenario quiz question. */
@@ -181,6 +194,8 @@ export type MatchInput = {
     ipipNeo60?: Big5Scores;
     vocational?: VocationalScores;
     vocationalDeep?: VocationalScores;
+    /** „Valorile tale” percents 0-100 per work value. */
+    values?: Record<string, number>;
   };
 };
 
@@ -307,6 +322,7 @@ export function buildUserProfile(
   const traits: Tally = {};
   const big5: Tally = {};
   const signals: Tally = {};
+  const workValues: Tally = {};
 
   // 1. Scenario quiz answers
   Object.values(answers ?? {}).forEach((opt) => {
@@ -356,15 +372,23 @@ export function buildUserProfile(
     if (typeof big5.N === 'number') big5.S = 100 - big5.N;
   }
 
-  // 4. Track sources
+  // 4. Work values („Valorile tale”, WIL percents 0-100)
+  if (deepScores?.values) {
+    WORK_VALUE_KEYS.forEach((k) => {
+      if (typeof deepScores.values?.[k] === 'number') workValues[k] = deepScores.values[k];
+    });
+  }
+
+  // 5. Track sources
   const sources: string[] = [];
   if (Object.keys(answers ?? {}).length > 0) sources.push('quick');
   if (vocDeep?.raw) sources.push('vocational-deep');
   else if (vocLight?.raw) sources.push('vocational');
   if (deepScores?.ipipNeo60) sources.push('ipip-neo-60');
   else if (deepScores?.personality) sources.push('personality-15');
+  if (Object.keys(workValues).length > 0) sources.push('values');
 
-  return { riasec, paths, traits, big5, signals, sources };
+  return { riasec, paths, traits, big5, signals, workValues, sources };
 }
 
 export function buildCareerProfile(career: Career): CareerProfile {
@@ -373,6 +397,7 @@ export function buildCareerProfile(career: Career): CareerProfile {
   const traits: Tally = {};
   const big5: Tally = {};
   const signals: Tally = {};
+  const workValues: Tally = {};
 
   // RIASEC codes primary→tertiary; weight 3/2/1
   (career.riasec ?? []).forEach((c, i) => { riasec[c] = i < 3 ? (3 - i) : 1; });
@@ -383,24 +408,67 @@ export function buildCareerProfile(career: Career): CareerProfile {
   (career.big5 ?? []).forEach((k) => {
     if ((BIG5_KEYS as readonly string[]).includes(k)) big5[k] = 1;
   });
+  WORK_VALUE_KEYS.forEach((k) => {
+    if (typeof career.workValues?.[k] === 'number') workValues[k] = career.workValues[k];
+  });
 
-  return { riasec, paths, traits, big5, signals };
+  return { riasec, paths, traits, big5, signals, workValues };
 }
 
 // ── Weights (sample-size-aware) ───────────────────────────────────────────────
 
+/**
+ * Provisional weight for „Valorile tale” when the test is done — 0.15, taken
+ * proportionally from all other components (they scale by 0.85), so the
+ * missing-test redistribution table below keeps working unchanged.
+ * Calibrate together with the P1 pilot data (docs/WORK-VALUES-PLAN.md §matching).
+ */
+export const VALUES_WEIGHT = 0.15;
+
 export function getWeights(userProfile: UserProfile): Weights {
   const sources = userProfile.sources ?? [];
   const hasBig5 = Object.keys(userProfile.big5 ?? {}).length > 0;
+  const hasValues = Object.keys(userProfile.workValues ?? {}).length > 0;
   const hasVocDeep = sources.includes('vocational-deep');
   const hasVocLight = sources.includes('vocational') || hasVocDeep;
 
-  if (hasBig5 && hasVocDeep)  return { riasec: 0.55, paths: 0.10, traits: 0.05, signals: 0.15, big5: 0.15 };
-  if (hasBig5 && hasVocLight) return { riasec: 0.50, paths: 0.15, traits: 0.05, signals: 0.15, big5: 0.15 };
-  if (hasBig5)                return { riasec: 0.45, paths: 0.20, traits: 0.05, signals: 0.15, big5: 0.15 };
-  if (hasVocDeep)             return { riasec: 0.55, paths: 0.15, traits: 0.15, signals: 0.15, big5: 0.00 };
-  if (hasVocLight)            return { riasec: 0.50, paths: 0.20, traits: 0.15, signals: 0.15, big5: 0.00 };
-  return { riasec: 0.45, paths: 0.25, traits: 0.15, signals: 0.15, big5: 0.00 };
+  const base =
+    hasBig5 && hasVocDeep  ? { riasec: 0.55, paths: 0.10, traits: 0.05, signals: 0.15, big5: 0.15 } :
+    hasBig5 && hasVocLight ? { riasec: 0.50, paths: 0.15, traits: 0.05, signals: 0.15, big5: 0.15 } :
+    hasBig5                ? { riasec: 0.45, paths: 0.20, traits: 0.05, signals: 0.15, big5: 0.15 } :
+    hasVocDeep             ? { riasec: 0.55, paths: 0.15, traits: 0.15, signals: 0.15, big5: 0.00 } :
+    hasVocLight            ? { riasec: 0.50, paths: 0.20, traits: 0.15, signals: 0.15, big5: 0.00 } :
+                             { riasec: 0.45, paths: 0.25, traits: 0.15, signals: 0.15, big5: 0.00 };
+
+  if (!hasValues) return { ...base, values: 0 };
+
+  const scale = 1 - VALUES_WEIGHT;
+  return {
+    riasec: base.riasec * scale,
+    paths: base.paths * scale,
+    traits: base.traits * scale,
+    signals: base.signals * scale,
+    big5: base.big5 * scale,
+    values: VALUES_WEIGHT,
+  };
+}
+
+/**
+ * Work-values similarity: ipsative-centered cosine.
+ * Both sides are full 0-100 profiles; subtracting each profile's own mean
+ * compares the SHAPE (what you value more than your own average), which is
+ * the honest reading of a forced-distribution instrument — and exactly the
+ * between-similar-jobs differentiator this component exists for. Negative
+ * cosine (opposite value shapes) clamps to 0.
+ */
+function valuesCosine(userValues: Tally, careerValues: Tally): number {
+  const userVec = WORK_VALUE_KEYS.map((k) => userValues[k] ?? 0);
+  const careerVec = WORK_VALUE_KEYS.map((k) => careerValues[k] ?? 0);
+  const center = (v: number[]) => {
+    const mean = v.reduce((s, x) => s + x, 0) / v.length;
+    return v.map((x) => x - mean);
+  };
+  return Math.max(0, cosine(center(userVec), center(careerVec)));
 }
 
 function big5Cosine(userBig5: Tally, careerBig5: Tally): number {
@@ -422,7 +490,20 @@ function rawScore(userProfile: UserProfile, careerProfile: CareerProfile, weight
   if (weights.big5 > 0 && Object.keys(careerProfile.big5 ?? {}).length > 0) {
     sB = big5Cosine(userProfile.big5, careerProfile.big5);
   }
-  return weights.riasec * sR + weights.paths * sP + weights.traits * sT + weights.signals * sS + weights.big5 * sB;
+
+  const base = weights.riasec * sR + weights.paths * sP + weights.traits * sT + weights.signals * sS + weights.big5 * sB;
+
+  if (weights.values > 0) {
+    const careerHasValues = Object.keys(careerProfile.workValues ?? {}).length > 0;
+    if (careerHasValues) {
+      return base + weights.values * valuesCosine(userProfile.workValues, careerProfile.workValues);
+    }
+    // Career without a values vector: renormalize so it isn't penalized for
+    // missing DATA (vs. missing FIT) — same posture as the missing-test rule.
+    return base / (1 - weights.values);
+  }
+
+  return base;
 }
 
 export function explainMatch(
@@ -443,15 +524,18 @@ export function explainMatch(
   const sS = cosine(vecFromTallyKeys(userProfile.signals, SIGNAL_KEYS), vecFromTallyKeys(careerProfile.signals, SIGNAL_KEYS));
   const sB = (weights.big5 > 0 && Object.keys(careerProfile.big5 ?? {}).length > 0)
     ? big5Cosine(userProfile.big5, careerProfile.big5) : null;
+  const sV = (weights.values > 0 && Object.keys(careerProfile.workValues ?? {}).length > 0)
+    ? valuesCosine(userProfile.workValues, careerProfile.workValues) : null;
 
   const bits: string[] = [];
   if (riasecHit.length) bits.push(`RIASEC ${riasecHit.join('+')}`);
   if (pathHit) bits.push(`drum ${topPath[0]}`);
   if (sB !== null && sB > 0.4) bits.push('Big Five aliniate');
+  if (sV !== null && sV > 0.5) bits.push('valori aliniate');
 
   return {
     text: bits.length ? bits.join(' · ') : 'profil mixt',
-    axes: { riasec: sR, paths: sP, traits: sT, signals: sS, big5: sB },
+    axes: { riasec: sR, paths: sP, traits: sT, signals: sS, big5: sB, values: sV },
     riasecHit,
     pathHit,
   };
@@ -463,10 +547,12 @@ function suggestNextTest(sources: string[]): NextTestSuggestion | null {
   const hasQuick = sources.includes('quick');
   const hasVoc = sources.includes('vocational') || sources.includes('vocational-deep');
   const hasBig5 = sources.includes('personality-15') || sources.includes('ipip-neo-60');
+  const hasValues = sources.includes('values');
 
   if (!hasQuick) return { kind: 'quick', reason: 'Începe cu Scenarii reale pentru primele cariere.' };
   if (!hasVoc) return { kind: 'vocational', reason: 'Adaugă testul vocațional pentru matches mai precise (+33% acuratețe).' };
   if (!hasBig5) return { kind: 'ipip-neo', reason: 'Adaugă Big Five pentru fit motivațional (+25% acuratețe).' };
+  if (!hasValues) return { kind: 'values', reason: 'Adaugă valorile de muncă ca să separi cariere care îți ies la egalitate (5 min).' };
   return null;
 }
 
@@ -481,7 +567,8 @@ export function computeMatches(input: MatchInput): MatchResult {
     Object.keys(userProfile.paths).length === 0 &&
     Object.keys(userProfile.traits).length === 0 &&
     Object.keys(userProfile.signals).length === 0 &&
-    Object.keys(userProfile.big5).length === 0;
+    Object.keys(userProfile.big5).length === 0 &&
+    Object.keys(userProfile.workValues).length === 0;
 
   const weights = getWeights(userProfile);
 

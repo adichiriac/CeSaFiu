@@ -11,7 +11,7 @@
 
 import Link from 'next/link';
 import {useRouter} from 'next/navigation';
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {Fragment, useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useTranslations} from 'next-intl';
 
 import BottomNav from '@/components/bottom-nav';
@@ -54,6 +54,7 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
 
   const [mounted, setMounted] = useState(false);
   const [testsDone, setTestsDone] = useState({scenarii: false, vocational: false, personalitate: false});
+  const [valuesDone, setValuesDone] = useState(false);
   const [topMatch, setTopMatch] = useState<SlimCareer | null>(null);
   const [nudgeId, setNudgeId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -72,6 +73,7 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
       vocational: Boolean(stored['vocational'] || stored['vocational-deep']),
       personalitate: Boolean(stored['personalitate'] || stored['ipip-neo-60']),
     });
+    setValuesDone(Boolean(stored['valori']));
     if (!Object.values(stored).some(Boolean)) return;
 
     fetch('/api/match', {
@@ -212,18 +214,35 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
 
         {/* ── The path ── */}
         {state.sections.map((section, sectionIndex) => (
-          <JourneySectionBlock
-            expandedId={expandedId}
-            key={section.id}
-            locale={locale}
-            nudgeId={nudgeId}
-            onMarkDone={onMarkDone}
-            onStepTap={onStepTap}
-            pathName={pathName ?? null}
-            section={section}
-            sectionIndex={sectionIndex}
-            t={t}
-          />
+          <Fragment key={section.id}>
+            <JourneySectionBlock
+              expandedId={expandedId}
+              locale={locale}
+              nudgeId={nudgeId}
+              onMarkDone={onMarkDone}
+              onStepTap={onStepTap}
+              pathName={pathName ?? null}
+              section={section}
+              sectionIndex={sectionIndex}
+              t={t}
+            />
+            {/* Optional side-quest: „Valorile tale” — parallel to the chain,
+                never locks anything, cosmetic XP (WORK-VALUES-PLAN §UI #2). */}
+            {sectionIndex === 0 && !valuesDone ? (
+              <Link
+                className="journeyOptionalCard"
+                href={`/${locale}/test/valori`}
+                onClick={() => trackEvent('journey_step_click', {step: 'valori-optional', locked: false, done: false})}
+              >
+                <span className="journeyOptionalLabel">{t('optionalValuesLabel')}</span>
+                <span className="journeyOptionalBody">
+                  <strong>{t('optionalValuesTitle')}</strong>
+                  <small>{t('optionalValuesSub')}</small>
+                </span>
+                <em className="journeyOptionalXp">{t('optionalValuesXp')}</em>
+              </Link>
+            ) : null}
+          </Fragment>
         ))}
 
         {/* ── Finish line ── */}

@@ -1,11 +1,13 @@
 import {isLocale, type Locale} from '@/i18n/config';
 import {isPaidTestSlug} from '@/lib/consent';
 import {getQuestionnaire} from '@/lib/questionnaires/load';
+import {getWorkValuesDefinition} from '@/lib/values/load';
 import {getSupabaseServerClient} from '@/lib/supabase/server';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import Link from 'next/link';
 import {notFound} from 'next/navigation';
 import QuestionnaireClient from './questionnaire-client';
+import ValuesClient from './values-client';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,6 +26,21 @@ export default async function TestPlaceholderPage({params}: TestPageProps) {
 
   setRequestLocale(locale as Locale);
   const t = await getTranslations('home');
+
+  // „Valorile tale” — card sort, not a questionnaire. Anonymous-friendly
+  // (same consent tier as the short tests — measures job preferences, not
+  // personality/clinical constructs; see docs/WORK-VALUES-PLAN.md).
+  if (slug === 'valori') {
+    return (
+      <ValuesClient
+        brandCe={t('brandCe')}
+        brandRest={t('brandRest')}
+        definition={getWorkValuesDefinition()}
+        locale={locale}
+      />
+    );
+  }
+
   const definition = getQuestionnaire(slug);
 
   if (!definition) {

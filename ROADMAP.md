@@ -1,6 +1,6 @@
 # Ce Să Fiu? — Product Roadmap
 
-*Living document. Last updated: 2026-07-03.*
+*Living document. Last updated: 2026-07-04.*
 
 ## North star
 
@@ -22,6 +22,7 @@ The product is no longer the static pilot — it's `apps/web` (Next.js, Supabase
 - **Archetypes V2** — renames + career-worlds layer (`docs/ARCHETYPES-V2-PLAN.md`).
 - **Signals layer** — 8-family controlled vocabulary, 15% matching weight, cosine similarity. **Uncalibrated** — needs 20-50 real-user pilot.
 - **Referrals/viral loop** — `/r/[code]`, click/onboarded/test-completed tracking (`docs/VIRAL-SHARING-REFERRALS-PLAN.md`).
+- **P5 Landing redesign** — shipped 2026-07-03 (`85d2703`): one-path hero, lime action color, recommended Scenarii CTA, time badges, compact Profil Complet, result preview + mission badge, raw Andra block, nav labels + lime active pill, feedback drawer above nav. Full spec in this file's git history (2026-07-03).
 - **Infra/polish** — dark mode, quiz resume, feedback widget + security baseline on `/api/feedback`, Sentry, Umami analytics.
 
 ---
@@ -34,9 +35,19 @@ The matching engine's weights (signals 15%, RIASEC, Big Five, quiz) are theory, 
 
 - Get 20-50 authenticated users through quiz + at least one deep test, with `chosen` archetype recorded.
 - Analyze top-1 / top-3 hit-rate; recalibrate signal weights and archetype thresholds.
-- This gates P2-P4 — no point ranking programs with a miscalibrated profile.
+- This gates P3-P5 — no point ranking programs with a miscalibrated profile. (P2's V1-V3 — translation, card-sort UI, scoring — are exempt; only its matcher weight waits for pilot data.)
 
-### P2 — Program-level match sort (was 1.7 — now unblocked)
+### P2 — Work values test „Valorile tale" (NEW — prioritized 2026-07-04)
+
+Adi's call: the current algorithm detects *abilities/interests* well enough; what's missing is **differentiation between similar jobs** — same domain, different working lives. Work values are exactly that axis. Full plan: `docs/WORK-VALUES-PLAN.md`.
+
+- O*NET **Work Importance Locator** (card sort, 20 statements, forced 4-per-column) — CC BY 4.0, RO adaptation v1 with the usual honesty disclaimers. NOT the retired WIP.
+- 6 values (Achievement/Independence/Recognition/Relationships/Support/Conditions) matched against O*NET per-occupation values ratings → `workValues` vector in careers.json, ~10-15% matcher weight (weight calibrated with P1 data).
+- Surfaces: Profil tests-carousel + completeness card (primary), `/drum` optional step, `/rezultate` precision hook on ties. **Not on home** — landing stays one-path.
+- Don't announce until the matcher effect is visible ("3 cariere au urcat, uite de ce").
+- Build order: V1 data+translation → V2 card-sort UI → V3 scoring+result → V4 matching+surfaces (~6-10 sessions; V1-V3 don't wait for P1).
+
+### P3 — Program-level match sort (was 1.7 — now unblocked)
 
 Auth is live, so profiles persist; the original blocker is gone.
 
@@ -44,7 +55,7 @@ Auth is live, so profiles persist; the original blocker is gone.
 - UI: "Pentru tine" toggle on Browse → Universități; institution card shows *"Best for you: <Program X> · 87%"*; detail view surfaces matching programs first.
 - Same posture for Browse → Trasee.
 
-### P3 — Deadline utility layer (NEW — the student-retention bet)
+### P4 — Deadline utility layer (NEW — the student-retention bet)
 
 Teens return for **utility**, not engagement mechanics. Give them data they can't easily get elsewhere:
 
@@ -54,7 +65,7 @@ Teens return for **utility**, not engagement mechanics. Give them data they can'
 - This is also what our deadline-only notification principle finally fires on: notifications tied to Bac/admission dates, nothing else. Makes `/drum`'s "Verifică admiterea" step live instead of manual.
 - Data risk: cutoff data is scattered per university. Start with top ~20 institutions by user interest; mark coverage honestly.
 
-### P4 — Story-format shareability (NEW)
+### P5 — Story-format shareability (NEW)
 
 The referral loop exists but the unit of teen sharing is a 9:16 screenshot on IG/TikTok stories.
 
@@ -62,36 +73,16 @@ The referral loop exists but the unit of teen sharing is a 9:16 screenshot on IG
 - One-tap "save image" / native share sheet from results; referral code baked into the image URL.
 - Follows the one-path CTA principle: share is the primary post-result action, modal-first.
 
-### P5 — Landing page: hierarchy & one path (NEW — from 2026-07-03 review)
+### P6 — PWA: installable + offline + deadline push (NEW — 2026-07-04)
 
-The landing works, but the hero fires ~6 messages before the first action. Core fix is **hierarchy, not decoration** — the one-path CTA principle applied to `/ro`:
+Native app considered and **deferred behind data** — an install wall cuts the link-based viral funnel, and the product retains via utility, not store presence. Full staged plan (PWA → Capacitor gate → React Native gate): `docs/MOBILE-PWA-PLAN.md`.
 
-- **Hero simplification:** one big title, one-line subtitle, one dominant CTA ("Începe aici" full-width / highest-contrast element). Badge, tag-line chips, and colored keywords move below the fold or go.
-- **Recommended card:** Scenarii gets visual priority (it's the validated Phase 0 winner and funnel entry); Vocațional/Personalitate step back. Not an aesthetic choice — it's what the pilot data says.
-- **One action color:** reserve a single color exclusively for CTAs; category colors (mov/galben/lime) stay for identity and categories. Don't dilute the neo-brutalist palette — just make "the color you press" learnable.
-- **Bottom nav:** labels under icons + clear active state. Solve together with the open interim-copy question (`Vibe-uri`/`Rezultat`).
-- **Andra higher:** move the real example up; keep it raw and authentic — no corporate-testimonial styling (teens smell fabricated marketing).
-- **Result preview:** show what you get before starting — reuse P4's 9:16 share card as the preview asset (one deliverable, two uses). Note: NOT a "PDF report" preview — monetization is parked.
-- **Feedback button:** fix the content overlap (shrink or hide-on-scroll-down). Do NOT fold into bottom nav; keep it easy to reach — it's the main signal channel during calibration.
+- Manifest + maskable icons already exist; add Serwist service worker (offline shell, update toast), fix stale `theme_color`, `start_url` install tracking.
+- Install nudges at result-save and Profil only (one-path: NOT on home); iOS gets the "Adaugă pe ecran" hint; Umami `pwa_installed` + standalone-session flag.
+- Web push (VAPID + Supabase subscriptions) ships WITH P4's first deadline data — opt-in framed on a concrete deadline, **deadline notifications only** (existing hard principle).
+- Install rate is the metric that gates any native/Capacitor discussion (threshold ~5% MAU or school-pilot demand).
 
-Explicitly deprioritized from the same review (cosmetic, no metric moves): scroll micro-animations (generic-template feel + CLS cost; if ever, respect `prefers-reduced-motion`), extra whitespace/separators (density is brand — fix crowding via hierarchy, not air), distinct test iconography. Desktop grid pass: 30-min check, audience is phone-first. Contrast on lime/galben was checked (2026-07-03): `ink-fixed` ≈ 14.9:1, `ink-soft` ≈ 6.9:1 — passes WCAG AA; any fatigue issue is saturation *area*, not text contrast.
-
-**Spec (mockups validated with Adi, 2026-07-03 — dark + light versions):**
-
-- **Page order:** header → hero (title + 1-line lead) → primary CTA card → "sau alege alt test" (2 compact cards) → Profil Complet row (compact) → "Ce primești la final" (result preview) → "Exemplu real" (Andra) → "Cum funcționează" (3 inline step chips) → bottom nav. The `noRobots` sticker, `eyebrow`, and colored `leadHighlights` are removed; their content ("gratuit", "5 min", "facultăți/cariere/meserii") is absorbed into the lead sentence and CTA meta.
-- **Hero:** keep the existing brand title treatment exactly (— "să fiu" in yellow box, black border + hard shadow; "fac mare?" with lime marker-highlight behind the text, not an underline). Lead: one sentence — "Descoperă ce ți se potrivește — facultăți, cariere, meserii. Fără stres."
-- **Action color = lime (`--green`).** Used ONLY for: primary CTA fill, active nav state, section accent labels. Purple/yellow stay categorical.
-- **Primary CTA card:** lime fill, 3px black border, hard shadow (5px), full-width. Contents: `RECOMANDAT` chip (ink-fixed bg, lime text), "Începe aici →" (heavy weight), meta line "Scenarii reale · 12 situații · gratuit". Links to `/test/scenarii`.
-- **Time badges:** every test card gets a right-aligned duration badge — clock icon + "N min", **no border/chenar, bold weight only** (Adi's call). Durations: Scenarii 5, Vocațional 4, Personalitate 4, Profil Complet 15. Remove duration from the sub-copy to avoid duplication.
-- **Secondary test cards:** 2-up compact row under "SAU ALEGE ALT TEST"; white surface, 2px categorical border. Light-mode note: `--yellow` (#ffe170) is invisible as a border on white — needs a darkened companion token (≈#d9b300 border / #7a6400 text) for the Personalitate card. Purple works as-is.
-- **Profil Complet:** demoted to a compact single row (title + "120 itemi · gratuit în pilot" + time badge + chevron), not a hero-sized block.
-- **Result preview ("Ce primești la final"):** mini share-card (the P4 9:16 asset, ~108px wide, slight -2° rotation, purple, hard shadow) beside 3 one-line promises (Top 3 potriviri / Match + explicație / Pași concreți). Lime accent on section label.
-- **Andra ("Exemplu real"):** paper-2 surface, 3px black border with a 6px yellow left band, quote + one-line hedge ("Testul nu decide în locul tău."). No avatar, no testimonial styling.
-- **Background:** math-notebook grid (24px squares, ~4% ink lines) across the page canvas; cards sit opaque on top (grid does NOT show through cards).
-- **Bottom nav:** keep the existing 5 icons (rachetă/⌕/⚑/★/♥) and add visible labels under each; active tab = lime pill behind the icon (2px black border) + heavy-weight label in ink (not lime — fails contrast on white). "Teste" is active on `/`.
-- **Feedback:** shrink to a ~34px round yellow button sitting above the nav; never overlaps content.
-
-### P6 — Real voices per career (NEW)
+### P7 — Real voices per career (NEW)
 
 Teens trust people, not taxonomies.
 
@@ -99,7 +90,7 @@ Teens trust people, not taxonomies.
 - Fully manual pipeline: outreach → short form → curated quote + first name + city. No video infra.
 - Start with the ~20 careers that appear most in match results; expand by demand.
 
-### P7 — Do-it-with-a-friend mode (NEW — candidate, validate first)
+### P8 — Do-it-with-a-friend mode (NEW — candidate, validate first)
 
 Teens take quizzes together; a social payoff beats a transactional referral code.
 
@@ -108,9 +99,35 @@ Teens take quizzes together; a social payoff beats a transactional referral code
 
 ---
 
-## Phase 2 remainder (behind auth, after P1-P3)
+## Profile test pipeline (post-P2, in this order)
 
-- **Dated-milestone notifications** for `/drum` — depends on P3's calendar data.
+Agreed 2026-07-04: three more optional instruments after „Valorile tale", all riding the same rails — `test/[slug]` route, Profil carousel + completeness card, /drum optional steps, /rezultate hooks. Same iron rule as P2: a test ships to users only when its effect is visible in matching or /drum. Explicitly rejected: cognitive/ability tests (licensing + minor-sensitivity + exam vibe), MBTI/Enneagram (validity; archetypes already deliver the fun), grit (overlaps Conscientiousness, toxic-messaging risk).
+
+### T1 — Context de muncă (custom forced-choice, NOT psychometric)
+
+- ~15-20 forced A/B trade-offs (birou/teren, program fix/haos creativ, oameni/date/mâini, stabilitate/risc plătit) — the signals-layer families formalized into an explicit, fun instrument. Original items, zero licensing.
+- Output maps 1:1 onto existing signals subdimensions → **sharpens the existing 15% signals weight, no new matcher component.** Cheapest test to build; requires signals-vocabulary coverage pass on careers.json.
+- The only instrument that differentiates **within the profesional path** (electrician vs. sudor vs. asistent medical: same Realistic RIASEC, radically different contexts).
+- Format: swipe/A-B cards, ~3 min, shareable mini-result („80% teren / 20% birou") — natural candidate for the P8 friend-compare mechanic.
+- Risk to design around: overlap with P2's Working Conditions value — keep items concrete-situational (*unde/cum* lucrezi), never importance-based (*ce contează*).
+
+### T2 — Încredere în competențe (self-estimated skills, SCI model)
+
+- ~20-24 original self-efficacy items on IPIP-style stems, one confidence scale per RIASEC domain („cât de sigur te simți să repari ceva / să vorbești în public / să convingi pe cineva").
+- The product is NOT the score — it's the **interest-vs-confidence gap matrix**: high/high = go; high interest + low confidence = /drum auto-inserts small exposure steps („pași mici", not abandon); low/low = deprioritize quietly.
+- **Not a matcher component** — it modulates /drum step selection and result framing only. Never lets low confidence depress a match score (that would punish exactly the kids who need the app).
+- Double hedging: self-assessment at 15 is noisy — everything framed „de explorat", no percentiles, no verdicts.
+
+### T3 — Modul SEL / inteligență emoțională scurt
+
+- 15-20 items from IPIP emotional facets (empatie, asertivitate, autoreglare) — public domain, RO v1 + standard disclaimers; batch the psycholinguist review with IPIP-NEO-60 RO.
+- Matcher use: **tie-breaker inside Social/Enterprising clusters only** (profesor vs. vânzări vs. HR vs. psiholog), not a global weight.
+- Connects to the existing SEL positioning (K-12 direction) and later to the parent companion view (2.4) for parent-friendly reporting.
+- Sensitivity check: emotional constructs with minors — confirm consent tier against AUTH-CONSENT-FLOW.md; keep items non-clinical so it stays out of the parent-gated tier.
+
+## Phase 2 remainder (behind auth, after P1-P4)
+
+- **Dated-milestone notifications** for `/drum` — depends on P4's calendar data.
 - **2.3 Adjacency hints** — 2-3 "vecine" per saved career, permission to change your mind without leaving the app.
 - **2.4 Parent companion view** — separate URL, seeded by consent-flow parent emails. "Întrebări de pus copilului tău săptămâna asta" per archetype. (Was framed as first paying segment — monetization parked, but the retention/trust value stands on its own.)
 
@@ -154,8 +171,8 @@ The consequence: the roadmap's engine is now **retention + distribution**, not r
 - **Buyer is often the parent, not the teen.** Dormant while monetization is parked, but still shapes the parent companion view.
 - **Public-domain test items are good enough.** The moat is the integrated result (scores + RO universities + RO trade schools + RO salary data + adjacencies + next steps), not the items.
 - **Don't bolt commitment onto discovery screens.** "Tell me about myself" mode ≠ "help me execute" mode.
-- **Honesty hedges over false certainty.** Results are "starting points, not verdicts." Kids see through false confidence. Applies doubly to P3's feasibility framing.
-- **Utility beats engagement mechanics.** (New, from P3.) A teen returns for the admission cutoff, not for a badge.
+- **Honesty hedges over false certainty.** Results are "starting points, not verdicts." Kids see through false confidence. Applies doubly to P4's feasibility framing.
+- **Utility beats engagement mechanics.** (New, from P4.) A teen returns for the admission cutoff, not for a badge.
 
 ---
 

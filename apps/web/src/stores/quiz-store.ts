@@ -92,9 +92,12 @@ export type StoredTestResult = {
   vocationalSignalsRaw?: Record<string, number>;
   vocationalDeepRaw?: Record<string, number>;
   vocationalDeepSignalsRaw?: Record<string, number>;
+  /** „Valorile tale” (WIL): 0-100 per value; raw 6-30 in workValuesRaw. */
+  workValues?: Record<string, number>;
+  workValuesRaw?: Record<string, number>;
 };
 
-const TEST_SLUGS = ['scenarii', 'personalitate', 'ipip-neo-60', 'vocational', 'vocational-deep'] as const;
+const TEST_SLUGS = ['scenarii', 'personalitate', 'ipip-neo-60', 'vocational', 'vocational-deep', 'valori'] as const;
 
 /**
  * Read all completed test results from localStorage.
@@ -132,6 +135,7 @@ export function buildMatchRequest(stored: Record<string, StoredTestResult | null
   vocationalSignalsRaw?: Record<string, number>;
   vocationalDeepRaw?: Record<string, number>;
   vocationalDeepSignalsRaw?: Record<string, number>;
+  workValues?: Record<string, number>;
 } {
   const req: ReturnType<typeof buildMatchRequest> = {};
 
@@ -169,6 +173,12 @@ export function buildMatchRequest(stored: Record<string, StoredTestResult | null
   if (vocationalDeep?.vocationalDeepRaw) {
     req.vocationalDeepRaw = vocationalDeep.vocationalDeepRaw;
     req.vocationalDeepSignalsRaw = vocationalDeep.vocationalDeepSignalsRaw;
+  }
+
+  // „Valorile tale”: WIL percents 0-100 per value
+  const valori = stored['valori'];
+  if (valori?.workValues) {
+    req.workValues = valori.workValues;
   }
 
   return req;

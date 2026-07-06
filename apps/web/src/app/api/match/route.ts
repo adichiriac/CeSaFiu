@@ -13,6 +13,7 @@
  *   vocationalSignalsRaw?: Record<string, number>
  *   vocationalDeepRaw?: Record<string, number>   // Holland code means (deep 60-item)
  *   vocationalDeepSignalsRaw?: Record<string, number>
+ *   workValues?:        Record<string, number>   // WIL percents 0-100 per work value
  * }
  *
  * Response:
@@ -40,6 +41,7 @@ type RequestBody = {
   vocationalSignalsRaw?: Record<string, number>;
   vocationalDeepRaw?: Record<string, number>;
   vocationalDeepSignalsRaw?: Record<string, number>;
+  workValues?: Record<string, number>;
 };
 
 function bodyHasPaidScores(body: RequestBody): boolean {
@@ -90,6 +92,7 @@ export async function POST(request: Request) {
       ipipNeo60: body.ipipNeo60Scores,
       vocational,
       vocationalDeep,
+      values: body.workValues,
     },
   };
 

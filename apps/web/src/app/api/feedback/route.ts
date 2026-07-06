@@ -41,6 +41,7 @@ const bodySchema = z.object({
   category: z.enum(['bug', 'confused', 'suggestion', 'praise']).nullable().optional(),
   message: z.string().max(500).nullable().optional(),
   pagePath: z.string().max(512).nullable().optional(),
+  pageUrl: z.string().max(2048).nullable().optional(),
   locale: z.string().max(8).nullable().optional(),
   appVersion: z.string().max(64).nullable().optional(),
   /** Honeypot: must be empty/missing. */
@@ -77,13 +78,15 @@ export async function POST(request: Request) {
     return NextResponse.json({error: 'invalid_request'}, {status: 400});
   }
   const body = parsed.data;
+  const pageUrl = normalizeFeedbackPageUrl(body.pageUrl, request);
+  const pagePath = normalizeFeedbackPagePath(body.pagePath, pageUrl);
 
   // 3. Honeypot — drop silently with success status to avoid signalling
   //    bots that their attempt failed.
   if (body.website && body.website.length > 0) {
     await logAuditEvent({
       eventType: AUDIT_EVENT_TYPES.feedbackRejectedHoneypot,
-      payload: {pagePath: body.pagePath ?? null}
+      payload: {pagePath}
     });
     return noContent();
   }
@@ -176,7 +179,10 @@ export async function POST(request: Request) {
   }
 
   // 7. Insert. Cap context size (defense-in-depth — schema already small).
-  const cappedContext = body.context ? clampContext(body.context) : {};
+  const cappedContext = clampContext({
+    ...(body.context ?? {}),
+    ...(pageUrl ? {pageUrl} : {})
+  });
 
   // Hash anon session token if provided (don't store raw — it's a cookie
   // value that could be replayed).
@@ -192,7 +198,7 @@ export async function POST(request: Request) {
       ip_address_hash: meta.ipHash,
       user_agent_hash: meta.userAgentHash,
       locale: body.locale ?? null,
-      page_path: body.pagePath ?? null,
+      page_path: pagePath,
       rating: body.rating,
       category: body.category ?? null,
       message: redactedMessage,
@@ -220,6 +226,8 @@ export async function POST(request: Request) {
       feedbackId: inserted.id,
       rating: body.rating,
       hasMessage: redactedMessage !== null,
+      pagePath,
+      pageUrl,
       spamScore,
       piiHits
     }
@@ -229,14 +237,14 @@ export async function POST(request: Request) {
 }
 
 function clampContext(input: Record<string, unknown>): Record<string, unknown> {
-  // Allow only string/number/boolean leaves, max 16 keys, max 256 chars per value.
+  // Allow only string/number/boolean leaves, max 16 keys. URLs get extra room.
   const out: Record<string, unknown> = {};
   let count = 0;
   for (const [key, value] of Object.entries(input)) {
     if (count >= 16) break;
     if (typeof key !== 'string' || key.length > 64) continue;
     if (typeof value === 'string') {
-      out[key] = value.slice(0, 256);
+      out[key] = value.slice(0, key === 'pageUrl' ? 2048 : 256);
       count += 1;
     } else if (typeof value === 'number' && Number.isFinite(value)) {
       out[key] = value;
@@ -247,6 +255,62 @@ function clampContext(input: Record<string, unknown>): Record<string, unknown> {
     }
   }
   return out;
+}
+
+function parseHost(value: string | null): string | null {
+  if (!value) return null;
+  try {
+    return new URL(value).host.toLowerCase();
+  } catch {
+    return null;
+  }
+}
+
+function getFeedbackAllowedHosts(request: Request): Set<string> {
+  const allowed = new Set(['cesafiu.ro', 'www.cesafiu.ro']);
+  for (const raw of [
+    request.headers.get('host'),
+    request.headers.get('x-forwarded-host')
+  ]) {
+    raw
+      ?.split(',')
+      .map((host) => host.trim().toLowerCase())
+      .filter(Boolean)
+      .forEach((host) => allowed.add(host));
+  }
+
+  for (const raw of [request.headers.get('origin'), request.headers.get('referer')]) {
+    const host = parseHost(raw);
+    if (host) allowed.add(host);
+  }
+
+  return allowed;
+}
+
+function normalizeFeedbackPageUrl(value: string | null | undefined, request: Request): string | null {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    if (!getFeedbackAllowedHosts(request).has(url.host.toLowerCase())) {
+      return null;
+    }
+    return `${url.origin}${url.pathname}${url.search}${url.hash}`.slice(0, 2048);
+  } catch {
+    return null;
+  }
+}
+
+function normalizeFeedbackPagePath(value: string | null | undefined, pageUrl: string | null): string | null {
+  if (value && value.trim().length > 0) {
+    return value.trim().slice(0, 512);
+  }
+  if (!pageUrl) return null;
+  try {
+    const url = new URL(pageUrl);
+    return `${url.pathname}${url.search}${url.hash}`.slice(0, 512);
+  } catch {
+    return null;
+  }
 }
 
 /**

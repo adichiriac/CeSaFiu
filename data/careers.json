@@ -48,7 +48,16 @@
       "UNARTE București",
       "UAUIM",
       "UBB Cluj — Design"
-    ]
+    ],
+    "workValues": {
+      "achievement": 80,
+      "independence": 80,
+      "recognition": 61,
+      "relationships": 46,
+      "support": 40,
+      "conditions": 51
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "data-scientist",
@@ -98,7 +107,16 @@
       "Politehnica București",
       "ASE",
       "UBB Cluj — Math/CS"
-    ]
+    ],
+    "workValues": {
+      "achievement": 71,
+      "independence": 53,
+      "recognition": 54,
+      "relationships": 45,
+      "support": 59,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "creative-director",
@@ -150,7 +168,16 @@
       "UNATC",
       "UNARTE",
       "SNSPA — Comunicare"
-    ]
+    ],
+    "workValues": {
+      "achievement": 71,
+      "independence": 77,
+      "recognition": 72,
+      "relationships": 63,
+      "support": 41,
+      "conditions": 47
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "social-entrepreneur",
@@ -202,7 +229,16 @@
       "SNSPA",
       "ASE — Antreprenoriat",
       "UBB — Sociologie"
-    ]
+    ],
+    "workValues": {
+      "achievement": 79,
+      "independence": 73,
+      "recognition": 81,
+      "relationships": 68,
+      "support": 37,
+      "conditions": 47
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "researcher",
@@ -252,7 +288,16 @@
       "UB",
       "UBB",
       "Politehnica"
-    ]
+    ],
+    "workValues": {
+      "achievement": 81,
+      "independence": 70,
+      "recognition": 59,
+      "relationships": 45,
+      "support": 44,
+      "conditions": 48
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "community-builder",
@@ -303,7 +348,16 @@
       "SNSPA",
       "UB — Comunicare",
       "UNATC"
-    ]
+    ],
+    "workValues": {
+      "achievement": 68,
+      "independence": 65,
+      "recognition": 69,
+      "relationships": 73,
+      "support": 48,
+      "conditions": 51
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "freelance-developer",
@@ -353,7 +407,16 @@
       "Autodidact (FreeCodeCamp, The Odin Project)",
       "Bootcamp (Codecool, Wantsome)",
       "PUB / UBB (opțional)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 73,
+      "independence": 70,
+      "recognition": 55,
+      "relationships": 45,
+      "support": 51,
+      "conditions": 65
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "content-creator",
@@ -404,7 +467,16 @@
       "Autodidact (YouTube + reps)",
       "UNATC (opțional)",
       "Cursuri online — Skillshare/Domestika"
-    ]
+    ],
+    "workValues": {
+      "achievement": 71,
+      "independence": 79,
+      "recognition": 64,
+      "relationships": 63,
+      "support": 41,
+      "conditions": 40
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "startup-founder",
@@ -457,7 +529,16 @@
       "YCombinator Startup School (online)",
       "Innovation Labs RO",
       "Techstars"
-    ]
+    ],
+    "workValues": {
+      "achievement": 83,
+      "independence": 83,
+      "recognition": 83,
+      "relationships": 56,
+      "support": 31,
+      "conditions": 42
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "freelance-designer",
@@ -506,7 +587,16 @@
       "Autodidact (Behance reps)",
       "UNARTE",
       "Domestika / School of Motion"
-    ]
+    ],
+    "workValues": {
+      "achievement": 72,
+      "independence": 80,
+      "recognition": 64,
+      "relationships": 49,
+      "support": 39,
+      "conditions": 49
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "crafts-entrepreneur",
@@ -556,7 +646,16 @@
       "Autodidact + ucenicie",
       "UNARTE — Arte Decorative",
       "Cursuri scurte (Atelier ID, Make a Point)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 76,
+      "independence": 84,
+      "recognition": 62,
+      "relationships": 47,
+      "support": 35,
+      "conditions": 48
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "self-taught-engineer",
@@ -605,7 +704,16 @@
       "Autodidact (CS50, FreeCodeCamp)",
       "Bootcamps RO (Codecool)",
       "Optional: PUB după 2 ani de muncă"
-    ]
+    ],
+    "workValues": {
+      "achievement": 69,
+      "independence": 67,
+      "recognition": 49,
+      "relationships": 45,
+      "support": 53,
+      "conditions": 65
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "avocat",
@@ -657,7 +765,16 @@
       "Drept UBB",
       "Drept SNSPA",
       "Drept ASE"
-    ]
+    ],
+    "workValues": {
+      "achievement": 79,
+      "independence": 62,
+      "recognition": 85,
+      "relationships": 63,
+      "support": 48,
+      "conditions": 52
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "inginer-mecanic",
@@ -708,7 +825,16 @@
       "UTCN — Mecanică",
       "TUIASI — Mecanică",
       "UPT — Mecanică"
-    ]
+    ],
+    "workValues": {
+      "achievement": 70,
+      "independence": 54,
+      "recognition": 51,
+      "relationships": 45,
+      "support": 58,
+      "conditions": 71
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "inginer-electric",
@@ -758,7 +884,16 @@
       "UTCN — Electrotehnică",
       "TUIASI — Electrotehnică",
       "UPT — Electrotehnică"
-    ]
+    ],
+    "workValues": {
+      "achievement": 71,
+      "independence": 58,
+      "recognition": 51,
+      "relationships": 45,
+      "support": 54,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "inginer-electronic",
@@ -809,7 +944,16 @@
       "UTCN — Electronică",
       "TUIASI — Electronică",
       "UPT — Electronică"
-    ]
+    ],
+    "workValues": {
+      "achievement": 73,
+      "independence": 59,
+      "recognition": 53,
+      "relationships": 45,
+      "support": 53,
+      "conditions": 60
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "inginer-energetic",
@@ -862,7 +1006,16 @@
       "UTCN — Energetică",
       "UPT — Energetică",
       "Universitatea din Petroșani — Mine + Energetică"
-    ]
+    ],
+    "workValues": {
+      "achievement": 74,
+      "independence": 54,
+      "recognition": 59,
+      "relationships": 45,
+      "support": 58,
+      "conditions": 68
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "inginer-chimist",
@@ -913,7 +1066,16 @@
       "UPT — Chimie Industrială",
       "USAMV — Inginerie Alimentară",
       "UPG Ploiești — Petrochimie"
-    ]
+    ],
+    "workValues": {
+      "achievement": 73,
+      "independence": 56,
+      "recognition": 53,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 64
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "asistent-medical",
@@ -964,7 +1126,16 @@
       "Postliceala Sanitară Carol Davila București",
       "Postliceala Sanitară Cluj",
       "Postliceala Grigore Ghica Vodă Iași"
-    ]
+    ],
+    "workValues": {
+      "achievement": 72,
+      "independence": 50,
+      "recognition": 52,
+      "relationships": 76,
+      "support": 62,
+      "conditions": 72
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "electrician-autorizat",
@@ -1015,7 +1186,16 @@
       "CT Electrotimiș",
       "Liceul Tehnologic 1 Mai Ploiești",
       "CT Reșița"
-    ]
+    ],
+    "workValues": {
+      "achievement": 63,
+      "independence": 48,
+      "recognition": 47,
+      "relationships": 48,
+      "support": 67,
+      "conditions": 82
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "tehnician-hvac",
@@ -1065,7 +1245,16 @@
       "CT Mecanic Grivița",
       "CT Electrotimiș",
       "CT Iași"
-    ]
+    ],
+    "workValues": {
+      "achievement": 59,
+      "independence": 44,
+      "recognition": 46,
+      "relationships": 50,
+      "support": 67,
+      "conditions": 82
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "software-engineer",
@@ -1117,7 +1306,16 @@
       "UAIC Iași",
       "Codecool",
       "Wantsome"
-    ]
+    ],
+    "workValues": {
+      "achievement": 69,
+      "independence": 60,
+      "recognition": 49,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "devops",
@@ -1170,7 +1368,16 @@
       "UTCN",
       "iTech Academy",
       "Kwiat Academy"
-    ]
+    ],
+    "workValues": {
+      "achievement": 69,
+      "independence": 60,
+      "recognition": 49,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "cybersecurity",
@@ -1222,7 +1429,16 @@
       "UVT Timișoara",
       "UTCN Cluj",
       "iTech Academy"
-    ]
+    ],
+    "workValues": {
+      "achievement": 67,
+      "independence": 57,
+      "recognition": 50,
+      "relationships": 45,
+      "support": 59,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "game-developer",
@@ -1274,7 +1490,16 @@
       "Politehnica București",
       "UBB CS",
       "Codecool"
-    ]
+    ],
+    "workValues": {
+      "achievement": 76,
+      "independence": 82,
+      "recognition": 54,
+      "relationships": 44,
+      "support": 44,
+      "conditions": 51
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "mobile-developer",
@@ -1324,7 +1549,16 @@
       "Sprk Academy",
       "Politehnica București",
       "UBB Cluj"
-    ]
+    ],
+    "workValues": {
+      "achievement": 69,
+      "independence": 67,
+      "recognition": 49,
+      "relationships": 45,
+      "support": 53,
+      "conditions": 63
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "medic-generalist",
@@ -1378,7 +1612,16 @@
       "UMF Iași",
       "UMF Târgu Mureș",
       "UMF Timișoara"
-    ]
+    ],
+    "workValues": {
+      "achievement": 78,
+      "independence": 56,
+      "recognition": 56,
+      "relationships": 69,
+      "support": 54,
+      "conditions": 64
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "stomatolog",
@@ -1431,7 +1674,16 @@
       "UMF Timișoara",
       "Titu Maiorescu (privat)",
       "Apollonia Iași (privat)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 75,
+      "independence": 56,
+      "recognition": 53,
+      "relationships": 65,
+      "support": 56,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "farmacist",
@@ -1484,7 +1736,16 @@
       "UMF Timișoara",
       "Titu Maiorescu",
       "Goldiș Arad"
-    ]
+    ],
+    "workValues": {
+      "achievement": 74,
+      "independence": 51,
+      "recognition": 58,
+      "relationships": 66,
+      "support": 59,
+      "conditions": 66
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "psiholog-clinician",
@@ -1537,7 +1798,16 @@
       "UAIC Iași — Psihologie",
       "UVT Timișoara — Psihologie",
       "Titu Maiorescu (privat)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 77,
+      "independence": 62,
+      "recognition": 58,
+      "relationships": 69,
+      "support": 48,
+      "conditions": 51
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "psiholog-scolar",
@@ -1587,7 +1857,16 @@
       "UBB Cluj — Psihologie + Psihopedagogie",
       "UAIC Iași — Psihologie",
       "UVT — Psihopedagogie Specială"
-    ]
+    ],
+    "workValues": {
+      "achievement": 69,
+      "independence": 52,
+      "recognition": 53,
+      "relationships": 75,
+      "support": 58,
+      "conditions": 59
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "psiholog-organizational",
@@ -1639,7 +1918,16 @@
       "ASE Master Resurse Umane",
       "UBB Cluj — Psihologie organizațională",
       "SNSPA — Comunicare + HR"
-    ]
+    ],
+    "workValues": {
+      "achievement": 76,
+      "independence": 55,
+      "recognition": 81,
+      "relationships": 72,
+      "support": 51,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "profesor-gimnaziu-liceu",
@@ -1691,7 +1979,16 @@
       "UB / UBB / UAIC / UVT (specializarea + modul psihopedagogic 30 credite)",
       "SNSPA pentru profesori de comunicare / civică",
       "Academii de specialitate (UNARTE pentru desen, AMGD pentru muzică, UNEFS pentru sport)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 77,
+      "independence": 62,
+      "recognition": 56,
+      "relationships": 75,
+      "support": 52,
+      "conditions": 55
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "profesor-universitar",
@@ -1743,7 +2040,16 @@
       "Doctorat la UB, UBB, UAIC, UMF, UPB, ASE (în domeniul tău)",
       "Doctorate cotutelă cu universități UE (Sorbona, ETH, KU Leuven, etc.)",
       "Cercetare la institute (Academia Română, Babeș-Bolyai Institutes)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 79,
+      "independence": 64,
+      "recognition": 56,
+      "relationships": 69,
+      "support": 54,
+      "conditions": 52
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "arhitect",
@@ -1795,7 +2101,16 @@
       "UAUIM București",
       "UTCN Cluj — Arhitectură",
       "UPT Timișoara — Arhitectură"
-    ]
+    ],
+    "workValues": {
+      "achievement": 82,
+      "independence": 74,
+      "recognition": 58,
+      "relationships": 44,
+      "support": 44,
+      "conditions": 49
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "inginer-auto",
@@ -1848,7 +2163,16 @@
       "UTCN Cluj",
       "UPT Timișoara",
       "UNSTPB Pitești"
-    ]
+    ],
+    "workValues": {
+      "achievement": 70,
+      "independence": 54,
+      "recognition": 51,
+      "relationships": 45,
+      "support": 58,
+      "conditions": 71
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "marketing-performance",
@@ -1899,7 +2223,16 @@
       "IAA Academy (Digital Marketing Practitioner)",
       "SNSPA — Comunicare + master Marketing",
       "Autodidact (Google Skillshop, Meta Blueprint, CXL)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 72,
+      "independence": 63,
+      "recognition": 58,
+      "relationships": 47,
+      "support": 55,
+      "conditions": 64
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "marketing-content-seo",
@@ -1950,7 +2283,16 @@
       "ASE — Marketing (cale opțională)",
       "SNSPA — Comunicare",
       "UB FJSC sau UAIC Litere (pentru content writing fundament)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 76,
+      "independence": 76,
+      "recognition": 55,
+      "relationships": 45,
+      "support": 46,
+      "conditions": 50
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "marketing-brand",
@@ -2002,7 +2344,16 @@
       "SNSPA — Comunicare + Brand",
       "RAU — Marketing",
       "Stagii trainee P&G / Unilever / Coca-Cola"
-    ]
+    ],
+    "workValues": {
+      "achievement": 79,
+      "independence": 71,
+      "recognition": 76,
+      "relationships": 55,
+      "support": 41,
+      "conditions": 44
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "marketing-growth",
@@ -2054,7 +2405,16 @@
       "IAA Academy + cursuri specifice (Reforge, GrowthHackers)",
       "Autodidact + experiență la SaaS",
       "Innovation Labs / How to Web (network)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 77,
+      "independence": 76,
+      "recognition": 75,
+      "relationships": 48,
+      "support": 43,
+      "conditions": 48
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "product-manager",
@@ -2105,7 +2465,16 @@
     "schools": [
       "ASE / SNSPA / Politehnica",
       "Drum prin alt rol (dev, design, consultant) + tranziție internă"
-    ]
+    ],
+    "workValues": {
+      "achievement": 73,
+      "independence": 66,
+      "recognition": 73,
+      "relationships": 63,
+      "support": 48,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "jurnalist-reporter",
@@ -2157,7 +2526,16 @@
       "UB FJSC — Jurnalism",
       "UBB Cluj — Jurnalism",
       "UAIC Iași — Jurnalism + Comunicare"
-    ]
+    ],
+    "workValues": {
+      "achievement": 79,
+      "independence": 69,
+      "recognition": 68,
+      "relationships": 63,
+      "support": 41,
+      "conditions": 44
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "jurnalist-editor",
@@ -2208,7 +2586,16 @@
       "UBB Cluj — Litere + Jurnalism",
       "UAIC Iași — Litere",
       "SNSPA — Comunicare"
-    ]
+    ],
+    "workValues": {
+      "achievement": 75,
+      "independence": 64,
+      "recognition": 55,
+      "relationships": 56,
+      "support": 49,
+      "conditions": 47
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "jurnalist-podcast",
@@ -2260,7 +2647,16 @@
       "SNSPA — Comunicare (opțional, fundament)",
       "UB FJSC (opțional)",
       "Cursuri specifice (Skillshare, Lex Fridman-style mentorship)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 79,
+      "independence": 84,
+      "recognition": 69,
+      "relationships": 63,
+      "support": 31,
+      "conditions": 38
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "jurnalist-investigativ",
@@ -2312,7 +2708,16 @@
       "UB FJSC + master",
       "Formare RISE Project / Centrul pentru Jurnalism Independent",
       "Internshipuri internaționale (OCCRP, IRE)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 80,
+      "independence": 69,
+      "recognition": 64,
+      "relationships": 53,
+      "support": 43,
+      "conditions": 48
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "antrenor-sportiv",
@@ -2363,7 +2768,16 @@
       "UNEFS București",
       "UBB / UVT — Educație Fizică",
       "Certificări internaționale (CPT, NSCA)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 65,
+      "independence": 54,
+      "recognition": 53,
+      "relationships": 71,
+      "support": 55,
+      "conditions": 61
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "mecanic-auto",
@@ -2414,7 +2828,16 @@
       "CT Auto Cluj",
       "CT Tehnoton Iași",
       "LT 1 Mai Ploiești"
-    ]
+    ],
+    "workValues": {
+      "achievement": 66,
+      "independence": 52,
+      "recognition": 47,
+      "relationships": 47,
+      "support": 64,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "bucatar",
@@ -2465,7 +2888,16 @@
       "École Hubert (privat)",
       "Le Cordon Bleu (extern)",
       "Ucenicie + experiență"
-    ]
+    ],
+    "workValues": {
+      "achievement": 67,
+      "independence": 61,
+      "recognition": 49,
+      "relationships": 62,
+      "support": 56,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "stilist",
@@ -2516,7 +2948,16 @@
       "Școli profesionale de profil",
       "Trainings la branduri (Wella, L'Oréal, Mac)",
       "Ucenicie în salon"
-    ]
+    ],
+    "workValues": {
+      "achievement": 70,
+      "independence": 66,
+      "recognition": 60,
+      "relationships": 69,
+      "support": 49,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "youtuber",
@@ -2567,7 +3008,16 @@
       "Autodidact + 100 piese de conținut",
       "UNATC pentru bază",
       "Workshops + comunități"
-    ]
+    ],
+    "workValues": {
+      "achievement": 75,
+      "independence": 86,
+      "recognition": 69,
+      "relationships": 63,
+      "support": 31,
+      "conditions": 38
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "traducator",
@@ -2617,7 +3067,16 @@
     "schools": [
       "UB / UBB / UAIC / UVT — Limbi străine + LMA",
       "SNSPA pentru relații internaționale + traducere"
-    ]
+    ],
+    "workValues": {
+      "achievement": 78,
+      "independence": 83,
+      "recognition": 60,
+      "relationships": 59,
+      "support": 36,
+      "conditions": 47
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ecommerce-founder",
@@ -2668,7 +3127,16 @@
     "schools": [
       "Fără rută obligatorie — combinație de Innovation Labs / How to Web / curs IAA",
       "ASE — Antreprenoriat"
-    ]
+    ],
+    "workValues": {
+      "achievement": 82,
+      "independence": 82,
+      "recognition": 83,
+      "relationships": 51,
+      "support": 32,
+      "conditions": 44
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "instalator-sanitar",
@@ -2718,7 +3186,16 @@
       "CT „Anghel Saligny\" Cluj",
       "CT Construcții Iași",
       "Centrul de Calificare FEG (curs ANC)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 59,
+      "independence": 44,
+      "recognition": 46,
+      "relationships": 50,
+      "support": 67,
+      "conditions": 82
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "frizer",
@@ -2770,7 +3247,16 @@
       "Centrul de Calificare FEG",
       "Centrul Estetica Crin",
       "Alex Constantin Academy (avansat)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 68,
+      "independence": 64,
+      "recognition": 52,
+      "relationships": 67,
+      "support": 52,
+      "conditions": 60
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "coafor",
@@ -2821,7 +3307,16 @@
       "Centrul de Calificare FEG",
       "Centrul Estetica Crin",
       "Alex Constantin Academy"
-    ]
+    ],
+    "workValues": {
+      "achievement": 67,
+      "independence": 63,
+      "recognition": 54,
+      "relationships": 68,
+      "support": 51,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "manichiurista",
@@ -2871,7 +3366,16 @@
       "UCECOM „Spiru Haret\"",
       "Centrul de Calificare FEG",
       "Centrul Estetica Crin"
-    ]
+    ],
+    "workValues": {
+      "achievement": 75,
+      "independence": 66,
+      "recognition": 53,
+      "relationships": 60,
+      "support": 52,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "cosmeticiana",
@@ -2923,7 +3427,16 @@
       "Postliceal Sanitar „Henri Coandă\" (Cosmetică Medicală)",
       "Centrul de Calificare FEG",
       "UMF Iași — Cosmetică Medicală (licență 3 ani)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 77,
+      "independence": 60,
+      "recognition": 56,
+      "relationships": 77,
+      "support": 54,
+      "conditions": 58
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "make-up-artist",
@@ -2975,7 +3488,16 @@
       "Centrul Estetica Crin",
       "UCECOM „Spiru Haret\"",
       "Workshop-uri internaționale (Charlotte Tilbury, MAC Pro)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 74,
+      "independence": 83,
+      "recognition": 65,
+      "relationships": 67,
+      "support": 33,
+      "conditions": 38
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ospatar",
@@ -3027,7 +3549,16 @@
       "CT „Iuliu Maniu\" București",
       "CT „Gheorghe Airinei\" București",
       "Liceul Tehnologic Economic de Turism Iași"
-    ]
+    ],
+    "workValues": {
+      "achievement": 65,
+      "independence": 45,
+      "recognition": 60,
+      "relationships": 75,
+      "support": 61,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "cofetar-patiser",
@@ -3079,7 +3610,16 @@
       "CT „Iuliu Maniu\" București",
       "Liceul Tehnologic Economic Turism Iași",
       "Eurojobs (curs scurt ANC)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 71,
+      "independence": 62,
+      "recognition": 51,
+      "relationships": 49,
+      "support": 55,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "tatuator",
@@ -3131,7 +3671,16 @@
       "NAGVO GRUP (București)",
       "Tattoo Expo (București)",
       "Badass Tattoo Academy (avansat)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 75,
+      "independence": 88,
+      "recognition": 57,
+      "relationships": 45,
+      "support": 35,
+      "conditions": 46
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "fotograf",
@@ -3182,7 +3731,16 @@
       "Hyperion — Foto-Video",
       "UNARTE — Foto-Video",
       "UAD Cluj — Foto-Video"
-    ]
+    ],
+    "workValues": {
+      "achievement": 82,
+      "independence": 90,
+      "recognition": 66,
+      "relationships": 46,
+      "support": 30,
+      "conditions": 38
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "florar",
@@ -3233,7 +3791,16 @@
       "Floral Design Academy",
       "Atelierele ARC (workshop-uri sezoniere)",
       "Ucenicie la florării top"
-    ]
+    ],
+    "workValues": {
+      "achievement": 67,
+      "independence": 66,
+      "recognition": 51,
+      "relationships": 62,
+      "support": 52,
+      "conditions": 58
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "croitor",
@@ -3285,7 +3852,16 @@
       "UAD Cluj — Modă",
       "UNARTE — Modă",
       "Eurojobs (curs scurt confecționer)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 64,
+      "independence": 61,
+      "recognition": 49,
+      "relationships": 49,
+      "support": 58,
+      "conditions": 71
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "sudor",
@@ -3335,7 +3911,16 @@
       "Eurojobs (curs ANC)",
       "CT „Anghel Saligny\" Cluj",
       "Liceul Tehnologic „Ferdinand I\" București"
-    ]
+    ],
+    "workValues": {
+      "achievement": 59,
+      "independence": 44,
+      "recognition": 46,
+      "relationships": 50,
+      "support": 67,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "restaurator",
@@ -3387,7 +3972,16 @@
       "Universitatea Națională de Arte „George Enescu\" Iași",
       "UVT — Conservare-Restaurare",
       "Sapientia Cluj (alternativă)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 80,
+      "independence": 74,
+      "recognition": 58,
+      "relationships": 44,
+      "support": 44,
+      "conditions": 47
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "artist-plastic",
@@ -3437,7 +4031,16 @@
       "UAD Cluj-Napoca",
       "Universitatea de Arte „George Enescu\" Iași",
       "Universitatea de Arte Târgu Mureș"
-    ]
+    ],
+    "workValues": {
+      "achievement": 79,
+      "independence": 89,
+      "recognition": 58,
+      "relationships": 51,
+      "support": 36,
+      "conditions": 42
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ceramist",
@@ -3487,7 +4090,16 @@
       "UAD Cluj — Ceramică",
       "Atelier Make a Point (cursuri scurte București)",
       "Ucenicie la atelier consacrat"
-    ]
+    ],
+    "workValues": {
+      "achievement": 71,
+      "independence": 84,
+      "recognition": 56,
+      "relationships": 47,
+      "support": 35,
+      "conditions": 49
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "bijutier",
@@ -3539,7 +4151,16 @@
       "UAD Cluj — Design Bijuterie",
       "Ucenicie la atelier (Surubiță, Atelier 17)",
       "Centre ANC pentru reparații + bijuterie de bază"
-    ]
+    ],
+    "workValues": {
+      "achievement": 68,
+      "independence": 59,
+      "recognition": 49,
+      "relationships": 49,
+      "support": 58,
+      "conditions": 68
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "tamplar-mobilier",
@@ -3590,7 +4211,16 @@
       "CT „Anghel Saligny\" Cluj",
       "Liceul Tehnologic Construcții Iași",
       "UAD Cluj — Design Mobilier"
-    ]
+    ],
+    "workValues": {
+      "achievement": 68,
+      "independence": 59,
+      "recognition": 49,
+      "relationships": 49,
+      "support": 58,
+      "conditions": 68
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "editor-video",
@@ -3640,7 +4270,16 @@
       "Hyperion — Foto-Video",
       "Autodidact (YouTube, Skillshare, MasterClass)",
       "Atelierele ARC (workshop-uri specifice)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 77,
+      "independence": 76,
+      "recognition": 55,
+      "relationships": 45,
+      "support": 42,
+      "conditions": 51
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "medic-veterinar",
@@ -3692,7 +4331,16 @@
       "USAMV Cluj — Medicină Veterinară",
       "USAMV Iași — Medicină Veterinară",
       "USAMV Timișoara — Medicină Veterinară"
-    ]
+    ],
+    "workValues": {
+      "achievement": 78,
+      "independence": 56,
+      "recognition": 56,
+      "relationships": 69,
+      "support": 54,
+      "conditions": 64
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "agronom",
@@ -3745,7 +4393,16 @@
       "USAMV Iași",
       "USAMV Timișoara",
       "USV Suceava (filieră silvic-agronomic)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 70,
+      "independence": 54,
+      "recognition": 51,
+      "relationships": 45,
+      "support": 58,
+      "conditions": 66
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "inginer-constructii",
@@ -3796,7 +4453,16 @@
       "UTCN — Construcții (Cluj)",
       "TUIASI — Construcții (Iași)",
       "UPT — Construcții (Timișoara)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 70,
+      "independence": 54,
+      "recognition": 51,
+      "relationships": 45,
+      "support": 58,
+      "conditions": 71
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "kinetoterapeut",
@@ -3848,7 +4514,16 @@
       "UVT — Kinetoterapie",
       "UBB Cluj — Kinetoterapie",
       "UAIC Iași — Educație Fizică & Kinetoterapie"
-    ]
+    ],
+    "workValues": {
+      "achievement": 76,
+      "independence": 52,
+      "recognition": 56,
+      "relationships": 74,
+      "support": 56,
+      "conditions": 64
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "asistent-social",
@@ -3898,7 +4573,16 @@
       "UBB Cluj — Asistență Socială",
       "UVT — Asistență Socială",
       "UAIC Iași — Sociologie & Asistență Socială"
-    ]
+    ],
+    "workValues": {
+      "achievement": 73,
+      "independence": 54,
+      "recognition": 55,
+      "relationships": 87,
+      "support": 48,
+      "conditions": 46
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "logoped",
@@ -3950,7 +4634,16 @@
       "UBB Cluj — Psihopedagogie Specială",
       "UAIC Iași — Psihologie & PIPP",
       "UVT — Psihopedagogie Specială"
-    ]
+    ],
+    "workValues": {
+      "achievement": 77,
+      "independence": 60,
+      "recognition": 55,
+      "relationships": 74,
+      "support": 55,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "educator",
@@ -4003,7 +4696,16 @@
       "UAIC Iași — PIPP",
       "UVT — PIPP",
       "Liceu pedagogic + facultate (rută alternativă)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 72,
+      "independence": 63,
+      "recognition": 68,
+      "relationships": 77,
+      "support": 51,
+      "conditions": 55
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "biolog",
@@ -4054,7 +4756,16 @@
       "UAIC Iași — Biologie",
       "UVT — Biologie",
       "USAMV București — Biotehnologii"
-    ]
+    ],
+    "workValues": {
+      "achievement": 71,
+      "independence": 59,
+      "recognition": 53,
+      "relationships": 45,
+      "support": 53,
+      "conditions": 58
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "optician",
@@ -4106,7 +4817,16 @@
       "Postliceal „Henri Coandă\" Oradea",
       "Sanity Bacău",
       "Curs ANC scurt — Centrul de Calificare FEG"
-    ]
+    ],
+    "workValues": {
+      "achievement": 62,
+      "independence": 43,
+      "recognition": 48,
+      "relationships": 70,
+      "support": 69,
+      "conditions": 79
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "tehnician-dentar",
@@ -4157,7 +4877,16 @@
       "UMF Iași — Tehnică Dentară (licență 3 ani)",
       "Postliceal „Henri Coandă\"",
       "UMF Cluj — Tehnică Dentară"
-    ]
+    ],
+    "workValues": {
+      "achievement": 68,
+      "independence": 59,
+      "recognition": 49,
+      "relationships": 49,
+      "support": 58,
+      "conditions": 73
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "maseur",
@@ -4208,7 +4937,16 @@
       "Postliceal Sanitar „Atlas\"",
       "Postliceal „Henri Coandă\"",
       "Cursuri ANC (Estetica Crin etc.)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 61,
+      "independence": 45,
+      "recognition": 47,
+      "relationships": 73,
+      "support": 63,
+      "conditions": 66
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "paramedic",
@@ -4261,7 +4999,16 @@
       "Postliceala Sanitară „Carol Davila\"",
       "Postliceal „Henri Coandă\"",
       "Sanity Bacău"
-    ]
+    ],
+    "workValues": {
+      "achievement": 69,
+      "independence": 50,
+      "recognition": 49,
+      "relationships": 72,
+      "support": 63,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "asistent-vet",
@@ -4313,7 +5060,16 @@
       "Curs ANC — Centrul de Calificare FEG",
       "Postliceal „Henri Coandă\"",
       "USAMV (rută clasică către medic vet)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 69,
+      "independence": 49,
+      "recognition": 50,
+      "relationships": 77,
+      "support": 63,
+      "conditions": 75
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "dj-producer",
@@ -4364,7 +5120,16 @@
       "UNMB — Compoziție / Tehnologia Sunetului",
       "AMGD Cluj — Compoziție",
       "Autodidact (YouTube, Splice, Skillshare)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 80,
+      "independence": 89,
+      "recognition": 66,
+      "relationships": 54,
+      "support": 30,
+      "conditions": 40
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ghid-turistic",
@@ -4416,7 +5181,16 @@
       "CT „Iuliu Maniu\" — Turism",
       "CNEAB Brașov",
       "Curs ANC + atestat MTM"
-    ]
+    ],
+    "workValues": {
+      "achievement": 68,
+      "independence": 59,
+      "recognition": 69,
+      "relationships": 75,
+      "support": 54,
+      "conditions": 56
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "actor",
@@ -4468,7 +5242,16 @@
       "UAGE Iași — Actorie",
       "Universitatea de Arte Târgu Mureș",
       "Sapientia Cluj — Actorie"
-    ]
+    ],
+    "workValues": {
+      "achievement": 75,
+      "independence": 86,
+      "recognition": 67,
+      "relationships": 69,
+      "support": 35,
+      "conditions": 42
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "sofer-profesionist",
@@ -4518,7 +5301,16 @@
       "CT „Anghel Saligny\" Cluj (modul auto)",
       "Liceul Tehnologic „1 Mai\" Ploiești",
       "Eurojobs (curs ANC categoria C/CE)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 57,
+      "independence": 44,
+      "recognition": 46,
+      "relationships": 50,
+      "support": 67,
+      "conditions": 75
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "contabil",
@@ -4567,7 +5359,16 @@
       "UBB FSEGA — Contabilitate",
       "UAIC FEAA — Contabilitate",
       "UVT — Contabilitate"
-    ]
+    ],
+    "workValues": {
+      "achievement": 65,
+      "independence": 48,
+      "recognition": 55,
+      "relationships": 47,
+      "support": 60,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "agent-securitate",
@@ -4619,7 +5420,16 @@
       "Centrul de Calificare FEG",
       "Eurojobs",
       "Foste cadre MAPN / MAI cu reconversie"
-    ]
+    ],
+    "workValues": {
+      "achievement": 56,
+      "independence": 44,
+      "recognition": 46,
+      "relationships": 68,
+      "support": 67,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ofiter-armata",
@@ -4677,7 +5487,16 @@
       "Academia Forțelor Terestre \"N. Bălcescu\" — Sibiu",
       "Academia Forțelor Aeriene \"H. Coandă\" — Brașov",
       "Academia Navală \"Mircea cel Bătrân\" — Constanța"
-    ]
+    ],
+    "workValues": {
+      "achievement": 69,
+      "independence": 48,
+      "recognition": 73,
+      "relationships": 53,
+      "support": 61,
+      "conditions": 70
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "subofiter-armata",
@@ -4732,7 +5551,16 @@
       "Școala Militară de Subofițeri \"Petru Rareș\" — Câmpulung Moldovenesc",
       "Școala Militară de Subofițeri \"Basarab I\" — Pitești",
       "Liceele militare (Breaza, Câmpulung, Alba Iulia, Constanța, Iași, Craiova)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 62,
+      "independence": 35,
+      "recognition": 48,
+      "relationships": 64,
+      "support": 77,
+      "conditions": 90
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "pilot-militar",
@@ -4788,7 +5616,16 @@
     ],
     "schools": [
       "Academia Forțelor Aeriene \"Henri Coandă\" — Brașov"
-    ]
+    ],
+    "workValues": {
+      "achievement": 74,
+      "independence": 46,
+      "recognition": 53,
+      "relationships": 53,
+      "support": 66,
+      "conditions": 78
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ofiter-politie",
@@ -4844,7 +5681,16 @@
       "Academia de Poliție \"Al. I. Cuza\" — București",
       "Școala de Agenți de Poliție \"Vasile Lascăr\" — Câmpina",
       "Școala de Agenți de Poliție — Slatina"
-    ]
+    ],
+    "workValues": {
+      "achievement": 68,
+      "independence": 44,
+      "recognition": 76,
+      "relationships": 72,
+      "support": 61,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "jandarm",
@@ -4900,7 +5746,16 @@
       "Școala Militară de Subofițeri Jandarmi \"Gh. Alexandru Ghica\" — Drăgășani",
       "Școala Militară de Subofițeri Jandarmi — Beluș",
       "Academia de Poliție (pentru ofițeri jandarmi)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 56,
+      "independence": 38,
+      "recognition": 54,
+      "relationships": 70,
+      "support": 75,
+      "conditions": 80
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "pompier-isu",
@@ -4956,7 +5811,16 @@
       "Școala de Subofițeri de Pompieri și Protecție Civilă \"Pavel Zăgănescu\" — Bolboci",
       "Academia de Poliție — Facultatea de Pompieri (pentru ofițeri ISU)",
       "Servicii Voluntare pentru Situații de Urgență (SVSU) — debut voluntar"
-    ]
+    ],
+    "workValues": {
+      "achievement": 60,
+      "independence": 36,
+      "recognition": 48,
+      "relationships": 76,
+      "support": 75,
+      "conditions": 84
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ofiter-informatii",
@@ -5012,7 +5876,16 @@
       "Academia Națională de Informații \"Mihai Viteazul\" — București (ANI)",
       "SNSPA — Relații Internaționale / Studii de Securitate (traseu alternativ)",
       "UB / UNAP — Studii de Securitate și Apărare Națională"
-    ]
+    ],
+    "workValues": {
+      "achievement": 72,
+      "independence": 49,
+      "recognition": 70,
+      "relationships": 49,
+      "support": 63,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "inginer-aparare",
@@ -5070,7 +5943,16 @@
       "Universitatea Tehnică Cluj — Inginerie Mecanică / Electronică",
       "Universitatea din Craiova — Inginerie Electrică / Electronică",
       "Academia Tehnică Militară \"Ferdinand I\" — București (ATM)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 70,
+      "independence": 46,
+      "recognition": 51,
+      "relationships": 47,
+      "support": 66,
+      "conditions": 74
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "agent-imobiliar",
@@ -5122,7 +6004,16 @@
       "ASE / RAU — Imobiliare (master)",
       "ANEVAR (curs evaluare)",
       "Programe interne RE/MAX / Engel & Völkers"
-    ]
+    ],
+    "workValues": {
+      "achievement": 64,
+      "independence": 50,
+      "recognition": 72,
+      "relationships": 72,
+      "support": 59,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "receptioner-hotel",
@@ -5173,7 +6064,16 @@
       "CT „Iuliu Maniu\" — Turism",
       "LT Economic Turism Iași",
       "Hyperion — Turism / Hotel Management"
-    ]
+    ],
+    "workValues": {
+      "achievement": 63,
+      "independence": 45,
+      "recognition": 60,
+      "relationships": 75,
+      "support": 61,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "asistent-manager",
@@ -5225,7 +6125,16 @@
       "ASE — Comunicare în Afaceri",
       "SNSPA — Comunicare",
       "Orice facultate + cursuri specifice (engleză, Office)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 64,
+      "independence": 45,
+      "recognition": 68,
+      "relationships": 73,
+      "support": 59,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "operator-depozit",
@@ -5274,7 +6183,16 @@
       "Eurojobs",
       "CT „Iuliu Maniu\" — Logistică",
       "Programe interne Amazon / eMag / IKEA"
-    ]
+    ],
+    "workValues": {
+      "achievement": 57,
+      "independence": 44,
+      "recognition": 46,
+      "relationships": 50,
+      "support": 67,
+      "conditions": 80
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "operator-cnc",
@@ -5325,7 +6243,16 @@
       "Liceul Tehnologic „1 Mai\" Ploiești",
       "CT Reșița",
       "Eurojobs (curs scurt ANC)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 63,
+      "independence": 48,
+      "recognition": 47,
+      "relationships": 48,
+      "support": 67,
+      "conditions": 82
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "sales-rep",
@@ -5376,7 +6303,16 @@
       "SNSPA — Comunicare",
       "IAA Academy (curs vânzări)",
       "Programe interne UiPath / Bitdefender / Salesforce"
-    ]
+    ],
+    "workValues": {
+      "achievement": 64,
+      "independence": 56,
+      "recognition": 72,
+      "relationships": 70,
+      "support": 53,
+      "conditions": 54
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "qa-tester",
@@ -5427,7 +6363,16 @@
       "Wantsome — QA",
       "Sda Academy",
       "Politehnica București / UBB CS — IT (cale lungă)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 67,
+      "independence": 56,
+      "recognition": 52,
+      "relationships": 46,
+      "support": 57,
+      "conditions": 66
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "sysadmin",
@@ -5478,7 +6423,16 @@
       "Cisco Networking Academy (CCNA)",
       "Politehnica București — Calculatoare",
       "Autodidact (CompTIA + AWS / RHCSA)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 66,
+      "independence": 58,
+      "recognition": 47,
+      "relationships": 45,
+      "support": 58,
+      "conditions": 66
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "hr-specialist",
@@ -5530,7 +6484,16 @@
       "SNSPA — Comunicare + HR",
       "ASE — Management Resurse Umane",
       "Curs Inspector RU (ANC)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 67,
+      "independence": 49,
+      "recognition": 72,
+      "relationships": 73,
+      "support": 55,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "manager-proiect",
@@ -5582,7 +6545,16 @@
       "SNSPA — Management",
       "Certificări (PMI — PMP, Axelos — PRINCE2, Scrum.org — PSM)",
       "Programe interne corporate"
-    ]
+    ],
+    "workValues": {
+      "achievement": 65,
+      "independence": 60,
+      "recognition": 73,
+      "relationships": 58,
+      "support": 53,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "functionar-bancar",
@@ -5634,7 +6606,16 @@
       "UBB FSEGA — Finanțe",
       "UAIC FEAA — Finanțe",
       "Programe trainee BCR / BRD / ING / Raiffeisen"
-    ]
+    ],
+    "workValues": {
+      "achievement": 66,
+      "independence": 44,
+      "recognition": 76,
+      "relationships": 69,
+      "support": 61,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "specialist-achizitii",
@@ -5685,7 +6666,16 @@
       "UBB FSEGA — Management",
       "CIPS certificate (online, internațional)",
       "Programe trainee Continental / Bosch"
-    ]
+    ],
+    "workValues": {
+      "achievement": 69,
+      "independence": 56,
+      "recognition": 77,
+      "relationships": 58,
+      "support": 53,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "instalator-pv",
@@ -5736,7 +6726,16 @@
       "CT Energetic „Remus Răduleț\" București",
       "CT Electrotimiș (modul PV)",
       "Programe interne firme PV (Renovatio, Photomate)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 63,
+      "independence": 48,
+      "recognition": 47,
+      "relationships": 48,
+      "support": 67,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "mecanic-frigotehnist",
@@ -5785,7 +6784,16 @@
       "Curs ANC + atestat F-Gas",
       "CT Mecanic Grivița",
       "CT „Anghel Saligny\" Cluj"
-    ]
+    ],
+    "workValues": {
+      "achievement": 55,
+      "independence": 44,
+      "recognition": 46,
+      "relationships": 50,
+      "support": 67,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "curier-livrator",
@@ -5833,7 +6841,16 @@
       "Permis auto / scuter (școală șoferi)",
       "Curs PFA (ANAF + curs antreprenoriat scurt)",
       "Programe interne Glovo / Bolt / Tazz"
-    ]
+    ],
+    "workValues": {
+      "achievement": 60,
+      "independence": 54,
+      "recognition": 56,
+      "relationships": 59,
+      "support": 57,
+      "conditions": 68
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ingrijitor-batrani",
@@ -5883,7 +6900,16 @@
       "Postliceal sanitar (cale către asistent medical)",
       "Cursuri ANC + intensiv DE/IT prin agenții reglementate",
       "Programe Caritas / Diakonia (pentru UE)"
-    ]
+    ],
+    "workValues": {
+      "achievement": 61,
+      "independence": 45,
+      "recognition": 45,
+      "relationships": 89,
+      "support": 63,
+      "conditions": 66
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "casier-vanzator",
@@ -5934,7 +6960,16 @@
       "CT „Iuliu Maniu\" — Comerț",
       "Programe interne Lidl / Kaufland / Carrefour",
       "CNEAB Brașov — Comerț"
-    ]
+    ],
+    "workValues": {
+      "achievement": 58,
+      "independence": 40,
+      "recognition": 56,
+      "relationships": 71,
+      "support": 67,
+      "conditions": 73
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "data-engineer",
@@ -6002,7 +7037,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 71,
+      "independence": 53,
+      "recognition": 54,
+      "relationships": 45,
+      "support": 59,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ai-engineer",
@@ -6071,7 +7115,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 73,
+      "independence": 56,
+      "recognition": 53,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "machine-learning-engineer",
@@ -6140,7 +7193,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 73,
+      "independence": 56,
+      "recognition": 53,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "mason-bricklayer",
@@ -6206,7 +7268,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 59,
+      "independence": 44,
+      "recognition": 46,
+      "relationships": 50,
+      "support": 67,
+      "conditions": 80
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "mechatronics-technician",
@@ -6273,7 +7344,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 66,
+      "independence": 52,
+      "recognition": 47,
+      "relationships": 47,
+      "support": 64,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "radiology-technician",
@@ -6342,7 +7422,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 77,
+      "independence": 56,
+      "recognition": 53,
+      "relationships": 65,
+      "support": 56,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "financial-analyst",
@@ -6410,7 +7499,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 70,
+      "independence": 52,
+      "recognition": 69,
+      "relationships": 48,
+      "support": 58,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "logistics-planner",
@@ -6479,7 +7577,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 70,
+      "independence": 52,
+      "recognition": 69,
+      "relationships": 48,
+      "support": 58,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "medical-lab-technician",
@@ -6546,7 +7653,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 73,
+      "independence": 54,
+      "recognition": 51,
+      "relationships": 61,
+      "support": 63,
+      "conditions": 79
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "auto-electrician",
@@ -6612,7 +7728,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 66,
+      "independence": 52,
+      "recognition": 47,
+      "relationships": 47,
+      "support": 64,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "robotics-engineer",
@@ -6681,7 +7806,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 70,
+      "independence": 54,
+      "recognition": 51,
+      "relationships": 45,
+      "support": 58,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "sap-erp-consultant",
@@ -6749,7 +7883,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 72,
+      "independence": 51,
+      "recognition": 81,
+      "relationships": 58,
+      "support": 57,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "quality-engineer",
@@ -6816,7 +7959,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 68,
+      "independence": 48,
+      "recognition": 54,
+      "relationships": 46,
+      "support": 62,
+      "conditions": 70
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "mlops-engineer",
@@ -6884,7 +8036,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 69,
+      "independence": 60,
+      "recognition": 49,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "social-media-manager",
@@ -6953,7 +8114,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 71,
+      "independence": 77,
+      "recognition": 72,
+      "relationships": 63,
+      "support": 41,
+      "conditions": 47
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ev-charging-technician",
@@ -7020,7 +8190,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 63,
+      "independence": 48,
+      "recognition": 47,
+      "relationships": 48,
+      "support": 67,
+      "conditions": 80
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "painter-finisher",
@@ -7087,7 +8266,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 66,
+      "independence": 61,
+      "recognition": 49,
+      "relationships": 49,
+      "support": 58,
+      "conditions": 73
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "energy-auditor",
@@ -7154,7 +8342,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 77,
+      "independence": 56,
+      "recognition": 61,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "process-engineer",
@@ -7221,7 +8418,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 73,
+      "independence": 56,
+      "recognition": 53,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "low-code-developer",
@@ -7290,7 +8496,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 70,
+      "independence": 65,
+      "recognition": 66,
+      "relationships": 47,
+      "support": 55,
+      "conditions": 64
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "special-education-teacher",
@@ -7358,7 +8573,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 77,
+      "independence": 62,
+      "recognition": 63,
+      "relationships": 74,
+      "support": 55,
+      "conditions": 55
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "building-automation-technician",
@@ -7424,7 +8648,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 66,
+      "independence": 52,
+      "recognition": 47,
+      "relationships": 47,
+      "support": 64,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "security-systems-technician",
@@ -7491,7 +8724,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 63,
+      "independence": 48,
+      "recognition": 47,
+      "relationships": 48,
+      "support": 67,
+      "conditions": 80
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "auditor",
@@ -7560,7 +8802,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 74,
+      "independence": 52,
+      "recognition": 77,
+      "relationships": 48,
+      "support": 58,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "crm-specialist",
@@ -7628,7 +8879,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 64,
+      "independence": 55,
+      "recognition": 69,
+      "relationships": 58,
+      "support": 57,
+      "conditions": 65
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "customer-success-manager",
@@ -7698,7 +8958,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 65,
+      "independence": 53,
+      "recognition": 68,
+      "relationships": 73,
+      "support": 55,
+      "conditions": 59
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "environmental-engineer",
@@ -7765,7 +9034,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 73,
+      "independence": 56,
+      "recognition": 53,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "sustainability-manager",
@@ -7835,7 +9113,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 77,
+      "independence": 62,
+      "recognition": 77,
+      "relationships": 63,
+      "support": 48,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "wind-turbine-technician",
@@ -7903,7 +9190,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 66,
+      "independence": 52,
+      "recognition": 47,
+      "relationships": 47,
+      "support": 64,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "compliance-officer",
@@ -7972,7 +9268,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 68,
+      "independence": 52,
+      "recognition": 69,
+      "relationships": 56,
+      "support": 58,
+      "conditions": 65
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "battery-technician",
@@ -8040,7 +9345,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 66,
+      "independence": 52,
+      "recognition": 47,
+      "relationships": 47,
+      "support": 64,
+      "conditions": 77
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ux-researcher",
@@ -8109,7 +9423,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 81,
+      "independence": 73,
+      "recognition": 55,
+      "relationships": 50,
+      "support": 46,
+      "conditions": 53
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "clinical-research-coordinator",
@@ -8176,7 +9499,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 76,
+      "independence": 51,
+      "recognition": 58,
+      "relationships": 66,
+      "support": 59,
+      "conditions": 68
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "biomedical-engineer",
@@ -8245,7 +9577,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 74,
+      "independence": 54,
+      "recognition": 53,
+      "relationships": 59,
+      "support": 58,
+      "conditions": 75
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "midwife",
@@ -8314,7 +9655,16 @@
       "ANOFM vacancies"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 67,
+      "independence": 44,
+      "recognition": 51,
+      "relationships": 71,
+      "support": 61,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "instructional-designer",
@@ -8383,7 +9733,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 71,
+      "independence": 74,
+      "recognition": 63,
+      "relationships": 64,
+      "support": 45,
+      "conditions": 47
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "nutritionist-dietetician",
@@ -8450,7 +9809,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 72,
+      "independence": 48,
+      "recognition": 55,
+      "relationships": 69,
+      "support": 58,
+      "conditions": 61
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "gis-specialist",
@@ -8518,7 +9886,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 73,
+      "independence": 56,
+      "recognition": 53,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 67
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "occupational-therapist",
@@ -8586,7 +9963,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 71,
+      "independence": 51,
+      "recognition": 52,
+      "relationships": 69,
+      "support": 57,
+      "conditions": 65
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "corporate-trainer",
@@ -8655,7 +10041,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 68,
+      "independence": 67,
+      "recognition": 69,
+      "relationships": 73,
+      "support": 48,
+      "conditions": 51
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "pr-specialist",
@@ -8724,7 +10119,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 75,
+      "independence": 71,
+      "recognition": 79,
+      "relationships": 64,
+      "support": 42,
+      "conditions": 49
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "3d-artist",
@@ -8793,7 +10197,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 75,
+      "independence": 88,
+      "recognition": 57,
+      "relationships": 53,
+      "support": 35,
+      "conditions": 49
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "eu-project-manager",
@@ -8861,7 +10274,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 68,
+      "independence": 51,
+      "recognition": 76,
+      "relationships": 66,
+      "support": 55,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "motion-designer",
@@ -8930,7 +10352,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 80,
+      "independence": 89,
+      "recognition": 59,
+      "relationships": 52,
+      "support": 34,
+      "conditions": 44
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "revenue-operations-specialist",
@@ -8999,7 +10430,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 64,
+      "independence": 55,
+      "recognition": 69,
+      "relationships": 58,
+      "support": 57,
+      "conditions": 65
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "child-protection-specialist",
@@ -9067,7 +10507,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 69,
+      "independence": 50,
+      "recognition": 63,
+      "relationships": 70,
+      "support": 61,
+      "conditions": 60
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "data-protection-officer",
@@ -9135,7 +10584,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 68,
+      "independence": 52,
+      "recognition": 69,
+      "relationships": 56,
+      "support": 58,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "event-planner",
@@ -9203,7 +10661,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 64,
+      "independence": 62,
+      "recognition": 72,
+      "relationships": 70,
+      "support": 53,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "drone-operator",
@@ -9272,7 +10739,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 71,
+      "independence": 62,
+      "recognition": 57,
+      "relationships": 46,
+      "support": 57,
+      "conditions": 73
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "game-designer",
@@ -9340,7 +10816,16 @@
       "WEF Future of Jobs"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 82,
+      "independence": 90,
+      "recognition": 66,
+      "relationships": 54,
+      "support": 30,
+      "conditions": 41
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "carbon-accounting-specialist",
@@ -9408,7 +10893,16 @@
       "Cedefop Skills-OVATE"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 70,
+      "independence": 52,
+      "recognition": 69,
+      "relationships": 48,
+      "support": 58,
+      "conditions": 69
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "urban-planner",
@@ -9475,7 +10969,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 82,
+      "independence": 76,
+      "recognition": 73,
+      "relationships": 54,
+      "support": 40,
+      "conditions": 44
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "civil-servant",
@@ -9542,7 +11045,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 64,
+      "independence": 36,
+      "recognition": 68,
+      "relationships": 71,
+      "support": 69,
+      "conditions": 73
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "digital-health-specialist",
@@ -9611,7 +11123,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 76,
+      "independence": 54,
+      "recognition": 66,
+      "relationships": 70,
+      "support": 57,
+      "conditions": 65
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "customs-officer",
@@ -9679,7 +11200,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-05-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 68,
+      "independence": 51,
+      "recognition": 73,
+      "relationships": 58,
+      "support": 57,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ai-ethicist",
@@ -9746,7 +11276,16 @@
       "EU AI Act"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 68,
+      "independence": 53,
+      "recognition": 64,
+      "relationships": 60,
+      "support": 59,
+      "conditions": 57
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "prompt-engineer",
@@ -9812,7 +11351,16 @@
       "WEF Future of Jobs 2025 (familia AI)"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 76,
+      "independence": 75,
+      "recognition": 55,
+      "relationships": 45,
+      "support": 48,
+      "conditions": 52
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ai-trainer",
@@ -9878,7 +11426,16 @@
       "rol emergent editorial"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 65,
+      "independence": 57,
+      "recognition": 50,
+      "relationships": 45,
+      "support": 59,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "ai-red-teamer",
@@ -9944,7 +11501,16 @@
       "rol emergent editorial"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 67,
+      "independence": 60,
+      "recognition": 49,
+      "relationships": 45,
+      "support": 57,
+      "conditions": 65
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "conversation-designer",
@@ -10010,7 +11576,16 @@
       "WEF Future of Jobs 2025 (familia AI)"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 73,
+      "independence": 70,
+      "recognition": 55,
+      "relationships": 64,
+      "support": 45,
+      "conditions": 46
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "bioinformatician",
@@ -10076,7 +11651,16 @@
       "ESCO"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 75,
+      "independence": 56,
+      "recognition": 55,
+      "relationships": 51,
+      "support": 57,
+      "conditions": 66
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "genetic-counselor",
@@ -10143,7 +11727,16 @@
       "rol emergent în RO"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 72,
+      "independence": 48,
+      "recognition": 57,
+      "relationships": 75,
+      "support": 58,
+      "conditions": 58
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "longevity-specialist",
@@ -10210,7 +11803,16 @@
       "rol emergent editorial"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 70,
+      "independence": 64,
+      "recognition": 62,
+      "relationships": 75,
+      "support": 51,
+      "conditions": 46
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "climate-risk-analyst",
@@ -10276,7 +11878,16 @@
       "CSRD (UE)"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 72,
+      "independence": 55,
+      "recognition": 62,
+      "relationships": 47,
+      "support": 55,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "urban-farmer",
@@ -10337,7 +11948,16 @@
       "rol emergent editorial"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 76,
+      "independence": 75,
+      "recognition": 61,
+      "relationships": 46,
+      "support": 40,
+      "conditions": 55
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "community-health-worker",
@@ -10402,7 +12022,16 @@
       "OUG 18/2017 (RO)"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 59,
+      "independence": 42,
+      "recognition": 49,
+      "relationships": 79,
+      "support": 67,
+      "conditions": 72
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "mental-health-coach",
@@ -10466,7 +12095,16 @@
       "rol emergent editorial"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 65,
+      "independence": 62,
+      "recognition": 54,
+      "relationships": 69,
+      "support": 48,
+      "conditions": 49
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "elder-care-coordinator",
@@ -10533,7 +12171,16 @@
       "rol emergent editorial (age-tech)"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 63,
+      "independence": 47,
+      "recognition": 66,
+      "relationships": 90,
+      "support": 61,
+      "conditions": 62
+    },
+    "workValuesSource": "estimated"
   },
   {
     "id": "accessibility-specialist",
@@ -10601,6 +12248,15 @@
       "WEF Future of Jobs 2025"
     ],
     "lastReviewed": "2026-06-12",
-    "status": "active"
+    "status": "active",
+    "workValues": {
+      "achievement": 72,
+      "independence": 56,
+      "recognition": 59,
+      "relationships": 69,
+      "support": 58,
+      "conditions": 59
+    },
+    "workValuesSource": "estimated"
   }
 ]

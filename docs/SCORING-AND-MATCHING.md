@@ -1,6 +1,6 @@
 # Scoring & Matching — how recommendations are computed
 
-*Living document. Last updated: 2026-05-02.*
+*Living document. Last updated: 2026-07-06.*
 
 This page is the canonical reference for **how a student's test answers turn into a ranked list of careers**. If you're rebuilding the algorithm in another language, designing the paid PDF report, or writing copy that references "match %", read this first.
 
@@ -10,8 +10,8 @@ Companion docs: [PSYCHOMETRICS.md](./PSYCHOMETRICS.md) (what tests we ship and w
 
 ## TL;DR
 
-- Multi-axis cosine similarity between a user profile vector and a career profile vector. Five axes: **RIASEC** (Holland Code), **path bias** (facultate / autodidact / etc.), **traits** (legacy 7-bucket), **signals** (interest/context tags, 15% fixed), **Big Five**.
-- Weights are **sample-size-aware**: with only the quick quiz, RIASEC carries 60% of the score. With all 5 tests done, weights redistribute (RIASEC 55, paths 10, traits 5, signals 15, Big Five 15).
+- Multi-axis cosine similarity between a user profile vector and a career profile vector. Six axes: **RIASEC** (Holland Code), **path bias** (facultate / autodidact / etc.), **traits** (legacy 7-bucket), **signals** (interest/context tags, 15% fixed), **Big Five**, **work values** (15% fixed, only when the values test is taken).
+- Weights are **sample-size-aware and two-stage**: `getWeights` first picks a *base table* over RIASEC/paths/traits/signals/Big Five from which test families contributed, then — only if the values test was completed — scales that whole table by ×0.85 and gives work values a flat 15%. With only the quick quiz, RIASEC carries 45% (signals is always on at 15%). With all instruments done, weights redistribute (RIASEC 55, paths 10, traits 5, signals 15, Big Five 15 — each ×0.85 once values is present, plus values 15).
 - **Big Five is capped at 15%** regardless of test breadth (2026-05-02). Previously 25-30%; reduced because C was over-represented in career anchors and dominated the axis.
 - Score is calibrated to a **floor 25%, ceiling 80-95%** range. Ceiling rises with test breadth — a quick-quiz-only user can never exceed 80% match.
 - **Confidence** (0-1) is a separate signal exposed alongside the match list. Driven primarily by test breadth, secondarily by spread between top-1 and top-3.
@@ -129,15 +129,25 @@ Careers declare a list of dominant Big Five letters (e.g., `big5: ['O', 'C']`). 
 `rawScore(userProfile, careerProfile, weights)` returns a single 0-1 score per career:
 
 ```
-rawScore = W.riasec × cos(user.riasec, career.riasec)
-         + W.paths  × cos(user.paths,  career.paths)
-         + W.traits × cos(user.traits, career.traits)
-         + W.big5   × big5Cosine(user.big5, career.big5)
+base = W.riasec  × cos(user.riasec,  career.riasec)
+     + W.paths   × cos(user.paths,   career.paths)
+     + W.traits  × cos(user.traits,  career.traits)
+     + W.signals × cos(user.signals, career.signals)
+     + W.big5    × big5Cosine(user.big5, career.big5)
+
+if W.values > 0 and career HAS a values vector:
+    rawScore = base + W.values × valuesCosine(user.workValues, career.workValues)
+elif W.values > 0 and career LACKS a values vector:
+    rawScore = base / (1 - W.values)   // renormalize — don't penalize missing DATA
+else:
+    rawScore = base
 ```
 
-Each `cos()` is standard cosine similarity over the 6 / 7 / 7 / 6-dim vectors (RIASEC keys, PATH_KEYS, TRAIT_KEYS, BIG5_KEYS). Signals axis uses a separate tagged-overlap approach (see `getWeights`).
+Each `cos()` is standard cosine similarity over the RIASEC / path / trait / signal / Big Five vectors.
 
 > **Note on signals axis:** the signals cosine is computed over a controlled vocabulary of 8 families × sub-dimensions (order, service, precision, creativity, etc.). Weight is **fixed at 15%** across all scenarios — signals contribute equally regardless of test breadth. The other axes' weights flex around this constant.
+
+> **Note on work values axis:** `valuesCosine` is an **ipsative-centered** cosine (each side's own mean is subtracted, then clamped at 0), because the values instrument is a forced-distribution card sort — comparing the *shape* of what a student values above their own average is the honest reading, and it's exactly the between-similar-jobs differentiator this axis exists for. Values only enters the formula when `W.values > 0` (i.e. the test was taken). If the *career* has no values vector but the user does, `base` is renormalized by `1 / (1 - W.values)` so the career is penalized for missing DATA, not missing FIT — the same posture as the missing-test rule.
 
 ### Big Five cosine with centering
 
@@ -157,31 +167,56 @@ This means: a user at exactly 50 on Openness contributes 0 to a career anchored 
 
 ---
 
-## 5. Weights (sample-size-aware)
+## 5. Weights (sample-size-aware, two-stage)
 
-`getWeights(userProfile)` returns one of six weight tables based on which sources contributed. The principle: **more sources → RIASEC's share comes down, Big Five activates, paths/traits stay roughly stable**.
+Canonical implementation: `getWeights(userProfile)` in [`apps/web/src/lib/matcher.ts`](../apps/web/src/lib/matcher.ts). (The prototype in `cesafiu_prototype_v3/project/app.jsx` predates the signals and values axes — `matcher.ts` is the source of truth.)
 
-Signals axis is **fixed at 0.15** across all scenarios; the remaining 0.85 is distributed across the other axes as shown.
+`getWeights` is a **two-stage** function. **Stage 1** picks a *base table* over RIASEC / paths / traits / signals / Big Five from which test families contributed. **Stage 2** folds in **work values** — but only if the values test was actually completed. The weights are never fixed: the base table is chosen by what the student has done, and values enter only at the very end, on top of the already-chosen table.
 
-| Sources contributing | RIASEC | Paths | Traits | Signals | Big Five |
-|---|---:|---:|---:|---:|---:|
-| Quick only | **0.60** | 0.25 | 0.15 | 0.00 | 0.00 |
-| Quick + light Holland | **0.65** | 0.20 | 0.15 | 0.00 | 0.00 |
-| Quick + deep Holland | **0.70** | 0.15 | 0.15 | 0.00 | 0.00 |
-| Quick + Big Five (no Holland) | **0.40** | 0.20 | 0.10 | 0.15 | **0.15** |
-| Quick + light Holland + Big Five | **0.50** | 0.15 | 0.05 | 0.15 | **0.15** |
-| Quick + deep Holland + Big Five | **0.55** | 0.10 | 0.05 | 0.15 | **0.15** |
+### Stage 1 — base table (values test not yet taken)
 
-> **Big Five cap at 0.15 (from 2026-05-02):** previously 0.25-0.30. Reduced because C was on 80%+ of careers, meaning Big Five contributed mostly "Conscientiousness?" regardless of profile. At 15% it still provides signal without dominating. Signals also activated at 15% fixed when user profile has signals data.
+Signals is **fixed at 0.15** in every base table; the other four axes flex around it. Each row sums to 1.00 — there is no "dead" weight parked waiting for a missing test.
+
+| Sources contributing | RIASEC | Paths | Traits | Signals | Big Five | Values |
+|---|---:|---:|---:|---:|---:|---:|
+| Quick only | **0.45** | 0.25 | 0.15 | 0.15 | 0.00 | 0.00 |
+| + light Holland (vocational scurt) | **0.50** | 0.20 | 0.15 | 0.15 | 0.00 | 0.00 |
+| + deep Holland (vocational complet) | **0.55** | 0.15 | 0.15 | 0.15 | 0.00 | 0.00 |
+| Big Five (no Holland) | **0.45** | 0.20 | 0.05 | 0.15 | **0.15** | 0.00 |
+| Big Five + light Holland | **0.50** | 0.15 | 0.05 | 0.15 | **0.15** | 0.00 |
+| Big Five + deep Holland | **0.55** | 0.10 | 0.05 | 0.15 | **0.15** | 0.00 |
+
+The logic is **sample-size-aware**: the better the instrument covering an axis, the more that axis earns. RIASEC climbs 0.45 → 0.55 as the vocational test gets more serious; weak proxies shrink (traits drops 0.15 → 0.05 the moment Big Five appears, because it becomes redundant).
+
+### Stage 2 — folding in work values (15% fixed)
+
+`VALUES_WEIGHT = 0.15`. Two cases:
+
+- **Values test NOT taken.** `userProfile.workValues` is absent, so `getWeights` returns the base table with `values: 0`. The value vectors in `careers.json` sit unused and **no renormalization happens** — the profile is simply scored on the axes it has.
+- **Values test taken.** The chosen base table is scaled by `×0.85` and values annexes the freed 0.15:
+
+  ```
+  scale = 1 - VALUES_WEIGHT            // 0.85
+  w.riasec  = base.riasec  × 0.85
+  w.paths   = base.paths   × 0.85
+  w.traits  = base.traits  × 0.85
+  w.signals = base.signals × 0.85
+  w.big5    = base.big5    × 0.85
+  w.values  = 0.15
+  ```
+
+Because **every** base axis is scaled by the same factor, the *ratios* between the other axes are preserved — values just takes a flat 15% off the top. Worked example (quick + deep Holland + Big Five): RIASEC 0.55 → 0.4675, paths 0.10 → 0.085, traits 0.05 → 0.0425, signals 0.15 → 0.1275, Big Five 0.15 → 0.1275, values 0.15. Sum = 1.00.
+
+> **Big Five cap at 0.15 (from 2026-05-02):** previously 0.25-0.30. Reduced because C was on 80%+ of careers, meaning Big Five contributed mostly "Conscientiousness?" regardless of profile. At 15% it still provides signal without dominating.
 
 Reasoning:
 
-- **Quick-only user has thin RIASEC data** (~9 votes from 6 questions), so the algorithm leans on RIASEC because that's all it has — but the *score ceiling* (§6) caps confidence to compensate.
-- **Adding any Holland test boosts RIASEC's reliability**, so its weight goes up slightly while paths/traits drop. Deep Holland is more reliable than light, so RIASEC gets even higher trust (0.70).
-- **Adding Big Five activates the 5th axis**, taking 15% — paths and traits both shrink. Signals also activate at 15% when present.
-- **All three families together** yield the most balanced weighting — the algorithm has all the signals it needs.
+- **Quick-only user has thin RIASEC data** (~9 votes from 6 questions), so the algorithm leans on RIASEC because that's all it has — but the *score ceiling* (§6) and *confidence base* (§8) both stay low to compensate.
+- **Adding any Holland test boosts RIASEC's reliability**, so its weight goes up while paths/traits drop. Deep Holland is more reliable than light, so RIASEC gets even higher trust (0.55).
+- **Adding Big Five activates that axis** at 15% — traits shrinks hardest (0.15 → 0.05) because Big Five is the better personality signal.
+- **Adding work values** never disturbs the balance between the other axes — it scales them all uniformly and takes a fixed 15%.
 
-These tables are tuned by *reasonableness*, not by validation — there's no held-out empirical study saying "0.55 RIASEC weight is optimal." If we ever get user-feedback data (top-1 match validated by user as "yes that's me"), tune these against that.
+These tables are tuned by *reasonableness*, not by validation — there's no held-out empirical study saying "0.55 RIASEC weight is optimal." Work values at 0.15 is Adi's call, pending recalibration against the P1 (RIASEC) axis after a pilot. If we ever get user-feedback data (top-1 match validated by user as "yes that's me"), tune these against that.
 
 ---
 
@@ -409,6 +444,10 @@ Constants you'll find scattered:
 ## 15. Decision log — why each major choice was made
 
 Newest first. Add to this section whenever the algorithm changes.
+
+### 2026-07-06 — Work values added as 6th axis (15% fixed, two-stage weighting)
+
+"Valorile tale" (WIL-style card sort) shipped and is now wired into matching. `getWeights` became **two-stage**: the existing five-axis base table is chosen first from test breadth, then — only if `userProfile.workValues` exists — the whole base table is scaled `×0.85` and values takes a fixed `VALUES_WEIGHT = 0.15`. Uniform scaling preserves the ratios between the other axes; values simply annexes 15% off the top. With an incomplete profile, values contributes nothing and no renormalization occurs (career value vectors stay unused). On the career side, a missing values vector while the user has one triggers `base / (1 - W.values)` so the career isn't penalized for missing DATA. `valuesCosine` is ipsative-centered (forced-distribution instrument). 184 careers backfilled with `estimated` value vectors; 15% is Adi's provisional call, to be recalibrated against the RIASEC/P1 axis after a pilot. **Also corrected in this pass:** the §5 base table had drifted stale — it showed quick-only as RIASEC 0.60 / signals 0.00, but since signals activated (2026-05-02) the real base is RIASEC 0.45 / signals 0.15 across all rows. Table now matches `apps/web/src/lib/matcher.ts`.
 
 ### 2026-05-02 — S pseudo-dimension (Stabilitate Emoțională) added
 

@@ -7334,3 +7334,515 @@ a.homeBundleRow:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* ── „Valorile tale” — WIL card sort ── */
+
+.valoriIntroLead {
+  margin: 0 0 14px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.valoriForcedNote {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  background: var(--paper-2, var(--surface));
+  border: 2px solid #000;
+  border-left: 6px solid var(--green);
+  box-shadow: 3px 3px 0 #000;
+}
+
+.valoriForcedNote strong {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.valoriForcedNote p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.valoriCard {
+  margin: 10px 0 16px;
+  padding: 22px 18px;
+  background: var(--surface);
+  border: 3px solid #000;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 #000;
+  animation: valoriCardIn 0.28s ease;
+}
+
+.valoriCard h1 {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+@keyframes valoriCardIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.valoriColumns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.valoriColumnBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 2px solid #000;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+  text-align: left;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.valoriColumnBtn:not(:disabled):hover,
+.valoriColumnBtn:not(:disabled):focus-visible {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #000;
+}
+
+.valoriColumnBtn strong {
+  font-size: 13.5px;
+}
+
+.valoriColumnBtn.isFull {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: var(--paper-2, var(--surface));
+}
+
+.valoriColumnCount {
+  flex: none;
+  padding: 3px 8px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background: var(--yellow);
+  color: var(--ink-on-bright);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.valoriColumnCount.isFull {
+  background: var(--green);
+}
+
+.valoriBoard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 14px 0 4px;
+}
+
+.valoriBoardColumn {
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--paper-2, var(--surface));
+}
+
+.valoriBoardColumnHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.valoriBoardColumnHead strong {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.valoriBoardColumnHead span {
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.valoriBoardCard {
+  display: block;
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 9px 11px;
+  background: var(--surface);
+  border: 2px solid #000;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--ink);
+  text-align: left;
+}
+
+.valoriBoardCard:last-child {
+  margin-bottom: 0;
+}
+
+.valoriBoardCard.isPicked {
+  background: var(--purple);
+  color: var(--on-accent, #fff);
+  box-shadow: 3px 3px 0 #000;
+}
+
+.valoriSwapHint {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.valoriTopValues {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 14px 0 18px;
+}
+
+.valoriTopValue {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: var(--surface);
+  border: 3px solid #000;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.valoriTopValue.isFirst {
+  background: var(--green);
+  color: var(--ink-on-bright);
+}
+
+.valoriTopValue.isFirst p,
+.valoriTopValue.isFirst small {
+  color: var(--ink-on-bright);
+  opacity: 0.85;
+}
+
+.valoriTopRank {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #000;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--ink-on-bright);
+  font-weight: 800;
+}
+
+.valoriTopValue strong {
+  display: block;
+  font-size: 16px;
+}
+
+.valoriTopValue small {
+  display: block;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  margin: 2px 0 6px;
+}
+
+.valoriTopValue p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.valoriBars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.valoriBarRow {
+  display: grid;
+  grid-template-columns: 96px 1fr 30px;
+  align-items: center;
+  gap: 10px;
+}
+
+.valoriBarLabel {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.valoriBarTrack {
+  height: 12px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  background: var(--paper-2, var(--surface));
+  overflow: hidden;
+}
+
+.valoriBarFill {
+  height: 100%;
+  background: var(--purple);
+}
+
+.valoriBarRow b {
+  font-size: 12px;
+  text-align: right;
+}
+
+.valoriScaleNote {
+  margin: 0 0 16px;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.valoriAttribution {
+  margin: 8px 0 0;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+@media (min-width: 480px) {
+  .valoriColumns {
+    gap: 9px;
+  }
+}
+
+/* ── „Valorile tale” — surfaces (profil / drum / rezultate) ── */
+
+.profileCompletenessCard {
+  margin-bottom: 12px;
+  padding: 14px;
+  background: var(--surface);
+  border: 3px solid #000;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.profileCompletenessHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.profileCompletenessHead strong {
+  font-size: 13px;
+}
+
+.profileCompletenessHead b {
+  font-size: 16px;
+  color: var(--purple);
+}
+
+.profileCompletenessTrack {
+  margin-top: 8px;
+  height: 12px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  background: var(--paper-2, var(--surface));
+  overflow: hidden;
+}
+
+.profileCompletenessFill {
+  height: 100%;
+  background: var(--green);
+  transition: width 0.4s ease;
+}
+
+.profileCompletenessCard p {
+  margin: 8px 0 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.profileTestPill {
+  position: relative;
+}
+
+.profileTestPill.isNew {
+  border-color: var(--purple);
+  box-shadow: 4px 4px 0 #000;
+}
+
+.profileTestNewBadge {
+  position: absolute;
+  top: -9px;
+  right: 8px;
+  padding: 1px 6px;
+  background: var(--green);
+  border: 2px solid #000;
+  border-radius: 3px;
+  color: var(--ink-on-bright);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.journeyOptionalCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 18px;
+  padding: 12px;
+  background: var(--surface);
+  border: 2px dashed var(--purple);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.journeyOptionalLabel {
+  flex: none;
+  writing-mode: initial;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--purple);
+  text-transform: uppercase;
+}
+
+.journeyOptionalBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.journeyOptionalBody strong {
+  display: block;
+  font-size: 13px;
+}
+
+.journeyOptionalBody small {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+.journeyOptionalXp {
+  flex: none;
+  padding: 3px 7px;
+  background: var(--paper-2, var(--surface));
+  border: 2px solid #000;
+  border-radius: 4px;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.resultValuesHook {
+  margin-top: 20px;
+  padding: 14px;
+  background: var(--surface);
+  border: 3px solid #000;
+  border-left: 6px solid var(--green);
+}
+
+.resultValuesHookTitle {
+  font-size: 13.5px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.resultValuesHookBody {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.resultValuesHookCTA {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 7px 12px;
+  background: var(--green);
+  border: 2px solid #000;
+  border-radius: 5px;
+  color: var(--ink-on-bright);
+  font-size: 11.5px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 2px 2px 0 #000;
+}
+
+/* ── „Valorile tale” — recalc reveal ── */
+
+.valoriRecalcCard {
+  margin: 0 0 18px;
+  padding: 14px;
+  background: var(--surface);
+  border: 3px solid #000;
+  border-left: 6px solid var(--purple);
+  box-shadow: 4px 4px 0 #000;
+}
+
+.valoriRecalcCard strong {
+  display: block;
+  font-size: 14px;
+}
+
+.valoriRecalcCard > p {
+  margin: 4px 0 10px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.valoriRecalcList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.valoriRecalcRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  background: var(--paper-2, var(--surface));
+  font-size: 12.5px;
+}
+
+.valoriRecalcRow b {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.valoriRecalcRow em {
+  flex: none;
+  padding: 2px 6px;
+  background: var(--green);
+  border: 2px solid #000;
+  border-radius: 4px;
+  color: var(--ink-on-bright);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.valoriRecalcRow i {
+  flex: none;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 12px;
+}

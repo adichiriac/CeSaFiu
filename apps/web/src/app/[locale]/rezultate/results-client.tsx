@@ -50,6 +50,7 @@ const SOURCE_LABELS: Record<string, string> = {
   'vocational-deep': 'Vocațional validat (O*NET)',
   'personality-15': 'Personalitate scurt',
   'ipip-neo-60':    'Big Five validat (IPIP-NEO-60)',
+  values:           'Valorile tale (O*NET WIL)',
 };
 
 const NEXT_TEST_HREFS: Record<string, string> = {
@@ -58,6 +59,7 @@ const NEXT_TEST_HREFS: Record<string, string> = {
   'ipip-neo': '/test/ipip-neo-60',
   personality: '/test/personalitate',
   quick: '/test/scenarii',
+  values: '/test/valori',
 };
 
 const CAREER_COLORS: Record<string, string> = {
@@ -139,6 +141,8 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTrigger, setModalTrigger] = useState<'auto' | 'manual'>('auto');
   const [didShareInModal, setDidShareInModal] = useState(false);
+  // Precision hook: „Valorile tale” shows only while the values test isn't done.
+  const [valuesDone, setValuesDone] = useState(true);
 
   // Auto-open the modal the first time the user reaches a ready results page.
   useEffect(() => {
@@ -174,6 +178,7 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
   useEffect(() => {
     const stored = readStoredResults();
     const hasAny = Object.values(stored).some(Boolean);
+    setValuesDone(Boolean(stored['valori']));
 
     if (!hasAny) {
       setStatus('no-data');
@@ -291,6 +296,7 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
     'vocational-deep': t('nextVocDeep'),
     'ipip-neo':       t('nextIpip'),
     personality:      t('nextPersonality'),
+    values:           t('nextValues'),
   };
 
   return (
@@ -572,9 +578,12 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
           {t.rich('honestyBody', {b: (chunks) => <b>{chunks}</b>})}
         </div>
 
-        {/* Next test CTA — suppressed for pending_parent if the suggestion is a bundle test */}
+        {/* Next test CTA — suppressed for pending_parent if the suggestion is a bundle test.
+            'values' is also suppressed here: the dedicated precision-hook card below
+            handles that conversion with better copy. */}
         {nextTest
           && nextTest.kind !== 'quick'
+          && nextTest.kind !== 'values'
           && !(profile?.consent_status === 'pending_parent' && PAID_NEXT_TEST_KINDS.has(nextTest.kind))
           && (
             <div className="resultNextTest">
@@ -621,6 +630,35 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
             </Link>
           ))}
         </div>
+
+        {/* „Valorile tale” precision hook — only while the values test isn't done.
+            This is the natural conversion point: the user is LOOKING at ties
+            they can't break (docs/WORK-VALUES-PLAN.md §UI #3). */}
+        {!valuesDone && (() => {
+          const ranked = [
+            {name: top.career.name, score: top.score},
+            ...others.map((m) => ({name: m.career.name, score: m.score})),
+          ].slice(0, 4);
+          let tiePair: [string, string] | null = null;
+          for (let i = 1; i < ranked.length; i += 1) {
+            if (Math.abs(ranked[i - 1].score - ranked[i].score) <= 3) {
+              tiePair = [ranked[i - 1].name, ranked[i].name];
+              break;
+            }
+          }
+
+          return (
+            <div className="resultValuesHook">
+              <div className="resultValuesHookTitle">
+                {tiePair ? t('valuesHookTie', {a: tiePair[0], b: tiePair[1]}) : t('valuesHookTitle')}
+              </div>
+              <p className="resultValuesHookBody">{t('valuesHookBody')}</p>
+              <Link className="resultValuesHookCTA" href={`/${locale}/test/valori`}>
+                {t('valuesHookCTA')}
+              </Link>
+            </div>
+          );
+        })()}
 
         {/* Save CTA */}
         <div className="resultSaveCard">

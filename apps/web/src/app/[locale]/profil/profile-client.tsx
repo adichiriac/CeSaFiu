@@ -66,6 +66,7 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
   const [status, setStatus] = useState<'loading' | 'empty' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
   const [completedTests, setCompletedTests] = useState(0);
+  const [testsDone, setTestsDone] = useState<Record<string, boolean>>({});
   const savedUniIds = useUniStore((state) => state.savedUniIds);
   const [constructsOpen, setConstructsOpen] = useState(false);
 
@@ -73,6 +74,7 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
     const stored = readStoredResults();
     const hasAny = Object.values(stored).some(Boolean);
     setCompletedTests(Object.values(stored).filter(Boolean).length);
+    setTestsDone(Object.fromEntries(Object.entries(stored).map(([slug, value]) => [slug, Boolean(value)])));
 
     if (!hasAny) {
       setStatus('empty');
@@ -118,6 +120,16 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
   const isFresh = !hasProfile && saved.length === 0 && savedUniversities.length === 0 && !savedPath;
   const savedTotal = saved.length + savedUniversities.length + (savedPath ? 1 : 0);
 
+  // Profile completeness — weighted count of completed instrument families
+  // (docs/WORK-VALUES-PLAN.md §UI: quiz 20 / vocational 20 / personality 20 /
+  // values 20 / deep tests 20). Deep tests count once, whichever came first.
+  const completeness =
+    (testsDone['scenarii'] ? 20 : 0) +
+    (testsDone['vocational'] || testsDone['vocational-deep'] ? 20 : 0) +
+    (testsDone['personalitate'] || testsDone['ipip-neo-60'] ? 20 : 0) +
+    (testsDone['valori'] ? 20 : 0) +
+    (testsDone['ipip-neo-60'] || testsDone['vocational-deep'] ? 20 : 0);
+
   return (
     <main className="profilePage">
       <section className="profileCanvas">
@@ -144,7 +156,7 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
             <p>{savedPathName ? t('identityWithPath', {path: savedPathName}) : t('identityLead')}</p>
           </div>
           <div className="profileIdentityStats">
-            <a href="#profile-tests"><span>{t('testsDone')}</span><strong>{t('testsProgress', {count: completedTests, total: 5})}</strong></a>
+            <a href="#profile-tests"><span>{t('testsDone')}</span><strong>{t('testsProgress', {count: completedTests, total: 6})}</strong></a>
             <a href="#profile-saved-careers"><span>{t('saved')}</span><strong>{savedTotal}</strong></a>
             <a href="#profile-top-career"><span>{t('matches')}</span><strong>{topMatches.length}</strong></a>
             <a href="#profile-path"><span>{t('pathStat')}</span><strong>{savedPath ? '✓' : '—'}</strong></a>
@@ -351,17 +363,47 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
           <div className="profileSectionHeader">
             <h2>{t('testsBarTitle', {count: completedTests})}</h2>
           </div>
+
+          {/* Profile completeness (WORK-VALUES-PLAN §UI) */}
+          <div className="profileCompletenessCard">
+            <div className="profileCompletenessHead">
+              <strong>{t('completenessTitle')}</strong>
+              <b>{completeness}%</b>
+            </div>
+            <div aria-valuemax={100} aria-valuemin={0} aria-valuenow={completeness} className="profileCompletenessTrack" role="progressbar">
+              <div className="profileCompletenessFill" style={{width: `${completeness}%`}} />
+            </div>
+            <p>
+              {!testsDone['valori']
+                ? t.rich('completenessHintValues', {b: (chunks) => <b>{chunks}</b>})
+                : completeness < 100
+                  ? t('completenessHintMore')
+                  : t('completenessHintDone')}
+            </p>
+          </div>
+
           <div className="profileTestsRail">
-            {[
-              {key: 'scenarii', label: t('testScenarios'), href: `/${locale}/test/scenarii`, done: completedTests > 0, icon: '✦'},
-              {key: 'personalitate', label: t('testPersonality'), href: `/${locale}/test/personalitate`, done: Boolean(userProfile?.big5), icon: '◆'},
-              {key: 'vocational', label: t('testVocational'), href: `/${locale}/test/vocational`, done: Boolean(userProfile?.riasec), icon: '◉'},
-              {key: 'ipip', label: t('testComplete'), href: `/${locale}/test/ipip-neo-60`, done: false, icon: '✓'},
-            ].map((test) => (
-              <Link className={test.done ? 'profileTestPill isDone' : 'profileTestPill'} href={test.href} key={test.key}>
+            {([
+              {key: 'scenarii', label: t('testScenarios'), href: `/${locale}/test/scenarii`, done: testsDone['scenarii'] ?? false, icon: '✦', isNew: false},
+              {key: 'vocational', label: t('testVocational'), href: `/${locale}/test/vocational`, done: testsDone['vocational'] ?? false, icon: '◉', isNew: false},
+              {key: 'personalitate', label: t('testPersonality'), href: `/${locale}/test/personalitate`, done: testsDone['personalitate'] ?? false, icon: '◆', isNew: false},
+              {key: 'valori', label: t('testValues'), href: `/${locale}/test/valori`, done: testsDone['valori'] ?? false, icon: '♦', isNew: true, meta: t('testValuesMeta')},
+              {key: 'ipip', label: t('testComplete'), href: `/${locale}/test/ipip-neo-60`, done: testsDone['ipip-neo-60'] ?? false, icon: '✓', isNew: false},
+              {key: 'vocational-deep', label: t('testVocationalDeep'), href: `/${locale}/test/vocational-deep`, done: testsDone['vocational-deep'] ?? false, icon: '◎', isNew: false},
+            ] as Array<{key: string; label: string; href: string; done: boolean; icon: string; isNew: boolean; meta?: string}>).map((test) => (
+              <Link
+                className={[
+                  'profileTestPill',
+                  test.done ? 'isDone' : '',
+                  test.isNew && !test.done ? 'isNew' : '',
+                ].filter(Boolean).join(' ')}
+                href={test.href}
+                key={test.key}
+              >
+                {test.isNew && !test.done ? <mark className="profileTestNewBadge">{t('testNewBadge')}</mark> : null}
                 <span>{test.icon}</span>
                 <strong>{test.label}</strong>
-                <small>{test.done ? t('testDone') : t('testTodo')}</small>
+                <small>{test.done ? t('testDone') : test.meta ?? t('testTodo')}</small>
               </Link>
             ))}
           </div>

@@ -132,6 +132,39 @@
     "likertHint": "Cât de mult ți se potrivește?",
     "autosaveNote": "Răspunsurile se salvează automat pe acest dispozitiv"
   },
+  "valori": {
+    "eyebrow": "Valorile tale · O*NET WIL",
+    "missionLabel": "Sortare în curs",
+    "progressCompleted": "{progress}% completat",
+    "introLead": "RIASEC îți spune domeniul, Big Five temperamentul. Valorile de muncă separă joburi din același domeniu cu vieți complet diferite. Sortezi 20 de carduri în 5 coloane — durează vreo 5 minute.",
+    "forcedNoteTitle": "Regula jocului",
+    "startCTA": "Începe sortarea →",
+    "columnsAria": "Alege coloana de importanță",
+    "columnFull": "PLIN",
+    "backLabel": "Înapoi",
+    "homeLabel": "Landing",
+    "restartLabel": "Refă testul",
+    "autosaveNote": "Alegerile se salvează automat pe acest dispozitiv",
+    "reviewEyebrow": "Ultimul pas",
+    "reviewTitle": "Verifică-ți sortarea",
+    "reviewHint": "Atinge două carduri ca să le schimbi între ele. Coloanele rămân fixe: 4 carduri fiecare.",
+    "swapHint": "Ai ales un card — atinge altul ca să le schimbi între ele.",
+    "finishCTA": "Vezi valorile tale →",
+    "resultEyebrow": "Rezultat local",
+    "resultTitle": "Ce contează pentru tine la un job",
+    "scaleNote": "Scor pe scala {min}–{max}, metoda oficială O*NET WIL.",
+    "resultsCTA": "VEZI CARIERELE POTRIVITE →",
+    "saveNote": "Rezultatul este salvat doar local, în browserul tău.",
+    "resumeEyebrow": "Bine ai revenit",
+    "resumeTitle": "Ai o sortare începută",
+    "resumeBody": "Ai rămas la cardul {current} din {total}. Alegerile tale sunt salvate.",
+    "resumeContinue": "Continuă de unde am rămas",
+    "resumeRestart": "Începe din nou",
+    "columnPoints": "{points} puncte",
+    "recalcTitle": "Match-ul tău s-a recalculat",
+    "recalcBody": "{count, plural, one {O carieră a urcat} few {# cariere au urcat} other {# de cariere au urcat}} după ce am adăugat valorile tale.",
+    "recalcUp": "+{delta} {delta, plural, one {loc} few {locuri} other {de locuri}}"
+  },
   "pwa": {
     "installTitle": "Pune CeSaFiu pe ecran",
     "installBody": "Rezultatele tale, la un tap. Se deschide ca o aplicație, fără store.",
@@ -208,7 +241,12 @@
     "paidBlockedCTA": "NEVOIE DE ACORD PĂRINTE",
     "paidDisclaimer": "Va deveni pachet plătit mai târziu. Acum îl testăm gratuit în pilot. Sub 16 ani: disponibil după acordul unui părinte sau tutore.",
     "browseCTA": "EXPLOREAZĂ TOATE CARIERELE →",
-    "reopenShareLabel": "Trimite cardul tău"
+    "reopenShareLabel": "Trimite cardul tău",
+    "valuesHookTie": "{a} și {b} îți ies la egalitate.",
+    "valuesHookTitle": "Vrei un match mai precis între cariere similare?",
+    "valuesHookBody": "Rezultatul e calibrat pe interese + personalitate. Valorile de muncă departajează cariere din același domeniu cu vieți diferite.",
+    "valuesHookCTA": "Sortează valorile · 5 min →",
+    "nextValues": "Valorile tale (5 min)"
   },
   "shareableCard": {
     "eyebrow": "CARDUL TĂU",
@@ -435,7 +473,15 @@
     "parentShareText": "Am făcut profilul Ce Să Fiu. Direcția principală: {career}. Alternative salvate: {count}. Vezi profilul: {url}",
     "retake": "REIA QUIZ-UL ↻",
     "emptyTitle": "Profil indisponibil",
-    "emptyBody": "Nu am putut citi datele locale. Reia testul și încercăm din nou."
+    "emptyBody": "Nu am putut citi datele locale. Reia testul și încercăm din nou.",
+    "completenessTitle": "Profilul tău",
+    "completenessHintValues": "Adaugă <b>valorile de muncă</b> ca să separi cariere care îți ies la egalitate.",
+    "completenessHintMore": "Fiecare test completat face match-ul mai precis.",
+    "completenessHintDone": "Profil complet — match-ul folosește tot ce știm despre tine.",
+    "testValues": "Valorile tale",
+    "testValuesMeta": "Sortezi 20 de carduri · 5 min",
+    "testVocationalDeep": "Vocațional complet",
+    "testNewBadge": "NOU"
   },
   "browse": {
     "brandCe": "Ce",
@@ -653,6 +699,10 @@
     "loading": "Se încarcă drumul tău...",
     "realitySafety": "Siguranță: pentru întâlniri sau discuții cu persoane necunoscute, implică un părinte sau un adult de încredere.",
     "resetLabel": "Șterge jurnalul și progresul",
-    "resetConfirm": "Sigur? Se șterg definitiv pașii bifați și impresiile salvate. Testele și carierele salvate rămân."
+    "resetConfirm": "Sigur? Se șterg definitiv pașii bifați și impresiile salvate. Testele și carierele salvate rămân.",
+    "optionalValuesLabel": "Pas opțional",
+    "optionalValuesTitle": "Descoperă-ți valorile",
+    "optionalValuesSub": "Ce contează pentru tine la un job · 5 min",
+    "optionalValuesXp": "+40 XP"
   }
 }

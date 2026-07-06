@@ -1,0 +1,82 @@
+{
+  "name": "Valorile tale",
+  "subtitle": "Sortezi 20 de carduri · 5 min",
+  "source": "O*NET Work Importance Locator (WIL) v3.0 — U.S. Department of Labor / ETA. Need→value mapping and multipliers per the official WIL User's Guide (onetcenter.org/dl_files/WIL_zips/WIL-UG-deskp.pdf). NOT the retired Work Importance Profiler (WIP).",
+  "attribution": "Bazat pe O*NET® Work Importance Locator™, U.S. Department of Labor / ETA, licență CC BY 4.0. Adaptare românească Ce Să Fiu — nevalidată pe populația RO.",
+  "disclaimer": "Instrumentul original e validat în engleză. Traducerea românească e versiunea 1, nevalidată — folosește rezultatul ca punct de plecare pentru explorare, nu ca verdict.",
+  "framing": "Gândește-te la jobul tău ideal. Cât de important e ca...",
+  "forcedChoiceNote": "Aici e șmecheria: fiecare coloană ține fix 4 carduri. Nu poți pune tot la „cele mai importante” — trebuie să alegi. Niciun job nu îți dă tot.",
+  "columns": [
+    {"points": 5, "label": "Cele mai importante"},
+    {"points": 4, "label": "Foarte importante"},
+    {"points": 3, "label": "Importante"},
+    {"points": 2, "label": "Puțin importante"},
+    {"points": 1, "label": "Cele mai puțin importante"}
+  ],
+  "cardsPerColumn": 4,
+  "scoring": {
+    "note": "Per WIL User's Guide: value score = sum of column points of its need statements × multiplier. Achievement (2 needs) ×3, the four 3-need values ×2, Working Conditions (6 needs) ×1. All six land on the same 6–30 scale. Percent for UI bars = (score − 6) / 24 × 100.",
+    "min": 6,
+    "max": 30
+  },
+  "items": [
+    {"id": "wv-ability-utilization", "need": "Ability Utilization", "value": "achievement", "text": "Să îți folosești abilitățile la maximum"},
+    {"id": "wv-achievement", "need": "Achievement", "value": "achievement", "text": "Munca să îți dea sentimentul că ai realizat ceva"},
+    {"id": "wv-activity", "need": "Activity", "value": "conditions", "text": "Să ai mereu ceva de făcut"},
+    {"id": "wv-advancement", "need": "Advancement", "value": "recognition", "text": "Jobul să îți ofere șanse reale de avansare"},
+    {"id": "wv-authority", "need": "Authority", "value": "recognition", "text": "Să poți coordona și îndruma alți oameni"},
+    {"id": "wv-company-policies", "need": "Company Policies and Practices", "value": "support", "text": "Compania să te trateze corect"},
+    {"id": "wv-compensation", "need": "Compensation", "value": "conditions", "text": "Salariul tău să fie bun față de al altora din domeniu"},
+    {"id": "wv-coworkers", "need": "Co-Workers", "value": "relationships", "text": "Colegii să fie oameni cu care te înțelegi ușor"},
+    {"id": "wv-creativity", "need": "Creativity", "value": "independence", "text": "Să îți poți pune în practică propriile idei"},
+    {"id": "wv-independence-need", "need": "Independence", "value": "conditions", "text": "Să poți lucra singur(ă), în ritmul tău"},
+    {"id": "wv-moral-values", "need": "Moral Values", "value": "relationships", "text": "Să nu fii presat(ă) să faci lucruri care ți se par greșite"},
+    {"id": "wv-recognition", "need": "Recognition", "value": "recognition", "text": "Să primești recunoaștere pentru munca ta"},
+    {"id": "wv-responsibility", "need": "Responsibility", "value": "independence", "text": "Să poți lua decizii pe cont propriu"},
+    {"id": "wv-security", "need": "Security", "value": "conditions", "text": "Jobul să îți ofere siguranță și stabilitate"},
+    {"id": "wv-social-service", "need": "Social Service", "value": "relationships", "text": "Să poți face lucruri pentru alți oameni"},
+    {"id": "wv-supervision-hr", "need": "Supervision, Human Relations", "value": "support", "text": "Șefii să își susțină oamenii în fața conducerii"},
+    {"id": "wv-supervision-tech", "need": "Supervision, Technical", "value": "support", "text": "Să ai șefi care își pregătesc bine oamenii"},
+    {"id": "wv-variety", "need": "Variety", "value": "conditions", "text": "Să faci ceva diferit în fiecare zi"},
+    {"id": "wv-working-conditions", "need": "Working Conditions", "value": "conditions", "text": "Condițiile de muncă să fie bune (program, mediu, spațiu)"},
+    {"id": "wv-autonomy", "need": "Autonomy", "value": "independence", "text": "Să îți poți organiza singur(ă) munca, fără supraveghere strictă"}
+  ],
+  "values": {
+    "achievement": {
+      "name": "Realizare",
+      "short": "Rezultate care se văd",
+      "multiplier": 3,
+      "desc": "Cauți joburi unde îți folosești abilitățile la maximum și vezi rezultatul muncii tale. Rutina fără sens te stinge — ai nevoie de sentimentul că ai construit ceva."
+    },
+    "independence": {
+      "name": "Independență",
+      "short": "Decizi singur(ă)",
+      "multiplier": 2,
+      "desc": "Vrei să iei propriile decizii și să lucrezi din proprie inițiativă. Cauți roluri cu autonomie reală — micromanagementul te consumă."
+    },
+    "recognition": {
+      "name": "Recunoaștere",
+      "short": "Avansare + prestigiu",
+      "multiplier": 2,
+      "desc": "Contează să poți avansa, să fii apreciat(ă) și să ai șansa de a conduce. Cauți medii unde meritul se vede și e răsplătit."
+    },
+    "relationships": {
+      "name": "Relații",
+      "short": "Oameni + sens",
+      "multiplier": 2,
+      "desc": "Contează oamenii: colegi cu care te înțelegi, șansa de a-i ajuta pe alții și un mediu care nu te pune în conflict cu valorile tale."
+    },
+    "support": {
+      "name": "Suport",
+      "short": "Companie care te susține",
+      "multiplier": 2,
+      "desc": "Vrei o companie care își susține oamenii și șefi competenți și corecți. Contează să nu fii lăsat(ă) singur(ă) când e greu."
+    },
+    "conditions": {
+      "name": "Condiții",
+      "short": "Siguranță + salariu + varietate",
+      "multiplier": 1,
+      "desc": "Contează cadrul concret: siguranța jobului, salariul, varietatea și condițiile în care lucrezi zi de zi."
+    }
+  }
+}

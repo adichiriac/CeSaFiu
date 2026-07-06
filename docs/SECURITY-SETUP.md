@@ -81,7 +81,7 @@ There is no admin UI yet. Triage from the Supabase dashboard:
 
 ```sql
 -- Recent feedback, newest first
-select created_at, rating, category, message, page_path, spam_score, status
+select created_at, rating, category, message, page_path, context->>'pageUrl' as page_url, spam_score, status
 from feedback_submissions
 order by created_at desc
 limit 50;
@@ -93,7 +93,7 @@ where rating = 5 and message is not null and spam_score < 0.5
 order by created_at desc;
 
 -- Bug reports
-select message, page_path, locale, created_at
+select message, page_path, context->>'pageUrl' as page_url, locale, created_at
 from feedback_submissions
 where category = 'bug' and status = 'new'
 order by created_at desc;
