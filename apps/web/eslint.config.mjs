@@ -9,7 +9,11 @@ export default tseslint.config(
       '.next/**',
       'node_modules/**',
       'messages/**',
-      'next-env.d.ts'
+      'next-env.d.ts',
+      'public/sw.js',
+      'public/sw.js.map',
+      'public/worker-*.js',
+      'public/worker-*.js.map'
     ]
   },
   js.configs.recommended,

@@ -449,17 +449,18 @@ function ParentShareCard({
 
   function shareProfile() {
     const url = `${window.location.origin}/${locale}/profil`;
-    const text = t('parentShareText', {career: careerName, count: savedCount, url});
+    const text = t('parentShareText', {career: careerName, count: savedCount});
+    const clipboardText = `${text} ${url}`;
 
     // Journey signal: sharing with a parent completes the last journey step.
     markShareCardSeen();
 
     if (navigator.share) {
-      void navigator.share({text, url}).catch(() => undefined);
+      void navigator.share({title: t('parentShareTitle'), text, url}).catch(() => undefined);
       return;
     }
 
-    void navigator.clipboard?.writeText(text);
+    void navigator.clipboard?.writeText(clipboardText);
   }
 
   return (
