@@ -2995,5 +2995,70 @@
     ],
     "notes": "Departamentul de Asistență Medicală și Kinetoterapie.",
     "url": "https://www.upit.ro/"
+  },
+  {
+    "id": "iuls",
+    "name": "IULS — Universitatea de Științele Vieții „Ion Ionescu de la Brad” din Iași",
+    "city": "Iași",
+    "tier": "GOOD",
+    "kind": "stat",
+    "tags": [
+      "agro",
+      "veterinar",
+      "alimentar"
+    ],
+    "domains": [
+      "Agronomie",
+      "Horticultură",
+      "Zootehnie",
+      "Medicină Veterinară",
+      "Ingineria produselor alimentare"
+    ],
+    "notes": "Fostă USAMV Iași; admitere pe bază de dosar (note bacalaureat).",
+    "url": "https://iuls.ro"
+  },
+  {
+    "id": "usamv-bucuresti",
+    "name": "USAMV — Universitatea de Științe Agronomice și Medicină Veterinară din București",
+    "city": "București",
+    "tier": "GOOD",
+    "kind": "stat",
+    "tags": [
+      "agro",
+      "veterinar",
+      "biotehnologii"
+    ],
+    "domains": [
+      "Agronomie",
+      "Horticultură",
+      "Biotehnologii",
+      "Zootehnie",
+      "Medicină Veterinară",
+      "Ingineria mediului",
+      "Management rural"
+    ],
+    "notes": "Admitere pe dosar: 70% media bacalaureat + 30% o probă la alegere (Med. Vet.: 50% probă scrisă + 50% bac).",
+    "url": "https://www.usamv.ro"
+  },
+  {
+    "id": "utcb",
+    "name": "Universitatea Tehnică de Construcții București",
+    "city": "București",
+    "tier": "GOOD",
+    "kind": "stat",
+    "tags": [
+      "construcții",
+      "inginerie"
+    ],
+    "domains": [
+      "Construcții civile",
+      "Căi ferate, drumuri și poduri",
+      "Hidrotehnică",
+      "Instalații",
+      "Geodezie",
+      "Inginerie mecanică"
+    ],
+    "notes": "Admitere pe bază de dosar (media bacalaureat).",
+    "url": "https://www.utcb.ro"
   }
 ]
