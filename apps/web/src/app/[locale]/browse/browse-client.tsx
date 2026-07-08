@@ -7,7 +7,7 @@ import Link from 'next/link';
 import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import type {Career} from '@/lib/matcher';
-import type {Institution, PathEntry, Program} from '@/lib/careers/types';
+import type {AdmissionDetail, Institution, PathEntry, Program} from '@/lib/careers/types';
 import {COLLECTION_IDS, inCollection, matchedInstitutions, type CollectionId} from '@/lib/careers/collections';
 import {trackEvent} from '@/lib/analytics/umami';
 import {useMatches} from '@/lib/results/use-matches';
@@ -46,6 +46,49 @@ const PATH_TEXT: Record<string, string> = {
   facultate: '#000', autodidact: '#000', antreprenor: '#fff',
   mixt: '#000', bootcamp: '#000', profesional: '#000', creator: '#000', freelance: '#000',
 };
+
+// ── Admission detail (see AdmissionSummary) ─────────────────────────────────────
+const ADMISSION_TYPE: Record<string, {key: string; glyph: string}> = {
+  'test-grila': {key: 'admTypeTestGrila', glyph: '📝'},
+  dosar: {key: 'admTypeDosar', glyph: '📄'},
+  mixt: {key: 'admTypeMixt', glyph: '🧮'},
+  'proba-aptitudini': {key: 'admTypeProba', glyph: '🎨'},
+  'examen-scris': {key: 'admTypeExamen', glyph: '✍️'},
+  'proba-scrisa': {key: 'admTypeExamen', glyph: '✍️'},
+  'test-scris': {key: 'admTypeExamen', glyph: '✍️'},
+};
+// Calendar keys are Romanian domain terms (the deadline values are RO too).
+const ADMISSION_CAL_LABEL: Record<string, string> = {
+  preinscriere: 'Preînscriere', preAdmitere: 'Pre-admitere', inscriere: 'Înscriere',
+  completareDosar: 'Completare dosar', proba: 'Probă', probe: 'Probe', concurs: 'Concurs',
+  rezultate: 'Rezultate', rezultateInitiale: 'Rezultate inițiale', rezultateFinale: 'Rezultate finale',
+  confirmare: 'Confirmare', plataTaxa: 'Plata taxei',
+};
+const humanizeKey = (s: string) =>
+  s.charAt(0).toUpperCase() + s.slice(1).replace(/([A-Z])/g, ' $1');
+
+function admissionFee(fees?: AdmissionDetail['fees']): string | null {
+  if (!fees) return null;
+  const cur = fees.currency === 'RON' ? 'lei' : (fees.currency ?? '');
+  if (typeof fees.application === 'number') return `${fees.application} ${cur}`.trim();
+  if (typeof fees.note === 'string') return fees.note;
+  return null;
+}
+function admissionSeats(seats?: AdmissionDetail['seats']): string | null {
+  if (!seats) return null;
+  const total = seats.buget_taxa_total ?? seats.total;
+  if (typeof total === 'number') return `~${total}`;
+  const buget = seats.buget;
+  const taxa = seats.taxa;
+  if (typeof buget === 'number' || typeof taxa === 'number') {
+    return [
+      typeof buget === 'number' ? `${buget} buget` : null,
+      typeof taxa === 'number' ? `${taxa} taxă` : null,
+    ].filter(Boolean).join(' · ');
+  }
+  if (typeof seats.note === 'string') return seats.note;
+  return null;
+}
 
 const UNI_TAGS = ['all', 'IT', 'medicină', 'business', 'artă', 'umaniste', 'inginerie', 'antreprenoriat', 'profesional', 'autodidact'];
 const UNI_TIER_COLORS: Record<string, {background: string; color: string}> = {
@@ -800,6 +843,153 @@ function UnisBrowse({
   );
 }
 
+// ── Admission summary (collapsed by default; "check admission" journey step) ─────
+function AdmissionSummary({detail, t}: {detail: AdmissionDetail; t: TFunc}) {
+  const [open, setOpen] = useState(false);
+  const typeInfo = ADMISSION_TYPE[detail.competitionType];
+  const typeLabel = typeInfo ? t(typeInfo.key) : detail.competitionType;
+  const fee = admissionFee(detail.fees);
+  const seats = admissionSeats(detail.seats);
+  const calendar = Object.entries(detail.calendar ?? {}).filter(
+    (entry): entry is [string, string] => typeof entry[1] === 'string',
+  );
+  const tiebreak = detail.tiebreak ?? [];
+  const hasChips = fee !== null || seats !== null || typeof detail.minGrade === 'number';
+  const pending = (detail.verification?.pendingFields ?? []).length > 0;
+
+  return (
+    <div className="browseAdmission">
+      <button
+        aria-expanded={open}
+        className="browseAdmissionToggle"
+        onClick={() => setOpen((prev) => !prev)}
+        type="button"
+      >
+        <span className="browseAdmissionLead">
+          <span aria-hidden="true">{typeInfo?.glyph ?? '🎓'}</span>
+          <span className="browseAdmissionKicker">{t('admHowToEnter')}</span>
+          <b>{typeLabel}</b>
+        </span>
+        <span aria-hidden="true">{open ? '▲' : '▾'}</span>
+      </button>
+
+      {open ? (
+        <div className="browseAdmissionBody">
+          {detail.formula || detail.testStructure ? (
+            <div className="browseAdmissionRow">
+              <span className="browseAdmissionLabel">{t('admFormula')}</span>
+              {detail.formula ? <p>{detail.formula}</p> : null}
+              {detail.testStructure ? <p className="browseAdmissionSub">{detail.testStructure}</p> : null}
+            </div>
+          ) : null}
+
+          {calendar.length > 0 ? (
+            <div className="browseAdmissionRow">
+              <span className="browseAdmissionLabel">{t('admCalendar')}</span>
+              <ul className="browseAdmissionCal">
+                {calendar.map(([key, value]) => (
+                  <li key={key}>
+                    <b>{ADMISSION_CAL_LABEL[key] ?? humanizeKey(key)}:</b> {value}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {hasChips ? (
+            <div className="browseAdmissionChips">
+              {typeof detail.minGrade === 'number' ? (
+                <span>🎯 {t('admMinGrade')} {detail.minGrade.toFixed(2).replace('.', ',')}</span>
+              ) : null}
+              {fee ? <span>💰 {t('admFee')} {fee}</span> : null}
+              {seats ? <span>🎓 {t('admSeats')} {seats}</span> : null}
+            </div>
+          ) : null}
+
+          {tiebreak.length > 0 ? (
+            <p className="browseAdmissionTie">
+              <b>{t('admTiebreak')}:</b> {tiebreak.join(' → ')}
+            </p>
+          ) : null}
+
+          {pending ? <p className="browseAdmissionPending">{t('admPending')}</p> : null}
+
+          {detail.verification?.sourceUrl ? (
+            <a
+              className="browseAdmissionSource"
+              href={detail.verification.sourceUrl}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              ✓ {t('admVerified')} <span aria-hidden="true">↗</span>
+            </a>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function ProgramCard({
+  careersById,
+  link,
+  program,
+  t,
+  uni,
+}: {
+  careersById: Record<string, Career>;
+  link: {url: string; isFallback: boolean};
+  program: Program;
+  t: TFunc;
+  uni: Institution;
+}) {
+  const programUrl = program.url || (
+    link.isFallback
+      ? `https://www.google.com/search?q=${encodeURIComponent(`${uni.name} ${program.name}`)}`
+      : link.url
+  );
+  const careerNames = (program.careerIds ?? [])
+    .map((careerId) => careersById[careerId]?.name)
+    .filter(Boolean)
+    .slice(0, 3);
+
+  return (
+    <div className="browseUniProgramCard">
+      <a
+        className="browseUniProgramLink"
+        href={programUrl}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <div className="browseUniProgramHeader">
+          <strong>{program.name}</strong>
+          <span aria-hidden="true">↗</span>
+        </div>
+        <div className="browseUniProgramMeta">
+          {program.duration ? <span>{program.duration}</span> : null}
+          {program.pathType ? (
+            <span
+              style={{
+                background: PATH_COLOR[program.pathType] ?? '#fff',
+                color: PATH_TEXT[program.pathType] ?? '#000',
+              }}
+            >
+              {PATH_LABEL[program.pathType] ?? program.pathType.toUpperCase()}
+            </span>
+          ) : null}
+          {(program.language ?? []).slice(0, 2).map((language) => (
+            <span key={language}>{language.toUpperCase()}</span>
+          ))}
+          {careerNames.map((careerName) => (
+            <span className="isCareer" key={careerName}>→ {careerName}</span>
+          ))}
+        </div>
+      </a>
+      {program.admissionDetail ? <AdmissionSummary detail={program.admissionDetail} t={t} /> : null}
+    </div>
+  );
+}
+
 function UniDetail({
   careersById,
   isSaved,
@@ -871,51 +1061,16 @@ function UniDetail({
         <section className="browseUniDetailSection">
           <h3>{t('uniProgramsTitle', {count: programs.length})}</h3>
           <div className="browseUniProgramList">
-            {programs.map((program) => {
-              const programUrl = program.url || (
-                link.isFallback
-                  ? `https://www.google.com/search?q=${encodeURIComponent(`${uni.name} ${program.name}`)}`
-                  : link.url
-              );
-              const careerNames = (program.careerIds ?? [])
-                .map((careerId) => careersById[careerId]?.name)
-                .filter(Boolean)
-                .slice(0, 3);
-
-              return (
-                <a
-                  className="browseUniProgramCard"
-                  href={programUrl}
-                  key={program.id}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div className="browseUniProgramHeader">
-                    <strong>{program.name}</strong>
-                    <span aria-hidden="true">↗</span>
-                  </div>
-                  <div className="browseUniProgramMeta">
-                    {program.duration ? <span>{program.duration}</span> : null}
-                    {program.pathType ? (
-                      <span
-                        style={{
-                          background: PATH_COLOR[program.pathType] ?? '#fff',
-                          color: PATH_TEXT[program.pathType] ?? '#000',
-                        }}
-                      >
-                        {PATH_LABEL[program.pathType] ?? program.pathType.toUpperCase()}
-                      </span>
-                    ) : null}
-                    {(program.language ?? []).slice(0, 2).map((language) => (
-                      <span key={language}>{language.toUpperCase()}</span>
-                    ))}
-                    {careerNames.map((careerName) => (
-                      <span className="isCareer" key={careerName}>→ {careerName}</span>
-                    ))}
-                  </div>
-                </a>
-              );
-            })}
+            {programs.map((program) => (
+              <ProgramCard
+                careersById={careersById}
+                key={program.id}
+                link={link}
+                program={program}
+                t={t}
+                uni={uni}
+              />
+            ))}
           </div>
         </section>
       ) : null}

@@ -64,6 +64,8 @@ Teens return for **utility**, not engagement mechanics. Give them data they can'
 - "Your grades vs. this program" reality check (self-reported medie → honest feasibility framing, with the usual hedges).
 - This is also what our deadline-only notification principle finally fires on: notifications tied to Bac/admission dates, nothing else. Makes `/drum`'s "Verifică admiterea" step live instead of manual.
 - Data risk: cutoff data is scattered per university. Start with top ~20 institutions by user interest; mark coverage honestly.
+- **Shipped (2026-07-09):** per-faculty `admissionDetail` (formula, calendar, fees, seats, tiebreak, verified source) on 149 programs across Iași/București/Cluj/Timișoara + Bucharest privates; surfaced in the Browse uni-detail panel as a compact "Cum intri" accordion (Variant A), right where `/drum`'s "Verifică admiterea" step lands.
+- **Deferred (decide based on need):** reuse the `AdmissionSummary` component in the Rezultate list and the Cariera → "Școli" tab. Held back deliberately — Browse is where the journey's admission step points, so the other surfaces are additive polish, not core. Revisit if usage shows students want admission criteria inline on results/career pages.
 
 ### P5 — Story-format shareability (NEW)
 

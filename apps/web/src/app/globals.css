@@ -4313,6 +4313,132 @@ a.homeBundleRow:hover {
   color: var(--ink-on-bright);
 }
 
+/* ── Admission summary (collapsed by default inside each program card) ────────── */
+.browseUniProgramLink {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.browseAdmission {
+  margin-top: 12px;
+  border-top: 2px solid #000;
+  padding-top: 10px;
+}
+
+.browseAdmissionToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 0;
+  color: var(--ink);
+  font: inherit;
+}
+
+.browseAdmissionLead {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+}
+
+.browseAdmissionKicker {
+  color: var(--ink-soft);
+}
+
+.browseAdmissionLead b {
+  font-weight: 900;
+}
+
+.browseAdmissionBody {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.browseAdmissionRow p {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 2px 0 0;
+}
+
+.browseAdmissionSub {
+  color: var(--ink-soft);
+  font-size: 12px !important;
+}
+
+.browseAdmissionLabel {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.browseAdmissionCal {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.browseAdmissionCal b {
+  font-weight: 900;
+}
+
+.browseAdmissionChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.browseAdmissionChips span {
+  border: 2px solid #000;
+  background: var(--paper-2);
+  color: var(--ink);
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.browseAdmissionTie {
+  font-size: 12px;
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.browseAdmissionTie b {
+  font-weight: 900;
+}
+
+.browseAdmissionPending {
+  font-size: 11px;
+  margin: 0;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.browseAdmissionSource {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--green-ink);
+  text-decoration: none;
+}
+
 .browseUniStickerRow,
 .browseUniHashRow {
   display: flex;
