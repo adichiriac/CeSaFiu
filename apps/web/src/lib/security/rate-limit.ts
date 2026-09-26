@@ -108,7 +108,16 @@ export async function checkRateLimit(args: {
     checks.push(userLimiter.limit(args.userId).then((result) => ({kind: 'user', result})));
   }
 
-  const results = await Promise.all(checks);
+  let results: Awaited<(typeof checks)[number]>[];
+  try {
+    results = await Promise.all(checks);
+  } catch (error) {
+    // Rate limiting is an abuse-prevention layer, not a hard dependency.
+    // Keep user flows available when Upstash is temporarily unreachable or
+    // misconfigured, while leaving a useful signal in the server logs.
+    console.error('rate-limit: check_failed, failing open', error);
+    return {ok: true, blockedBy: null, retryAfterSeconds: -1};
+  }
 
   // Prefer reporting "user" over "ip" when both are blocked — the user
   // identity is more specific and the error message is more useful.
