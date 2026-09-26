@@ -327,9 +327,24 @@ function hashAnonSession(token: string, ipHash: string): string {
 
 // Keep handlers explicit — Next will return 405 for the others by default.
 export async function GET() {
-  // Cheap reachability probe so we don't have to deploy + open the widget
-  // just to confirm the route exists. Doesn't return any state.
-  return new NextResponse(null, {status: 204});
+  // Lightweight database probe used by the scheduled keep-alive. It returns
+  // no rows or project details, but the query counts as real project activity.
+  const supabase = getSupabaseAdminClient();
+  if (!supabase) {
+    return NextResponse.json({error: 'not_configured'}, {status: 503});
+  }
+
+  const {error} = await supabase
+    .from('feedback_submissions')
+    .select('id', {head: true})
+    .limit(1);
+
+  if (error) {
+    console.error('feedback: health_check_failed', {error: error.message});
+    return NextResponse.json({error: 'database_unavailable'}, {status: 503});
+  }
+
+  return noContent();
 }
 
 // Reject anything else with a 405.

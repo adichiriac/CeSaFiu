@@ -17,6 +17,9 @@
   --yellow-ink: #7a6400;
   --purple-ink: #4c27a0;
   --green-ink: #3a6b00;
+  --error-bg: #ffd6d6;
+  --error-ink: #1d1c17;
+  --error-line: #000;
   --white: #fff;
   /* Theming tokens: --surface = card/panel backgrounds (darkens in dark mode);
      --on-accent = text/icons sitting on colored or black fills (stays light). */
@@ -60,6 +63,9 @@
     --yellow-ink: #ffe170;
     --purple-ink: #c9b3f5;
     --green-ink: #a9f900;
+    --error-bg: #4a2027;
+    --error-ink: #ffe7e7;
+    --error-line: #ff8f9d;
   }
   :root:not([data-theme='light']) .progress {
     background: var(--paper-2);
@@ -81,6 +87,9 @@
   --yellow-ink: #ffe170;
   --purple-ink: #c9b3f5;
   --green-ink: #a9f900;
+  --error-bg: #4a2027;
+  --error-ink: #ffe7e7;
+  --error-line: #ff8f9d;
 }
 :root[data-theme='dark'] .progress {
   background: var(--paper-2);
@@ -6287,8 +6296,9 @@ a.homeBundleRow:hover {
 .feedbackError {
   margin: 0;
   padding: 8px 10px;
-  border: 2px solid var(--line);
-  background: #ffd6d6;
+  border: 2px solid var(--error-line);
+  background: var(--error-bg);
+  color: var(--error-ink);
   border-radius: var(--radius);
   font-size: 13px;
   font-weight: 800;

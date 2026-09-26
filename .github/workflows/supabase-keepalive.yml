@@ -1,0 +1,17 @@
+name: Supabase Keepalive
+
+on:
+  schedule:
+    # A daily database query keeps the Free project active within Supabase's
+    # rolling seven-day activity window. Offset from the top of the hour to
+    # reduce delays on GitHub-hosted runners.
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Query CeSaFiu database health endpoint
+        run: curl --fail --show-error --silent --retry 3 --retry-all-errors https://cesafiu.ro/api/feedback
