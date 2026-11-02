@@ -14,6 +14,7 @@ import {
 import {useUniStore} from '@/stores/uni-store';
 import {canClearLocalAccountData, canPersistAccountData} from '@/lib/account-sync';
 import type {AgeBand, ConsentStatus} from '@/lib/consent';
+import {isValidEmail, normalizeEmail} from '@/lib/email';
 import type {Session, User} from '@supabase/supabase-js';
 import {useLocale, useTranslations} from 'next-intl';
 import {createContext, type FormEvent, type ReactNode, useContext, useEffect, useMemo, useRef, useState} from 'react';
@@ -613,8 +614,13 @@ export function AuthProvider({children}: {children: ReactNode}) {
       return;
     }
 
+    const normalizedEmail = normalizeEmail(email);
+    if (!isValidEmail(normalizedEmail)) {
+      setFormError(t('invalidEmail'));
+      return;
+    }
+
     setBusy(true);
-    const normalizedEmail = email.trim().toLowerCase();
     const currentPath = `${window.location.pathname}${window.location.search}`;
     const {error} = await supabase.auth.signInWithOtp({
       email: normalizedEmail,
@@ -756,11 +762,14 @@ export function AuthProvider({children}: {children: ReactNode}) {
                     <span>{t('emailLabel')}</span>
                     <input
                       autoComplete="email"
+                      autoCapitalize="none"
+                      autoCorrect="on"
                       inputMode="email"
                       onChange={(event) => setEmail(event.target.value)}
                       placeholder={t('emailPlaceholder')}
                       required
-                      type="email"
+                      spellCheck
+                      type="text"
                       value={email}
                     />
                   </label>

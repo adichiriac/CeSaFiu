@@ -314,6 +314,7 @@
     "parentSentTitle": "Acordul părintelui este în așteptare",
     "parentSentLead": "Poți continua testele gratuite. Profilul Complet devine disponibil după ce confirmă un adult.",
     "saving": "SE SALVEAZĂ...",
+    "invalidEmail": "Introdu o adresă de email validă.",
     "magicLinkError": "Nu am putut trimite linkul magic. Încearcă din nou.",
     "profileError": "Nu am putut actualiza profilul. Încearcă din nou.",
     "parentError": "Nu am putut salva cererea de acord.",

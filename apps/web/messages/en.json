@@ -314,6 +314,7 @@
     "parentSentTitle": "Parent consent is pending",
     "parentSentLead": "You can continue the free tests. Complete Profile becomes available after an adult confirms.",
     "saving": "SAVING...",
+    "invalidEmail": "Enter a valid email address.",
     "magicLinkError": "We could not send the magic link. Try again.",
     "profileError": "We could not update your profile. Try again.",
     "parentError": "We could not save the consent request.",
