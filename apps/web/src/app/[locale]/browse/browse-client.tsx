@@ -3,6 +3,7 @@
 import BottomNav from '@/components/bottom-nav';
 import {useAuthGate} from '@/components/auth/auth-provider';
 import ThemeToggle from '@/components/theme-toggle';
+import AccountChip from '@/components/auth/account-chip';
 import Link from 'next/link';
 import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
@@ -195,7 +196,10 @@ export default function BrowseClient({careers, institutions, paths, programs, lo
         <Link href={`/${locale}`} className="miniBrand">
           <span>{t('brandCe')}</span><strong>{t('brandRest')}</strong>
         </Link>
-        <ThemeToggle />
+        <div className="headerTools">
+          <AccountChip />
+          <ThemeToggle />
+        </div>
       </div>
 
       {section === 'hub' ? (

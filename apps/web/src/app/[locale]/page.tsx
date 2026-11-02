@@ -4,6 +4,7 @@ import {LanguageSelector} from '@/components/LanguageSelector';
 import BottomNav from '@/components/bottom-nav';
 import ProfilCompletCard from '@/components/profil-complet-card';
 import ThemeToggle from '@/components/theme-toggle';
+import AccountChip from '@/components/auth/account-chip';
 import TimeBadge from '@/components/time-badge';
 import Link from 'next/link';
 import {notFound} from 'next/navigation';
@@ -56,6 +57,7 @@ export default async function HomePage({params}: HomePageProps) {
           </Link>
           <div className="prototypeHeaderRight">
             <LanguageSelector />
+            <AccountChip />
             <ThemeToggle />
             <a className="helpButton" href="#home-help" aria-label={t('helpLabel')}>
               {t('helpGlyph')}

@@ -15,7 +15,7 @@ import {useTranslations} from 'next-intl';
 import {getSupabaseBrowserClient} from '@/lib/supabase/client';
 import {recordReferralTestCompleted} from '@/lib/referrals/client';
 import {trackEvent} from '@/lib/analytics/umami';
-import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
+import {buildMatchRequest, notifyTestSaved, readStoredResults} from '@/stores/quiz-store';
 import ThemeToggle from '@/components/theme-toggle';
 import {
   scoreWorkValues,
@@ -207,6 +207,7 @@ export default function ValuesClient({brandCe, brandRest, definition, locale}: V
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
       localStorage.removeItem(DRAFT_KEY);
+      notifyTestSaved(SLUG);
     } catch {
       // Local-only persistence is a convenience, not a blocker.
     }

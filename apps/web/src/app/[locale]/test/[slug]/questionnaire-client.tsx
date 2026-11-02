@@ -15,6 +15,7 @@ import type {KeyboardEvent as ReactKeyboardEvent, MouseEvent} from 'react';
 import {getSupabaseBrowserClient} from '@/lib/supabase/client';
 import {recordReferralTestCompleted} from '@/lib/referrals/client';
 import ThemeToggle from '@/components/theme-toggle';
+import {notifyTestSaved} from '@/stores/quiz-store';
 
 type QuestionnaireClientProps = {
   brandCe: string;
@@ -148,6 +149,7 @@ export default function QuestionnaireClient({brandCe, brandRest, definition, loc
     try {
       localStorage.setItem(`cesafiu:test:${definition.slug}:latest`, JSON.stringify(payload));
       clearDraft(definition.slug);
+      notifyTestSaved(definition.slug);
       void recordTestCompleted(definition.slug);
       if (definition.slug === 'scenarii') {
         router.push(`/${locale}/rezultate`);

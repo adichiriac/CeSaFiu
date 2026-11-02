@@ -229,7 +229,7 @@
     "othersTitle": "Și încă <mark>3 vibe-uri</mark> care îți merg",
     "saveTitle": "Salvează rezultatul",
     "saveTitleDone": "Vibe-ul tău e salvat",
-    "saveBody": "Toate datele rămân pe device-ul tău.",
+    "saveBody": "Cu un cont gratuit (fără parolă) îl regăsești pe orice device.",
     "saveBodyDone": "Îl găsești în Vibe-uri oricând.",
     "saveCTA": "SALVEAZĂ-MI VIBE-UL →",
     "saveCTADone": "★ SALVAT",
@@ -246,7 +246,11 @@
     "valuesHookTitle": "Vrei un match mai precis între cariere similare?",
     "valuesHookBody": "Rezultatul e calibrat pe interese + personalitate. Valorile de muncă departajează cariere din același domeniu cu vieți diferite.",
     "valuesHookCTA": "Sortează valorile · 5 min →",
-    "nextValues": "Valorile tale (5 min)"
+    "nextValues": "Valorile tale (5 min)",
+    "saveBodyAccount": "Se salvează în contul tău.",
+    "saveBodyDoneAccount": "E în contul tău — îl vezi în Vibe-uri, pe orice device.",
+    "saveBodyDoneLocal": "Salvat doar pe acest device.",
+    "saveAccountLink": "Păstrează-l în cont, pe orice device →"
   },
   "shareableCard": {
     "eyebrow": "CARDUL TĂU",
@@ -282,7 +286,7 @@
     "notConfigured": "Autentificarea Supabase nu este configurată.",
     "authEyebrow": "CONTUL TĂU",
     "authTitle": "Salvează în vibe-uri",
-    "authLead": "Trimitem un link magic pe email. Testele rămân locale până alegi explicit ce salvezi.",
+    "authLead": "Îți trimitem un link pe email — fără parolă. Cu un cont, rezultatele și ce salvezi le regăsești pe orice telefon sau laptop.",
     "emailLabel": "Email",
     "emailPlaceholder": "nume@email.ro",
     "sendMagicLink": "TRIMITE LINKUL →",
@@ -326,7 +330,26 @@
     "consentRequiredEyebrow": "ACORD PĂRINTE NECESAR",
     "consentRequiredTitle": "Profilul Complet are nevoie de acord părinte",
     "consentRequiredLead": "Dacă ai sub 16 ani, poți continua testele gratuite (scenarii, personalitate scurt, vocațional scurt). Profilul Complet — IPIP-NEO-60 + Vocațional Complet + raport detaliat — este gratuit în pilot și devine disponibil după acordul unui părinte sau tutore.",
-    "consentRequiredCTA": "CONTINUĂ CU TESTELE GRATUITE"
+    "consentRequiredCTA": "CONTINUĂ CU TESTELE GRATUITE",
+    "accountTitle": "Fă-ți cont gratuit",
+    "accountLead": "Îți trimitem un link pe email — fără parolă. Rezultatele testelor, carierele și universitățile salvate rămân în cont și le vezi pe orice telefon sau laptop."
+  },
+  "account": {
+    "signIn": "Intră în cont",
+    "signInAria": "Nu ești conectat. Intră în cont ca să-ți păstrezi rezultatele pe orice device.",
+    "menuAria": "Contul tău: {email}",
+    "menuTitle": "Contul tău",
+    "signedInAs": "Conectat ca",
+    "statusSynced": "✓ Rezultatele și salvările tale sunt în cont. Le vezi pe orice device.",
+    "statusNeedsAge": "Mai ai un pas: spune-ne câți ani ai ca să-ți putem salva rezultatele în cont.",
+    "statusPending": "Așteptăm acordul unui părinte. Până atunci, rezultatele rămân doar pe acest device.",
+    "statusNeedsSync": "Sincronizarea nu este confirmată încă. Datele rămân în siguranță pe acest device.",
+    "finishSetup": "CONTINUĂ →",
+    "retrySync": "REÎNCEARCĂ SINCRONIZAREA",
+    "openProfile": "Vibe-urile mele →",
+    "signOut": "Ieși din cont",
+    "signingOut": "Se iese...",
+    "signOutNote": "La ieșire ștergem rezultatele de pe acest device. Rămân în cont."
   },
   "parentConsentPage": {
     "brandCe": "Ce",
@@ -481,7 +504,18 @@
     "testValues": "Valorile tale",
     "testValuesMeta": "Sortezi 20 de carduri · 5 min",
     "testVocationalDeep": "Vocațional complet",
-    "testNewBadge": "NOU"
+    "testNewBadge": "NOU",
+    "identityTitleAccount": "Contul tău",
+    "identityBadgeSynced": "✓ Salvat în cont",
+    "identityBadgeLocal": "Doar pe acest device",
+    "identityBadgePending": "Așteaptă acordul părintelui",
+    "identityBadgeNeedsAge": "Mai ai un pas",
+    "identityBadgeNeedsSync": "Se așteaptă sincronizarea",
+    "accountInviteTitle": "Păstrează-ți rezultatele",
+    "accountInviteBody": "Acum sunt salvate doar în acest browser. Cu un cont gratuit (fără parolă) le regăsești pe orice telefon sau laptop.",
+    "accountInviteCTA": "FĂ-ȚI CONT →",
+    "accountNeedsAgeBody": "Spune-ne câți ani ai ca să-ți salvăm rezultatele în cont.",
+    "accountFinishCTA": "CONTINUĂ →"
   },
   "browse": {
     "brandCe": "Ce",

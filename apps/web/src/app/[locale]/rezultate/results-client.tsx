@@ -8,6 +8,7 @@ import {useAuthGate} from '@/components/auth/auth-provider';
 import ShareableCard from '@/components/results/shareable-card';
 import ShareableCardModal from '@/components/results/shareable-card-modal';
 import ThemeToggle from '@/components/theme-toggle';
+import AccountChip from '@/components/auth/account-chip';
 import {buildMatchRequest, readStoredResults} from '@/stores/quiz-store';
 import {useJourneyStore} from '@/stores/journey-store';
 import type {Institution, Program} from '@/lib/careers/types';
@@ -133,7 +134,7 @@ function topRiasecCodes(riasec: Record<string, number>): string[] {
 
 export default function ResultsClient({institutions, locale, programs}: ResultsClientProps) {
   const t = useTranslations('rezultate');
-  const {isSaved, toggleSaveCareer, profile} = useAuthGate();
+  const {isSaved, toggleSaveCareer, profile, user, syncState, openAccount, resultsVersion} = useAuthGate();
   const markShareCardSeen = useJourneyStore((state) => state.markShareCardSeen);
   const [status, setStatus] = useState<'loading' | 'no-data' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
@@ -205,7 +206,8 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
         setStatus('ready');
       })
       .catch(() => setStatus('error'));
-  }, []);
+    // resultsVersion bumps when the account sync pulls results onto this device.
+  }, [resultsVersion]);
 
   if (status === 'loading') {
     return (
@@ -309,6 +311,7 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
             <Link href={`/${locale}/test/scenarii`} className="resultRetakeLink" style={{color: topTextColor}}>
               {t('retakeLabel')}
             </Link>
+            <AccountChip />
             <ThemeToggle />
           </div>
         </div>
@@ -666,7 +669,15 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
             {isSaved(top.career.id) ? t('saveTitleDone') : t('saveTitle')}
           </div>
           <p className="resultSaveBody">
-            {isSaved(top.career.id) ? t('saveBodyDone') : t('saveBody')}
+            {isSaved(top.career.id)
+              ? syncState === 'synced'
+                ? t('saveBodyDoneAccount')
+                : user
+                  ? t('saveBodyDone')
+                  : t('saveBodyDoneLocal')
+              : syncState === 'synced'
+                ? t('saveBodyAccount')
+                : t('saveBody')}
           </p>
           <button
             className="button buttonPrimary"
@@ -675,6 +686,12 @@ export default function ResultsClient({institutions, locale, programs}: ResultsC
           >
             {isSaved(top.career.id) ? t('saveCTADone') : t('saveCTA')}
           </button>
+          {/* Secondary nudge: saved locally but no account yet → offer the account, quietly. */}
+          {!user && isSaved(top.career.id) ? (
+            <button className="resultSaveAccountLink" onClick={openAccount} type="button">
+              {t('saveAccountLink')}
+            </button>
+          ) : null}
         </div>
 
         {/* Profil Complet hook */}

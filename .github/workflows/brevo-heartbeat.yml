@@ -1,0 +1,23 @@
+name: Brevo Heartbeat
+
+on:
+  schedule:
+    # Mondays 07:23 UTC (09:23/10:23 Bucharest). Sends one status email via the
+    # Brevo API so the key never sits unused. A failed run (e.g. key revoked)
+    # makes GitHub notify you by email.
+    - cron: '23 7 * * 1'
+  workflow_dispatch:
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger weekly status email
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          curl --fail-with-body --show-error --silent --retry 2 --retry-all-errors \
+            -X POST \
+            -H "Authorization: Bearer ${CRON_SECRET}" \
+            https://cesafiu.ro/api/cron/brevo-heartbeat

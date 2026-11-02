@@ -2,6 +2,7 @@
 
 import BottomNav from '@/components/bottom-nav';
 import ThemeToggle from '@/components/theme-toggle';
+import AccountChip from '@/components/auth/account-chip';
 import Link from 'next/link';
 import {useEffect, useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
@@ -61,7 +62,7 @@ function topEntries(tally: Record<string, number> | undefined, limit: number) {
 
 export default function ProfileClient({careers, institutions, locale, paths}: ProfileClientProps) {
   const t = useTranslations('profil');
-  const {profile, savedPath} = useAuthGate();
+  const {profile, savedPath, user, email, syncState, openAccount, resultsVersion} = useAuthGate();
   const {savedCareerIds} = useQuizStore();
   const [status, setStatus] = useState<'loading' | 'empty' | 'ready' | 'error'>('loading');
   const [result, setResult] = useState<MatchResult | null>(null);
@@ -77,6 +78,7 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
     setTestsDone(Object.fromEntries(Object.entries(stored).map(([slug, value]) => [slug, Boolean(value)])));
 
     if (!hasAny) {
+      setResult(null);
       setStatus('empty');
       return;
     }
@@ -97,7 +99,8 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
         setStatus('ready');
       })
       .catch(() => setStatus('error'));
-  }, []);
+    // resultsVersion bumps when the account sync pulls results onto this device.
+  }, [resultsVersion]);
 
   const saved = useMemo(
     () => careers.filter((career) => savedCareerIds.includes(career.id)),
@@ -141,7 +144,10 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
           <Link className="profileHeaderAction" href={`/${locale}/test/scenarii`}>
             {t('retakeShort')}
           </Link>
-          <ThemeToggle />
+          <div className="headerTools">
+            <AccountChip />
+            <ThemeToggle />
+          </div>
         </header>
 
         <div className="profileIntro">
@@ -150,11 +156,48 @@ export default function ProfileClient({careers, institutions, locale, paths}: Pr
         </div>
 
         <section className="profileIdentityCard">
-          <div className="profileAvatar" aria-hidden="true">{t('avatarLetter')}</div>
-          <div className="profileIdentityCopy">
-            <h2>{t('identityTitle')}</h2>
-            <p>{savedPathName ? t('identityWithPath', {path: savedPathName}) : t('identityLead')}</p>
+          <div className="profileAvatar" aria-hidden="true">
+            {email ? email.trim().charAt(0).toUpperCase() : t('avatarLetter')}
           </div>
+          <div className="profileIdentityCopy" data-rrweb-mask>
+            <h2>{user ? t('identityTitleAccount') : t('identityTitle')}</h2>
+            {email ? <p className="profileIdentityEmail">{email}</p> : null}
+            <p>{savedPathName ? t('identityWithPath', {path: savedPathName}) : t('identityLead')}</p>
+            <span
+              className={`profileIdentityBadge${
+                syncState === 'synced' ? '' : syncState === 'local' ? ' isLocal' : ' isPending'
+              }`}
+            >
+              {syncState === 'synced'
+                ? t('identityBadgeSynced')
+                : syncState === 'local'
+                  ? t('identityBadgeLocal')
+                  : syncState === 'pending_consent'
+                    ? t('identityBadgePending')
+                    : syncState === 'needs_sync'
+                      ? t('identityBadgeNeedsSync')
+                      : t('identityBadgeNeedsAge')}
+            </span>
+          </div>
+          {!user && completedTests > 0 ? (
+            <div className="profileAccountInvite">
+              <p>
+                <strong>{t('accountInviteTitle')}</strong>
+                {t('accountInviteBody')}
+              </p>
+              <button className="button buttonPrimary" onClick={openAccount} type="button">
+                {t('accountInviteCTA')}
+              </button>
+            </div>
+          ) : null}
+          {user && syncState === 'needs_age' ? (
+            <div className="profileAccountInvite">
+              <p>{t('accountNeedsAgeBody')}</p>
+              <button className="button buttonPrimary" onClick={openAccount} type="button">
+                {t('accountFinishCTA')}
+              </button>
+            </div>
+          ) : null}
           <div className="profileIdentityStats">
             <a href="#profile-tests"><span>{t('testsDone')}</span><strong>{t('testsProgress', {count: completedTests, total: 6})}</strong></a>
             <a href="#profile-saved-careers"><span>{t('saved')}</span><strong>{savedTotal}</strong></a>

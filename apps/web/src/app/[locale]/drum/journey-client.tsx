@@ -16,6 +16,7 @@ import {useTranslations} from 'next-intl';
 
 import BottomNav from '@/components/bottom-nav';
 import ThemeToggle from '@/components/theme-toggle';
+import AccountChip from '@/components/auth/account-chip';
 import {trackEvent} from '@/lib/analytics/umami';
 import {deriveJourney} from '@/lib/journey/progress';
 import type {JourneyPathsData, JourneySection, JourneyStep, StepTarget} from '@/lib/journey/types';
@@ -188,7 +189,10 @@ export default function JourneyClient({careers, paths, journeyPaths, locale}: Jo
             <h1>{t('title')}</h1>
             <p>{t('lead', {done: state.doneCount, total: state.totalCount})}</p>
           </div>
-          <ThemeToggle />
+          <div className="headerTools">
+            <AccountChip />
+            <ThemeToggle />
+          </div>
         </header>
 
         {/* ── Objective + progress ── */}

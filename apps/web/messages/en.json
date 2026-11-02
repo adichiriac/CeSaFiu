@@ -229,7 +229,7 @@
     "othersTitle": "And <mark>3 more vibes</mark> that work for you",
     "saveTitle": "Save result",
     "saveTitleDone": "Your vibe is saved",
-    "saveBody": "All data stays on your device.",
+    "saveBody": "With a free account (no password) you get it on any device.",
     "saveBodyDone": "Find it in Vibes anytime.",
     "saveCTA": "SAVE MY VIBE →",
     "saveCTADone": "★ SAVED",
@@ -246,7 +246,11 @@
     "valuesHookTitle": "Want a sharper match between similar careers?",
     "valuesHookBody": "Your result is calibrated on interests + personality. Work values separate careers in the same field with different working lives.",
     "valuesHookCTA": "Sort your values · 5 min →",
-    "nextValues": "Your values (5 min)"
+    "nextValues": "Your values (5 min)",
+    "saveBodyAccount": "Saves to your account.",
+    "saveBodyDoneAccount": "It is in your account — find it in Vibes on any device.",
+    "saveBodyDoneLocal": "Saved on this device only.",
+    "saveAccountLink": "Keep it in your account, on any device →"
   },
   "shareableCard": {
     "eyebrow": "YOUR CARD",
@@ -282,7 +286,7 @@
     "notConfigured": "Supabase auth is not configured.",
     "authEyebrow": "YOUR ACCOUNT",
     "authTitle": "Save to vibes",
-    "authLead": "We send a magic link by email. Tests stay local until you explicitly choose what to save.",
+    "authLead": "We email you a link — no password. With an account, your results and saves follow you to any phone or laptop.",
     "emailLabel": "Email",
     "emailPlaceholder": "name@email.com",
     "sendMagicLink": "SEND LINK →",
@@ -326,7 +330,26 @@
     "consentRequiredEyebrow": "PARENT CONSENT REQUIRED",
     "consentRequiredTitle": "Complete Profile needs parent consent",
     "consentRequiredLead": "If you are under 16, you can keep using the free tests (scenarios, short personality, short vocational). Complete Profile — IPIP-NEO-60 + Full Vocational + detailed report — is free during the pilot and becomes available after a parent or guardian confirms.",
-    "consentRequiredCTA": "CONTINUE WITH FREE TESTS"
+    "consentRequiredCTA": "CONTINUE WITH FREE TESTS",
+    "accountTitle": "Create your free account",
+    "accountLead": "We email you a link — no password. Your test results, saved careers and universities stay in your account, on any phone or laptop."
+  },
+  "account": {
+    "signIn": "Sign in",
+    "signInAria": "You're not signed in. Sign in to keep your results on any device.",
+    "menuAria": "Your account: {email}",
+    "menuTitle": "Your account",
+    "signedInAs": "Signed in as",
+    "statusSynced": "✓ Your results and saves are in your account. See them on any device.",
+    "statusNeedsAge": "One more step: tell us your age so we can save your results to your account.",
+    "statusPending": "Waiting for a parent to confirm. Until then, results stay on this device only.",
+    "statusNeedsSync": "Sync is not confirmed yet. Your data stays safe on this device.",
+    "finishSetup": "CONTINUE →",
+    "retrySync": "RETRY SYNC",
+    "openProfile": "My vibes →",
+    "signOut": "Sign out",
+    "signingOut": "Signing out...",
+    "signOutNote": "Signing out removes your results from this device. They stay in your account."
   },
   "parentConsentPage": {
     "brandCe": "Ce",
@@ -481,7 +504,18 @@
     "testValues": "Your values",
     "testValuesMeta": "Sort 20 cards · 5 min",
     "testVocationalDeep": "Full vocational",
-    "testNewBadge": "NEW"
+    "testNewBadge": "NEW",
+    "identityTitleAccount": "Your account",
+    "identityBadgeSynced": "✓ Saved to account",
+    "identityBadgeLocal": "This device only",
+    "identityBadgePending": "Waiting for parent",
+    "identityBadgeNeedsAge": "One more step",
+    "identityBadgeNeedsSync": "Waiting to sync",
+    "accountInviteTitle": "Keep your results",
+    "accountInviteBody": "Right now they only live in this browser. With a free account (no password) you get them on any phone or laptop.",
+    "accountInviteCTA": "CREATE ACCOUNT →",
+    "accountNeedsAgeBody": "Tell us your age so we can save your results to your account.",
+    "accountFinishCTA": "CONTINUE →"
   },
   "browse": {
     "brandCe": "Ce",

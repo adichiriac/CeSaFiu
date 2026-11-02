@@ -111,3 +111,17 @@ flowchart TD
 - The secret key that was shared during implementation should be rotated before production.
 - `BREVO_API_KEY`, `EMAIL_FROM_ADDRESS` and `EMAIL_FROM_NAME` must be configured server-only. Without them, `parent-request` returns `502 email_send_failed` and rolls back the token.
 - Auth Email Templates (Confirm signup / Magic Link / Invite / Change Email / Reset / Reauthentication) are single-language in Supabase. RO templates live in `docs/email-templates/` and must be pasted into the Supabase dashboard. Multi-locale would require routing through the **Send Email Hook**.
+
+## Account sync + header account chip (2026-11-02)
+
+- **What syncs:** saved careers, saved path (existing) + **test results** (`test_results`, latest per instrument, newest `completedAt` wins) + **saved universities** (`saved_universities`, union merge). Migrations: `supabase/migrations/20261102092053_account_sync.sql` and `20261102092143_account_sync_rls_hardening.sql`.
+- **Consent gate:** pushes only when `age_band <> 'unknown'` and `consent_status in ('self','parent_confirmed')` — enforced client-side and by RLS (`can_persist_account_data()`). Pending-consent students stay local-only.
+- **When:** full merge on sign-in and right after the age step; live push on test completion (`cesafiu:test-saved` window event) and on university toggles (uni-store subscription).
+- **Sign-out:** a final remote flush is verified before local results/saves are wiped from the device (shared school computers). If that flush fails or consent is pending, local data is kept (it may be the only copy).
+- **UI:** `components/auth/account-chip.tsx` in page headers (signed out → "Intră în cont"; signed in → email initial + status dot + menu with email, sync status, sign-out). `/profil` identity card shows "Contul tău" + email, or "Profil local" + account invite after ≥1 test. `/rezultate` save card copy is account-aware, with a small secondary link when saved locally without an account.
+
+## Brevo heartbeat
+
+- `POST /api/cron/brevo-heartbeat` (Bearer `CRON_SECRET`) sends a weekly status email through the Brevo REST API → keeps `BREVO_API_KEY` in use. Triggered by `.github/workflows/brevo-heartbeat.yml` (Mondays). A failed send returns 502 → the workflow fails → GitHub emails you.
+- Env (Railway): `CRON_SECRET` (≥16 chars), optional `HEARTBEAT_EMAIL_TO`. GitHub repo secret: `CRON_SECRET` (same value).
+- Note: magic-link emails go through Supabase SMTP with a Brevo **SMTP key**, which is separate from the API key. Every sign-in uses the SMTP key; the heartbeat covers the API key.

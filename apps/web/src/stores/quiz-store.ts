@@ -97,7 +97,43 @@ export type StoredTestResult = {
   workValuesRaw?: Record<string, number>;
 };
 
-const TEST_SLUGS = ['scenarii', 'personalitate', 'ipip-neo-60', 'vocational', 'vocational-deep', 'valori'] as const;
+export const TEST_SLUGS = ['scenarii', 'personalitate', 'ipip-neo-60', 'vocational', 'vocational-deep', 'valori'] as const;
+export type TestSlug = (typeof TEST_SLUGS)[number];
+
+/** Fired on window after a test result is written locally (AuthProvider syncs it). */
+export const TEST_SAVED_EVENT = 'cesafiu:test-saved';
+
+export function notifyTestSaved(slug: string) {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new CustomEvent(TEST_SAVED_EVENT, {detail: {slug}}));
+}
+
+export function isTestSlug(slug: string): slug is TestSlug {
+  return (TEST_SLUGS as readonly string[]).includes(slug);
+}
+
+/** Overwrite one local result (used when pulling a newer copy from the account). */
+export function writeStoredResult(slug: TestSlug, payload: StoredTestResult) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(`cesafiu:test:${slug}:latest`, JSON.stringify(payload));
+  } catch {
+    // Persistence is best-effort.
+  }
+}
+
+/** Remove synced student data from this device (sign-out on a shared computer). */
+export function clearLocalTestResults() {
+  if (typeof window === 'undefined') return;
+  for (const slug of TEST_SLUGS) {
+    try {
+      localStorage.removeItem(`cesafiu:test:${slug}:latest`);
+      localStorage.removeItem(`cesafiu:test:${slug}:draft`);
+    } catch {
+      // ignore
+    }
+  }
+}
 
 /**
  * Read all completed test results from localStorage.

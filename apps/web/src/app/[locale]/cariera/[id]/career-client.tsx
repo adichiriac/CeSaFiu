@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import ThemeToggle from '@/components/theme-toggle';
+import AccountChip from '@/components/auth/account-chip';
 import {useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {useAuthGate} from '@/components/auth/auth-provider';
@@ -86,6 +87,7 @@ export default function CareerClient({career, locale, programs}: CareerClientPro
               {t('back')}
             </Link>
             <div className="careerHeroActions">
+              <AccountChip />
               <ThemeToggle />
               <button
                 className="button careerSaveBtn"
